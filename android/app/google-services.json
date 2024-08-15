@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "520849791314",
+    "firebase_url": "https://ticketmaster-2e77b-default-rtdb.firebaseio.com",
+    "project_id": "ticketmaster-2e77b",
+    "storage_bucket": "ticketmaster-2e77b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520849791314:android:0bbb8d8bc6f1c8316d828b",
+        "android_client_info": {
+          "package_name": "com.shah.ticketmaster.ticket_master"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhtjbk_HvIcRwmMyAeBF9HWyMJJR2-mjE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520849791314:android:179d55040909b2306d828b",
+        "android_client_info": {
+          "package_name": "com.ticketmasternew.ticket_master"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhtjbk_HvIcRwmMyAeBF9HWyMJJR2-mjE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
