@@ -19,6 +19,7 @@ Future<void> main() async {
   runApp(
     const MaterialApp(
       title: 'Flutter Database Example',
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     ),
   );
@@ -58,12 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _increment() async {
-    Navigator.push(
+    /*Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => InitialScreen()),
     );
-
-    /*final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Users').child("1");
+*/
+    final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Users').child("1");
 
     reference.once().then((DatabaseEvent event) {
       // Here I iterate and create the list of objects
@@ -79,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
         print(key);
         print(value['fullName']);
       });
-    });*/
+    });
 
     /*await reference.child(reference.push().key!).set(<String, Object>{
       "mobileNumber": "userModel.mobileNumber",

@@ -55,7 +55,7 @@ class _QRViewMainState extends State<QRViewMain> {
           child: Stack(
             children: [
               Container(
-                height: 50,
+                height: 60,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.centerLeft,

@@ -8,6 +8,7 @@ import 'package:ticket_master/all_uis/discover.dart';
 import 'package:ticket_master/all_uis/email_screen.dart';
 import 'package:ticket_master/all_uis/home_page.dart';
 import 'package:ticket_master/all_uis/its_not_your.dart';
+import 'package:ticket_master/all_uis/my_account.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
@@ -279,7 +280,7 @@ class _InitialScreenState extends State<InitialScreen> {
       case 2:
         return HomePage();
       case 4:
-      //return MyAccount();
+      return MyAccount();
     }
 
     /*index == 2
