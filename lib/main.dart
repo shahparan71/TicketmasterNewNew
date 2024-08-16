@@ -7,12 +7,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/all_uis/initial_screen.dart';
 import 'package:ticket_master/all_uis/user_add_dialog.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/all_constant.dart';
-
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -22,12 +22,46 @@ Future<void> main() async {
   );
   PrefUtil.init();
   runApp(
-    const MaterialApp(
+    MaterialApp(
       title: 'Flutter Database Example',
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: SplashScreen(),
     ),
   );
+}
+
+class SplashScreen extends StatefulWidget {
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    initScreen();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(child: CircularProgressIndicator()),
+        ],
+      ),
+    );
+  }
+
+  Future<void> initScreen() async {
+    await Future.delayed(const Duration(seconds: 2), () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MyHomePage()),
+      );
+    });
+  }
 }
 
 class MyHomePage extends StatefulWidget {
@@ -42,6 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int changeView = 0;
   List<User> listUser = [];
+
+  bool dateLoading = false;
 
   @override
   void initState() {
@@ -59,29 +95,33 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Scaffold(
         appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                changeView == 0 ? "Login" : "User List",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    changeView = 0;
-                  });
-                },
-                child: Icon(
-                  Icons.logout,
-                  color: Colors.white,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  changeView == 0 ? "Login" : "User List",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
                 ),
-              ),
-            ],
-          ),
-          backgroundColor: AppColor.colorMain(),
-        ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      changeView = 0;
+                      PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 0);
+                    });
+                  },
+                  child: changeView == 1
+                      ? Icon(
+                          Icons.logout,
+                          color: Colors.white,
+                        )
+                      : Container(),
+                ),
+              ],
+            ),
+            leadingWidth: 0.0,
+            leading: Container(),
+            backgroundColor: AppColor.colorMain()),
         body: changeView == 1
             ? Container(
                 child: Padding(
@@ -91,63 +131,139 @@ class _MyHomePageState extends State<MyHomePage> {
                       Container(
                         height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: listUser.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0XFFffffff),
-                                  boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                                  border: Border.all(color: Colors.black26),
-                                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "ID: ${listUser[index].id}",
-                                            style: TextStyle(fontSize: 20),
+                        child: dateLoading == true
+                            ? Container(
+                                child: Center(child: CircularProgressIndicator()),
+                              )
+                            : listUser.length == 0
+                                ? Container(
+                                    child: Center(
+                                      child: Text(
+                                        "No user found",
+                                        style: TextStyle(fontSize: 25),
+                                      ),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: listUser.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0XFFffffff),
+                                            boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+                                            border: Border.all(color: Colors.black26),
+                                            borderRadius: BorderRadius.all(Radius.circular(10)),
                                           ),
-                                          Switch(
-                                              value: listUser[index].isEnable!,
-                                              onChanged: (v) {
-                                                setState(() {
-                                                  listUser[index].isEnable = !listUser[index].isEnable!;
-                                                  updateField(listUser[index]);
-                                                });
-                                              })
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "Name: ${listUser[index].name}",
-                                        style: TextStyle(fontSize: 20),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "Date: ${listUser[index].date}",
-                                        style: TextStyle(fontSize: 20),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      "ID: ${listUser[index].id}",
+                                                      style: TextStyle(fontSize: 20),
+                                                    ),
+                                                    Switch(
+                                                        value: listUser[index].isEnable!,
+                                                        onChanged: (v) {
+                                                          setState(() {
+                                                            listUser[index].isEnable = !listUser[index].isEnable!;
+                                                            updateField(listUser[index]);
+                                                          });
+                                                        })
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  "Name: ${listUser[index].name}",
+                                                  style: TextStyle(fontSize: 20),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      "Date: ${DateFormat("yyyy-MM-dd HH:mm:ss a").format(DateTime.parse(listUser[index].date!))}",
+                                                      style: TextStyle(fontSize: 20),
+                                                    ),
+                                                    GestureDetector(
+                                                        onTap: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (_) {
+                                                                return AlertDialog(
+                                                                  //actions: [Text("Yes"), Text("No")],
+                                                                  content: Container(
+                                                                    height: 140,
+                                                                    child: Column(
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                      children: [
+                                                                        Text(
+                                                                          "Are you sure?\n Do you want to remove the user",
+                                                                          textAlign: TextAlign.center,
+                                                                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                                                                          child: Row(
+                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                            children: [
+                                                                              GestureDetector(
+                                                                                child: Text(
+                                                                                  "Yes",
+                                                                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                                                                                ),
+                                                                                onTap: () {
+                                                                                  Navigator.of(context).pop(true);
+                                                                                },
+                                                                              ),
+                                                                              GestureDetector(
+                                                                                onTap: () {
+                                                                                  Navigator.of(context).pop(false);
+                                                                                },
+                                                                                child: Text(
+                                                                                  "No",
+                                                                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                    //myPledge: model,
+                                                                  ),
+                                                                );
+                                                              }).then((value) {
+                                                            print("ffsf${value}");
+                                                            if (value != null && value == true) {
+                                                              FirebaseDatabase.instance.ref().child("Users").child('${listUser[index].id}').remove();
+                                                              showSnackBar("User Remove Successfully");
+                                                              initUserListDate();
+                                                            }
+                                                          });
+                                                        },
+                                                        child: Icon(Icons.delete))
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
                       ),
                       Positioned(
                         bottom: 0,
@@ -156,7 +272,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           padding: const EdgeInsets.all(8.0),
                           child: FloatingActionButton(
                             onPressed: () {
-                              dataInit();
+                              addUser();
                             },
                             tooltip: 'Standard',
                             child: const Icon(Icons.add),
@@ -182,19 +298,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(
                     height: 10,
                   ),
-                  ElevatedButton(
-                    child: Text("Login", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                    style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
-                        backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
-                        elevation: MaterialStateProperty.all(0.0),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(6)), /*side: BorderSide(color: Colors.red)*/
-                        ))),
-                    onPressed: () {
-                      _login();
-                    },
-                  )
+                  dateLoading == true
+                      ? CircularProgressIndicator()
+                      : ElevatedButton(
+                          child: Text("Login", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                          style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                              backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                              elevation: MaterialStateProperty.all(0.0),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(6)), /*side: BorderSide(color: Colors.red)*/
+                              ))),
+                          onPressed: () {
+                            _login();
+                          },
+                        )
                 ],
               ),
       ),
@@ -208,11 +326,18 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     if (textEditingController.text == "786") {
+      PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 1);
+      textEditingController.text = "";
       setState(() {
         changeView = 1;
+        initUserListDate();
       });
       return;
     }
+
+    setState(() {
+      dateLoading = true;
+    });
 
     final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Users').child("${textEditingController.text}");
 
@@ -227,10 +352,17 @@ class _MyHomePageState extends State<MyHomePage> {
         showSnackBar("User Not found");
         return;
       } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => InitialScreen()),
-        );
+        setState(() {
+          dateLoading = false;
+          textEditingController.text = "";
+        });
+        PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 2);
+        Future.delayed(Duration.zero, () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => InitialScreen()),
+          );
+        });
       }
     });
   }
@@ -290,8 +422,41 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void dataInit() {
-    final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Users');
+    var usrMode = PrefUtil.preferences!.getInt(AllConstant.USER_LOGIN_MODE);
 
+    if (usrMode != null) {
+      if (usrMode == 1) {
+        setState(() {
+          changeView = 1;
+          initUserListDate();
+        });
+      }
+      if (usrMode == 2) {
+        Future.delayed(Duration.zero, () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => InitialScreen()),
+          );
+        });
+      }
+    }
+  }
+
+  Future<void> updateField(User listUser) async {
+    final DatabaseReference referenceAddUser = FirebaseDatabase.instance.ref().child('Users');
+    await referenceAddUser.child("${listUser.id}").update({"isEnable": listUser.isEnable}).then((onValue) {
+      showSnackBar("Update successfully");
+      dataInit();
+    }).catchError((onError) {
+      showSnackBar("User failed to add");
+    });
+  }
+
+  void initUserListDate() {
+    setState(() {
+      dateLoading = true;
+    });
+    final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Users');
     reference.once().then((DatabaseEvent event) {
       DataSnapshot snapshot = event.snapshot;
       listUser.clear();
@@ -301,6 +466,17 @@ class _MyHomePageState extends State<MyHomePage> {
         // Convert List to Map if necessary or handle it as a List
         // Example: converting to Map with index as key
         Map<int, dynamic> yearMap = yearList.asMap();
+        yearMap.forEach((key, value) {
+          try {
+            print(key);
+            print(value['name']);
+            print(value['id']);
+            print(value['date']);
+            print("value['isEnable']");
+
+            listUser.add(new User(name: value['name'], date: value['date'], isEnable: value['isEnable'], id: key));
+          } catch (e) {}
+        });
       } else if (snapshot.value is Map) {
         Map<dynamic, dynamic> yearMap = snapshot.value as Map<dynamic, dynamic>;
         yearMap.forEach((key, value) {
@@ -310,28 +486,20 @@ class _MyHomePageState extends State<MyHomePage> {
           print(value['date']);
           print("value['isEnable']");
 
-          listUser.add(new User(name: value['name'], date: value['date'], isEnable: value['isEnable'], id: key));
+          listUser.add(new User(name: value['name'], date: value['date'], isEnable: value['isEnable'], id: int.parse(key)));
         });
       }
 
-      setState(() {});
-    });
-  }
-
-  Future<void> updateField(User listUser) async {
-    final DatabaseReference referenceAddUser = FirebaseDatabase.instance.ref().child('Users');
-    await referenceAddUser.child("${listUser.id}").update({"isEnable": listUser.isEnable}).then((onValue) {
-      showSnackBar("User added successfully");
-      dataInit();
-    }).catchError((onError) {
-      showSnackBar("User failed to add");
+      setState(() {
+        dateLoading = false;
+      });
     });
   }
 }
 
 class User {
   String? name;
-  String? id;
+  int? id;
   String? date;
   bool? isEnable;
 

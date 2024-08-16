@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ticket_master/PrefUtil.dart';
+import 'package:ticket_master/main.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
@@ -44,11 +45,7 @@ class _MyAccountState extends State<MyAccount> {
                           },
                           child: Text(
                             snapshot.data!,
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontFamily: "metropolis",
-                                fontWeight: FontWeight.w500,
-                                color: AppColor.white()),
+                            style: TextStyle(fontSize: 24, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.white()),
                           ),
                         );
                       }
@@ -67,11 +64,7 @@ class _MyAccountState extends State<MyAccount> {
                           },
                           child: Text(
                             snapshot.data!,
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: "metropolis",
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey),
+                            style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.grey),
                           ),
                         );
                       }
@@ -93,11 +86,7 @@ class _MyAccountState extends State<MyAccount> {
                       ),
                       Text(
                         'Notifications',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: "metropolis",
-                            fontWeight: FontWeight.w500,
-                            color: AppColor.black()),
+                        style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black()),
                       ),
                       SizedBox(
                         height: 30,
@@ -123,11 +112,7 @@ class _MyAccountState extends State<MyAccount> {
                                 ),
                                 Text(
                                   "Receive Notifications?",
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      fontFamily: "metropolis",
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black.withOpacity(0.6)),
+                                  style: TextStyle(fontSize: 17, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black.withOpacity(0.6)),
                                 ),
                               ],
                             ),
@@ -150,11 +135,7 @@ class _MyAccountState extends State<MyAccount> {
                         children: [
                           Text(
                             'Location Setting',
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontFamily: "metropolis",
-                                fontWeight: FontWeight.bold,
-                                color: AppColor.black()),
+                            style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.black()),
                           ),
                           SizedBox(
                             width: 10,
@@ -197,11 +178,7 @@ class _MyAccountState extends State<MyAccount> {
                                 ),
                                 Text(
                                   "My Location",
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      fontFamily: "metropolis",
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black87),
+                                  style: TextStyle(fontSize: 17, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black87),
                                 ),
                               ],
                             ),
@@ -219,11 +196,7 @@ class _MyAccountState extends State<MyAccount> {
                                       children: [
                                         Text(
                                           snapshot.data!,
-                                          style: TextStyle(
-                                              fontSize: 17,
-                                              fontFamily: "metropolis",
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.blueAccent),
+                                          style: TextStyle(fontSize: 17, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: Colors.blueAccent),
                                         ),
                                         Icon(
                                           Icons.open_in_new,
@@ -258,11 +231,7 @@ class _MyAccountState extends State<MyAccount> {
                                 ),
                                 Text(
                                   "My Country",
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      fontFamily: "metropolis",
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black87),
+                                  style: TextStyle(fontSize: 17, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black87),
                                 ),
                               ],
                             ),
@@ -280,11 +249,7 @@ class _MyAccountState extends State<MyAccount> {
                                       children: [
                                         Text(
                                           snapshot.data!,
-                                          style: TextStyle(
-                                              fontSize: 17,
-                                              fontFamily: "metropolis",
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.blueAccent),
+                                          style: TextStyle(fontSize: 17, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: Colors.blueAccent),
                                         ),
                                         Icon(
                                           Icons.open_in_new,
@@ -319,11 +284,7 @@ class _MyAccountState extends State<MyAccount> {
                                 ),
                                 Text(
                                   "Location Based Content",
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      fontFamily: "metropolis",
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black87),
+                                  style: TextStyle(fontSize: 17, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black87),
                                 ),
                               ],
                             ),
@@ -344,11 +305,7 @@ class _MyAccountState extends State<MyAccount> {
                       ),
                       Text(
                         'Preferences',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: "metropolis",
-                            fontWeight: FontWeight.bold,
-                            color: AppColor.black()),
+                        style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.black()),
                       ),
                       SizedBox(
                         height: 30,
@@ -367,11 +324,7 @@ class _MyAccountState extends State<MyAccount> {
                       ),
                       Text(
                         'Help & Guidance',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: "metropolis",
-                            fontWeight: FontWeight.bold,
-                            color: AppColor.black()),
+                        style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.black()),
                       ),
                       SizedBox(
                         height: 30,
@@ -392,8 +345,7 @@ class _MyAccountState extends State<MyAccount> {
                       SizedBox(
                         height: 40,
                       ),
-                      getRowWidget("assets/images/icon_my_account/logout.png", 'Sign Out',
-                          color: Colors.red.withOpacity(0.8)),
+                      getRowWidget("assets/images/icon_my_account/logout.png", 'Sign Out', color: Colors.red.withOpacity(0.8)),
                     ],
                   ),
                 ),
@@ -409,7 +361,21 @@ class _MyAccountState extends State<MyAccount> {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+
+          print("s.containss.contain");
+          print(s.contains("Out"));
+
+          if (s.contains("Out")) {
+            PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 0);
+            Future.delayed(Duration.zero, () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SplashScreen()),
+              );
+            });
+          }
+        },
         child: Padding(
           padding: const EdgeInsets.only(left: 10, top: 5),
           child: Row(
@@ -427,11 +393,7 @@ class _MyAccountState extends State<MyAccount> {
                   ),
                   Text(
                     s,
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontFamily: "metropolis",
-                        fontWeight: color==null? FontWeight.w500:FontWeight.bold,
-                        color: color ?? Colors.black.withOpacity(0.6)),
+                    style: TextStyle(fontSize: 17, fontFamily: "metropolis", fontWeight: color == null ? FontWeight.w500 : FontWeight.bold, color: color ?? Colors.black.withOpacity(0.6)),
                   ),
                 ],
               ),
@@ -489,9 +451,7 @@ class _MyAccountState extends State<MyAccount> {
                     height: 20,
                   ),
                   ElevatedButton(
-                    child: Text("OK",
-                        style: TextStyle(
-                            fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
+                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColor.green(),
                     ),
@@ -501,8 +461,7 @@ class _MyAccountState extends State<MyAccount> {
                       print(textEditingController.text);
                       if (textEditingController.text.toString().isNotEmpty) {
                         if (inputType != null) {
-                          if (int.parse(textEditingController.text) < 2 || int.parse(textEditingController.text) > 10)
-                            return;
+                          if (int.parse(textEditingController.text) < 2 || int.parse(textEditingController.text) > 10) return;
                         }
                         PrefUtil.preferences!.setString(sec, textEditingController.text);
                         textEditingController.text = "";
