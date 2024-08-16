@@ -23,7 +23,7 @@ Future<void> main() async {
   PrefUtil.init();
   runApp(
     MaterialApp(
-      title: 'Flutter Database Example',
+      title: 'Ticketmaster',
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     ),
@@ -364,24 +364,17 @@ class _MyHomePageState extends State<MyHomePage> {
           List<dynamic> yearList = snapshot.value as List<dynamic>;
 
           Map<int, dynamic> yearMap = yearList.asMap();
-          yearMap.forEach((key, value) {
-            try {
-              if (value['isEnable'] == false) {
-                showSnackBar("You are not allowed to login");
-                return;
-              }
-            } catch (e) {}
-          });
+          if (yearMap['isEnable'] == false) {
+            showSnackBar("You are not allowed to login");
+            return;
+          }
         } else if (snapshot.value is Map) {
           Map<dynamic, dynamic> yearMap = snapshot.value as Map<dynamic, dynamic>;
-          yearMap.forEach((key, value) {
-            try {
-              if (value['isEnable'] == false) {
-                showSnackBar("You are not allowed to login");
-                return;
-              }
-            } catch (_) {}
-          });
+
+          if (yearMap['isEnable'] == false) {
+            showSnackBar("You are not allowed to login");
+            return;
+          }
         }
 
         PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 2);
@@ -542,3 +535,7 @@ class User {
 
   User({this.name, this.id, this.date, this.isEnable});
 }
+
+
+//flutter build appbundle --release
+//fvm flutter build apk --release

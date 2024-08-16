@@ -363,11 +363,8 @@ class _MyAccountState extends State<MyAccount> {
       child: InkWell(
         onTap: () {
 
-          print("s.containss.contain");
-          print(s.contains("Out"));
-
           if (s.contains("Out")) {
-            PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 0);
+            PrefUtil.preferences!.clear();
             Future.delayed(Duration.zero, () {
               Navigator.push(
                 context,
