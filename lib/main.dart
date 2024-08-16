@@ -30,6 +30,7 @@ Future<void> main() async {
   );
 }
 
+
 class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
