@@ -358,6 +358,32 @@ class _MyHomePageState extends State<MyHomePage> {
           dateLoading = false;
           textEditingController.text = "";
         });
+
+        DataSnapshot snapshot = event.snapshot;
+        if (snapshot.value is List) {
+          List<dynamic> yearList = snapshot.value as List<dynamic>;
+
+          Map<int, dynamic> yearMap = yearList.asMap();
+          yearMap.forEach((key, value) {
+            try {
+              if (value['isEnable'] == false) {
+                showSnackBar("You are not allowed to login");
+                return;
+              }
+            } catch (e) {}
+          });
+        } else if (snapshot.value is Map) {
+          Map<dynamic, dynamic> yearMap = snapshot.value as Map<dynamic, dynamic>;
+          yearMap.forEach((key, value) {
+            try {
+              if (value['isEnable'] == false) {
+                showSnackBar("You are not allowed to login");
+                return;
+              }
+            } catch (_) {}
+          });
+        }
+
         PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 2);
         Future.delayed(Duration.zero, () {
           Navigator.push(
