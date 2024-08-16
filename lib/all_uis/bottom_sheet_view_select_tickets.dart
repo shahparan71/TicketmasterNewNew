@@ -182,7 +182,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: 40.0,
+                    height: 50,
                     decoration: BoxDecoration(
                       color: Color(0XFFffffff),
                       boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],

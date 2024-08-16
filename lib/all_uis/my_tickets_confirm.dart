@@ -10,6 +10,7 @@ import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
+import 'package:ticket_master/utils/widgets_util.dart';
 
 class MyTicketsConfirmNewView extends StatefulWidget {
   String ticketCount;
@@ -66,12 +67,19 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
               onTap: () {
                 Navigator.of(context).pop();
               },
-              child: Icon(Icons.close)),
+              child: Icon(
+                Icons.close,
+                color: Colors.white,
+              )),
         ),
         leadingWidth: 0.0,
         elevation: 0.0,
         backgroundColor: AppColor.colorSecond(),
-        title: Center(child: Text("My Tickets")),
+        title: Center(
+            child: Text(
+          "My Tickets",
+          style: TextStyle(color: Colors.white, fontSize: 18),
+        )),
       ),
       body: Column(children: [
         SizedBox(
@@ -115,9 +123,16 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                 flex: 1,
                 child: TextButton(
                   child: Text("Transfer", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                  style: ElevatedButton.styleFrom(
+                  /*style: ElevatedButton.styleFrom(
                     backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
-                  ),
+                  ),*/
+                  style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
+                      backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
+                      elevation: MaterialStateProperty.all(0.0),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
+                      ))),
                   onPressed: () async {
                     /*Navigator.push(
                       context,
@@ -131,9 +146,16 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                 flex: 1,
                 child: TextButton(
                   child: Text("Sell", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                  style: ElevatedButton.styleFrom(
+                  /*style: ElevatedButton.styleFrom(
                     backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
-                  ),
+                  ),*/
+                  style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
+                      backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
+                      elevation: MaterialStateProperty.all(0.0),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
+                      ))),
                   onPressed: () async {
                     /*Navigator.push(
                       context,
@@ -551,34 +573,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 40.0,
-                    decoration: BoxDecoration(
-                      color: Color(0XFFffffff),
-                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                      border: Border.all(color: Colors.black54),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: FutureBuilder<String>(
-                      future: CommonOperation.getSharedData(sec, defaultTxt),
-                      builder: (context, AsyncSnapshot<String> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container();
-                        } else {
-                          return TextField(
-                            controller: textEditingController,
-                            keyboardType: TextInputType.text,
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: snapshot.data!,
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  ),
+                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,),
                   SizedBox(
                     height: 20,
                   ),

@@ -306,9 +306,16 @@ class _QRViewMainState extends State<QRViewMain> {
                       children: [
                         ElevatedButton(
                           child: Text("Transfer", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                          style: ElevatedButton.styleFrom(
+                          /*style: ElevatedButton.styleFrom(
                             backgroundColor: AppColor.colorMain(),
-                          ),
+                          ),*/
+                          style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                              backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                              elevation: MaterialStateProperty.all(0.0),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
+                              ))),
                           onPressed: () {
                             showMaterialModalBottomSheet(
                               context: context,
@@ -324,9 +331,16 @@ class _QRViewMainState extends State<QRViewMain> {
                             padding: const EdgeInsets.symmetric(horizontal: 30),
                             child: Text("Sell", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                           ),
-                          style: ElevatedButton.styleFrom(
+                         /* style: ElevatedButton.styleFrom(
                             backgroundColor: AppColor.colorMain().withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
-                          ),
+                          ),*/
+                          style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain().withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4)),
+                              backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain().withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4)),
+                              elevation: MaterialStateProperty.all(0.0),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
+                              ))),
                           onPressed: () async {
                             /*Navigator.push(
                               context,
@@ -447,34 +461,7 @@ class _QRViewMainState extends State<QRViewMain> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 40.0,
-                    decoration: BoxDecoration(
-                      color: Color(0XFFffffff),
-                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                      border: Border.all(color: Colors.black54),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: FutureBuilder<String>(
-                      future: CommonOperation.getSharedData(sec, defaultTxt),
-                      builder: (context, AsyncSnapshot<String> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container();
-                        } else {
-                          return TextField(
-                            controller: textEditingController,
-                            keyboardType: TextInputType.text,
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: snapshot.data!,
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  ),
+                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,),
                   SizedBox(
                     height: 20,
                   ),

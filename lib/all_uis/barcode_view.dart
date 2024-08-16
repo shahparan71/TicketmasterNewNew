@@ -57,7 +57,7 @@ class _BarcodeViewState extends State<BarcodeView> {
           child: Stack(
             children: [
               Container(
-                height: 70,
+                height: 72,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.centerLeft,
@@ -89,10 +89,7 @@ class _BarcodeViewState extends State<BarcodeView> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           FutureBuilder<String>(
-                            future: CommonOperation.getSharedData(
-                                AllConstant.CURRENT_LIST_INDEX +
-                                    AllConstant.IAMGE_BIG_TEXT,
-                                "Taylor Swift | The Eras Tour"),
+                            future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour"),
                             builder: (context, AsyncSnapshot<String> snapshot) {
                               if (!snapshot.hasData) {
                                 return Container();
@@ -102,17 +99,12 @@ class _BarcodeViewState extends State<BarcodeView> {
                                     //showDialogInput(AllConstant.CURRENT_LIST_INDEX+AllConstant.IAMGE_BIG_TEXT);
                                   },
                                   child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width - 100,
+                                    width: MediaQuery.of(context).size.width - 100,
                                     child: Text(snapshot.data!,
                                         textAlign: TextAlign.left,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontFamily: "metropolis",
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColor.white())),
+                                        style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
                                   ),
                                 );
                               }
@@ -132,15 +124,9 @@ class _BarcodeViewState extends State<BarcodeView> {
                                     //showDialogInput(AllConstant.CURRENT_LIST_INDEX+AllConstant.IAMGE_BIG_TEXT);
                                   },
                                   child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width - 100,
-                                    child: Text(snapshot.data!,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontFamily: "metropolis",
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColor.white())),
+                                    width: MediaQuery.of(context).size.width - 100,
+                                    child:
+                                        Text(snapshot.data!, textAlign: TextAlign.left, style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
                                   ),
                                 );
                               }
@@ -162,16 +148,8 @@ class _BarcodeViewState extends State<BarcodeView> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: AppColor.colorPageBackground(),
-                          border: Border.all(
-                              color: AppColor.colorPageBackground(),
-                              width: 1,
-                              style: BorderStyle.solid),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Color(0X95E9EBF0),
-                                blurRadius: 2,
-                                spreadRadius: 2)
-                          ],
+                          border: Border.all(color: AppColor.colorPageBackground(), width: 1, style: BorderStyle.solid),
+                          boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
@@ -185,55 +163,28 @@ class _BarcodeViewState extends State<BarcodeView> {
                                   decoration: BoxDecoration(
                                     color: AppColor.colorSecond(),
 
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Color(0X95E9EBF0),
-                                          blurRadius: 2,
-                                          spreadRadius: 2)
-                                    ],
+                                    boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                                     //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(10.0),
-                                        topLeft: Radius.circular(10.0)),
+                                    borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
                                   ),
                                   height: 50,
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10.0),
+                                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(),
                                         FutureBuilder<String>(
-                                          future: CommonOperation.getSharedData(
-                                              AllConstant.CURRENT_LIST_INDEX +
-                                                  AllConstant
-                                                      .STANDARD_ADMISSION,
-                                              "Standard Admission"),
-                                          builder: (context,
-                                              AsyncSnapshot<String> snapshot) {
+                                          future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.STANDARD_ADMISSION, "Standard Admission"),
+                                          builder: (context, AsyncSnapshot<String> snapshot) {
                                             if (!snapshot.hasData) {
                                               return Container();
                                             } else {
                                               return GestureDetector(
                                                 onTap: () {
-                                                  showDialogInput(
-                                                      AllConstant
-                                                              .CURRENT_LIST_INDEX +
-                                                          AllConstant
-                                                              .STANDARD_ADMISSION,
-                                                      "Standard Admission");
+                                                  showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.STANDARD_ADMISSION, "Standard Admission");
                                                 },
-                                                child: Text(snapshot.data!,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontFamily:
-                                                            "metropolis",
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        color:
-                                                            AppColor.white())),
+                                                child: Text(snapshot.data!, style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white())),
                                               );
                                             }
                                           },
@@ -251,38 +202,21 @@ class _BarcodeViewState extends State<BarcodeView> {
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     color: AppColor.colorMain(),
-                                    boxShadow: <BoxShadow>[
-                                      BoxShadow(
-                                          color: Colors.black54,
-                                          blurRadius: 2.0,
-                                          offset: Offset(0.0, 0.10))
-                                    ],
+                                    boxShadow: <BoxShadow>[BoxShadow(color: Colors.black54, blurRadius: 2.0, offset: Offset(0.0, 0.10))],
                                     //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                                   ),
                                   child: FutureBuilder<String>(
-                                    future: CommonOperation.getSharedData(
-                                        AllConstant.CURRENT_LIST_INDEX +
-                                            AllConstant.GEN_ADM,
-                                        "Gen Adm"),
-                                    builder: (context,
-                                        AsyncSnapshot<String> snapshot) {
+                                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.GEN_ADM, "Gen Adm"),
+                                    builder: (context, AsyncSnapshot<String> snapshot) {
                                       if (!snapshot.hasData) {
                                         return Container();
                                       } else {
                                         return GestureDetector(
                                           onTap: () {
-                                            showDialogInput(
-                                                AllConstant.CURRENT_LIST_INDEX +
-                                                    AllConstant.GEN_ADM,
-                                                "Gen Adm");
+                                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.GEN_ADM, "Gen Adm");
                                           },
                                           child: Center(
-                                            child: Text(snapshot.data!,
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontFamily: "metropolis",
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.white)),
+                                            child: Text(snapshot.data!, style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.white)),
                                           ),
                                         );
                                       }
@@ -340,27 +274,16 @@ class _BarcodeViewState extends State<BarcodeView> {
                         ),
 
                         FutureBuilder<String>(
-                          future: CommonOperation.getSharedData(
-                              AllConstant.CURRENT_LIST_INDEX +
-                                  AllConstant.ONE_OF_ONE,
-                              "1 of 1"),
+                          future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.ONE_OF_ONE, "1 of 1"),
                           builder: (context, AsyncSnapshot<String> snapshot) {
                             if (!snapshot.hasData) {
                               return Container();
                             } else {
                               return GestureDetector(
                                 onTap: () {
-                                  showDialogInput(
-                                      AllConstant.CURRENT_LIST_INDEX +
-                                          AllConstant.ONE_OF_ONE,
-                                      "1 of 1");
+                                  showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.ONE_OF_ONE, "1 of 1");
                                 },
-                                child: Text(snapshot.data!,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: "metropolis",
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black26)),
+                                child: Text(snapshot.data!, style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black26)),
                               );
                             }
                           },
@@ -387,18 +310,11 @@ class _BarcodeViewState extends State<BarcodeView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                            flex: 1,
-                            child: WidgetsUtil.CustomElevatedButton(
-                                buttonText: "Transfer",
-                                function: functionTransfer)),
+                        Expanded(flex: 1, child: WidgetsUtil.CustomElevatedButton(buttonText: "Transfer", function: functionTransfer)),
                         SizedBox(
                           width: 10,
                         ),
-                        Expanded(
-                            flex: 1,
-                            child: WidgetsUtil.CustomElevatedButton(
-                                buttonText: "Sell", function: functionSell)),
+                        Expanded(flex: 1, child: WidgetsUtil.CustomElevatedButton(buttonText: "Sell", function: functionSell)),
                       ],
                     ),
                   ),
@@ -429,27 +345,16 @@ class _BarcodeViewState extends State<BarcodeView> {
               Column(
                 children: [
                   FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(
-                        AllConstant.CURRENT_LIST_INDEX +
-                            AllConstant.GENERAL_ADMISSION,
-                        "General Admission"),
+                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.GENERAL_ADMISSION, "General Admission"),
                     builder: (context, AsyncSnapshot<String> snapshot) {
                       if (!snapshot.hasData) {
                         return Container();
                       } else {
                         return GestureDetector(
                           onTap: () {
-                            showDialogInput(
-                                AllConstant.CURRENT_LIST_INDEX +
-                                    AllConstant.GENERAL_ADMISSION,
-                                "General Admission");
+                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.GENERAL_ADMISSION, "General Admission");
                           },
-                          child: Text(snapshot.data!,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: "metropolis",
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColor.white())),
+                          child: Text(snapshot.data!, style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.white())),
                         );
                       }
                     },
@@ -458,26 +363,16 @@ class _BarcodeViewState extends State<BarcodeView> {
                     height: 5,
                   ),
                   FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(
-                        AllConstant.CURRENT_LIST_INDEX + AllConstant.GA3,
-                        "GA3"),
+                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.GA3, "GA3"),
                     builder: (context, AsyncSnapshot<String> snapshot) {
                       if (!snapshot.hasData) {
                         return Container();
                       } else {
                         return GestureDetector(
                           onTap: () {
-                            showDialogInput(
-                                AllConstant.CURRENT_LIST_INDEX +
-                                    AllConstant.GA3,
-                                "GA3");
+                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.GA3, "GA3");
                           },
-                          child: Text(snapshot.data!,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontFamily: "metropolis",
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColor.white())),
+                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
                         );
                       }
                     },
@@ -501,49 +396,12 @@ class _BarcodeViewState extends State<BarcodeView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 40.0,
-                    decoration: BoxDecoration(
-                      color: Color(0XFFffffff),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Color(0X95E9EBF0),
-                            blurRadius: 2,
-                            spreadRadius: 2)
-                      ],
-                      border: Border.all(color: Colors.black54),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: FutureBuilder<String>(
-                      future: CommonOperation.getSharedData(sec, defaultTxt),
-                      builder: (context, AsyncSnapshot<String> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container();
-                        } else {
-                          return TextField(
-                            controller: textEditingController,
-                            keyboardType: TextInputType.text,
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: snapshot.data!,
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  ),
+                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController),
                   SizedBox(
                     height: 20,
                   ),
                   ElevatedButton(
-                    child: Text("OK",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: "metropolis",
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white)),
+                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColor.green(),
                     ),
@@ -572,11 +430,8 @@ class _BarcodeViewState extends State<BarcodeView> {
       "SoFi Studium",
     );
 
-    var value2 = await CommonOperation.getSharedData(
-        AllConstant.CURRENT_LIST_INDEX + AllConstant.DATE,
-        "Sat, Dec 18, 4:30pm . SofFi Stadium");
-    var value3 = await CommonOperation.getSharedData(
-        AllConstant.CURRENT_LIST_INDEX + AllConstant.TIME, "4:30pm .");
+    var value2 = await CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.DATE, "Sat, Dec 18, 4:30pm . SofFi Stadium");
+    var value3 = await CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.TIME, "4:30pm .");
 
     return value2;
   }

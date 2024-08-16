@@ -8,6 +8,7 @@ import 'package:ticket_master/main.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
+import 'package:ticket_master/utils/widgets_util.dart';
 
 class MyAccount extends StatefulWidget {
   @override
@@ -416,34 +417,7 @@ class _MyAccountState extends State<MyAccount> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 40.0,
-                    decoration: BoxDecoration(
-                      color: Color(0XFFffffff),
-                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                      border: Border.all(color: Colors.black54),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: FutureBuilder<String>(
-                      future: CommonOperation.getSharedData(sec, defaultTxt),
-                      builder: (context, AsyncSnapshot<String> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container();
-                        } else {
-                          return TextField(
-                            controller: textEditingController,
-                            keyboardType: inputType == null ? TextInputType.text : inputType,
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: snapshot.data!,
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  ),
+                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,inputType: inputType),
                   SizedBox(
                     height: 20,
                   ),

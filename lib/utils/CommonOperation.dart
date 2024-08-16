@@ -43,6 +43,13 @@ class CommonOperation {
     return imageFile;
   }
 
+  static bool isNumeric(String str) {
+    if(str == null) {
+      return false;
+    }
+    return double.tryParse(str) != null;
+  }
+
   static Future<String> getDonationAmount() async {
     String? DonateAmount = await PrefUtil.preferences!.getString("DonateAmount");
     return DonateAmount == null ? "\$0" : DonateAmount;

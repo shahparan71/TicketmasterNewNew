@@ -30,7 +30,6 @@ Future<void> main() async {
   );
 }
 
-
 class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -73,12 +72,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController textEditingController = TextEditingController();
+  TextEditingController textEditingControllerID = TextEditingController();
+  TextEditingController textEditingControllerPass = TextEditingController();
 
   int changeView = 0;
   List<User> listUser = [];
 
   bool dateLoading = false;
+
+  bool isAdmin = false;
 
   @override
   void initState() {
@@ -93,6 +95,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    /*textEditingControllerID.text = "anisxtmz";
+    textEditingControllerPass.text = "347612";*/
     return Scaffold(
       body: Scaffold(
         appBar: AppBar(
@@ -116,7 +120,15 @@ class _MyHomePageState extends State<MyHomePage> {
                           Icons.logout,
                           color: Colors.white,
                         )
-                      : Container(),
+                      : Container(
+                          child: Switch(
+                              value: isAdmin,
+                              onChanged: (v) {
+                                setState(() {
+                                  isAdmin = !isAdmin;
+                                });
+                              }),
+                        ),
                 ),
               ],
             ),
@@ -295,11 +307,26 @@ class _MyHomePageState extends State<MyHomePage> {
                     //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: TextField(
-                      keyboardType: TextInputType.number,
-                      controller: textEditingController,
-                      decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'User ID', hintText: 'Enter ID'),
+                      keyboardType: isAdmin ? TextInputType.text : TextInputType.number,
+                      controller: textEditingControllerID,
+                      decoration: InputDecoration(border: OutlineInputBorder(), labelText: isAdmin ? 'Admin User ID' : "User ID", hintText: 'Enter ID'),
                     ),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  isAdmin
+                      ? Padding(
+                          //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
+                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          child: TextField(
+                            keyboardType: TextInputType.text,
+                            controller: textEditingControllerPass,
+                            obscureText: true,
+                            decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Admin Password", hintText: 'Enter Password'),
+                          ),
+                        )
+                      : Container(),
                   SizedBox(
                     height: 10,
                   ),
@@ -325,18 +352,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _login() async {
-    if (textEditingController.text.isEmpty) {
+    if (textEditingControllerID.text.isEmpty) {
       showSnackBar("User ID can't be empty");
-      return;
-    }
-
-    if (textEditingController.text == "786") {
-      PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 1);
-      textEditingController.text = "";
-      setState(() {
-        changeView = 1;
-        initUserListDate();
-      });
       return;
     }
 
@@ -344,20 +361,75 @@ class _MyHomePageState extends State<MyHomePage> {
       dateLoading = true;
     });
 
-    final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Users').child("${textEditingController.text}");
+    if (isAdmin) {
+      if (textEditingControllerPass.text.isEmpty) {
+        showSnackBar("Password can't be empty");
+        setState(() {
+          dateLoading = false;
+        });
+        return;
+      }
+
+      final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Admins').child("1");
+
+      reference.once().then((DatabaseEvent event) {
+        if (event.snapshot.children.length == 0) {
+          showSnackBar("User Not found");
+          setState(() {
+            dateLoading = false;
+            textEditingControllerID.text = "";
+            textEditingControllerPass.text = "";
+          });
+          return;
+        } else {
+          DataSnapshot snapshot = event.snapshot;
+          if (snapshot.value is List) {
+            List<dynamic> yearList = snapshot.value as List<dynamic>;
+
+            Map<int, dynamic> yearMap = yearList.asMap();
+            if (yearMap['UserID'] == textEditingControllerID.text && yearMap['Password'].toString() == textEditingControllerPass.text) {
+              PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 1);
+              uiRefresh();
+            } else {
+              showSnackBar("ID or Password doesn't match");
+              setState(() {
+                dateLoading = false;
+              });
+            }
+          } else if (snapshot.value is Map) {
+            Map<dynamic, dynamic> yearMap = snapshot.value as Map<dynamic, dynamic>;
+
+            if (yearMap['UserID'] == textEditingControllerID.text && yearMap['Password'].toString() == textEditingControllerPass.text) {
+              PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 1);
+              showSnackBar("Login Successfully");
+              uiRefresh();
+            } else {
+              showSnackBar("ID or Password doesn't match");
+              setState(() {
+                dateLoading = false;
+              });
+            }
+          }
+        }
+      });
+
+      return;
+    }
+
+    final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Users').child("${textEditingControllerID.text}");
 
     reference.once().then((DatabaseEvent event) {
       if (event.snapshot.children.length == 0) {
         showSnackBar("User Not found");
         setState(() {
           dateLoading = false;
-          textEditingController.text = "";
+          textEditingControllerID.text = "";
         });
         return;
       } else {
         setState(() {
           dateLoading = false;
-          textEditingController.text = "";
+          textEditingControllerID.text = "";
         });
 
         DataSnapshot snapshot = event.snapshot;
@@ -475,7 +547,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final DatabaseReference referenceAddUser = FirebaseDatabase.instance.ref().child('Users');
     await referenceAddUser.child("${listUser.id}").update({"isEnable": listUser.isEnable}).then((onValue) {
       showSnackBar("Update successfully");
-      dataInit();
+      //dataInit();
     }).catchError((onError) {
       showSnackBar("User failed to add");
     });
@@ -524,6 +596,16 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     });
   }
+
+  void uiRefresh() {
+    setState(() {
+      changeView = 1;
+      dateLoading = false;
+      textEditingControllerID.text = "";
+      textEditingControllerPass.text = "";
+      initUserListDate();
+    });
+  }
 }
 
 class User {
@@ -536,7 +618,6 @@ class User {
 
   User({this.name, this.id, this.date, this.isEnable});
 }
-
 
 //flutter build appbundle --release
 //fvm flutter build apk --release

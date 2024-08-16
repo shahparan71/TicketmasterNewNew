@@ -121,4 +121,36 @@ class WidgetsUtil {
       },
     );
   }
+
+  static Widget inputBoxForAll(String defaultTxt, String sec, TextEditingController textEditingController, {TextInputType? inputType}) {
+    return Container(
+      height: CommonOperation.isNumeric(defaultTxt) ? 50 : 100,
+      decoration: BoxDecoration(
+        color: Color(0XFFffffff),
+        boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+        border: Border.all(color: Colors.black54),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      child: FutureBuilder<String>(
+        future: CommonOperation.getSharedData(sec, defaultTxt),
+        builder: (context, AsyncSnapshot<String> snapshot) {
+          if (!snapshot.hasData) {
+            return Container();
+          } else {
+            return TextField(
+              controller: textEditingController,
+              maxLines: CommonOperation.isNumeric(defaultTxt) ? 1 : 3,
+              keyboardType: inputType == null ? TextInputType.text : inputType,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: snapshot.data!,
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+            );
+          }
+        },
+      ),
+    );
+  }
 }
