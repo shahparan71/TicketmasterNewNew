@@ -139,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ? Container(
                                     child: Center(
                                       child: Text(
-                                        "No user found",
+                                        "No user found add user",
                                         style: TextStyle(fontSize: 25),
                                       ),
                                     ),
@@ -271,11 +271,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: FloatingActionButton(
+                            backgroundColor: Colors.blueAccent,
                             onPressed: () {
                               addUser();
                             },
                             tooltip: 'Standard',
-                            child: const Icon(Icons.add),
+                            child: const Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -342,14 +346,12 @@ class _MyHomePageState extends State<MyHomePage> {
     final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Users').child("${textEditingController.text}");
 
     reference.once().then((DatabaseEvent event) {
-      // Here I iterate and create the list of objects
-      DataSnapshot snapshot = event.snapshot;
-
-      print("event.snapshot.children.length");
-      print(event.snapshot.children.length);
-
       if (event.snapshot.children.length == 0) {
         showSnackBar("User Not found");
+        setState(() {
+          dateLoading = false;
+          textEditingController.text = "";
+        });
         return;
       } else {
         setState(() {
@@ -398,6 +400,10 @@ class _MyHomePageState extends State<MyHomePage> {
         showSnackBar("Name or ID field can't be empty");
       }
 
+      setState(() {
+        dateLoading = true;
+      });
+
       final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Users').child("${value.toString().split(",")[1]}");
 
       await reference.once().then((DatabaseEvent event) async {
@@ -412,6 +418,9 @@ class _MyHomePageState extends State<MyHomePage> {
             "isEnable": true,
           }).then((onValue) {
             showSnackBar("User added successfully");
+            setState(() {
+              dateLoading = false;
+            });
             dataInit();
           }).catchError((onError) {
             showSnackBar("User failed to add");
