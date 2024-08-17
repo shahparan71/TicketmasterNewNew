@@ -180,7 +180,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                                 onTap: () {
                                   showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7, "American VIP - 7");
                                 },
-                                child: Text(snapshot.data!, style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.black)),
+                                child: Text(snapshot.data!, style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black)),
                               );
                             }
                           },

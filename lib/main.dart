@@ -6,6 +6,7 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:ticket_master/PrefUtil.dart';
@@ -13,6 +14,7 @@ import 'package:ticket_master/all_uis/initial_screen.dart';
 import 'package:ticket_master/all_uis/user_add_dialog.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/all_constant.dart';
+import 'package:unique_identifier/unique_identifier.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -341,7 +343,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(6)), /*side: BorderSide(color: Colors.red)*/
                               ))),
-                          onPressed: () {
+                          onPressed: () async {
                             _login();
                           },
                         )
@@ -418,7 +420,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Users').child("${textEditingControllerID.text}");
 
-    reference.once().then((DatabaseEvent event) {
+    reference.once().then((DatabaseEvent event) async {
       if (event.snapshot.children.length == 0) {
         showSnackBar("User Not found");
         setState(() {
@@ -427,11 +429,6 @@ class _MyHomePageState extends State<MyHomePage> {
         });
         return;
       } else {
-        setState(() {
-          dateLoading = false;
-          textEditingControllerID.text = "";
-        });
-
         DataSnapshot snapshot = event.snapshot;
         if (snapshot.value is List) {
           List<dynamic> yearList = snapshot.value as List<dynamic>;
@@ -439,14 +436,37 @@ class _MyHomePageState extends State<MyHomePage> {
           Map<int, dynamic> yearMap = yearList.asMap();
           if (yearMap['isEnable'] == false) {
             showSnackBar("You are not allowed to login");
+
             return;
           }
         } else if (snapshot.value is Map) {
           Map<dynamic, dynamic> yearMap = snapshot.value as Map<dynamic, dynamic>;
 
+          var identifier = await UniqueIdentifier.serial;
+
           if (yearMap['isEnable'] == false) {
             showSnackBar("You are not allowed to login");
             return;
+          }
+          if (yearMap.containsKey('identifier')) {
+            if (yearMap['identifier'] != identifier) {
+              showSnackBar("You are logged in with another device");
+              setState(() {
+                dateLoading = false;
+                textEditingControllerID.text = "";
+              });
+              return;
+            }
+          } else {
+            yearMap['identifier'] = identifier;
+
+            final DatabaseReference referenceAddUser = FirebaseDatabase.instance.ref().child('Users');
+            await referenceAddUser.child("${textEditingControllerID.text}").update({"identifier": identifier}).then((onValue) {
+              showSnackBar("Info Update Successfully");
+              //dataInit();
+            }).catchError((onError) {
+              showSnackBar("User failed to add");
+            });
           }
         }
 
@@ -456,6 +476,11 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             MaterialPageRoute(builder: (context) => InitialScreen()),
           );
+        });
+
+        setState(() {
+          dateLoading = false;
+          textEditingControllerID.text = "";
         });
       }
     });

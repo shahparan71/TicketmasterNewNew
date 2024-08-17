@@ -43,6 +43,7 @@ dependencies:
   visibility_detector: 0.2.2
   lottie: 1.2.2
   intl: 0.17.0
+  unique_identifier: 0.3.0
 
 
 dev_dependencies:

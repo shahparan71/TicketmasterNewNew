@@ -554,7 +554,11 @@ class _DialogDetailsState extends State<DialogDetails> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,),
+                  WidgetsUtil.inputBoxForAll(
+                    defaultTxt,
+                    sec,
+                    textEditingController,
+                  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -571,11 +575,6 @@ class _DialogDetailsState extends State<DialogDetails> {
                           if (int.parse(textEditingController.text) < 1) return;
                         }
                         PrefUtil.preferences!.setString(sec, textEditingController.text);
-
-                        /*for (var value in PrefUtil.preferences!.getKeys()) {
-                          print("353 $value");
-                          if (value != sec) PrefUtil.preferences!.remove(value);
-                        }*/
                         textEditingController.text = "";
                         setState(() {});
                       }
