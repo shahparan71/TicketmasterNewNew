@@ -14,7 +14,9 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 
 class BarcodeView extends StatefulWidget {
-  const BarcodeView({Key? key}) : super(key: key);
+  final int _current;
+
+  BarcodeView(this._current);
 
   @override
   _BarcodeViewState createState() => _BarcodeViewState();
@@ -104,14 +106,14 @@ class _BarcodeViewState extends State<BarcodeView> {
                                         textAlign: TextAlign.left,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
+                                        style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
                                   ),
                                 );
                               }
                             },
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 5,
                           ),
                           FutureBuilder<String>(
                             future: getTitleValueQr1(),
@@ -344,6 +346,80 @@ class _BarcodeViewState extends State<BarcodeView> {
             children: [
               Column(
                 children: [
+                  Text("SEC", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  FutureBuilder<String>(
+                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "303"),
+                    builder: (context, AsyncSnapshot<String> snapshot) {
+                      if (!snapshot.hasData) {
+                        return Container();
+                      } else {
+                        return GestureDetector(
+                          onTap: () {
+                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "303");
+                          },
+                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Text("ROW", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  FutureBuilder<String>(
+                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, "5"),
+                    builder: (context, AsyncSnapshot<String> snapshot) {
+                      if (!snapshot.hasData) {
+                        return Container();
+                      } else {
+                        return GestureDetector(
+                          onTap: () {
+                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, "5");
+                          },
+                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Text("SEAT", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  FutureBuilder<String>(
+                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._current.toString(), widget._current.toString()),
+                    builder: (context, AsyncSnapshot<String> snapshot) {
+                      if (!snapshot.hasData) {
+                        return Container();
+                      } else {
+                        return GestureDetector(
+                          onTap: () {
+                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._current.toString(), widget._current.toString());
+                          },
+                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          /*Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                children: [
                   FutureBuilder<String>(
                     future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.GENERAL_ADMISSION, "General Admission"),
                     builder: (context, AsyncSnapshot<String> snapshot) {
@@ -380,7 +456,7 @@ class _BarcodeViewState extends State<BarcodeView> {
                 ],
               ),
             ],
-          ),
+          ),*/
         ],
       ),
     );

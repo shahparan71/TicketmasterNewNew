@@ -203,7 +203,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                               if (assetUrl == 4) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => BarcodeView()),
+                                  MaterialPageRoute(builder: (context) => BarcodeView(_current)),
                                 );
                               }
                             },
@@ -563,7 +563,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                           )
                         : Container(),
                     SizedBox(
-                      height: 5,
+                      height: 2,
                     ),
                     FutureBuilder<String>(
                       future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT_2, "Taylor Swift | The Eras Tour"),
@@ -591,7 +591,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                       },
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 2,
                     ),
                     FutureBuilder<String>(
                       future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.DATE, "Sat, Dec 18, 4:30pm . SofFi Stadium"),
