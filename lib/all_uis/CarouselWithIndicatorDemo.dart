@@ -563,7 +563,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                           )
                         : Container(),
                     SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     FutureBuilder<String>(
                       future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT_2, "Taylor Swift | The Eras Tour"),
