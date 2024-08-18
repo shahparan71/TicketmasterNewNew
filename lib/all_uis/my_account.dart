@@ -363,7 +363,6 @@ class _MyAccountState extends State<MyAccount> {
       color: Colors.transparent,
       child: InkWell(
         onTap: () {
-
           if (s.contains("Out")) {
             PrefUtil.preferences!.clear();
             Future.delayed(Duration.zero, () {
@@ -417,7 +416,7 @@ class _MyAccountState extends State<MyAccount> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,inputType: inputType),
+                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController, inputType: inputType),
                   SizedBox(
                     height: 20,
                   ),

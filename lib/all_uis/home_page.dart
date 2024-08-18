@@ -209,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                                           )
                                         : Container(),
                                     SizedBox(
-                                      height: 10,
+                                      height: 3,
                                     ),
                                     FutureBuilder<String>(
                                       future: CommonOperation.getSharedData(index.toString() + AllConstant.IAMGE_BIG_TEXT_2, "Taylor Swift | The Eras Tour"),
