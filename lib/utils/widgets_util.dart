@@ -106,19 +106,22 @@ class _DiscoverImageState extends State<DiscoverImage> {
 }
 
 class WidgetsUtil {
-  static ElevatedButton CustomElevatedButton({String? buttonText, Function? function}) {
-    return ElevatedButton(
-      child: Text("$buttonText", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-      style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
-          backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
-          elevation: MaterialStateProperty.all(0.0),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
-          ))),
-      onPressed: () {
-        function!("$buttonText");
-      },
+  static Widget CustomElevatedButton({String? buttonText, Function? function, Color? color ,FontWeight? fontWeight}) {
+    return SizedBox(
+      height: 50.0,
+      child: ElevatedButton(
+        child: Text("$buttonText", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: fontWeight??FontWeight.normal, color: Colors.white)),
+        style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all<Color>(color ?? AppColor.colorMain()),
+            backgroundColor: MaterialStateProperty.all<Color>(color ?? AppColor.colorMain()),
+            elevation: MaterialStateProperty.all(0.0),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
+            ))),
+        onPressed: () {
+          function!("$buttonText");
+        },
+      ),
     );
   }
 

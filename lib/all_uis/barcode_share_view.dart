@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ticket_master/PrefUtil.dart';
-import 'package:ticket_master/all_uis/barcode_share_view.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ticket_master/all_uis/bottom_sheet_view_select_tickets.dart';
@@ -14,16 +13,16 @@ import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 
-class BarcodeView extends StatefulWidget {
+class BarcodeShareView extends StatefulWidget {
   final int _current;
 
-  BarcodeView(this._current);
+  BarcodeShareView(this._current);
 
   @override
-  _BarcodeViewState createState() => _BarcodeViewState();
+  _BarcodeShareViewState createState() => _BarcodeShareViewState();
 }
 
-class _BarcodeViewState extends State<BarcodeView> {
+class _BarcodeShareViewState extends State<BarcodeShareView> {
   String? filePath;
 
   var textEditingController = TextEditingController();
@@ -178,12 +177,7 @@ class _BarcodeViewState extends State<BarcodeView> {
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                     child: GestureDetector(
-                                      onLongPress: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => BarcodeShareView(widget._current)),
-                                        );
-                                      },
+                                      onTap: () {},
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -215,34 +209,6 @@ class _BarcodeViewState extends State<BarcodeView> {
                                   ),
                                 ),
                                 buildContainerTopTex(),
-                                Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: AppColor.colorMain(),
-                                    boxShadow: <BoxShadow>[BoxShadow(color: Colors.black54, blurRadius: 2.0, offset: Offset(0.0, 0.10))],
-                                    //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                                  ),
-                                  child: FutureBuilder<String>(
-                                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.GEN_ADM, "Gen Adm"),
-                                    builder: (context, AsyncSnapshot<String> snapshot) {
-                                      if (!snapshot.hasData) {
-                                        return Container();
-                                      } else {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.GEN_ADM, "Gen Adm");
-                                          },
-                                          child: Center(
-                                            child: Text(snapshot.data!,
-                                                style: TextStyle(
-                                                    fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.white)),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  ),
-                                  height: 35,
-                                ),
                                 SizedBox(
                                   height: 30,
                                 ),
@@ -253,21 +219,6 @@ class _BarcodeViewState extends State<BarcodeView> {
                                 ),
                                 SizedBox(
                                   height: 40,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    assetUrl++;
-                                    if (assetUrl > 3) assetUrl = 1;
-
-                                    print("assetUrl");
-                                    print(assetUrl);
-
-                                    setState(() {});
-                                  },
-                                  child: Image.asset(
-                                    "assets/images/logo/${assetUrl.toString()}.png",
-                                    height: 53,
-                                  ),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -281,44 +232,6 @@ class _BarcodeViewState extends State<BarcodeView> {
                     SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.black26,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-
-                        FutureBuilder<String>(
-                          future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.ONE_OF_ONE, "1 of 1"),
-                          builder: (context, AsyncSnapshot<String> snapshot) {
-                            if (!snapshot.hasData) {
-                              return Container();
-                            } else {
-                              return GestureDetector(
-                                onTap: () {
-                                  showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.ONE_OF_ONE, "1 of 1");
-                                },
-                                child: Text(snapshot.data!,
-                                    style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black26)),
-                              );
-                            }
-                          },
-                        ),
-
-                        //Text("2 of 2", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black26)),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.black26,
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),
@@ -327,15 +240,85 @@ class _BarcodeViewState extends State<BarcodeView> {
                   alignment: Alignment.bottomLeft,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(flex: 1, child: WidgetsUtil.CustomElevatedButton(buttonText: "Transfer", function: functionTransfer)),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(flex: 1, child: WidgetsUtil.CustomElevatedButton(buttonText: "Sell", function: functionSell)),
-                      ],
+                    child: Container(
+                      height: 200,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 10,
+                                height: 10,
+                                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Color.fromRGBO(0, 0, 0, 0.2),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Container(
+                                width: 10,
+                                height: 10,
+                                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Color.fromRGBO(0, 0, 0, 0.2),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Container(
+                                width: 10,
+                                height: 10,
+                                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Color.fromRGBO(0, 0, 0, 0.2),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Container(
+                                width: 10,
+                                height: 10,
+                                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Color.fromRGBO(0, 0, 0, 0.2),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Color(0XFFffffff),
+                              boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 5, spreadRadius: 5)],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                      flex: 1,
+                                      child: WidgetsUtil.CustomElevatedButton(
+                                          buttonText: "Share", function: functionTransfer, color: AppColor.colorBlueLight(),fontWeight: FontWeight.w600)),
+                                  /*SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(flex: 1, child: WidgetsUtil.CustomElevatedButton(buttonText: "Sell", function: functionSell)),*/
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -563,12 +546,12 @@ class _BarcodeViewState extends State<BarcodeView> {
   }
 
   functionTransfer(String abc) {
-    showMaterialModalBottomSheet(
+    /*showMaterialModalBottomSheet(
       context: context,
       builder: (context) => Container(
         height: MediaQuery.of(context).size.height - 400,
         child: BottomSheetViewSelectTickets(),
       ),
-    );
+    );*/
   }
 }

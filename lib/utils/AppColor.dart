@@ -106,6 +106,14 @@ class AppColor {
     }
     return Color(int.parse("0xFF${colorValue}"));
   }
+  static Color colorBlueLight() {
+    //return Color(0xFFe6f5f5);
+    String? colorValue = PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_MAIN);
+    if (colorValue == null) {
+      return Color(0xff7ab1ef);
+    }
+    return Color(int.parse("0xFF${colorValue}"));
+  }
 
   static Color colorSecond() {
     //return Color(0xFFe6f5f5);
