@@ -1,0 +1,4 @@
+storePassword=ticketmaster
+keyPassword=ticketmaster
+keyAlias=key0
+storeFile=ticketmaster.jks
