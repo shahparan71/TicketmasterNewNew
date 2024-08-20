@@ -17,9 +17,8 @@ import 'package:ticket_master/utils/widgets_util.dart';
 
 class BarcodeShareView extends StatefulWidget {
   final int _MainCurrent;
-  final String currentBarcodeSeatValue;
 
-  BarcodeShareView(this._MainCurrent, this.currentBarcodeSeatValue);
+  BarcodeShareView(this._MainCurrent);
 
   @override
   _BarcodeShareViewState createState() => _BarcodeShareViewState();
@@ -309,7 +308,7 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                   ),
                   FutureBuilder<String>(
                     future: CommonOperation.getSharedData(
-                        AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._MainCurrent.toString() + "-" + _currentBarCodeSlide.toString(), _currentBarCodeSlide.toString()),
+                        AllConstant.CURRENT_LIST_INDEX  + AllConstant.SEAT + _currentBarCodeSlide.toString(), _currentBarCodeSlide.toString()),
                     builder: (context, AsyncSnapshot<String> snapshot) {
                       if (!snapshot.hasData) {
                         return Container();
@@ -317,7 +316,7 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                         return GestureDetector(
                           onTap: () {
                             showDialogInput(
-                                AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._MainCurrent.toString() + "-" + _currentBarCodeSlide.toString(), _currentBarCodeSlide.toString());
+                                AllConstant.CURRENT_LIST_INDEX  + AllConstant.SEAT + _currentBarCodeSlide.toString(), _currentBarCodeSlide.toString());
                           },
                           child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
                         );
@@ -444,13 +443,14 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
   }
 
   functionTransfer(String abc) {
-    /*showMaterialModalBottomSheet(
+    showMaterialModalBottomSheet(
       context: context,
       builder: (context) => Container(
         height: MediaQuery.of(context).size.height - 400,
         child: BottomSheetViewSelectTickets(),
       ),
-    );*/
+    );
+
   }
 
   buildMainCardHome(BuildContext context) {
@@ -541,14 +541,13 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
   }
 
   Future<void> initSlide() async {
-    imgList.clear();
-    if (int.parse(widget.currentBarcodeSeatValue) == 0) {
-      imgList.add("0");
-    } else {
-      for (int i = 0; i < int.parse(widget.currentBarcodeSeatValue); i++) {
+    String value = await CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SELECTED_TICKET_COUNT, "6");
+    if (value != null || value.isNotEmpty) {
+      imgList.clear();
+      for (int i = 0; i < int.parse(value); i++) {
         imgList.add(i.toString());
       }
+      setState(() {});
     }
-    setState(() {});
   }
 }

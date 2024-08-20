@@ -418,7 +418,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                         } else {
                           return GestureDetector(
                             onTap: () {
-                              showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _current.toString(), _current.toString());
+                              showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _current.toString(), _current.toString(),inputType: TextInputType.number);
                             },
                             child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
                           );
@@ -669,9 +669,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                       print("totalAnnualWestController.value");
                       print(textEditingController.text);
                       if (textEditingController.text.toString().isNotEmpty) {
-                        if (inputType != null) {
+                        /*if (inputType != null) {
                           if (int.parse(textEditingController.text) < 2 || int.parse(textEditingController.text) > 10) return;
-                        }
+                        }*/
                         PrefUtil.preferences!.setString(sec, textEditingController.text);
                         textEditingController.text = "";
                         setState(() {});
@@ -688,7 +688,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
   }
 
   Future<void> initSlide() async {
-    String value = await CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.CAROUSEL_COUNT, "6");
+    String value = await CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SELECTED_TICKET_COUNT, "6");
     if (value != null || value.isNotEmpty) {
       imgList.clear();
       for (int i = 0; i < int.parse(value); i++) {

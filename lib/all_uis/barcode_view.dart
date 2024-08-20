@@ -175,18 +175,10 @@ class _BarcodeViewState extends State<BarcodeView> {
                                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                     child: GestureDetector(
                                       onLongPress: () async {
-                                        var currentBarcodeSeatValue = await CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._current.toString(), "0");
-                                        if (currentBarcodeSeatValue == "0") {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => BarcodeShareView(widget._current, widget._current.toString())),
-                                          );
-                                        } else {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => BarcodeShareView(widget._current, currentBarcodeSeatValue)),
-                                          );
-                                        }
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => BarcodeShareView(widget._current)),
+                                        );
                                       },
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
@@ -416,7 +408,7 @@ class _BarcodeViewState extends State<BarcodeView> {
                       } else {
                         return GestureDetector(
                           onTap: () {
-                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._current.toString(), widget._current.toString());
+                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._current.toString(), widget._current.toString(), textInputType: TextInputType.number);
                           },
                           child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
                         );
@@ -474,7 +466,7 @@ class _BarcodeViewState extends State<BarcodeView> {
     );
   }
 
-  void showDialogInput(String sec, String defaultTxt) {
+  void showDialogInput(String sec, String defaultTxt, {TextInputType? textInputType}) {
     showDialog(
         context: context,
         builder: (_) {
@@ -484,7 +476,7 @@ class _BarcodeViewState extends State<BarcodeView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController),
+                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController, inputType: textInputType),
                   SizedBox(
                     height: 20,
                   ),

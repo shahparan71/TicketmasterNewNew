@@ -435,7 +435,7 @@ class _QRViewMainState extends State<QRViewMain> {
                       } else {
                         return GestureDetector(
                           onTap: () {
-                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT, "4");
+                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT, "4",textInputType: TextInputType.number);
                           },
                           child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
                         );
@@ -451,7 +451,7 @@ class _QRViewMainState extends State<QRViewMain> {
     );
   }
 
-  void showDialogInput(String sec, String defaultTxt) {
+  void showDialogInput(String sec, String defaultTxt,{TextInputType? textInputType}) {
     showDialog(
         context: context,
         builder: (_) {
@@ -461,7 +461,7 @@ class _QRViewMainState extends State<QRViewMain> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,),
+                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,inputType:textInputType ),
                   SizedBox(
                     height: 20,
                   ),

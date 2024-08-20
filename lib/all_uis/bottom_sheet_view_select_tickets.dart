@@ -16,7 +16,6 @@ class BottomSheetViewSelectTickets extends StatefulWidget {
 
 class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
   var textEditingController = TextEditingController();
-  double? seatCardWidth;
 
   String selected_item = "0 Selected";
 
@@ -107,7 +106,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
                   ),
                   itemCount: initGridValue,
                   itemBuilder: (BuildContext context, int index) {
-                    return getGridItem(index + 1);
+                    return getGridItem(index);
                   }),
             ),
             //getGridItem(),
@@ -294,14 +293,14 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
               ),
               child: Center(
                 child: FutureBuilder<String>(
-                  future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.CARD_value + index.toString(), index.toString()),
+                  future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + index.toString(), index.toString()),
                   builder: (context, AsyncSnapshot<String> snapshot) {
                     if (!snapshot.hasData) {
                       return Container();
                     } else {
                       return GestureDetector(
                         onTap: () {
-                          showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.CARD_value + index.toString());
+                          //showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.CARD_value + index.toString());
                         },
                         child: Text("SEAT " + snapshot.data!, style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white())),
                       );
