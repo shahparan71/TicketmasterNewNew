@@ -44,7 +44,7 @@ class CommonOperation {
   }
 
   static bool isNumeric(String str) {
-    if(str == null) {
+    if (str == null) {
       return false;
     }
     return double.tryParse(str) != null;
@@ -308,13 +308,26 @@ class CommonOperation {
     return PrefUtil.preferences!.getBool(AllConstant.IS_CLICK_COUNT) == null ? false : PrefUtil.preferences!.getBool(AllConstant.IS_CLICK_COUNT);
   }
 
-  static String getSortValue(String ticketTitle) {
+  static Future<String> getSortValue(String ticketTitle) async {
     if (ticketTitle.isEmpty) return " ";
     ticketTitle = ticketTitle.substring(1, ticketTitle.length);
     List<String> lstring = ticketTitle.split(",");
     List<int> lint = lstring.map(int.parse).toList();
     lint.sort();
 
-    return lint.toString().substring(1, lint.toString().length - 1);
+    print("lint88");
+    print(lint);
+
+    List<String> temp = [];
+
+    for (int i = 0; i < lint.length; i++) {
+      String v = await CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + lint[i].toString(), lint[i].toString());
+      temp.add(v);
+    }
+    temp.sort();
+    final string = temp.reduce((value, element) => value + ',' + element);
+    print("string");
+    print(string);
+    return string;
   }
 }

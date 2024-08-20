@@ -547,7 +547,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
   }
 
   Future<void> initSlide() async {
-    seatRange = CommonOperation.getSortValue(widget.ticketTitle.trim());
+    seatRange = await CommonOperation.getSortValue(widget.ticketTitle.trim());
 
     var tt = seatRange.split(",");
 

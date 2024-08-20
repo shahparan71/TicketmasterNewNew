@@ -116,7 +116,16 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                           },
                         ),
                         Text(", Seat ", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
-                        Text(CommonOperation.getSortValue(ticketTitle), style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black54))
+                        FutureBuilder<String>(
+                          future: CommonOperation.getSortValue(ticketTitle),
+                          builder: (context, AsyncSnapshot<String> snapshot) {
+                            if (!snapshot.hasData) {
+                              return Container();
+                            } else {
+                              return Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black54));
+                            }
+                          },
+                        ),
                       ],
                     ),
                   ],

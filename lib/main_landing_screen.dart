@@ -42,8 +42,6 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX+AllConstant.Sell_TRANS)");
-    print(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS));
 
     return Material(
         child: Scaffold(
