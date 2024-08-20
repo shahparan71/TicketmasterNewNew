@@ -1,5 +1,7 @@
+import 'dart:collection';
 import 'dart:io';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,9 +16,10 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 
 class BarcodeShareView extends StatefulWidget {
-  final int _current;
+  final int _MainCurrent;
+  final String currentBarcodeSeatValue;
 
-  BarcodeShareView(this._current);
+  BarcodeShareView(this._MainCurrent, this.currentBarcodeSeatValue);
 
   @override
   _BarcodeShareViewState createState() => _BarcodeShareViewState();
@@ -29,13 +32,26 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
 
   int assetUrl = 1;
 
+  List<Widget> imageSlidersM = [];
+  List<String> imgList = ["1"];
+  int _currentBarCodeSlide = 0;
+
   @override
   void initState() {
+    initSlide();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    imageSlidersM = imgList
+        .map((item) => Stack(
+              children: <Widget>[
+                buildMainCardHome(context),
+              ],
+            ))
+        .toList();
+
     return SafeArea(
       child: Scaffold(
         /*appBar: AppBar(
@@ -91,8 +107,7 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           FutureBuilder<String>(
-                            future: CommonOperation.getSharedData(
-                                AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour"),
+                            future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour"),
                             builder: (context, AsyncSnapshot<String> snapshot) {
                               if (!snapshot.hasData) {
                                 return Container();
@@ -107,8 +122,7 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                                         textAlign: TextAlign.left,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style:
-                                            TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
+                                        style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
                                   ),
                                 );
                               }
@@ -129,10 +143,8 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                                   },
                                   child: Container(
                                     width: MediaQuery.of(context).size.width - 100,
-                                    child: Text(snapshot.data!,
-                                        textAlign: TextAlign.left,
-                                        style:
-                                            TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
+                                    child:
+                                        Text(snapshot.data!, textAlign: TextAlign.left, style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
                                   ),
                                 );
                               }
@@ -144,96 +156,43 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                   ),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 100.0),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: AppColor.colorPageBackground(),
-                          border: Border.all(color: AppColor.colorPageBackground(), width: 1, style: BorderStyle.solid),
-                          boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                          //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                        ),
-                        height: 470,
-                        child: Stack(
-                          children: [
-                            Column(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: AppColor.colorSecond(),
-
-                                    boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                                    //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                                    borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
-                                  ),
-                                  height: 50,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                    child: GestureDetector(
-                                      onTap: () {},
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          FutureBuilder<String>(
-                                            future: CommonOperation.getSharedData(
-                                                AllConstant.CURRENT_LIST_INDEX + AllConstant.STANDARD_ADMISSION, "Standard Admission"),
-                                            builder: (context, AsyncSnapshot<String> snapshot) {
-                                              if (!snapshot.hasData) {
-                                                return Container();
-                                              } else {
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    showDialogInput(
-                                                        AllConstant.CURRENT_LIST_INDEX + AllConstant.STANDARD_ADMISSION, "Standard Admission");
-                                                  },
-                                                  child: Text(snapshot.data!,
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily: "metropolis",
-                                                          fontWeight: FontWeight.normal,
-                                                          color: AppColor.white())),
-                                                );
-                                              }
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                buildContainerTopTex(),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                Image.asset(
-                                  "assets/images/barcode.gif",
-                                  fit: BoxFit.contain,
-                                  height: 170,
-                                ),
-                                SizedBox(
-                                  height: 40,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+              Column(
+                children: [
+                  CarouselSlider(
+                    items: imageSlidersM,
+                    options: CarouselOptions(
+                        enableInfiniteScroll: false,
+                        viewportFraction: 0.9,
+                        height: MediaQuery.of(context).size.height - 200,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            _currentBarCodeSlide = index;
+                            print("_currentBarCodeSlide2");
+                            print(_currentBarCodeSlide);
+                          });
+                        }),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      //showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.CAROUSEL_COUNT, "6", inputType: TextInputType.number);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: imageSlidersM.map((url) {
+                        int index = imageSlidersM.indexOf(url);
+                        return Container(
+                          width: _currentBarCodeSlide == index ? 10.0 : 8.0,
+                          height: _currentBarCodeSlide == index ? 10.0 : 8.0,
+                          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: _currentBarCodeSlide == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
+                          ),
+                        );
+                      }).toList(),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               Positioned.fill(
                 child: Align(
@@ -241,60 +200,10 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      height: 200,
+                      height: 70,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 10,
-                                height: 10,
-                                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color.fromRGBO(0, 0, 0, 0.2),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Container(
-                                width: 10,
-                                height: 10,
-                                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color.fromRGBO(0, 0, 0, 0.2),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Container(
-                                width: 10,
-                                height: 10,
-                                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color.fromRGBO(0, 0, 0, 0.2),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Container(
-                                width: 10,
-                                height: 10,
-                                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color.fromRGBO(0, 0, 0, 0.2),
-                                ),
-                              ),
-                            ],
-                          ),
                           Container(
                             decoration: BoxDecoration(
                               color: Color(0XFFffffff),
@@ -306,9 +215,7 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
-                                      flex: 1,
-                                      child: WidgetsUtil.CustomElevatedButton(
-                                          buttonText: "Share", function: functionTransfer, color: AppColor.colorBlueLight(),fontWeight: FontWeight.w600)),
+                                      flex: 1, child: WidgetsUtil.CustomElevatedButton(buttonText: "Share", function: functionTransfer, color: AppColor.colorBlueLight(), fontWeight: FontWeight.w600)),
                                   /*SizedBox(
                                     width: 10,
                                   ),
@@ -331,6 +238,9 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
   }
 
   Container buildContainerTopTex() {
+    print("_currentBarCodeSilde");
+    print(_currentBarCodeSlide);
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -347,9 +257,7 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
             children: [
               Column(
                 children: [
-                  Text("SEC",
-                      style:
-                          TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                  Text("SEC", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
                   SizedBox(
                     height: 5,
                   ),
@@ -363,9 +271,7 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                           onTap: () {
                             showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "303");
                           },
-                          child: Text(snapshot.data!,
-                              style: TextStyle(
-                                  fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
                         );
                       }
                     },
@@ -374,9 +280,7 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
               ),
               Column(
                 children: [
-                  Text("ROW",
-                      style:
-                          TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                  Text("ROW", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
                   SizedBox(
                     height: 5,
                   ),
@@ -390,9 +294,7 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                           onTap: () {
                             showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, "5");
                           },
-                          child: Text(snapshot.data!,
-                              style: TextStyle(
-                                  fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
                         );
                       }
                     },
@@ -401,15 +303,13 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
               ),
               Column(
                 children: [
-                  Text("SEAT",
-                      style:
-                          TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                  Text("SEAT", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
                   SizedBox(
                     height: 5,
                   ),
                   FutureBuilder<String>(
                     future: CommonOperation.getSharedData(
-                        AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._current.toString(), widget._current.toString()),
+                        AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._MainCurrent.toString() + "-" + _currentBarCodeSlide.toString(), _currentBarCodeSlide.toString()),
                     builder: (context, AsyncSnapshot<String> snapshot) {
                       if (!snapshot.hasData) {
                         return Container();
@@ -417,11 +317,9 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                         return GestureDetector(
                           onTap: () {
                             showDialogInput(
-                                AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._current.toString(), widget._current.toString());
+                                AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._MainCurrent.toString() + "-" + _currentBarCodeSlide.toString(), _currentBarCodeSlide.toString());
                           },
-                          child: Text(snapshot.data!,
-                              style: TextStyle(
-                                  fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
                         );
                       }
                     },
@@ -553,5 +451,104 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
         child: BottomSheetViewSelectTickets(),
       ),
     );*/
+  }
+
+  buildMainCardHome(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 100.0),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: AppColor.colorPageBackground(),
+                border: Border.all(color: AppColor.colorPageBackground(), width: 1, style: BorderStyle.solid),
+                boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+                //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+              height: 470,
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: AppColor.colorSecond(),
+
+                          boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+                          //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+                          borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
+                        ),
+                        height: 50,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                FutureBuilder<String>(
+                                  future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.STANDARD_ADMISSION, "Standard Admission"),
+                                  builder: (context, AsyncSnapshot<String> snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return Container();
+                                    } else {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.STANDARD_ADMISSION, "Standard Admission");
+                                        },
+                                        child: Text(snapshot.data!, style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white())),
+                                      );
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      buildContainerTopTex(),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Image.asset(
+                        "assets/images/barcode.gif",
+                        fit: BoxFit.contain,
+                        height: 170,
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> initSlide() async {
+    imgList.clear();
+    if (int.parse(widget.currentBarcodeSeatValue) == 0) {
+      imgList.add("0");
+    } else {
+      for (int i = 0; i < int.parse(widget.currentBarcodeSeatValue); i++) {
+        imgList.add(i.toString());
+      }
+    }
+    setState(() {});
   }
 }
