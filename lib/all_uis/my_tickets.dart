@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:ticket_master/PrefUtil.dart';
+import 'package:ticket_master/all_uis/map_widgets.dart';
 import 'package:ticket_master/all_uis/my_tickets_confirm.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
@@ -26,6 +27,7 @@ class MyTicketsNewView extends StatefulWidget {
 }
 
 class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
+
   int _current = 0;
   List<Widget>? imageSlidersM;
   List<String> imgList = ["1"];
@@ -33,16 +35,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
   var seatRange = "";
 
   var textEditingController = TextEditingController();
-
-  MapController controller = MapController(
-    initPosition: GeoPoint(latitude: 47.4358055, longitude: 8.4737324),
-    areaLimit: BoundingBox(
-      east: 10.4922941,
-      north: 47.8084648,
-      south: 45.817995,
-      west: 5.9559113,
-    ),
-  );
 
   @override
   void initState() {
@@ -180,50 +172,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                 ),
               ),
             ]),
-            Container(
-              height: 300,
-              child: OSMFlutter(
-                  controller: controller,
-                  osmOption: OSMOption(
-                    userTrackingOption: UserTrackingOption(
-                      enableTracking: true,
-                      unFollowUser: false,
-                    ),
-                    zoomOption: ZoomOption(
-                      initZoom: 8,
-                      minZoomLevel: 3,
-                      maxZoomLevel: 19,
-                      stepZoom: 1.0,
-                    ),
-                    userLocationMarker: UserLocationMaker(
-                      personMarker: MarkerIcon(
-                        icon: Icon(
-                          Icons.location_history_rounded,
-                          color: Colors.red,
-                          size: 48,
-                        ),
-                      ),
-                      directionArrowMarker: MarkerIcon(
-                        icon: Icon(
-                          Icons.double_arrow,
-                          size: 48,
-                        ),
-                      ),
-                    ),
-                    roadConfiguration: RoadOption(
-                      roadColor: Colors.yellowAccent,
-                    ),
-                    /* markerOption: MarkerOption(
-                      defaultMarker: MarkerIcon(
-                        icon: Icon(
-                          Icons.person_pin_circle,
-                          color: Colors.blue,
-                          size: 56,
-                        ),
-                      )
-                  ),*/
-                  )),
-            )
+            MapWidgets()
           ],
         ),
       ),
