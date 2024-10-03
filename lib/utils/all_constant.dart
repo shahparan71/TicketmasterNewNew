@@ -45,6 +45,7 @@ class AllConstant {
   static String DISCOVER_EVENT = "discover_event";
   static String SEAT_FINAL = "seat_final";
   static String DATE = "date";
+  static String PLACE = "place";
   static String TIME = "time";
   static String IAMGE_BIG_TEXT = "ImageBigText";
   static String EMAIL_DATE = "email_date";
