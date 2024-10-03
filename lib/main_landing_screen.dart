@@ -39,7 +39,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
   bool isMultiline = false;
 
   // default constructor
-  MapController controller = MapController(
+  MapController controllerM = MapController(
     initPosition: GeoPoint(latitude: 47.4358055, longitude: 8.4737324),
     areaLimit: BoundingBox(
       east: 10.4922941,
@@ -61,16 +61,33 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: AppColor.black(),
-        leading: GestureDetector(
-            onTap: () {
-              setState(() {
-                showHideStatusAppBarIcon = !showHideStatusAppBarIcon;
-              });
-            },
-            child: Icon(
-              Icons.close,
-              color: Colors.white,
-            )),
+        leading: Container(
+          width: 50,
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    showHideStatusAppBarIcon = !showHideStatusAppBarIcon;
+                  });
+                },
+                child: Icon(
+                  Icons.expand,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -409,7 +426,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
             child: Column(
               children: [
                 Container(
-                  height: 750,
+                  height: MediaQuery.of(context).size.height - 100,
                   child: Stack(
                     children: [
                       CarouselWithIndicatorDemo(),
@@ -502,89 +519,137 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  height: 500,
-                  decoration: BoxDecoration(
-                    color: AppColor.colorSecond(),
-                    //border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0)),
-                  ),
-                  child: Stack(
-                    children: [
-
-                      OSMFlutter(
-                          controller: controller,
-                          osmOption: OSMOption(
-                            userTrackingOption: UserTrackingOption(
-                              enableTracking: true,
-                              unFollowUser: false,
-                            ),
-                            zoomOption: ZoomOption(
-                              initZoom: 8,
-                              minZoomLevel: 3,
-                              maxZoomLevel: 19,
-                              stepZoom: 1.0,
-                            ),
-                            userLocationMarker: UserLocationMaker(
-                              personMarker: MarkerIcon(
-                                icon: Icon(
-                                  Icons.location_history_rounded,
-                                  color: Colors.red,
-                                  size: 48,
-                                ),
-                              ),
-                              directionArrowMarker: MarkerIcon(
-                                icon: Icon(
-                                  Icons.double_arrow,
-                                  size: 48,
-                                ),
-                              ),
-                            ),
-                            roadConfiguration: RoadOption(
-                              roadColor: Colors.yellowAccent,
-                            ),
-                            /*markerOption: MarkerOption(
-                              defaultMarker: MarkerIcon(
-                            icon: Icon(
-                              Icons.person_pin_circle,
-                              color: Colors.blue,
-                              size: 56,
-                            ),
-                          )),*/
-                          )),
-                      FutureBuilder<String>(
-                        future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE, "SofFi Stadium"),
-                        builder: (context, AsyncSnapshot<String> snapshot) {
-                          if (!snapshot.hasData) {
-                            return Container();
-                          } else {
-                            return GestureDetector(
-                              onTap: () async {
-                                showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE, "SofFi Stadium");
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    child: GestureDetector(
+                      onTap: () {
+                        print("35353");
+                      },
+                      child: Container(
+                        height: 250,
+                        decoration: BoxDecoration(
+                          color: AppColor.colorSecond(),
+                          //border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0)),
+                        ),
+                        child: Stack(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                print("35353");
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  child: Text(snapshot.data!,
-                                      maxLines: 2,
-                                      textAlign: TextAlign.center,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize:
-                                          PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ??
-                                              20,
-                                          fontFamily: "metropolis",
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.black38)),
-                                ),
-                              ),
-                            );
-                          }
-                        },
+                              child: OSMFlutter(
+                                  controller: controllerM,
+                                  onMapIsReady: (v) async {
+                                    print("ffs244 ${v}");
+                                    gotoPosition();
+                                  },
+                                  osmOption: OSMOption(
+                                    userTrackingOption: UserTrackingOption(
+                                      enableTracking: false,
+                                      unFollowUser: false,
+                                    ),
+                                    zoomOption: ZoomOption(
+                                      initZoom: 16,
+                                      minZoomLevel: 3,
+                                      maxZoomLevel: 19,
+                                      stepZoom: 1.0,
+                                    ),
+                                    userLocationMarker: UserLocationMaker(
+                                      personMarker: MarkerIcon(
+                                        icon: Icon(
+                                          Icons.location_history_rounded,
+                                          color: Colors.red,
+                                          size: 48,
+                                        ),
+                                      ),
+                                      directionArrowMarker: MarkerIcon(
+                                        icon: Icon(
+                                          Icons.double_arrow,
+                                          size: 48,
+                                        ),
+                                      ),
+                                    ),
+                                    roadConfiguration: RoadOption(
+                                      roadColor: Colors.yellowAccent,
+                                    ),
+                                    /*markerOption: MarkerOption(
+                                    defaultMarker: MarkerIcon(
+                                  icon: Icon(
+                                    Icons.person_pin_circle,
+                                    color: Colors.blue,
+                                    size: 56,
+                                  ),
+                                )),*/
+                                  )),
+                            ),
+                            FutureBuilder<String>(
+                              future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE, "SofFi Stadium"),
+                              builder: (context, AsyncSnapshot<String> snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Container();
+                                } else {
+                                  return GestureDetector(
+                                    onTap: () async {
+                                      showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE, "SofFi Stadium");
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        child: Text(snapshot.data!,
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontSize: PrefUtil.preferences!
+                                                        .getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ??
+                                                    20,
+                                                fontFamily: "metropolis",
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.black38)),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: ElevatedButton(
+                          child: Text("Get Directions",
+                              style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.all(10),
+                            elevation: 0.0,
+                            backgroundColor: AppColor.colorMain(),
+                            // Background color
+                            foregroundColor: Colors.white,
+                            // Text color
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
+                            ),
+                          ),
+                          onLongPress: () {
+                            putLatLong(AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG, "23.42424,92.8787");
+                          },
+                          onPressed: () async {},
+                        ),
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -631,4 +696,53 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
         });
   }
 
+  void putLatLong(String sec, String defaultTxt) {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            content: Container(
+              height: 200,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController, inputType: TextInputType.number),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColor.green(),
+                    ),
+                    onPressed: () {
+                      if (textEditingController.text.toString().isNotEmpty) {
+                        PrefUtil.preferences!.setString(sec, textEditingController.text);
+                        textEditingController.text = "";
+                        setState(() {});
+                      }
+
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+              //myPledge: model,
+            ),
+          );
+        }).then((v) {
+      gotoPosition();
+    });
+  }
+
+  Future<void> gotoPosition() async {
+    String? valueT = await PrefUtil.preferences!.getString("${AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG}");
+    if (valueT == null)
+      return;
+    else {
+      double lat = double.parse(valueT.split(",")[0]);
+      double long = double.parse(valueT.split(",")[1]);
+      await controllerM.moveTo(GeoPoint(latitude: lat, longitude: long), animate: true);
+    }
+  }
 }

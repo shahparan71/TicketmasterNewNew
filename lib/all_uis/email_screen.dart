@@ -844,7 +844,8 @@ class _EmailScreenState extends State<EmailScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
-                    Text('View Mobile Ticket'),
+                    Text('View Mobile Ticket',
+                        style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.white)),
                   ],
                 ),
               ),
