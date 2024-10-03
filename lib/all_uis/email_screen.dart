@@ -28,16 +28,18 @@ class _EmailScreenState extends State<EmailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColor.offWhite2(),
       body: Stack(
         children: [
           Positioned(
-            top: 110,
+            top: 90,
             left: 0,
             right: 0,
             bottom: 50,
             child: Container(
               height: MediaQuery.of(context).size.height - 100,
+              width: double.infinity,
+              color: Colors.white,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -54,7 +56,7 @@ class _EmailScreenState extends State<EmailScreen> {
             ),
           ),
           Positioned(
-            top: 50,
+            top: 30,
             left: 0,
             right: 0,
             child: Container(
@@ -127,6 +129,16 @@ class _EmailScreenState extends State<EmailScreen> {
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
               child: Column(
                 children: [
+                  Text(
+                    'Stay Connected',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      height: 1.5,
+                    ),
+                  ),
+                  SizedBox(height: 10),
                   // Social media icons
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -203,7 +215,7 @@ class _EmailScreenState extends State<EmailScreen> {
   Container buildContainerPaymentSummary() => Container(
         height: 600,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -233,7 +245,7 @@ class _EmailScreenState extends State<EmailScreen> {
               SizedBox(height: 8),
               Container(
                 height: 2,
-                color: Colors.black,
+                color: Colors.grey,
                 width: double.infinity,
               ),
               SizedBox(height: 8),
@@ -252,7 +264,7 @@ class _EmailScreenState extends State<EmailScreen> {
                   Text(
                     'VISA — 8762',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.black38,
                       fontSize: 16,
                     ),
                   ),
@@ -271,8 +283,8 @@ class _EmailScreenState extends State<EmailScreen> {
               Container(
                 padding: EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: Colors.black26),
                 ),
                 child: Row(
                   children: [
@@ -282,12 +294,23 @@ class _EmailScreenState extends State<EmailScreen> {
                     ),
                     SizedBox(width: 16),
                     Expanded(
-                      child: Text(
-                        "Mobile: Your phone's your ticket. Locate your tickets in your account - or in your app. When you go mobile, your tickets will not be emailed to you or available for print.",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Mobile: ',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                TextSpan(
+                                    text:
+                                        "Your phone's your ticket. Locate your tickets in your account - or in your app. When you go mobile, your tickets will not be emailed to you or available for print."),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ],
@@ -305,12 +328,15 @@ class _EmailScreenState extends State<EmailScreen> {
                     Container(
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Things to Know',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            'Things to Know',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -322,11 +348,11 @@ class _EmailScreenState extends State<EmailScreen> {
                     ListTile(
                       title: Text(
                         'Send Tickets to Your Group Ahead of Time',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                       ),
                       trailing: Icon(
                         Icons.arrow_forward_ios,
-                        color: Colors.black,
+                        color: Colors.black38,
                       ),
                       onTap: () {
                         // Handle tap
@@ -339,11 +365,11 @@ class _EmailScreenState extends State<EmailScreen> {
                     ListTile(
                       title: Text(
                         'Manage Your Account',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                       ),
                       trailing: Icon(
                         Icons.arrow_forward_ios,
-                        color: Colors.black,
+                        color: Colors.black38,
                       ),
                       onTap: () {
                         // Handle tap
@@ -376,7 +402,7 @@ class _EmailScreenState extends State<EmailScreen> {
       );
 
   Container buildContainerImportantInfo() => Container(
-        height: 600,
+        height: 610,
         width: double.infinity,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -389,7 +415,7 @@ class _EmailScreenState extends State<EmailScreen> {
                 height: 10,
               ),
               Container(
-                height: 200,
+                height: 250,
                 decoration: BoxDecoration(
                   color: Colors.blue.shade50,
                   boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
@@ -406,8 +432,15 @@ class _EmailScreenState extends State<EmailScreen> {
                         width: 10,
                       ),
                       Expanded(
-                        child: Text(
-                            "Important Event Info If you purchase tickets, you may receive customer service messages via email from the Chicago White Sox, including optional surveys regarding your baseball experience. Ticket holder assumes all risk of injury from balls and bats entering the stands. For more information on which seating sections have netting or screening in front of them, please visit whitesox.com/netting."),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Important Event Info",
+                                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black)),
+                            Text(
+                                "Important Event Info If you purchase tickets, you may receive customer service messages via email from the Chicago White Sox, including optional surveys regarding your baseball experience. Ticket holder assumes all risk of injury from balls and bats entering the stands. For more information on which seating sections have netting or screening in front of them, please visit whitesox.com/netting."),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -423,7 +456,10 @@ class _EmailScreenState extends State<EmailScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset("assets/images/paper-plane.png"),
-                          Text("Transfer Tickets to Friends", style: TextStyle(color: Colors.black, fontSize: 20)),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text("Transfer Tickets to Friends", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w700, fontSize: 20)),
                           SizedBox(
                             height: 20,
                           ),
@@ -441,7 +477,7 @@ class _EmailScreenState extends State<EmailScreen> {
                               borderRadius: BorderRadius.all(Radius.circular(2)),
                             ),
                             child: Center(
-                                child: Text("Manage My Tickets", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16))),
+                                child: Text("Manage My Tickets", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 16))),
                           )
                         ],
                       ),
@@ -456,7 +492,6 @@ class _EmailScreenState extends State<EmailScreen> {
     return Container(
       height: 50,
       margin: EdgeInsets.symmetric(horizontal: 30),
-      color: Colors.black,
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Row(
@@ -586,7 +621,6 @@ class _EmailScreenState extends State<EmailScreen> {
     return Container(
       height: 380,
       margin: EdgeInsets.symmetric(horizontal: 30),
-      color: Colors.black,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -655,7 +689,7 @@ class _EmailScreenState extends State<EmailScreen> {
   Container buildContainerTicketInfo(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30),
-      color: Colors.black,
+      color: Colors.white,
       width: double.infinity,
       child: SingleChildScrollView(
         child: Padding(
