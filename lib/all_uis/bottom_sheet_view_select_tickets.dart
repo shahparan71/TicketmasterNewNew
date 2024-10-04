@@ -130,7 +130,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
             ),
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
