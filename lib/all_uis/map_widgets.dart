@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+import 'package:map_launcher/map_launcher.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
@@ -42,7 +44,7 @@ class _MapWidgetsState extends State<MapWidgets> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(30)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
             child: Container(
               height: 250,
               decoration: BoxDecoration(
@@ -107,7 +109,7 @@ class _MapWidgetsState extends State<MapWidgets> {
                             putLatLong(AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE, "SofFi Stadium");
                           },
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
                             child: Container(
                               child: Text(snapshot.data!,
                                   maxLines: 2,
@@ -154,7 +156,19 @@ class _MapWidgetsState extends State<MapWidgets> {
                   onLongPress: () {
                     putLatLong(AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG, "23.42424,92.8787");
                   },
-                  onPressed: () async {},
+                  onPressed: () async {
+                    String? latLong = await PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG);
+
+                    if (latLong == null || latLong.isEmpty) return;
+
+                    final availableMaps = await MapLauncher.installedMaps;
+                    print(availableMaps); // [AvailableMap { mapName: Google Maps, mapType: google }, ...]
+
+                    await availableMaps.first.showMarker(
+                      coords: Coords(double.parse(latLong.split(",")[0]), double.parse(latLong.split(",")[1])),
+                      title: "Basundara",
+                    );
+                  },
                 ),
               ),
             ],
@@ -193,10 +207,6 @@ class _MapWidgetsState extends State<MapWidgets> {
             width: 40,
             height: 40,
           ),
-          /*icon: Icon(
-            Icons.location_history,
-            color: Colors.black,
-          ),*/
         ),
       );
     }

@@ -519,6 +519,4 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
       ),
     ));
   }
-
-
 }
