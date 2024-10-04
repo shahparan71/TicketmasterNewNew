@@ -134,7 +134,7 @@ class _MapWidgetsState extends State<MapWidgets> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 40),
           child: Row(
             children: [
               Expanded(
