@@ -38,7 +38,9 @@ class _QRViewMainState extends State<QRViewMain> {
         child: Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.black(),
-        leading: Icon(Icons.close),
+        leading: GestureDetector(onTap: () {
+          Navigator.of(context).pop();
+        }, child: Icon(Icons.close,color: Colors.white,)),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -83,7 +85,8 @@ class _QRViewMainState extends State<QRViewMain> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           FutureBuilder<String>(
-                            future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour"),
+                            future: CommonOperation.getSharedData(
+                                AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour"),
                             builder: (context, AsyncSnapshot<String> snapshot) {
                               if (!snapshot.hasData) {
                                 return Container();
@@ -98,7 +101,8 @@ class _QRViewMainState extends State<QRViewMain> {
                                         textAlign: TextAlign.left,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
+                                        style:
+                                            TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
                                   ),
                                 );
                               }
@@ -119,8 +123,10 @@ class _QRViewMainState extends State<QRViewMain> {
                                   },
                                   child: Container(
                                     width: MediaQuery.of(context).size.width - 100,
-                                    child:
-                                        Text(snapshot.data!, textAlign: TextAlign.left, style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
+                                    child: Text(snapshot.data!,
+                                        textAlign: TextAlign.left,
+                                        style:
+                                            TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
                                   ),
                                 );
                               }
@@ -169,7 +175,8 @@ class _QRViewMainState extends State<QRViewMain> {
                                       children: [
                                         Container(),
                                         FutureBuilder<String>(
-                                          future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
+                                          future: CommonOperation.getSharedData(
+                                              AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
                                           builder: (context, AsyncSnapshot<String> snapshot) {
                                             if (!snapshot.hasData) {
                                               return Container();
@@ -178,7 +185,12 @@ class _QRViewMainState extends State<QRViewMain> {
                                                 onTap: () {
                                                   showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer");
                                                 },
-                                                child: Text(snapshot.data!, style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white())),
+                                                child: Text(snapshot.data!,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontFamily: "metropolis",
+                                                        fontWeight: FontWeight.normal,
+                                                        color: AppColor.white())),
                                               );
                                             }
                                           },
@@ -210,7 +222,9 @@ class _QRViewMainState extends State<QRViewMain> {
                                             showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7, "American VIP - 7");
                                           },
                                           child: Center(
-                                            child: Text(snapshot.data!, style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.white)),
+                                            child: Text(snapshot.data!,
+                                                style: TextStyle(
+                                                    fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.white)),
                                           ),
                                         );
                                       }
@@ -277,7 +291,8 @@ class _QRViewMainState extends State<QRViewMain> {
                                 onTap: () {
                                   showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.TWO_OF_TWO, "2 of 2");
                                 },
-                                child: Text(snapshot.data!, style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black26)),
+                                child: Text(snapshot.data!,
+                                    style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black26)),
                               );
                             }
                           },
@@ -305,7 +320,8 @@ class _QRViewMainState extends State<QRViewMain> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ElevatedButton(
-                          child: Text("Transfer", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                          child: Text("Transfer",
+                              style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                           /*style: ElevatedButton.styleFrom(
                             backgroundColor: AppColor.colorMain(),
                           ),*/
@@ -329,14 +345,17 @@ class _QRViewMainState extends State<QRViewMain> {
                         TextButton(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: Text("Sell", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                            child: Text("Sell",
+                                style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                           ),
-                         /* style: ElevatedButton.styleFrom(
+                          /* style: ElevatedButton.styleFrom(
                             backgroundColor: AppColor.colorMain().withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
                           ),*/
                           style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain().withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4)),
-                              backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain().withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4)),
+                              foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()
+                                  .withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4)),
+                              backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()
+                                  .withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4)),
                               elevation: MaterialStateProperty.all(0.0),
                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
@@ -391,7 +410,8 @@ class _QRViewMainState extends State<QRViewMain> {
                           onTap: () {
                             showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "303");
                           },
-                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
+                          child: Text(snapshot.data!,
+                              style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
                         );
                       }
                     },
@@ -414,7 +434,8 @@ class _QRViewMainState extends State<QRViewMain> {
                           onTap: () {
                             showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, "5");
                           },
-                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
+                          child: Text(snapshot.data!,
+                              style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
                         );
                       }
                     },
@@ -435,9 +456,10 @@ class _QRViewMainState extends State<QRViewMain> {
                       } else {
                         return GestureDetector(
                           onTap: () {
-                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT, "4",textInputType: TextInputType.number);
+                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT, "4", textInputType: TextInputType.number);
                           },
-                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
+                          child: Text(snapshot.data!,
+                              style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
                         );
                       }
                     },
@@ -451,7 +473,7 @@ class _QRViewMainState extends State<QRViewMain> {
     );
   }
 
-  void showDialogInput(String sec, String defaultTxt,{TextInputType? textInputType}) {
+  void showDialogInput(String sec, String defaultTxt, {TextInputType? textInputType}) {
     showDialog(
         context: context,
         builder: (_) {
@@ -461,7 +483,7 @@ class _QRViewMainState extends State<QRViewMain> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,inputType:textInputType ),
+                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController, inputType: textInputType),
                   SizedBox(
                     height: 20,
                   ),

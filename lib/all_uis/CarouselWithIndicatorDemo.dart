@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/all_uis/QRView.dart';
@@ -72,6 +73,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
     return Scaffold(
       //appBar: AppBar(title: Text('Carousel with indicator demo')),
       resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
       body: Column(children: [
         CarouselSlider(
           items: imageSlidersM,
@@ -153,7 +155,8 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                               onTap: () {
                                 showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer");
                               },
-                              child: Text(snapshot.data!, style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white())),
+                              child: Text(snapshot.data!,
+                                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white())),
                             );
                           }
                         },
@@ -180,7 +183,8 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                                 onTap: () {
                                   showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7, "American VIP - 7");
                                 },
-                                child: Text(snapshot.data!, style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black)),
+                                child: Text(snapshot.data!,
+                                    style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black)),
                               );
                             }
                           },
@@ -224,7 +228,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                             assetUrl == 4
                                 ? Container()
                                 : GestureDetector(
-                                    child: Text("View Barcode", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.colorSecond())),
+                                    child: Text("View Barcode",
+                                        style: TextStyle(
+                                            fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.colorSecond())),
                                     onTap: () {
                                       Navigator.push(
                                         context,
@@ -239,7 +245,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                                   MaterialPageRoute(builder: (context) => TicketDetails()),
                                 );
                               },
-                              child: Text("Ticket Details", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.colorSecond())),
+                              child: Text("Ticket Details",
+                                  style:
+                                      TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.colorSecond())),
                             ),
                           ],
                         ),
@@ -360,7 +368,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
               children: [
                 Column(
                   children: [
-                    Text("SEC", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                    Text("SEC",
+                        style:
+                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
                     SizedBox(
                       height: 5,
                     ),
@@ -374,7 +384,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                             onTap: () {
                               showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "303");
                             },
-                            child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                            child: Text(snapshot.data!,
+                                style: TextStyle(
+                                    fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
                           );
                         }
                       },
@@ -383,7 +395,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                 ),
                 Column(
                   children: [
-                    Text("ROW", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                    Text("ROW",
+                        style:
+                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
                     SizedBox(
                       height: 5,
                     ),
@@ -397,7 +411,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                             onTap: () {
                               showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, "5");
                             },
-                            child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                            child: Text(snapshot.data!,
+                                style: TextStyle(
+                                    fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
                           );
                         }
                       },
@@ -406,21 +422,27 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                 ),
                 Column(
                   children: [
-                    Text("SEAT", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                    Text("SEAT",
+                        style:
+                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
                     SizedBox(
                       height: 5,
                     ),
                     FutureBuilder<String>(
-                      future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _current.toString(), _current.toString()),
+                      future:
+                          CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _current.toString(), _current.toString()),
                       builder: (context, AsyncSnapshot<String> snapshot) {
                         if (!snapshot.hasData) {
                           return Container();
                         } else {
                           return GestureDetector(
                             onTap: () {
-                              showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _current.toString(), _current.toString(),inputType: TextInputType.number);
+                              showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _current.toString(), _current.toString(),
+                                  inputType: TextInputType.number);
                             },
-                            child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                            child: Text(snapshot.data!,
+                                style: TextStyle(
+                                    fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
                           );
                         }
                       },
@@ -537,7 +559,8 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                     PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE) == null ||
                             PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE) == false
                         ? FutureBuilder<String>(
-                            future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour"),
+                            future: CommonOperation.getSharedData(
+                                AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour"),
                             builder: (context, AsyncSnapshot<String> snapshot) {
                               if (!snapshot.hasData) {
                                 return Container();
@@ -552,7 +575,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                                         textAlign: TextAlign.center,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                            fontSize: PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain) ?? 18,
+                                            fontSize: PrefUtil.preferences!
+                                                    .getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain) ??
+                                                18,
                                             fontFamily: "metropolis",
                                             fontWeight: CommonOperation.getFontWeight(),
                                             color: AppColor.white())),
@@ -566,7 +591,8 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                       height: 2,
                     ),
                     FutureBuilder<String>(
-                      future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT_2, "Taylor Swift | The Eras Tour"),
+                      future: CommonOperation.getSharedData(
+                          AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT_2, "Taylor Swift | The Eras Tour"),
                       builder: (context, AsyncSnapshot<String> snapshot) {
                         if (!snapshot.hasData) {
                           return Container();
@@ -581,7 +607,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                                   textAlign: TextAlign.center,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      fontSize: PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain) ?? 18,
+                                      fontSize:
+                                          PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain) ??
+                                              18,
                                       fontFamily: "metropolis",
                                       fontWeight: CommonOperation.getFontWeight(),
                                       color: AppColor.white())),
@@ -609,7 +637,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
                                   textAlign: TextAlign.center,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      fontSize: PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ?? 14,
+                                      fontSize:
+                                          PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ??
+                                              14,
                                       fontFamily: "metropolis",
                                       fontWeight: CommonOperation.getFontWeight2(),
                                       color: AppColor.white())),
@@ -655,7 +685,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,inputType: inputType),
+                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController, inputType: inputType),
                   SizedBox(
                     height: 20,
                   ),
