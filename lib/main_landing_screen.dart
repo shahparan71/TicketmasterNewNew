@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -55,29 +56,23 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
         backgroundColor: AppColor.black(),
         leading: Container(
           width: 50,
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      showHideStatusAppBarIcon = !showHideStatusAppBarIcon;
+                    });
+                  },
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    showHideStatusAppBarIcon = !showHideStatusAppBarIcon;
-                  });
-                },
-                child: Icon(
-                  Icons.expand,
-                  color: Colors.white,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         title: Row(
@@ -91,7 +86,12 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                   children: [
                     Text("My Tickets", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                     Container(),
-                    Text("Help", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("Help",
+                            style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white))),
                   ],
                 ),
               )
@@ -511,7 +511,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                MapWidgets()
+                Platform.isAndroid?Container(): MapWidgets()
               ],
             ),
           ),
