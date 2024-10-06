@@ -172,7 +172,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                 ),
               ),
             ]),
-            MapWidgets()
+            Platform.isAndroid?Container(): MapWidgets()
           ],
         ),
       ),

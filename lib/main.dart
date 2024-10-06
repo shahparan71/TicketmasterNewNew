@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -598,7 +599,7 @@ class _MyHomePageState extends State<MyHomePage> {
             print(value['date']);
             print("value['isEnable']");
 
-            listUser.add(new User(name: value['name'], date: value['date'], isEnable: value['isEnable'], id: key));
+            listUser.add(new User(name: value['name'], date: value['date'], isEnable: value['isEnable'], id: key.toString()));
           } catch (e) {}
         });
       } else if (snapshot.value is Map) {
@@ -610,7 +611,7 @@ class _MyHomePageState extends State<MyHomePage> {
           print(value['date']);
           print("value['isEnable']");
 
-          listUser.add(new User(name: value['name'], date: value['date'], isEnable: value['isEnable'], id: int.parse(key)));
+          listUser.add(new User(name: value['name'], date: value['date'], isEnable: value['isEnable'], id: key));
         });
       }
 
@@ -635,11 +636,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class User {
   String? name;
-  int? id;
+  String? id;
   String? date;
   bool? isEnable;
 
   User.name();
+
 
   User({this.name, this.id, this.date, this.isEnable});
 }
