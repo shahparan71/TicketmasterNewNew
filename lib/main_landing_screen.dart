@@ -39,7 +39,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
   bool isMultiline = false;
 
   // default constructor
-  MapController controller = MapController(
+  MapController controllerMap = MapController(
     initPosition: GeoPoint(latitude: 47.4358055, longitude: 8.4737324),
     areaLimit: BoundingBox(
       east: 10.4922941,
@@ -503,7 +503,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                   height: 10,
                 ),
                 Container(
-                  height: 500,
+                  height: 250,
                   decoration: BoxDecoration(
                     color: AppColor.colorSecond(),
                     //border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
@@ -511,16 +511,15 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                   ),
                   child: Stack(
                     children: [
-
                       OSMFlutter(
-                          controller: controller,
+                          controller: controllerMap,
                           osmOption: OSMOption(
                             userTrackingOption: UserTrackingOption(
-                              enableTracking: true,
+                              enableTracking: false,
                               unFollowUser: false,
                             ),
                             zoomOption: ZoomOption(
-                              initZoom: 8,
+                              initZoom: 15,
                               minZoomLevel: 3,
                               maxZoomLevel: 19,
                               stepZoom: 1.0,
@@ -570,8 +569,8 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                                       textAlign: TextAlign.center,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                          fontSize:
-                                          PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ??
+                                          fontSize: PrefUtil.preferences!
+                                                  .getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ??
                                               20,
                                           fontFamily: "metropolis",
                                           fontWeight: FontWeight.w700,
@@ -630,5 +629,4 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
           );
         });
   }
-
 }
