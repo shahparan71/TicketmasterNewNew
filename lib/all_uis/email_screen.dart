@@ -213,7 +213,7 @@ class _EmailScreenState extends State<EmailScreen> {
       );
 
   Container buildContainerPaymentSummary() => Container(
-        height: 600,
+        height: 650,
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
@@ -402,7 +402,7 @@ class _EmailScreenState extends State<EmailScreen> {
       );
 
   Container buildContainerImportantInfo() => Container(
-        height: 610,
+        height: 650,
         width: double.infinity,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -415,7 +415,7 @@ class _EmailScreenState extends State<EmailScreen> {
                 height: 10,
               ),
               Container(
-                height: 250,
+                height: 260,
                 decoration: BoxDecoration(
                   color: Colors.blue.shade50,
                   boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
@@ -844,7 +844,8 @@ class _EmailScreenState extends State<EmailScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
-                    Text('View Mobile Ticket'),
+                    Text('View Mobile Ticket',
+                        style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.white)),
                   ],
                 ),
               ),

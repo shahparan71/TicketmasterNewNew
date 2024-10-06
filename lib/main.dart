@@ -73,14 +73,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   TextEditingController textEditingControllerID = TextEditingController();
   TextEditingController textEditingControllerPass = TextEditingController();
 
   int changeView = 0;
   List<User> listUser = [];
-
   bool dateLoading = false;
-
   bool isAdmin = false;
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,6 +10,7 @@ import 'package:ticket_master/all_uis/CarouselWithIndicatorDemo.dart';
 import 'package:ticket_master/all_uis/QRView.dart';
 
 import 'package:ticket_master/all_uis/bottom_sheet_view_select_tickets.dart';
+import 'package:ticket_master/all_uis/map_widgets.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
@@ -38,17 +41,6 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
 
   bool isMultiline = false;
 
-  // default constructor
-  MapController controllerMap = MapController(
-    initPosition: GeoPoint(latitude: 47.4358055, longitude: 8.4737324),
-    areaLimit: BoundingBox(
-      east: 10.4922941,
-      north: 47.8084648,
-      south: 45.817995,
-      west: 5.9559113,
-    ),
-  );
-
   @override
   void initState() {
     super.initState();
@@ -61,16 +53,33 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: AppColor.black(),
-        leading: GestureDetector(
-            onTap: () {
-              setState(() {
-                showHideStatusAppBarIcon = !showHideStatusAppBarIcon;
-              });
-            },
-            child: Icon(
-              Icons.close,
-              color: Colors.white,
-            )),
+        leading: Container(
+          width: 50,
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    showHideStatusAppBarIcon = !showHideStatusAppBarIcon;
+                  });
+                },
+                child: Icon(
+                  Icons.expand,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -409,7 +418,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
             child: Column(
               children: [
                 Container(
-                  height: 750,
+                  height: MediaQuery.of(context).size.height - 100,
                   child: Stack(
                     children: [
                       CarouselWithIndicatorDemo(),
@@ -502,131 +511,12 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  height: 250,
-                  decoration: BoxDecoration(
-                    color: AppColor.colorSecond(),
-                    //border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0)),
-                  ),
-                  child: Stack(
-                    children: [
-                      OSMFlutter(
-                          controller: controllerMap,
-                          osmOption: OSMOption(
-                            userTrackingOption: UserTrackingOption(
-                              enableTracking: false,
-                              unFollowUser: false,
-                            ),
-                            zoomOption: ZoomOption(
-                              initZoom: 15,
-                              minZoomLevel: 3,
-                              maxZoomLevel: 19,
-                              stepZoom: 1.0,
-                            ),
-                            userLocationMarker: UserLocationMaker(
-                              personMarker: MarkerIcon(
-                                icon: Icon(
-                                  Icons.location_history_rounded,
-                                  color: Colors.red,
-                                  size: 48,
-                                ),
-                              ),
-                              directionArrowMarker: MarkerIcon(
-                                icon: Icon(
-                                  Icons.double_arrow,
-                                  size: 48,
-                                ),
-                              ),
-                            ),
-                            roadConfiguration: RoadOption(
-                              roadColor: Colors.yellowAccent,
-                            ),
-                            /*markerOption: MarkerOption(
-                              defaultMarker: MarkerIcon(
-                            icon: Icon(
-                              Icons.person_pin_circle,
-                              color: Colors.blue,
-                              size: 56,
-                            ),
-                          )),*/
-                          )),
-                      FutureBuilder<String>(
-                        future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE, "SofFi Stadium"),
-                        builder: (context, AsyncSnapshot<String> snapshot) {
-                          if (!snapshot.hasData) {
-                            return Container();
-                          } else {
-                            return GestureDetector(
-                              onTap: () async {
-                                showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE, "SofFi Stadium");
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  child: Text(snapshot.data!,
-                                      maxLines: 2,
-                                      textAlign: TextAlign.center,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize: PrefUtil.preferences!
-                                                  .getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ??
-                                              20,
-                                          fontFamily: "metropolis",
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.black38)),
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                )
+                MapWidgets()
               ],
             ),
           ),
         ),
       ),
     ));
-  }
-
-  void showDialogInput(String sec, String defaultTxt) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      print("totalAnnualWestController.value");
-                      print(textEditingController.text);
-                      if (textEditingController.text.toString().isNotEmpty) {
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
-                        textEditingController.text = "";
-                        setState(() {});
-                      }
-                    },
-                  ),
-                ],
-              ),
-              //myPledge: model,
-            ),
-          );
-        });
   }
 }
