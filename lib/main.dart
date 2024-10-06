@@ -642,6 +642,7 @@ class User {
 
   User.name();
 
+
   User({this.name, this.id, this.date, this.isEnable});
 }
 
