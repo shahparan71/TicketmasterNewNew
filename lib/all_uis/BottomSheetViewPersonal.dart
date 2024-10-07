@@ -72,7 +72,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                 height: 5,
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -83,7 +83,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -132,7 +132,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Container(
                 height: 380,

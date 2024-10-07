@@ -414,106 +414,104 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
         height: MediaQuery.of(context).size.height,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height - 100,
-                  child: Stack(
-                    children: [
-                      CarouselWithIndicatorDemo(),
-                      Positioned.fill(
-                        child: Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25),
-                            child: Container(
-                              height: 100,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  //buildRowFourDot(),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: ElevatedButton(
-                                          child: Text("Transfer",
-                                              style: TextStyle(
-                                                  fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                                          /*style: ElevatedButton.styleFrom(
-                                            backgroundColor: AppColor.colorMain(),
-                                          ),*/
-                                          style: ElevatedButton.styleFrom(
-                                            padding: const EdgeInsets.all(10),
-                                            elevation: 0.0,
-                                            backgroundColor: AppColor.colorMain(),
-                                            // Background color
-                                            foregroundColor: Colors.white,
-                                            // Text color
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
-                                            ),
+          child: Column(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height - 130,
+                child: Stack(
+                  children: [
+                    CarouselWithIndicatorDemo(),
+                    Positioned.fill(
+                      child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25),
+                          child: Container(
+                            height: 100,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                //buildRowFourDot(),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: ElevatedButton(
+                                        child: Text("Transfer",
+                                            style: TextStyle(
+                                                fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                                        /*style: ElevatedButton.styleFrom(
+                                          backgroundColor: AppColor.colorMain(),
+                                        ),*/
+                                        style: ElevatedButton.styleFrom(
+                                          padding: const EdgeInsets.all(10),
+                                          elevation: 0.0,
+                                          backgroundColor: AppColor.colorMain(),
+                                          // Background color
+                                          foregroundColor: Colors.white,
+                                          // Text color
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
                                           ),
-                                          onPressed: () async {
-                                            showMaterialModalBottomSheet(
-                                              context: context,
-                                              builder: (context) => Container(
-                                                height: MediaQuery.of(context).size.height - 400,
-                                                child: BottomSheetViewSelectTickets(),
-                                              ),
-                                            );
-                                          },
                                         ),
-                                      ),
-                                      Expanded(flex: 1, child: Container()),
-                                      Expanded(
-                                        flex: 1,
-                                        child: TextButton(
-                                          child: Text("Sell",
-                                              style: TextStyle(
-                                                  fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                                          /*style: ElevatedButton.styleFrom(
-                                            backgroundColor: AppColor.colorMain().withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
-                                          ),*/
-                                          style: ElevatedButton.styleFrom(
-                                            padding: const EdgeInsets.all(10),
-                                            elevation: 0.0,
-                                            backgroundColor: AppColor.colorMain().withOpacity(
-                                                PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
-                                            // Background color
-                                            foregroundColor: Colors.white,
-                                            // Text color
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
+                                        onPressed: () async {
+                                          showMaterialModalBottomSheet(
+                                            context: context,
+                                            builder: (context) => Container(
+                                              height: MediaQuery.of(context).size.height - 400,
+                                              child: BottomSheetViewSelectTickets(),
                                             ),
-                                          ),
-                                          onPressed: () async {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(builder: (context) => QRViewMain()),
-                                            );
-                                          },
-                                        ),
+                                          );
+                                        },
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                    ),
+                                    Expanded(flex: 1, child: Container()),
+                                    Expanded(
+                                      flex: 1,
+                                      child: TextButton(
+                                        child: Text("Sell",
+                                            style: TextStyle(
+                                                fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                                        /*style: ElevatedButton.styleFrom(
+                                          backgroundColor: AppColor.colorMain().withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
+                                        ),*/
+                                        style: ElevatedButton.styleFrom(
+                                          padding: const EdgeInsets.all(10),
+                                          elevation: 0.0,
+                                          backgroundColor: AppColor.colorMain().withOpacity(
+                                              PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
+                                          // Background color
+                                          foregroundColor: Colors.white,
+                                          // Text color
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
+                                          ),
+                                        ),
+                                        onPressed: () async {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => QRViewMain()),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Platform.isAndroid?Container(): MapWidgets()
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Platform.isAndroid?Container(): MapWidgets()
+            ],
           ),
         ),
       ),

@@ -83,98 +83,96 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
           style: TextStyle(color: Colors.white, fontSize: 18),
         )),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Column(children: [
-              SizedBox(
-                height: 30,
-              ),
-              CarouselSlider(
-                items: imageSlidersM,
-                options: CarouselOptions(
-                    enableInfiniteScroll: false,
-                    viewportFraction: dblViewPort ?? 0.9,
-                    height: MediaQuery.of(context).size.height - 200,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _current = index;
-                        print("_current");
-                        print(_current);
-                      });
-                    }),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: imgList.map((url) {
-                  int index = imgList.indexOf(url);
-                  return Container(
-                    width: _current == index ? 10.0 : 8.0,
-                    height: _current == index ? 10.0 : 8.0,
-                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _current == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
+      body: Column(
+        children: [
+          Column(children: [
+            SizedBox(
+              height: 20,
+            ),
+            CarouselSlider(
+              items: imageSlidersM,
+              options: CarouselOptions(
+                  enableInfiniteScroll: false,
+                  viewportFraction: dblViewPort ?? 0.9,
+                  height: MediaQuery.of(context).size.height - 200,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index;
+                      print("_current");
+                      print(_current);
+                    });
+                  }),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: imgList.map((url) {
+                int index = imgList.indexOf(url);
+                return Container(
+                  width: _current == index ? 10.0 : 8.0,
+                  height: _current == index ? 10.0 : 8.0,
+                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _current == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
+                  ),
+                );
+              }).toList(),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: ElevatedButton(
+                      child: Text("Transfer",
+                          style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                      style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                          backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                          elevation: MaterialStateProperty.all(0.0),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
+                          ))),
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
+                        );
+                      },
                     ),
-                  );
-                }).toList(),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: ElevatedButton(
-                        child: Text("Transfer",
-                            style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                        style: ButtonStyle(
-                            foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
-                            backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
-                            elevation: MaterialStateProperty.all(0.0),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
-                            ))),
-                        onPressed: () async {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
-                          );
-                        },
-                      ),
+                  ),
+                  Expanded(flex: 1, child: Container()),
+                  Expanded(
+                    flex: 1,
+                    child: TextButton(
+                      child: Text("Sell",
+                          style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                      /*style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
+                      ),*/
+                      style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
+                          backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
+                          elevation: MaterialStateProperty.all(0.0),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
+                          ))),
+                      onPressed: () async {
+                        /*Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => QRViewMain()),
+                        );*/
+                      },
                     ),
-                    Expanded(flex: 1, child: Container()),
-                    Expanded(
-                      flex: 1,
-                      child: TextButton(
-                        child: Text("Sell",
-                            style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                        /*style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
-                        ),*/
-                        style: ButtonStyle(
-                            foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                            backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                            elevation: MaterialStateProperty.all(0.0),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
-                            ))),
-                        onPressed: () async {
-                          /*Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => QRViewMain()),
-                          );*/
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ]),
-            Platform.isAndroid?Container(): MapWidgets()
-          ],
-        ),
+            ),
+          ]),
+          //Platform.isAndroid?Container(): MapWidgets()
+        ],
       ),
     );
   }
@@ -192,122 +190,122 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
         height: MediaQuery.of(context).size.height - 200,
-        child: Stack(
+        child: Column(
           children: [
-            Column(
-              children: [
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: AppColor.colorGryaBlackMyTicket,
+            Container(
+              height: MediaQuery.of(context).size.height - 250,
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: AppColor.colorGryaBlackMyTicket,
 
-                    boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                    //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
-                  ),
-                  height: 40,
-                  child: Center(
-                    child: FutureBuilder<String>(
-                      future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
-                      builder: (context, AsyncSnapshot<String> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container();
-                        } else {
-                          return GestureDetector(
-                            onTap: () {},
-                            child: Text(snapshot.data!,
-                                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white())),
-                          );
-                        }
-                      },
+                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+                      //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+                      borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
+                    ),
+                    height: 40,
+                    child: Center(
+                      child: FutureBuilder<String>(
+                        future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
+                        builder: (context, AsyncSnapshot<String> snapshot) {
+                          if (!snapshot.hasData) {
+                            return Container();
+                          } else {
+                            return GestureDetector(
+                              onTap: () {},
+                              child: Text(snapshot.data!,
+                                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white())),
+                            );
+                          }
+                        },
+                      ),
                     ),
                   ),
-                ),
-                buildContainerTopTex(),
-                buildContainerImageBox(context),
-                Container(
-                  height: 20,
-                  color: AppColor.colorSecond(),
-                  width: MediaQuery.of(context).size.width,
-                  child: Center(
-                      child: Text(
-                    "Sent",
-                    style: TextStyle(color: Colors.white),
-                  )),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "${widget.ticketCount} tickets sent to",
-                        style: TextStyle(color: Colors.black.withOpacity(0.8), fontSize: 16),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text("${PrefUtil.preferences!.get(AllConstant.CURRENT_LIST_INDEX + AllConstant.EMAIL)} waiting for recipient to claim.",
-                          textAlign: TextAlign.center,
-                          //style: TextStyle(color: Colors.black.withOpacity(0.8)),
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: "metropolis",
-                              fontWeight: CommonOperation.getFontWeight2(),
-                              color: Colors.black.withOpacity(0.8))),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER, "6-44639/TOR");
-                        },
-                        child: Text("Order ${PrefUtil.preferences!.get(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER) ?? "6-44639/TOR"}",
+                  buildContainerTopTex(),
+                  buildContainerImageBox(context),
+                  Container(
+                    height: 20,
+                    color: AppColor.colorSecond(),
+                    width: MediaQuery.of(context).size.width,
+                    child: Center(
+                        child: Text(
+                      "Sent",
+                      style: TextStyle(color: Colors.white),
+                    )),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "${widget.ticketCount} tickets sent to",
+                          style: TextStyle(color: Colors.black.withOpacity(0.8), fontSize: 16),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text("${PrefUtil.preferences!.get(AllConstant.CURRENT_LIST_INDEX + AllConstant.EMAIL)} waiting for recipient to claim.",
+                            textAlign: TextAlign.center,
+                            //style: TextStyle(color: Colors.black.withOpacity(0.8)),
                             style: TextStyle(
                                 fontSize: 14,
                                 fontFamily: "metropolis",
                                 fontWeight: CommonOperation.getFontWeight2(),
                                 color: Colors.black.withOpacity(0.8))),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER, "6-44639/TOR");
-                        },
-                        child: Text("Cancel Transfer",
-                            style: TextStyle(
-                                fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.blueAccent.withOpacity(0.8))),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-            Positioned.fill(
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppColor.colorGryaBlackMyTicket,
-                      border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
-                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                      //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER, "6-44639/TOR");
+                          },
+                          child: Text("Order ${PrefUtil.preferences!.get(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER) ?? "6-44639/TOR"}",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: "metropolis",
+                                  fontWeight: CommonOperation.getFontWeight2(),
+                                  color: Colors.black.withOpacity(0.8))),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER, "6-44639/TOR");
+                          },
+                          child: Text("Cancel Transfer",
+                              style: TextStyle(
+                                  fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.blueAccent.withOpacity(0.8))),
+                        ),
+                      ],
                     ),
-                    height: 40,
-                    child: Center(
-                      child: Image.asset(
-                        "assets/images/icon_my_account/logo_ticket.png",
-                        height: 20,
-                      ),
-                    ),
-                  )),
+                  )
+                ],
+              ),
             ),
+            Container(
+              decoration: BoxDecoration(
+                color: AppColor.colorGryaBlackMyTicket,
+                border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
+                boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+                //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
+              ),
+              height: 40,
+              child: Center(
+                child: Image.asset(
+                  "assets/images/icon_my_account/logo_ticket.png",
+                  height: 20,
+                ),
+              ),
+            ),
+
           ],
         ),
       ),
