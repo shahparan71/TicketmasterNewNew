@@ -347,6 +347,9 @@ class _MyAccountState extends State<MyAccount> {
                         height: 40,
                       ),
                       getRowWidget("assets/images/icon_my_account/logout.png", 'Sign Out', color: Colors.red.withOpacity(0.8)),
+                      SizedBox(
+                        height: 40,
+                      ),
                     ],
                   ),
                 ),

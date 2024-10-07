@@ -56,7 +56,7 @@ class _DiscoverState extends State<Discover> {
                         ),
                         Center(
                           child: Container(
-                            height: 62,
+                            height: 70,
                             child: Column(
                               children: [
                                 FutureBuilder<String>(
