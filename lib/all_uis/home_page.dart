@@ -9,6 +9,7 @@ import 'package:ticket_master/main_landing_screen.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
+import 'package:ticket_master/utils/main_landing_screen_ios.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 
 class HomePage extends StatefulWidget {
@@ -139,10 +140,15 @@ class _HomePageState extends State<HomePage> {
                                     child: GestureDetector(
                                   onTap: () {
                                     AllConstant.CURRENT_LIST_INDEX = index.toString();
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => MainLandingScreen()),
-                                    );
+                                    Platform.isIOS
+                                        ? Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => MainLandingScreenIOS()),
+                                          )
+                                        : Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => MainLandingScreen()),
+                                          );
                                   },
                                   child: Container(
                                     height: double.infinity,
@@ -164,7 +170,8 @@ class _HomePageState extends State<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    PrefUtil.preferences!.getBool(index.toString() + AllConstant.TAX_EMP) == null || PrefUtil.preferences!.getBool(index.toString() + AllConstant.TAX_EMP) == false
+                                    PrefUtil.preferences!.getBool(index.toString() + AllConstant.TAX_EMP) == null ||
+                                            PrefUtil.preferences!.getBool(index.toString() + AllConstant.TAX_EMP) == false
                                         ? GestureDetector(
                                             onTap: () {
                                               setState(() {
@@ -183,7 +190,8 @@ class _HomePageState extends State<HomePage> {
                                     PrefUtil.preferences!.getBool(index.toString() + AllConstant.IS_MULTILINE) == null ||
                                             PrefUtil.preferences!.getBool(index.toString() + AllConstant.IS_MULTILINE) == false
                                         ? FutureBuilder<String>(
-                                            future: CommonOperation.getSharedData(index.toString() + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour"),
+                                            future: CommonOperation.getSharedData(
+                                                index.toString() + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour"),
                                             builder: (context, AsyncSnapshot<String> snapshot) {
                                               if (!snapshot.hasData) {
                                                 return Container();
@@ -198,7 +206,9 @@ class _HomePageState extends State<HomePage> {
                                                         textAlign: TextAlign.start,
                                                         overflow: TextOverflow.ellipsis,
                                                         style: TextStyle(
-                                                            fontSize: PrefUtil.preferences!.getDouble(index.toString() + AllConstant.IncreaseDecreaseFontMain) ?? 18,
+                                                            fontSize: PrefUtil.preferences!
+                                                                    .getDouble(index.toString() + AllConstant.IncreaseDecreaseFontMain) ??
+                                                                18,
                                                             fontFamily: "metropolis",
                                                             fontWeight: CommonOperation.getFontWeight(),
                                                             color: AppColor.white())),
@@ -212,7 +222,8 @@ class _HomePageState extends State<HomePage> {
                                       height: 3,
                                     ),
                                     FutureBuilder<String>(
-                                      future: CommonOperation.getSharedData(index.toString() + AllConstant.IAMGE_BIG_TEXT_2, "Taylor Swift | The Eras Tour"),
+                                      future: CommonOperation.getSharedData(
+                                          index.toString() + AllConstant.IAMGE_BIG_TEXT_2, "Taylor Swift | The Eras Tour"),
                                       builder: (context, AsyncSnapshot<String> snapshot) {
                                         if (!snapshot.hasData) {
                                           return Container();
@@ -227,7 +238,9 @@ class _HomePageState extends State<HomePage> {
                                                   textAlign: TextAlign.start,
                                                   overflow: TextOverflow.ellipsis,
                                                   style: TextStyle(
-                                                      fontSize: PrefUtil.preferences!.getDouble(index.toString() + AllConstant.IncreaseDecreaseFontMain) ?? 18,
+                                                      fontSize:
+                                                          PrefUtil.preferences!.getDouble(index.toString() + AllConstant.IncreaseDecreaseFontMain) ??
+                                                              18,
                                                       fontFamily: "metropolis",
                                                       fontWeight: CommonOperation.getFontWeight(),
                                                       color: AppColor.white())),
@@ -245,7 +258,8 @@ class _HomePageState extends State<HomePage> {
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
                                           FutureBuilder<String>(
-                                            future: CommonOperation.getSharedData(index.toString() + AllConstant.DATE, "Sat, Dec 18, 4:30pm . SofFi Stadium"),
+                                            future: CommonOperation.getSharedData(
+                                                index.toString() + AllConstant.DATE, "Sat, Dec 18, 4:30pm . SofFi Stadium"),
                                             builder: (context, AsyncSnapshot<String> snapshot) {
                                               if (!snapshot.hasData) {
                                                 return Container();
@@ -255,7 +269,12 @@ class _HomePageState extends State<HomePage> {
                                                     showDialogInput(index.toString() + AllConstant.DATE, "Sat, Dec 18, 4:30pm . SofFi Stadium");
                                                   },
                                                   child: Text(snapshot.data!,
-                                                      textAlign: TextAlign.start, style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white())),
+                                                      textAlign: TextAlign.start,
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily: "metropolis",
+                                                          fontWeight: FontWeight.normal,
+                                                          color: AppColor.white())),
                                                 );
                                               }
                                             },
@@ -284,11 +303,14 @@ class _HomePageState extends State<HomePage> {
                                             } else {
                                               return GestureDetector(
                                                 onTap: () {
-                                                  showDialogInput(index.toString() + AllConstant.SELECTED_TICKET_COUNT, "6", inputType: TextInputType.number);
+                                                  showDialogInput(index.toString() + AllConstant.SELECTED_TICKET_COUNT, "6",
+                                                      inputType: TextInputType.number);
 
                                                   setState(() {});
                                                 },
-                                                child: Text(snapshot.data! + " tickets", style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                                                child: Text(snapshot.data! + " tickets",
+                                                    style: TextStyle(
+                                                        fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                                               );
                                             }
                                           },
@@ -312,11 +334,14 @@ class _HomePageState extends State<HomePage> {
                                             } else {
                                               return GestureDetector(
                                                 onTap: () {
-                                                  showDialogInputListed(index.toString() + AllConstant.SELECTED_LISTED, "0", inputType: TextInputType.number);
+                                                  showDialogInputListed(index.toString() + AllConstant.SELECTED_LISTED, "0",
+                                                      inputType: TextInputType.number);
 
                                                   setState(() {});
                                                 },
-                                                child: Text(snapshot.data! + " listed", style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                                                child: Text(snapshot.data! + " listed",
+                                                    style: TextStyle(
+                                                        fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                                               );
                                             }
                                           },
@@ -369,7 +394,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,inputType: inputType),
+                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController, inputType: inputType),
                   SizedBox(
                     height: 20,
                   ),
@@ -411,7 +436,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,inputType: inputType),
+                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController, inputType: inputType),
                   SizedBox(
                     height: 20,
                   ),
