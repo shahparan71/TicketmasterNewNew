@@ -47,3 +47,9 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
+/ios/build/XCBuildData/a73de63d85323d365e9645a12086e0ba.xcbuilddata/build-request.json
+/ios/build/XCBuildData/a73de63d85323d365e9645a12086e0ba.xcbuilddata/description.msgpack
+/ios/build/XCBuildData/a73de63d85323d365e9645a12086e0ba.xcbuilddata/manifest.json
+/ios/Podfile.lock
+/ios/build/XCBuildData/a73de63d85323d365e9645a12086e0ba.xcbuilddata/target-graph.txt
+/ios/build/XCBuildData/a73de63d85323d365e9645a12086e0ba.xcbuilddata/task-store.msgpack

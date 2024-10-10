@@ -81,61 +81,45 @@ class GoogleMapFlutterState extends State<GoogleMapFlutter> {
                               height: double.infinity,
                               width: double.infinity,
                               color: Colors.white.withOpacity(0.1),
-                            )
-                            /*Positioned(
-                            bottom: 100,
-                            right: 10,
-                            child: Column(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 2,
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 0), // changes position of shadow
-                                      ),
-                                    ],
-                                    color: Colors.white54,
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  height: 40,
-                                  width: 40,
-                                  child: GestureDetector(
-                                      onTap: () async {
-                                        final GoogleMapController controller = await _controller.future;
-                                        controller.animateCamera(CameraUpdate.zoomIn());
-                                      },
-                                      child: Icon(Icons.add)),
-                                ),
-                                SizedBox(height: 2),
-                                GestureDetector(
-                                  onTap: () async {
-                                    final GoogleMapController controller = await _controller.future;
-                                    controller.animateCamera(CameraUpdate.zoomOut());
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 4,
-                                          offset: const Offset(0, 0), // changes position of shadow
-                                        ),
-                                      ],
-                                      color: Colors.white60,
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    height: 40,
-                                    width: 40,
-                                    child: Icon(Icons.remove),
-                                  ),
-                                ),
-                              ],
                             ),
-                          )*/
+                            FutureBuilder<String>(
+                              future: CommonOperation.getSharedData(
+                                  AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE,
+                                  "SofFi Stadium"),
+                              builder: (context, AsyncSnapshot<String> snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Container();
+                                } else {
+                                  return GestureDetector(
+                                    onTap: () async {
+                                      putLatLong(
+                                          AllConstant.CURRENT_LIST_INDEX +
+                                              AllConstant.PLACE,
+                                          "SofFi Stadium");
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 20, horizontal: 20),
+                                      child: Container(
+                                        child: Text(snapshot.data!,
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontSize: PrefUtil.preferences!.getDouble(
+                                                    AllConstant.CURRENT_LIST_INDEX +
+                                                        AllConstant
+                                                            .IncreaseDecreaseFontSecond) ??
+                                                    20,
+                                                fontFamily: "metropolis",
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.black38)),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                            )
                           ],
                         ),
                       ),

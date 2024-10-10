@@ -87,7 +87,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
         children: [
           Column(children: [
             SizedBox(
-              height: 20,
+              height: 3,
             ),
             CarouselSlider(
               items: imageSlidersM,

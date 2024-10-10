@@ -77,6 +77,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Container(),
                     Text("My Tickets", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                     Container(),
                     GestureDetector(
@@ -412,7 +413,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
             child: Column(
               children: [
                 Container(
-                  height: 600,
+                  height: 580,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CarouselWithIndicatorDemoIOS(),

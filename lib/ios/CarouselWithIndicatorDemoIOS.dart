@@ -73,7 +73,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
           options: CarouselOptions(
               enableInfiniteScroll: false,
               viewportFraction: dblViewPort ?? 1,
-              height: MediaQuery.of(context).size.height - 330,
+              height: MediaQuery.of(context).size.height - 340,
               onPageChanged: (index, reason) {
                 setState(() {
                   _current = index;

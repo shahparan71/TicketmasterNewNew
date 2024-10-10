@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/all_uis/my_tickets.dart';
+import 'package:ticket_master/ios/my_tickets_ios.dart';
 
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
@@ -58,7 +61,8 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                 onTap: () {
                   getCount();
                 },
-                child: Text("TRANSFER TICKETS", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black45)),
+                child: Text("TRANSFER TICKETS",
+                    style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black45)),
               ),
               SizedBox(
                 height: 10,
@@ -78,7 +82,8 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
-                    Text(ticketCount.toString() + " Tickets Selected", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
+                    Text(ticketCount.toString() + " Tickets Selected",
+                        style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
                   ],
                 ),
               ),
@@ -100,29 +105,34 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                             if (!snapshot.hasData) {
                               return Container();
                             } else {
-                              return Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black87));
+                              return Text(snapshot.data!,
+                                  style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black87));
                             }
                           },
                         ),
-                        Text(", Row ", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
+                        Text(", Row ",
+                            style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
                         FutureBuilder<String>(
                           future: getData(2),
                           builder: (context, AsyncSnapshot<String> snapshot) {
                             if (!snapshot.hasData) {
                               return Container();
                             } else {
-                              return Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black87));
+                              return Text(snapshot.data!,
+                                  style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black87));
                             }
                           },
                         ),
-                        Text(", Seat ", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
+                        Text(", Seat ",
+                            style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
                         FutureBuilder<String>(
                           future: CommonOperation.getSortValue(ticketTitle),
                           builder: (context, AsyncSnapshot<String> snapshot) {
                             if (!snapshot.hasData) {
                               return Container();
                             } else {
-                              return Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black54));
+                              return Text(snapshot.data!,
+                                  style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black54));
                             }
                           },
                         ),
@@ -141,7 +151,8 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("First Name", style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black)),
+                      Text("First Name",
+                          style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black)),
                       SizedBox(
                         height: 5,
                       ),
@@ -205,7 +216,8 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                       SizedBox(
                         height: 15,
                       ),
-                      Text("Email or Mobile Number", style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black)),
+                      Text("Email or Mobile Number",
+                          style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black)),
                       SizedBox(
                         height: 5,
                       ),
@@ -327,7 +339,8 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Text("Back", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.colorMain()))
+                              Text("Back",
+                                  style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.colorMain()))
                             ],
                           ),
                         ),
@@ -357,10 +370,16 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                                   transferButtonLoading = false;
                                   Navigator.of(context).pop();
                                   saveShared();
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => MyTicketsNewView(ticketCount, ticketTitle)),
-                                  );
+                                  if (Platform.isAndroid)
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => MyTicketsNewView(ticketCount, ticketTitle)),
+                                    );
+                                  else
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => MyTicketsiOS(ticketCount, ticketTitle)),
+                                    );
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
