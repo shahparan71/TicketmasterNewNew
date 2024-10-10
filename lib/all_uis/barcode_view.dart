@@ -191,7 +191,7 @@ class _BarcodeViewState extends State<BarcodeView> {
                                               } else {
                                                 return GestureDetector(
                                                   onTap: () {
-                                                    showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.STANDARD_ADMISSION, "Standard Admission");
+                                                    showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.STANDARD_ADMISSION, "Standard Admission2");
                                                   },
                                                   child: Text(snapshot.data!, style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white())),
                                                 );

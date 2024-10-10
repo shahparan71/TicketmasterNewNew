@@ -12,6 +12,7 @@ class AllConstant {
   static String LIVE_CON = "live_in_concert";
   static String KIT_SMITH = "kit_smith";
   static String VIP_7 = "vip_7";
+  static String GATE_235 = "gate234";
   static String GEN_ADM = "gen_adm";
   static String HOME_SUB_TITLE = "home_sub_title";
   static String STANDARD_ADMISSION = "standard_admission";

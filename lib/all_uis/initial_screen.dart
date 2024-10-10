@@ -9,6 +9,7 @@ import 'package:ticket_master/all_uis/email_screen.dart';
 import 'package:ticket_master/all_uis/home_page.dart';
 import 'package:ticket_master/all_uis/its_not_your.dart';
 import 'package:ticket_master/all_uis/my_account.dart';
+import 'package:ticket_master/ios/email_pages.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
@@ -62,7 +63,10 @@ class _InitialScreenState extends State<InitialScreen> {
               title: index == 4
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text("My Account", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white))],
+                      children: [
+                        Text("My Account",
+                            style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white))
+                      ],
                     )
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,7 +84,7 @@ class _InitialScreenState extends State<InitialScreen> {
                                     },
                                     child: Icon(
                                       Icons.list,
-                                      color:Colors.white,
+                                      color: Colors.white,
                                       size: 40,
                                     )),
                               )
@@ -101,15 +105,22 @@ class _InitialScreenState extends State<InitialScreen> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => EmailScreen()),
-                              );
+                              if (Platform.isIOS)
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => EmailScreenIOS()),
+                                );
+                              else
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => EmailScreen()),
+                                );
 
                               setState(() {});
                             });
                           },
-                          child: Text("My Events", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                          child: Text("My Events",
+                              style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -118,7 +129,8 @@ class _InitialScreenState extends State<InitialScreen> {
                               MaterialPageRoute(builder: (context) => ItsNotYou()),
                             );
                           },
-                          child: Text("Help", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                          child: Text("Help",
+                              style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                         ),
                       ],
                     ),
@@ -210,7 +222,7 @@ class _InitialScreenState extends State<InitialScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,inputType: inputType),
+                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController, inputType: inputType),
                   SizedBox(
                     height: 20,
                   ),
@@ -250,11 +262,11 @@ class _InitialScreenState extends State<InitialScreen> {
   getWidget(int index) {
     switch (index) {
       case 0:
-      return Discover();
+        return Discover();
       case 2:
         return HomePage();
       case 4:
-      return MyAccount();
+        return MyAccount();
     }
 
     /*index == 2

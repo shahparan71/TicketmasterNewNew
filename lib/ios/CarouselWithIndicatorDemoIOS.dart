@@ -13,6 +13,7 @@ import 'package:ticket_master/all_uis/barcode_view.dart';
 
 //import 'package:ticket_master/all_uis/barcode_view.dart';
 import 'package:ticket_master/all_uis/ticket_details.dart';
+import 'package:ticket_master/ios/barcode_view_ios.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
@@ -164,14 +165,14 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                       Container(
                         margin: EdgeInsets.only(top: 50),
                         child: FutureBuilder<String>(
-                          future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7, "American VIP - 7"),
+                          future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.GATE_235, "GATE 2 3 5"),
                           builder: (context, AsyncSnapshot<String> snapshot) {
                             if (!snapshot.hasData) {
                               return Container();
                             } else {
                               return GestureDetector(
                                 onTap: () {
-                                  showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7, "American VIP - 7");
+                                  showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.GATE_235, "American VIP - 7");
                                 },
                                 child: Text(snapshot.data!,
                                     style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black)),
@@ -196,7 +197,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => BarcodeView(_current)),
+                                MaterialPageRoute(builder: (context) => BarcodeViewIOS(_current)),
                               );
                             },
                             child: Image.asset(
