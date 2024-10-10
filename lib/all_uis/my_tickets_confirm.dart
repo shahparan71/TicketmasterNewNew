@@ -62,14 +62,16 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding:  EdgeInsets.all(8.0),
           child: GestureDetector(
               onTap: () {
                 Navigator.of(context).pop();
               },
-              child: Icon(
-                Icons.close,
-                color: Colors.white,
+              child: Container(
+                child: Icon(
+                  Icons.close,
+                  color: Colors.white,
+                ),
               )),
         ),
         leadingWidth: 0.0,
@@ -89,7 +91,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
           items: imageSlidersM,
           options: CarouselOptions(
               enableInfiniteScroll: false,
-              viewportFraction: dblViewPort ?? 0.9,
+              viewportFraction: dblViewPort ?? 1.0,
               height: MediaQuery.of(context).size.height - 200,
               onPageChanged: (index, reason) {
                 setState(() {
@@ -174,7 +176,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
 
   Widget buildMainCardHome(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 5, left: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
