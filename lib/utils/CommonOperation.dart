@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ticket_master/PrefUtil.dart';
 
@@ -330,4 +332,12 @@ class CommonOperation {
     print(string);
     return string;
   }
+
+  static Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    var codec = await instantiateImageCodec(data.buffer.asUint8List(), targetWidth: 120, targetHeight: 150);
+    FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ImageByteFormat.png))!.buffer.asUint8List();
+  }
+
 }

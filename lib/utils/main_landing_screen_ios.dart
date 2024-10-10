@@ -4,19 +4,14 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:ticket_master/PrefUtil.dart';
-import 'package:ticket_master/all_uis/CarouselWithIndicatorDemo.dart';
 import 'package:ticket_master/all_uis/QRView.dart';
-
 import 'package:ticket_master/all_uis/bottom_sheet_view_select_tickets.dart';
-import 'package:ticket_master/all_uis/map_widgets.dart';
 import 'package:ticket_master/ios/CarouselWithIndicatorDemoIOS.dart';
-import 'package:ticket_master/utils/CommonOperation.dart';
+import 'package:ticket_master/maps/map_widgets.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
-import 'package:ticket_master/utils/widgets_util.dart';
 
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -36,11 +31,8 @@ class MainLandingScreenIOS extends StatefulWidget {
 class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
   String? filePath;
   var textEditingController = TextEditingController();
-
   List<Widget>? imageSliders;
-
   bool showHideStatusAppBarIcon = false;
-
   bool isMultiline = false;
 
   @override
@@ -416,6 +408,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
           child: SingleChildScrollView(
+            physics: ClampingScrollPhysics(),
             child: Column(
               children: [
                 Container(
@@ -437,8 +430,8 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                             child: Text("Transfer",
                                 style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                             /*style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColor.colorMain(),
-                                  ),*/
+                              backgroundColor: AppColor.colorMain(),
+                            ),*/
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(10),
                               elevation: 0.0,
@@ -470,8 +463,9 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                             child: Text("Sell",
                                 style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                             /*style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColor.colorMain().withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
-                                  ),*/
+                              backgroundColor: AppColor.colorMain()
+                                  .withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
+                            ),*/
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(10),
                               elevation: 0.0,
@@ -499,7 +493,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                 SizedBox(
                   height: 10,
                 ),
-                MapWidgets()
+                Container(height: 350, child: GoogleMapFlutter())
               ],
             ),
           ),

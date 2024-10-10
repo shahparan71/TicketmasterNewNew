@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:ticket_master/PrefUtil.dart';
-import 'package:ticket_master/all_uis/map_widgets.dart';
+import 'package:ticket_master/maps/map_widgets.dart';
 import 'package:ticket_master/all_uis/my_tickets_confirm.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';

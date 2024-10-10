@@ -73,7 +73,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   TextEditingController textEditingControllerID = TextEditingController();
   TextEditingController textEditingControllerPass = TextEditingController();
 
@@ -310,7 +309,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: TextField(
                       keyboardType: isAdmin ? TextInputType.text : TextInputType.number,
                       controller: textEditingControllerID,
-                      decoration: InputDecoration(border: OutlineInputBorder(), labelText: isAdmin ? 'Admin User ID' : "User ID", hintText: 'Enter ID'),
+                      decoration:
+                          InputDecoration(border: OutlineInputBorder(), labelText: isAdmin ? 'Admin User ID' : "User ID", hintText: 'Enter ID'),
                     ),
                   ),
                   SizedBox(
@@ -334,7 +334,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   dateLoading == true
                       ? CircularProgressIndicator()
                       : ElevatedButton(
-                          child: Text("Login", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                          child: Text("Login",
+                              style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                           style: ButtonStyle(
                               foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
                               backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
@@ -628,10 +629,8 @@ class _MyHomePageState extends State<MyHomePage> {
       textEditingControllerID.text = "";
       textEditingControllerPass.text = "";
       initUserListDate();
-      
     });
   }
-
 }
 
 class User {
@@ -641,7 +640,6 @@ class User {
   bool? isEnable;
 
   User.name();
-
 
   User({this.name, this.id, this.date, this.isEnable});
 }

@@ -1,21 +1,10 @@
-import 'dart:math';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
-import 'package:map_launcher/map_launcher.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:ticket_master/PrefUtil.dart';
-import 'package:ticket_master/utils/AppColor.dart';
-import 'package:ticket_master/utils/CommonOperation.dart';
-import 'package:ticket_master/utils/all_constant.dart';
-import 'package:ticket_master/utils/widgets_util.dart';
-
-class MapWidgets extends StatefulWidget {
+/*class OSMMap extends StatefulWidget {
   @override
-  State<MapWidgets> createState() => _MapWidgetsState();
+  State<OSMMap> createState() => _OSMMapState();
 }
 
-class _MapWidgetsState extends State<MapWidgets> {
+class _OSMMapState extends State<OSMMap> {
   // default constructor
   MapController controllerM = MapController(
     initPosition: GeoPoint(latitude: 47.4358055, longitude: 8.4737324),
@@ -91,14 +80,14 @@ class _MapWidgetsState extends State<MapWidgets> {
                         roadConfiguration: RoadOption(
                           roadColor: Colors.yellowAccent,
                         ),
-                        /*markerOption: MarkerOption(
+                        */ /*markerOption: MarkerOption(
                                 defaultMarker: MarkerIcon(
                               icon: Icon(
                                 Icons.person_pin_circle,
                                 color: Colors.blue,
                                 size: 56,
                               ),
-                            )),*/
+                            )),*/ /*
                       )),
                   FutureBuilder<String>(
                     future: CommonOperation.getSharedData(
@@ -287,4 +276,4 @@ class _MapWidgetsState extends State<MapWidgets> {
     }
     markers.clear(); // Clear the list after removing all markers
   }
-}
+}*/

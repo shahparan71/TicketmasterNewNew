@@ -237,13 +237,13 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
               left: 0.0, // Added left constraint for better layout control
               right: 0.0, // Added right constraint for better layout control
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 7),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Container(
                   decoration: BoxDecoration(
                     color: AppColor.colorSecond(),
                     boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                     //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
                   ),
                   height: 1,
                   width: double.infinity, // Use width here to avoid issues
