@@ -47,6 +47,7 @@ class _InitialScreenState extends State<InitialScreen> {
     return Material(
         child: Scaffold(
       key: _scaffoldKey,
+          resizeToAvoidBottomInset: false,
       drawer: buildDrawer(),
       appBar: AppBar(
         backgroundColor: AppColor.black,

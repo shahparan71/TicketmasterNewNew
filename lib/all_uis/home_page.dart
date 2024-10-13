@@ -20,20 +20,122 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   String? filePath;
-
   bool taxExeShowHide = false;
+  TabController? tabController;
+
+  var is1Active = true;
+
+  @override
+  void initState() {
+    tabController = TabController(
+      initialIndex: 0,
+      length: 2,
+      vsync: this,
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: homeMain(),
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: [
+          Container(
+            height: 60,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            is1Active = !is1Active;
+                          });
+                        },
+                        child: Container(
+                          height: 50,
+                          color: Colors.black,
+                          child: Center(
+                            child: FutureBuilder<String>(
+                              future: CommonOperation.getSharedData(AllConstant.NUMBER_OF_LIST_ITEM_COUNT, "1"),
+                              builder: (context, AsyncSnapshot<String> snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Container();
+                                } else {
+                                  return Container(
+                                    child: Text("UPCOMING (${snapshot.data!})",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: "metropolis",
+                                            fontWeight: CommonOperation.getFontWeight(),
+                                            color: AppColor.white)),
+                                  );
+                                }
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      flex: 1,
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            is1Active = !is1Active;
+                          });
+                        },
+                        child: Container(
+                          height: 50,
+                          color: Colors.black,
+                          child: Center(
+                            child: Text(
+                              "PAST (0)",
+                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ),
+                      ),
+                      flex: 1,
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 4,
+                        color: is1Active ? Colors.white : Colors.black,
+                      ),
+                      flex: 1,
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: 4,
+                        color: is1Active ? Colors.black : Colors.white,
+                      ),
+                      flex: 1,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height - 200,
+            child: is1Active ? buildContainerTab1(context) : Container(),
+          ),
+        ],
+      ),
     );
   }
 
-  homeMain() {
+  Container buildContainerTab1(BuildContext context) {
     return Container(
       color: Colors.white,
       height: MediaQuery.of(context).size.height - 100,

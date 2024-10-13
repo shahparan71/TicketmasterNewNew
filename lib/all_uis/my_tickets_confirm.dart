@@ -177,7 +177,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
 
   Widget buildMainCardHome(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(

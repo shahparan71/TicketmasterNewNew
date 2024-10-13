@@ -91,7 +91,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
               items: imageSlidersM,
               options: CarouselOptions(
                   enableInfiniteScroll: false,
-                  viewportFraction: dblViewPort ?? 0.9,
+                  viewportFraction: dblViewPort ?? 1.0,
                   height: MediaQuery.of(context).size.height - 200,
                   onPageChanged: (index, reason) {
                     setState(() {
@@ -177,7 +177,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
 
   Widget buildMainCardHome(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 5, left: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(

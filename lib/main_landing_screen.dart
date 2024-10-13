@@ -13,7 +13,6 @@ import 'package:ticket_master/maps/map_widgets.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 
-
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
   'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
@@ -31,12 +30,7 @@ class MainLandingScreen extends StatefulWidget {
 
 class _MainLandingScreenState extends State<MainLandingScreen> {
   String? filePath;
-  
-
-  List<Widget>? imageSliders;
-
   bool showHideStatusAppBarIcon = false;
-
   bool isMultiline = false;
 
   @override
@@ -81,7 +75,6 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
                     Text("My Tickets", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                     Container(),
                     GestureDetector(
@@ -418,7 +411,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                 height: MediaQuery.of(context).size.height - 130,
                 child: Stack(
                   children: [
-                    CarouselWithIndicatorDemo(),
+                    CarouselWithIndicatorAndroid(),
                     Positioned.fill(
                       child: Align(
                         alignment: Alignment.bottomLeft,
@@ -508,7 +501,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
               SizedBox(
                 height: 10,
               ),
-              Platform.isAndroid?Container(): GoogleMapFlutter()
+              Platform.isAndroid ? Container() : GoogleMapFlutter()
             ],
           ),
         ),

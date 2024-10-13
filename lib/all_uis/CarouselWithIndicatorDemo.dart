@@ -19,8 +19,8 @@ import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
-class CarouselWithIndicatorDemo extends StatefulWidget {
-  CarouselWithIndicatorDemo();
+class CarouselWithIndicatorAndroid extends StatefulWidget {
+  CarouselWithIndicatorAndroid();
 
   @override
   State<StatefulWidget> createState() {
@@ -28,7 +28,7 @@ class CarouselWithIndicatorDemo extends StatefulWidget {
   }
 }
 
-class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
+class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
   int _current = 0;
   List<Widget>? imageSlidersM;
   List<Widget>? imageSlidersT;
@@ -47,7 +47,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
   }
 
   @override
-  void didUpdateWidget(CarouselWithIndicatorDemo oldWidget) {
+  void didUpdateWidget(CarouselWithIndicatorAndroid oldWidget) {
     super.didUpdateWidget(oldWidget);
     initSlide();
   }
@@ -80,7 +80,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
           items: imageSlidersM,
           options: CarouselOptions(
               enableInfiniteScroll: false,
-              viewportFraction: dblViewPort ?? 0.9,
+              viewportFraction: dblViewPort ?? 1.0,
               height: MediaQuery.of(context).size.height - 200,
               onPageChanged: (index, reason) {
                 setState(() {
@@ -126,7 +126,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
 
   Widget buildMainCardHome(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 5, left: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
