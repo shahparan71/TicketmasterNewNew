@@ -31,6 +31,14 @@ class _InitialScreenState extends State<InitialScreen> {
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  Map<int, bool> myMap = {
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+  };
+
   @override
   Widget build(BuildContext context) {
     iconValue = 25.0;
@@ -232,6 +240,7 @@ class _InitialScreenState extends State<InitialScreen> {
 
   Drawer buildDrawer() {
     return Drawer(
+      backgroundColor: Colors.white,
       child: ListView(
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
@@ -254,43 +263,129 @@ class _InitialScreenState extends State<InitialScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                GestureDetector(
-                    onTap: () async {
-                      String? result = await CustomInputDialog.showInputDialog(
-                        context: context,
-                        defaultTxt: "Signed In as ",
-                        key: AllConstant.NAV_DRAWER_NAME,
-                        
-                      );
-                      if (result != null) {
-                        PrefUtil.preferences!.setString(AllConstant.NAV_DRAWER_NAME, result);
-                        setState(() {});
+                Container(
+                  child: FutureBuilder<String>(
+                    future: CommonOperation.getSharedData(AllConstant.NAV_DRAWER_NAME, "Signed In as "),
+                    builder: (context, AsyncSnapshot<String> snapshot) {
+                      if (!snapshot.hasData) {
+                        return Container();
                       } else {
-                        print("Dialog was canceled");
+                        return GestureDetector(
+                          onTap: () async {
+                            String? result = await CustomInputDialog.showInputDialog(
+                              context: context,
+                              defaultTxt: "Signed In as ",
+                              key: AllConstant.NAV_DRAWER_NAME,
+                            );
+                            if (result != null) {
+                              PrefUtil.preferences!.setString(AllConstant.NAV_DRAWER_NAME, result);
+                              setState(() {});
+                            } else {
+                              print("Dialog was canceled");
+                            }
+                          },
+                          child: Text("${snapshot.data}",
+                              style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.white)),
+                        );
                       }
                     },
-                    child: Text("Signed In as ",
-                        style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.white)))
+                  ),
+                ),
               ],
             ),
           ),
           ListTile(
-            title: const Text('Item 1'),
-            onTap: () async {
-              // Update the state of the app.
-              // ...
-            },
+            title: Row(
+              children: [
+                Icon(Icons.location_on_outlined),
+                SizedBox(
+                  width: 20,
+                ),
+                buildContainerNavItem(AllConstant.YOUR_LOCATION, "Your Location "),
+              ],
+            ),
+            onTap: () async {},
           ),
-          ListTile(
-            title: const Text('Item 2'),
-            onTap: () async {
-              // Update the state of the app.
-              // ...
-            },
+          Container(
+            height: 1,
+            width: double.infinity,
+            color: Colors.black12,
           ),
+          buildListTileDrawer("Discover", 1),
+          buildListTileDrawer("For You", 2),
+          buildListTileDrawer("My Events", 3),
+          buildListTileDrawer("Sell", 4),
+          buildListTileDrawer("My Accounts", 5),
         ],
       ), // Populate the Drawer in the next step.
     );
+  }
+
+  ListTile buildListTileDrawer(String titleValue, int boolIndex) {
+    return ListTile(
+      tileColor: myMap[boolIndex] == true ? Colors.black12 : Colors.white,
+      title: Row(
+        children: [
+          myMap[boolIndex] == false
+              ? Image.asset(
+                  'assets/images/bottom/0${boolIndex.toString()}.png',
+                  width: 30,
+                )
+              : Image.asset(
+                  'assets/images/bottom_click/${boolIndex.toString()}.png',
+                  width: iconValue,
+                ),
+          SizedBox(
+            width: 20,
+          ),
+          buildContainerNavItemOther("${titleValue}"),
+        ],
+      ),
+      onTap: () async {
+        for (int i = 1; i < 6; i++) {
+          if (boolIndex == i) {
+            myMap[i] = true;
+          } else
+            myMap[i] = false;
+        }
+        setState(() {});
+      },
+    );
+  }
+
+  Container buildContainerNavItem(String key, String defaultValue) {
+    return Container(
+      child: FutureBuilder<String>(
+        future: CommonOperation.getSharedData(key, "${defaultValue}"),
+        builder: (context, AsyncSnapshot<String> snapshot) {
+          if (!snapshot.hasData) {
+            return Container();
+          } else {
+            return GestureDetector(
+              onTap: () async {
+                String? result = await CustomInputDialog.showInputDialog(
+                  context: context,
+                  defaultTxt: "${defaultValue}",
+                  key: AllConstant.YOUR_LOCATION,
+                );
+                if (result != null) {
+                  PrefUtil.preferences!.setString(AllConstant.YOUR_LOCATION, result);
+                  setState(() {});
+                } else {
+                  print("Dialog was canceled");
+                }
+              },
+              child: Text("${snapshot.data}",
+                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: AppColor.black)),
+            );
+          }
+        },
+      ),
+    );
+  }
+
+  Widget buildContainerNavItemOther(String titleValue) {
+    return Text("${titleValue}", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: AppColor.black));
   }
 
   void _navigateToScreens(int index) {
