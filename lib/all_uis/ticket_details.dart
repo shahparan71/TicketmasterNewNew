@@ -8,6 +8,7 @@ import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
+import 'package:ticket_master/utils/custom_dialog.dart';
 
 class TicketDetails extends StatefulWidget {
   const TicketDetails({Key? key}) : super(key: key);
@@ -17,17 +18,15 @@ class TicketDetails extends StatefulWidget {
 }
 
 class _TicketDetailsState extends State<TicketDetails> {
-  var textEditingController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: AppColor.black(),
+          backgroundColor: AppColor.black,
           leading: GestureDetector(
-            onTap: () {
+            onTap: () async {
               Navigator.of(context).pop();
             },
             child: Icon(
@@ -62,7 +61,9 @@ class _TicketDetailsState extends State<TicketDetails> {
               color: Colors.black26,
             ),
 
-            viewTag("The 1975 At Their Very Best - North America 2023 ", "Sun, Aug 6, 7pm • Tom Moffatt Waikiki Shell", AllConstant.CURRENT_LIST_INDEX + AllConstant.DT2, isTitleClickable: true),
+            viewTag("The 1975 At Their Very Best - North America 2023 ", "Sun, Aug 6, 7pm • Tom Moffatt Waikiki Shell",
+                AllConstant.CURRENT_LIST_INDEX + AllConstant.DT2,
+                isTitleClickable: true),
             Container(
               height: 1,
               color: Colors.black26,
@@ -74,7 +75,8 @@ class _TicketDetailsState extends State<TicketDetails> {
               color: Colors.black26,
             ),
 
-            viewTag("Ticket Info ", "BAMP PROJECT PRESENTS---THE 1975---AT THEIR VERY BEST---TOM MOFFATT WAIKIKI SHELL---SUN AUG 06 2023 7:00 PM ", AllConstant.CURRENT_LIST_INDEX + AllConstant.DT4,
+            viewTag("Ticket Info ", "BAMP PROJECT PRESENTS---THE 1975---AT THEIR VERY BEST---TOM MOFFATT WAIKIKI SHELL---SUN AUG 06 2023 7:00 PM ",
+                AllConstant.CURRENT_LIST_INDEX + AllConstant.DT4,
                 isBreak: true),
             Container(
               height: 1,
@@ -120,14 +122,15 @@ class _TicketDetailsState extends State<TicketDetails> {
                   SizedBox(
                     height: 15,
                   ),
-                  Text("Ticket Price ", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black())),
+                  Text("Ticket Price ", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
                   SizedBox(
                     height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Official Platinum", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: Colors.black54)),
+                      Text("Official Platinum",
+                          style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: Colors.black54)),
                       viewTag2("\$ 168.25", AllConstant.CURRENT_LIST_INDEX + AllConstant.PRICE1),
                     ],
                   ),
@@ -148,7 +151,8 @@ class _TicketDetailsState extends State<TicketDetails> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("GRAND TOTAL", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: Colors.black54)),
+                      Text("GRAND TOTAL",
+                          style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: Colors.black54)),
                       viewTag2("\$ 201.55", AllConstant.CURRENT_LIST_INDEX + AllConstant.PRICE4),
                     ],
                   ),
@@ -188,7 +192,7 @@ class _TicketDetailsState extends State<TicketDetails> {
             height: 15,
           ),
           isTitleClickable == null
-              ? Text("$title", style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black()))
+              ? Text("$title", style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black))
               : FutureBuilder<String>(
                   future: CommonOperation.getSharedData(SharedTag + 1.toString(), "$title", isBreak: isBreak),
                   builder: (context, AsyncSnapshot<String> snapshot) {
@@ -196,10 +200,21 @@ class _TicketDetailsState extends State<TicketDetails> {
                       return Container();
                     } else {
                       return GestureDetector(
-                        onTap: () {
-                          showDialogInput(SharedTag + 1.toString(), "$title");
+                        onTap: () async {
+                          String? result = await CustomInputDialog.showInputDialog(
+                            context: context,
+                            defaultTxt: "$title",
+                            key: SharedTag + 1.toString(),
+                          );
+                          if (result != null) {
+                            PrefUtil.preferences!.setString(SharedTag + 1.toString(), result);
+                            setState(() {});
+                          } else {
+                            print("Dialog was canceled");
+                          }
                         },
-                        child: Text(snapshot.data!, style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black())),
+                        child: Text(snapshot.data!,
+                            style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
                       );
                     }
                   },
@@ -214,10 +229,21 @@ class _TicketDetailsState extends State<TicketDetails> {
                 return Container();
               } else {
                 return GestureDetector(
-                  onTap: () {
-                    showDialogInput(SharedTag, "$defaultMessage");
+                  onTap: () async {
+                    String? result = await CustomInputDialog.showInputDialog(
+                      context: context,
+                      defaultTxt: defaultMessage,
+                      key: SharedTag,
+                    );
+                    if (result != null) {
+                      PrefUtil.preferences!.setString(SharedTag, result);
+                      setState(() {});
+                    } else {
+                      print("Dialog was canceled");
+                    }
                   },
-                  child: Text(snapshot.data!, style: TextStyle(fontSize: 16, fontFamily: "averta", fontWeight: FontWeight.w400, color: Colors.black54)),
+                  child:
+                      Text(snapshot.data!, style: TextStyle(fontSize: 16, fontFamily: "averta", fontWeight: FontWeight.w400, color: Colors.black54)),
                 );
               }
             },
@@ -243,10 +269,21 @@ class _TicketDetailsState extends State<TicketDetails> {
                 return Container();
               } else {
                 return GestureDetector(
-                  onTap: () {
-                    showDialogInput(SharedTag, "$defaultMessage");
+                  onTap: () async {
+                    String? result = await CustomInputDialog.showInputDialog(
+                      context: context,
+                      defaultTxt: defaultMessage,
+                      key: SharedTag,
+                    );
+                    if (result != null) {
+                      PrefUtil.preferences!.setString(SharedTag, result);
+                      setState(() {});
+                    } else {
+                      print("Dialog was canceled");
+                    }
                   },
-                  child: Text(snapshot.data!, style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: Colors.black54)),
+                  child: Text(snapshot.data!,
+                      style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: Colors.black54)),
                 );
               }
             },
@@ -254,86 +291,5 @@ class _TicketDetailsState extends State<TicketDetails> {
         ],
       ),
     );
-  }
-
-  void showDialogInput(String sec, String defaultTxt, {TextInputType? inputType}) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,inputType: inputType),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      print("totalAnnualWestController.value");
-                      print(textEditingController.text);
-                      if (textEditingController.text.toString().isNotEmpty) {
-                        if (inputType != null) {
-                          if (int.parse(textEditingController.text) < 2 || int.parse(textEditingController.text) > 10) return;
-                        }
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
-                        textEditingController.text = "";
-                        setState(() {});
-                        //if (inputType != null) initSlide();
-                      }
-                    },
-                  ),
-                ],
-              ),
-              //myPledge: model,
-            ),
-          );
-        });
-  }
-
-  void showDialogInputListed(String sec, String defaultTxt, {TextInputType? inputType}) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,inputType: inputType),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      print("totalAnnualWestController.value");
-                      print(textEditingController.text);
-                      if (textEditingController.text.toString().isNotEmpty) {
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
-                        textEditingController.text = "";
-                        setState(() {});
-                        //if (inputType != null) initSlide();
-                      }
-                    },
-                  ),
-                ],
-              ),
-              //myPledge: model,
-            ),
-          );
-        });
   }
 }

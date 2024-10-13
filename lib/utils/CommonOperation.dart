@@ -105,7 +105,7 @@ class CommonOperation {
     return Text(
       s,
       textAlign: TextAlign.center,
-      style: TextStyle(color: AppColor.darkGreen(), fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: fontSize == null ? 18 : 14),
+      style: TextStyle(color: AppColor.darkGreen, fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: fontSize == null ? 18 : 14),
     );
   }
 
@@ -113,14 +113,14 @@ class CommonOperation {
     return Text(
       s,
       textAlign: TextAlign.center,
-      style: TextStyle(color: AppColor.darkGreen(), fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 14),
+      style: TextStyle(color: AppColor.darkGreen, fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 14),
     );
   }
 
   static BoxDecoration getBoxDecorationLightGreen() {
     return BoxDecoration(
       boxShadow: [BoxShadow(color: Colors.green.withOpacity(0.1), blurRadius: 2, spreadRadius: 2)],
-      color: AppColor.lightGreen(),
+      color: AppColor.lightGreen,
       border: Border.all(color: Colors.white),
       borderRadius: BorderRadius.all(Radius.circular(10)),
     );

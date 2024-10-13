@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(color: Colors.white),
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     setState(() {
                       changeView = 0;
                       PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 0);
@@ -211,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                       style: TextStyle(fontSize: 20),
                                                     ),
                                                     GestureDetector(
-                                                        onTap: () {
+                                                        onTap: () async {
                                                           showDialog(
                                                               context: context,
                                                               builder: (_) {
@@ -237,12 +237,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                                   "Yes",
                                                                                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                                                                                 ),
-                                                                                onTap: () {
+                                                                                onTap: () async {
                                                                                   Navigator.of(context).pop(true);
                                                                                 },
                                                                               ),
                                                                               GestureDetector(
-                                                                                onTap: () {
+                                                                                onTap: () async {
                                                                                   Navigator.of(context).pop(false);
                                                                                 },
                                                                                 child: Text(

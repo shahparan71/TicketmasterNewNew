@@ -16,7 +16,7 @@ class _OSMMapState extends State<OSMMap> {
     ),
   );
 
-  var textEditingController = TextEditingController();
+  
 
   List<GeoPoint> markers = [];
 
@@ -246,7 +246,7 @@ class _OSMMapState extends State<OSMMap> {
                             fontWeight: FontWeight.bold,
                             color: Colors.white)),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
+                      backgroundColor: AppColor.green,
                     ),
                     onPressed: () {
                       if (textEditingController.text.toString().isNotEmpty) {

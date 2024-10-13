@@ -10,17 +10,18 @@ import 'package:ticket_master/utils/all_constant.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
+import 'package:ticket_master/utils/custom_dialog.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
-class EmailScreen extends StatefulWidget {
-  const EmailScreen({Key? key}) : super(key: key);
+class EmailScreenIOS extends StatefulWidget {
+  const EmailScreenIOS({Key? key}) : super(key: key);
 
   @override
-  _EmailScreenState createState() => _EmailScreenState();
+  _EmailScreenIOSState createState() => _EmailScreenIOSState();
 }
 
-class _EmailScreenState extends State<EmailScreen> {
+class _EmailScreenIOSState extends State<EmailScreenIOS> {
   String? filePath;
 
   bool taxExeShowHide = false;
@@ -562,12 +563,12 @@ class _EmailScreenState extends State<EmailScreen> {
                               return GestureDetector(
                                 onTap: () async {
                                   String? result = await CustomInputDialog.showInputDialog(
-                                      context: context, defaultTxt: "11/22/2023", key: AllConstant.EMAIL_DATE, textInputType: TextInputType.number);
+                                    context: context,
+                                    defaultTxt: "11/22/2023",
+                                    key: AllConstant.EMAIL_DATE,
+                                  );
                                   if (result != null) {
-                                    PrefUtil.preferences!.setString(
-                                      AllConstant.EMAIL_DATE,
-                                      result,
-                                    );
+                                    PrefUtil.preferences!.setString(AllConstant.EMAIL_DATE, result);
                                     setState(() {});
                                   } else {
                                     print("Dialog was canceled");
@@ -657,15 +658,12 @@ class _EmailScreenState extends State<EmailScreen> {
                               return GestureDetector(
                                 onTap: () async {
                                   String? result = await CustomInputDialog.showInputDialog(
-                                      context: context,
-                                      defaultTxt: "You Got the Tickets",
-                                      key: AllConstant.GOTTICKETS,
-                                      textInputType: TextInputType.number);
+                                    context: context,
+                                    defaultTxt: "You Got the Tickets",
+                                    key: AllConstant.GOTTICKETS,
+                                  );
                                   if (result != null) {
-                                    PrefUtil.preferences!.setString(
-                                      AllConstant.GOTTICKETS,
-                                      result,
-                                    );
+                                    PrefUtil.preferences!.setString(AllConstant.GOTTICKETS, result);
                                     setState(() {});
                                   } else {
                                     print("Dialog was canceled");
@@ -689,15 +687,12 @@ class _EmailScreenState extends State<EmailScreen> {
                               return GestureDetector(
                                 onTap: () async {
                                   String? result = await CustomInputDialog.showInputDialog(
-                                      context: context,
-                                      defaultTxt: "Order # 53-1325/SCS",
-                                      key: AllConstant.ORDER_NUMBER,
-                                      textInputType: TextInputType.number);
+                                    context: context,
+                                    defaultTxt: "Order # 53-1325/SCS",
+                                    key: AllConstant.ORDER_NUMBER,
+                                  );
                                   if (result != null) {
-                                    PrefUtil.preferences!.setString(
-                                      AllConstant.ORDER_NUMBER,
-                                      result,
-                                    );
+                                    PrefUtil.preferences!.setString(AllConstant.ORDER_NUMBER, result);
                                     setState(() {});
                                   } else {
                                     print("Dialog was canceled");
@@ -745,12 +740,12 @@ class _EmailScreenState extends State<EmailScreen> {
                     return GestureDetector(
                       onTap: () async {
                         String? result = await CustomInputDialog.showInputDialog(
-                            context: context, defaultTxt: "Morgan Wallen", key: AllConstant.ORGAN_WALLEN, textInputType: TextInputType.number);
+                          context: context,
+                          defaultTxt: "Morgan Wallen",
+                          key: AllConstant.ORDER_NUMBER,
+                        );
                         if (result != null) {
-                          PrefUtil.preferences!.setString(
-                            AllConstant.ORGAN_WALLEN,
-                            result,
-                          );
+                          PrefUtil.preferences!.setString(AllConstant.ORDER_NUMBER, result);
                           setState(() {});
                         } else {
                           print("Dialog was canceled");
@@ -784,15 +779,12 @@ class _EmailScreenState extends State<EmailScreen> {
                         return GestureDetector(
                           onTap: () async {
                             String? result = await CustomInputDialog.showInputDialog(
-                                context: context,
-                                defaultTxt: "Sun . Dec 12 2921 . 7:30 PM",
-                                key: AllConstant.DISCOVER_DATE,
-                                textInputType: TextInputType.number);
+                              context: context,
+                              defaultTxt: "Sun . Dec 12 2921 . 7:30 PM",
+                              key: AllConstant.DISCOVER_DATE,
+                            );
                             if (result != null) {
-                              PrefUtil.preferences!.setString(
-                                AllConstant.DISCOVER_DATE,
-                                result,
-                              );
+                              PrefUtil.preferences!.setString(AllConstant.DISCOVER_DATE, result);
                               setState(() {});
                             } else {
                               print("Dialog was canceled");
@@ -827,17 +819,13 @@ class _EmailScreenState extends State<EmailScreen> {
                       } else {
                         return GestureDetector(
                           onTap: () async {
-
                             String? result = await CustomInputDialog.showInputDialog(
-                                context: context,
-                                defaultTxt: "Landers Center - Southaven, MS",
-                                key: AllConstant.DISCOVER_LOCATION,
-                                textInputType: TextInputType.number);
+                              context: context,
+                              defaultTxt: "Landers Center - Southaven, MS",
+                              key: AllConstant.DISCOVER_LOCATION,
+                            );
                             if (result != null) {
-                              PrefUtil.preferences!.setString(
-                                AllConstant.DISCOVER_LOCATION,
-                                result,
-                              );
+                              PrefUtil.preferences!.setString(AllConstant.DISCOVER_LOCATION, result);
                               setState(() {});
                             } else {
                               print("Dialog was canceled");
@@ -888,15 +876,12 @@ class _EmailScreenState extends State<EmailScreen> {
                         return GestureDetector(
                           onTap: () async {
                             String? result = await CustomInputDialog.showInputDialog(
-                                context: context,
-                                defaultTxt: "Sec SEC 4, Row 1, Seat 11 - 12",
-                                key: AllConstant.DISCOVER_EVENT,
-                                textInputType: TextInputType.number);
+                              context: context,
+                              defaultTxt: "Sec SEC 4, Row 1, Seat 11 - 12",
+                              key: AllConstant.DISCOVER_EVENT,
+                            );
                             if (result != null) {
-                              PrefUtil.preferences!.setString(
-                                AllConstant.DISCOVER_EVENT,
-                                result,
-                              );
+                              PrefUtil.preferences!.setString(AllConstant.DISCOVER_EVENT, result);
                               setState(() {});
                             } else {
                               print("Dialog was canceled");
@@ -941,5 +926,4 @@ class _EmailScreenState extends State<EmailScreen> {
       ),
     );
   }
-
 }

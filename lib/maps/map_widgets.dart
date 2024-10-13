@@ -7,7 +7,9 @@ import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
+import 'package:ticket_master/utils/custom_dialog.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
+import 'package:ticket_master/utils/custom_dialog.dart';
 
 class GoogleMapFlutter extends StatefulWidget {
   @override
@@ -17,7 +19,6 @@ class GoogleMapFlutter extends StatefulWidget {
 class GoogleMapFlutterState extends State<GoogleMapFlutter> {
   Completer<GoogleMapController> _controller = Completer();
   GoogleMapController? controller;
-  var textEditingController = TextEditingController();
 
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(41.8307148, -87.6353042),
@@ -83,33 +84,35 @@ class GoogleMapFlutterState extends State<GoogleMapFlutter> {
                               color: Colors.white.withOpacity(0.1),
                             ),
                             FutureBuilder<String>(
-                              future: CommonOperation.getSharedData(
-                                  AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE,
-                                  "SofFi Stadium"),
+                              future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE, "SofFi Stadium"),
                               builder: (context, AsyncSnapshot<String> snapshot) {
                                 if (!snapshot.hasData) {
                                   return Container();
                                 } else {
                                   return GestureDetector(
                                     onTap: () async {
-                                      putLatLong(
-                                          AllConstant.CURRENT_LIST_INDEX +
-                                              AllConstant.PLACE,
-                                          "SofFi Stadium");
+                                      String? result = await CustomInputDialog.showInputDialog(
+                                        context: context,
+                                        defaultTxt: "SofFi Stadium",
+                                        key: AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE,
+                                      );
+                                      if (result != null) {
+                                        PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE, result);
+                                        setState(() {});
+                                      } else {
+                                        print("Dialog was canceled");
+                                      }
                                     },
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 20, horizontal: 20),
+                                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                                       child: Container(
                                         child: Text(snapshot.data!,
                                             maxLines: 2,
                                             textAlign: TextAlign.center,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
-                                                fontSize: PrefUtil.preferences!.getDouble(
-                                                    AllConstant.CURRENT_LIST_INDEX +
-                                                        AllConstant
-                                                            .IncreaseDecreaseFontSecond) ??
+                                                fontSize: PrefUtil.preferences!
+                                                        .getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ??
                                                     20,
                                                 fontFamily: "metropolis",
                                                 fontWeight: FontWeight.w700,
@@ -155,7 +158,17 @@ class GoogleMapFlutterState extends State<GoogleMapFlutter> {
                               ),
                             ),
                             onPressed: () async {
-                              putLatLong(AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG, "23.42424,92.8787");
+                              String? result = await CustomInputDialog.showInputDialog(
+                                context: context,
+                                defaultTxt: "23.42424,92.8787",
+                                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG,
+                              );
+                              if (result != null) {
+                                PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG, result);
+                                setState(() {});
+                              } else {
+                                print("Dialog was canceled");
+                              }
                             },
                           ),
                         ),
@@ -215,45 +228,6 @@ class GoogleMapFlutterState extends State<GoogleMapFlutter> {
         setState(() {});
       });
     }
-  }
-
-  void putLatLong(String sec, String defaultTxt) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController, inputType: TextInputType.number),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
-                    ),
-                    onPressed: () {
-                      if (textEditingController.text.toString().isNotEmpty) {
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
-                        textEditingController.text = "";
-                        setState(() {});
-                      }
-
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              ),
-              //myPledge: model,
-            ),
-          );
-        }).then((v) {
-      initData();
-    });
   }
 
   Future<void> gotoPosition() async {

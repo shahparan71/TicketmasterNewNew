@@ -14,6 +14,7 @@ import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
+import 'package:ticket_master/utils/custom_dialog.dart';
 
 class BarcodeShareView extends StatefulWidget {
   final int _MainCurrent;
@@ -26,8 +27,6 @@ class BarcodeShareView extends StatefulWidget {
 
 class _BarcodeShareViewState extends State<BarcodeShareView> {
   String? filePath;
-
-  var textEditingController = TextEditingController();
 
   int assetUrl = 1;
 
@@ -54,7 +53,7 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
     return SafeArea(
       child: Scaffold(
         /*appBar: AppBar(
-      backgroundColor: AppColor.black(),
+      backgroundColor: AppColor.black,
       leading: Icon(Icons.close),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,7 +91,7 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             Navigator.of(context).pop();
                           },
                           child: Icon(
@@ -106,14 +105,15 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           FutureBuilder<String>(
-                            future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour"),
+                            future: CommonOperation.getSharedData(
+                                AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour"),
                             builder: (context, AsyncSnapshot<String> snapshot) {
                               if (!snapshot.hasData) {
                                 return Container();
                               } else {
                                 return GestureDetector(
                                   onTap: () async {
-                                    //showDialogInput(AllConstant.CURRENT_LIST_INDEX+AllConstant.IAMGE_BIG_TEXT);
+
                                   },
                                   child: Container(
                                     width: MediaQuery.of(context).size.width - 100,
@@ -121,7 +121,7 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                                         textAlign: TextAlign.left,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
+                                        style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white)),
                                   ),
                                 );
                               }
@@ -138,12 +138,13 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                               } else {
                                 return GestureDetector(
                                   onTap: () async {
-                                    //showDialogInput(AllConstant.CURRENT_LIST_INDEX+AllConstant.IAMGE_BIG_TEXT);
+
                                   },
                                   child: Container(
                                     width: MediaQuery.of(context).size.width - 100,
-                                    child:
-                                        Text(snapshot.data!, textAlign: TextAlign.left, style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
+                                    child: Text(snapshot.data!,
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white)),
                                   ),
                                 );
                               }
@@ -172,8 +173,8 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                         }),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      //showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.CAROUSEL_COUNT, "6", inputType: TextInputType.number);
+                    onTap: () async {
+
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -214,7 +215,12 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
-                                      flex: 1, child: WidgetsUtil.CustomElevatedButton(buttonText: "Share", function: functionTransfer, color: AppColor.colorBlueLight(), fontWeight: FontWeight.w600)),
+                                      flex: 1,
+                                      child: WidgetsUtil.CustomElevatedButton(
+                                          buttonText: "Share",
+                                          function: functionTransfer,
+                                          color: AppColor.colorBlueLight(),
+                                          fontWeight: FontWeight.w600)),
                                   /*SizedBox(
                                     width: 10,
                                   ),
@@ -256,7 +262,8 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
             children: [
               Column(
                 children: [
-                  Text("SEC", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                  Text("SEC",
+                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
                   SizedBox(
                     height: 5,
                   ),
@@ -267,10 +274,22 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                         return Container();
                       } else {
                         return GestureDetector(
-                          onTap: () {
-                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "303");
+                          onTap: () async {
+                            String? result = await CustomInputDialog.showInputDialog(
+                              context: context,
+                              defaultTxt: "303",
+                              key: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC,
+                            );
+                            if (result != null) {
+                              PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, result);
+                              setState(() {});
+                            } else {
+                              print("Dialog was canceled");
+                            }
                           },
-                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                          child: Text(snapshot.data!,
+                              style: TextStyle(
+                                  fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white)),
                         );
                       }
                     },
@@ -279,7 +298,8 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
               ),
               Column(
                 children: [
-                  Text("ROW", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                  Text("ROW",
+                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
                   SizedBox(
                     height: 5,
                   ),
@@ -290,10 +310,22 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                         return Container();
                       } else {
                         return GestureDetector(
-                          onTap: () {
-                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, "5");
+                          onTap: () async {
+                            String? result = await CustomInputDialog.showInputDialog(
+                              context: context,
+                              defaultTxt: "5",
+                              key: AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW,
+                            );
+                            if (result != null) {
+                              PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, result);
+                              setState(() {});
+                            } else {
+                              print("Dialog was canceled");
+                            }
                           },
-                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                          child: Text(snapshot.data!,
+                              style: TextStyle(
+                                  fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white)),
                         );
                       }
                     },
@@ -302,23 +334,35 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
               ),
               Column(
                 children: [
-                  Text("SEAT", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                  Text("SEAT",
+                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
                   SizedBox(
                     height: 5,
                   ),
                   FutureBuilder<String>(
                     future: CommonOperation.getSharedData(
-                        AllConstant.CURRENT_LIST_INDEX  + AllConstant.SEAT + _currentBarCodeSlide.toString(), _currentBarCodeSlide.toString()),
+                        AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _currentBarCodeSlide.toString(), _currentBarCodeSlide.toString()),
                     builder: (context, AsyncSnapshot<String> snapshot) {
                       if (!snapshot.hasData) {
                         return Container();
                       } else {
                         return GestureDetector(
-                          onTap: () {
-                            showDialogInput(
-                                AllConstant.CURRENT_LIST_INDEX  + AllConstant.SEAT + _currentBarCodeSlide.toString(), _currentBarCodeSlide.toString());
+                          onTap: () async {
+                            String? result = await CustomInputDialog.showInputDialog(
+                                context: context,
+                                defaultTxt: _currentBarCodeSlide.toString(),
+                                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _currentBarCodeSlide.toString());
+                            if (result != null) {
+                              PrefUtil.preferences!
+                                  .setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _currentBarCodeSlide.toString(), result);
+                              setState(() {});
+                            } else {
+                              print("Dialog was canceled");
+                            }
                           },
-                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                          child: Text(snapshot.data!,
+                              style: TextStyle(
+                                  fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white)),
                         );
                       }
                     },
@@ -339,10 +383,10 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                         return Container();
                       } else {
                         return GestureDetector(
-                          onTap: () {
-                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.GENERAL_ADMISSION, "General Admission");
+                          onTap: () async {
+
                           },
-                          child: Text(snapshot.data!, style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.white())),
+                          child: Text(snapshot.data!, style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.white)),
                         );
                       }
                     },
@@ -357,10 +401,10 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                         return Container();
                       } else {
                         return GestureDetector(
-                          onTap: () {
-                            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.GA3, "GA3");
+                          onTap: () async {
+
                           },
-                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white())),
+                          child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white)),
                         );
                       }
                     },
@@ -372,44 +416,6 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
         ],
       ),
     );
-  }
-
-  void showDialogInput(String sec, String defaultTxt) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      print("totalAnnualWestController.value");
-                      print(textEditingController.text);
-                      if (textEditingController.text.toString().isNotEmpty) {
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
-                        textEditingController.text = "";
-                        setState(() {});
-                      }
-                    },
-                  ),
-                ],
-              ),
-              //myPledge: model,
-            ),
-          );
-        });
   }
 
   Future<String> getTitleValueQr1() async {
@@ -450,7 +456,6 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
         child: BottomSheetViewSelectTickets(),
       ),
     );
-
   }
 
   buildMainCardHome(BuildContext context) {
@@ -463,8 +468,8 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                color: AppColor.colorPageBackground(),
-                border: Border.all(color: AppColor.colorPageBackground(), width: 1, style: BorderStyle.solid),
+                color: AppColor.colorPageBackground,
+                border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
                 boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                 //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                 borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -487,21 +492,34 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () async {},
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 FutureBuilder<String>(
-                                  future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.STANDARD_ADMISSION, "Standard Admission"),
+                                  future: CommonOperation.getSharedData(
+                                      AllConstant.CURRENT_LIST_INDEX + AllConstant.STANDARD_ADMISSION, "Standard Admission"),
                                   builder: (context, AsyncSnapshot<String> snapshot) {
                                     if (!snapshot.hasData) {
                                       return Container();
                                     } else {
                                       return GestureDetector(
-                                        onTap: () {
-                                          showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.STANDARD_ADMISSION, "Standard Admission");
+                                        onTap: () async {
+                                          String? result = await CustomInputDialog.showInputDialog(
+                                            context: context,
+                                            defaultTxt: "Standard Admission",
+                                            key: AllConstant.CURRENT_LIST_INDEX + AllConstant.STANDARD_ADMISSION,
+                                          );
+                                          if (result != null) {
+                                            PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.STANDARD_ADMISSION, result);
+                                            setState(() {});
+                                          } else {
+                                            print("Dialog was canceled");
+                                          }
                                         },
-                                        child: Text(snapshot.data!, style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white())),
+                                        child: Text(snapshot.data!,
+                                            style: TextStyle(
+                                                fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
                                       );
                                     }
                                   },

@@ -30,7 +30,7 @@ class MainLandingScreenIOS extends StatefulWidget {
 
 class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
   String? filePath;
-  var textEditingController = TextEditingController();
+  
   List<Widget>? imageSliders;
   bool showHideStatusAppBarIcon = false;
   bool isMultiline = false;
@@ -46,7 +46,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
         child: Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: AppColor.black(),
+        backgroundColor: AppColor.black,
         leading: Container(
           width: 50,
           child: Padding(
@@ -54,7 +54,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
             child: Row(
               children: [
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     setState(() {
                       showHideStatusAppBarIcon = !showHideStatusAppBarIcon;
                     });
@@ -81,7 +81,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                     Text("My Tickets", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                     Container(),
                     GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           Navigator.pop(context);
                         },
                         child: Text("Help",
@@ -98,7 +98,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                     scrollDirection: Axis.horizontal,
                     children: <Widget>[
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           double? value = PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIEWPORT_VALUE);
                           print(value);
                           if (value == null) {
@@ -125,7 +125,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                             style: TextStyle(color: Colors.white),
                           )),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             double? valueIncrease =
                                 PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain);
                             if (valueIncrease == null) {
@@ -147,7 +147,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                         width: 5,
                       ),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             double? valueIncrease =
                                 PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain);
                             if (valueIncrease == null) {
@@ -168,7 +168,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                       ),
                       Container(alignment: Alignment.center, child: Text("ST-", style: TextStyle(color: Colors.white))),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             double? valueIncrease =
                                 PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond);
                             if (valueIncrease == null) {
@@ -190,7 +190,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                         width: 5,
                       ),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             double? valueIncrease =
                                 PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond);
                             if (valueIncrease == null) {
@@ -211,7 +211,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                       ),
                       Container(alignment: Alignment.center, child: Text("MStyle-", style: TextStyle(color: Colors.white))),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             int? valueDecrease = PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.THICK);
 
                             if (valueDecrease == null) {
@@ -232,7 +232,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                         width: 5,
                       ),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             int? valueIncrease = PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.THICK);
 
                             if (valueIncrease == null) {
@@ -253,7 +253,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                       ),
                       Container(alignment: Alignment.center, child: Text("SStyle-", style: TextStyle(color: Colors.white))),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             int? valueDecrease = PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.THICK_2);
 
                             if (valueDecrease == null) {
@@ -274,7 +274,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                         width: 5,
                       ),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             int? valueIncrease = PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.THICK_2);
 
                             if (valueIncrease == null) {
@@ -297,7 +297,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                       PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE) == null ||
                               PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE) == false
                           ? GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 setState(() {
                                   bool? value = PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE);
                                   if (value == null) {
@@ -308,7 +308,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                               },
                               child: Icon(Icons.line_weight_sharp, color: Colors.white))
                           : GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 setState(() {
                                   bool? value = PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE);
                                   PrefUtil.preferences!.setBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE, !value!);
@@ -320,7 +320,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                       ),
                       Container(alignment: Alignment.center, child: Text("Gpay-", style: TextStyle(color: Colors.white))),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             int? valueDecrease = PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.IMAGE_SIZE);
 
                             if (valueDecrease == null) {
@@ -341,7 +341,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                         width: 5,
                       ),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             int? valueIncrease = PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.IMAGE_SIZE);
 
                             if (valueIncrease == null) {
@@ -361,7 +361,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                       ),
                       Container(alignment: Alignment.center, child: Text("Sell-", style: TextStyle(color: Colors.white))),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             double? valueDecrease = PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS);
 
                             if (valueDecrease == null) {
@@ -382,7 +382,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                         width: 5,
                       ),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             double? valueIncrease = PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS);
 
                             if (valueIncrease == null) {

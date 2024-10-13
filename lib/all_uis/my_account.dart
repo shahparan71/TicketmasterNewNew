@@ -9,6 +9,7 @@ import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
+import 'package:ticket_master/utils/custom_dialog.dart';
 
 class MyAccount extends StatefulWidget {
   @override
@@ -17,8 +18,6 @@ class MyAccount extends StatefulWidget {
 
 class _MyAccountState extends State<MyAccount> {
   var _switchNotifications = true;
-
-  var textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +40,22 @@ class _MyAccountState extends State<MyAccount> {
                         return Container();
                       } else {
                         return GestureDetector(
-                          onTap: () {
-                            showDialogInput(AllConstant.DEREK, "Derek");
+                          onTap: () async {
+                            String? result = await CustomInputDialog.showInputDialog(
+                              context: context,
+                              defaultTxt: "Derek",
+                              key: AllConstant.DEREK,
+                            );
+                            if (result != null) {
+                              PrefUtil.preferences!.setString(AllConstant.DEREK, result);
+                              setState(() {});
+                            } else {
+                              print("Dialog was canceled");
+                            }
                           },
                           child: Text(
                             snapshot.data!,
-                            style: TextStyle(fontSize: 24, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.white()),
+                            style: TextStyle(fontSize: 24, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.white),
                           ),
                         );
                       }
@@ -60,8 +69,18 @@ class _MyAccountState extends State<MyAccount> {
                         return Container();
                       } else {
                         return GestureDetector(
-                          onTap: () {
-                            showDialogInput(AllConstant.EMAIL_DEREK, "derekpsheldon@gmail.com");
+                          onTap: () async {
+                            String? result = await CustomInputDialog.showInputDialog(
+                              context: context,
+                              defaultTxt: "derekpsheldon@gmail.com",
+                              key: AllConstant.EMAIL_DEREK,
+                            );
+                            if (result != null) {
+                              PrefUtil.preferences!.setString(AllConstant.EMAIL_DEREK, result);
+                              setState(() {});
+                            } else {
+                              print("Dialog was canceled");
+                            }
                           },
                           child: Text(
                             snapshot.data!,
@@ -87,7 +106,7 @@ class _MyAccountState extends State<MyAccount> {
                       ),
                       Text(
                         'Notifications',
-                        style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black()),
+                        style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black),
                       ),
                       SizedBox(
                         height: 30,
@@ -113,7 +132,8 @@ class _MyAccountState extends State<MyAccount> {
                                 ),
                                 Text(
                                   "Receive Notifications?",
-                                  style: TextStyle(fontSize: 17, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black.withOpacity(0.6)),
+                                  style: TextStyle(
+                                      fontSize: 17, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black.withOpacity(0.6)),
                                 ),
                               ],
                             ),
@@ -136,7 +156,7 @@ class _MyAccountState extends State<MyAccount> {
                         children: [
                           Text(
                             'Location Setting',
-                            style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.black()),
+                            style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.black),
                           ),
                           SizedBox(
                             width: 10,
@@ -190,14 +210,25 @@ class _MyAccountState extends State<MyAccount> {
                                   return Container();
                                 } else {
                                   return GestureDetector(
-                                    onTap: () {
-                                      showDialogInput(AllConstant.SANTA_BARBAR, "Santa Barbar");
+                                    onTap: () async {
+                                      String? result = await CustomInputDialog.showInputDialog(
+                                        context: context,
+                                        defaultTxt: "Santa Barbar",
+                                        key: AllConstant.SANTA_BARBAR,
+                                      );
+                                      if (result != null) {
+                                        PrefUtil.preferences!.setString(AllConstant.SANTA_BARBAR, result);
+                                        setState(() {});
+                                      } else {
+                                        print("Dialog was canceled");
+                                      }
                                     },
                                     child: Row(
                                       children: [
                                         Text(
                                           snapshot.data!,
-                                          style: TextStyle(fontSize: 17, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: Colors.blueAccent),
+                                          style: TextStyle(
+                                              fontSize: 17, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: Colors.blueAccent),
                                         ),
                                         Icon(
                                           Icons.open_in_new,
@@ -243,14 +274,25 @@ class _MyAccountState extends State<MyAccount> {
                                   return Container();
                                 } else {
                                   return GestureDetector(
-                                    onTap: () {
-                                      showDialogInput(AllConstant.USA, "United States");
+                                    onTap: () async {
+                                      String? result = await CustomInputDialog.showInputDialog(
+                                        context: context,
+                                        defaultTxt: "United States",
+                                        key: AllConstant.USA,
+                                      );
+                                      if (result != null) {
+                                        PrefUtil.preferences!.setString(AllConstant.USA, result);
+                                        setState(() {});
+                                      } else {
+                                        print("Dialog was canceled");
+                                      }
                                     },
                                     child: Row(
                                       children: [
                                         Text(
                                           snapshot.data!,
-                                          style: TextStyle(fontSize: 17, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: Colors.blueAccent),
+                                          style: TextStyle(
+                                              fontSize: 17, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: Colors.blueAccent),
                                         ),
                                         Icon(
                                           Icons.open_in_new,
@@ -306,7 +348,7 @@ class _MyAccountState extends State<MyAccount> {
                       ),
                       Text(
                         'Preferences',
-                        style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.black()),
+                        style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.black),
                       ),
                       SizedBox(
                         height: 30,
@@ -325,7 +367,7 @@ class _MyAccountState extends State<MyAccount> {
                       ),
                       Text(
                         'Help & Guidance',
-                        style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.black()),
+                        style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.black),
                       ),
                       SizedBox(
                         height: 30,
@@ -365,7 +407,7 @@ class _MyAccountState extends State<MyAccount> {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () {
+        onTap: () async {
           if (s.contains("Out")) {
             PrefUtil.preferences!.clear();
             Future.delayed(Duration.zero, () {
@@ -393,7 +435,11 @@ class _MyAccountState extends State<MyAccount> {
                   ),
                   Text(
                     s,
-                    style: TextStyle(fontSize: 17, fontFamily: "metropolis", fontWeight: color == null ? FontWeight.w500 : FontWeight.bold, color: color ?? Colors.black.withOpacity(0.6)),
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontFamily: "metropolis",
+                        fontWeight: color == null ? FontWeight.w500 : FontWeight.bold,
+                        color: color ?? Colors.black.withOpacity(0.6)),
                   ),
                 ],
               ),
@@ -407,46 +453,5 @@ class _MyAccountState extends State<MyAccount> {
         ),
       ),
     );
-  }
-
-  void showDialogInput(String sec, String defaultTxt, {TextInputType? inputType}) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController, inputType: inputType),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      print("totalAnnualWestController.value");
-                      print(textEditingController.text);
-                      if (textEditingController.text.toString().isNotEmpty) {
-                        if (inputType != null) {
-                          if (int.parse(textEditingController.text) < 2 || int.parse(textEditingController.text) > 10) return;
-                        }
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
-                        textEditingController.text = "";
-                        setState(() {});
-                      }
-                    },
-                  ),
-                ],
-              ),
-              //myPledge: model,
-            ),
-          );
-        });
   }
 }

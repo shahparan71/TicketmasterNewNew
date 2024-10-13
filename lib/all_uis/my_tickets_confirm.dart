@@ -11,6 +11,7 @@ import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
+import 'package:ticket_master/utils/custom_dialog.dart';
 
 class MyTicketsConfirmNewView extends StatefulWidget {
   String ticketCount;
@@ -31,7 +32,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
 
   var seatRange = "";
 
-  var textEditingController = TextEditingController();
+  
 
   @override
   void initState() {
@@ -64,7 +65,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
         leading: Padding(
           padding:  EdgeInsets.all(8.0),
           child: GestureDetector(
-              onTap: () {
+              onTap: () async {
                 Navigator.of(context).pop();
               },
               child: Container(
@@ -180,8 +181,8 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
-          color: AppColor.white(),
-          border: Border.all(color: AppColor.colorPageBackground(), width: 1, style: BorderStyle.solid),
+          color: AppColor.white,
+          border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
           boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -209,9 +210,9 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                           return Container();
                         } else {
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () async {},
                             child: Text(snapshot.data!,
-                                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white())),
+                                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
                           );
                         }
                       },
@@ -360,7 +361,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                 children: [
                   Text("SEC",
                       style:
-                          TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                          TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
                   SizedBox(
                     height: 5,
                   ),
@@ -372,7 +373,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                       } else {
                         return Text(snapshot.data!,
                             style: TextStyle(
-                                fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white()));
+                                fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white));
                       }
                     },
                   ),
@@ -382,7 +383,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                 children: [
                   Text("ROW",
                       style:
-                          TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                          TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
                   SizedBox(
                     height: 5,
                   ),
@@ -394,7 +395,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                       } else {
                         return Text(snapshot.data!,
                             style: TextStyle(
-                                fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white()));
+                                fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white));
                       }
                     },
                   ),
@@ -404,12 +405,12 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                 children: [
                   Text("SEAT",
                       style:
-                          TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                          TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
                   SizedBox(
                     height: 5,
                   ),
                   Text("${int.parse(widget.ticketCount) == 0 ? "0" : seatRange}",
-                      style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white()))
+                      style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white))
                 ],
               ),
             ],
@@ -515,7 +516,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                                         PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain) ?? 18,
                                     fontFamily: "metropolis",
                                     fontWeight: CommonOperation.getFontWeight(),
-                                    color: AppColor.white())),
+                                    color: AppColor.white)),
                           );
                         }
                       },
@@ -540,7 +541,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                                             14,
                                     fontFamily: "metropolis",
                                     fontWeight: CommonOperation.getFontWeight2(),
-                                    color: AppColor.white())),
+                                    color: AppColor.white)),
                           );
                         }
                       },
@@ -581,45 +582,4 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
     }
   }
 
-  void showDialogInput(String sec, String defaultTxt) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WidgetsUtil.inputBoxForAll(
-                    defaultTxt,
-                    sec,
-                    textEditingController,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      print("totalAnnualWestController.value");
-                      print(textEditingController.text);
-                      if (textEditingController.text.toString().isNotEmpty) {
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
-                        textEditingController.text = "";
-                        setState(() {});
-                      }
-                    },
-                  ),
-                ],
-              ),
-              //myPledge: model,
-            ),
-          );
-        });
-  }
 }

@@ -32,7 +32,7 @@ class _DiscoverImageState extends State<DiscoverImage> {
                             fit: BoxFit.cover,
                             width: double.infinity,
                           ),
-                          onTap: () {
+                          onTap: () async {
                             pickImageDiscover();
                           },
                         ),
@@ -41,7 +41,7 @@ class _DiscoverImageState extends State<DiscoverImage> {
                   : Stack(
                       children: [
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             pickImageDiscover();
                           },
                           child: Image.asset(
@@ -87,12 +87,12 @@ class _DiscoverImageState extends State<DiscoverImage> {
                     child: Icon(
                       Icons.camera_alt,
                     ),
-                    onTap: () {
+                    onTap: () async {
                       pickImage(1, AllConstant.DISCOVER_IMAGE_PATH, context);
                     },
                   ),
                   GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         pickImage(2, AllConstant.DISCOVER_IMAGE_PATH, context);
                       },
                       child: Icon(Icons.file_copy))

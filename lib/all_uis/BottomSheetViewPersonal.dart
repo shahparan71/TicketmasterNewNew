@@ -10,6 +10,7 @@ import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
+import 'package:ticket_master/utils/custom_dialog.dart';
 
 class BottomSheetViewPersonal extends StatefulWidget {
   BottomSheetViewPersonal();
@@ -58,7 +59,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                 height: 20,
               ),
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   getCount();
                 },
                 child: Text("TRANSFER TICKETS",
@@ -326,7 +327,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             Navigator.of(context).pop();
                             saveShared();
                           },
@@ -469,8 +470,6 @@ class DialogDetails extends StatefulWidget {
 }
 
 class _DialogDetailsState extends State<DialogDetails> {
-  var textEditingController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     double boxHeight = 10;
@@ -518,8 +517,21 @@ class _DialogDetailsState extends State<DialogDetails> {
                         )),
                     Expanded(
                       child: GestureDetector(
-                        onTap: () {
-                          showDialogInput(AllConstant.DIALOG_TICKET_COUNT, "0", inputType: TextInputType.number);
+                        onTap: () async {
+                          String? result = await CustomInputDialog.showInputDialog(
+                              context: context, defaultTxt: "0", key: AllConstant.DIALOG_TICKET_COUNT, textInputType: TextInputType.number);
+                          if (result != null) {
+                            if (int.parse(result) < 1) return;
+
+                            PrefUtil.preferences!.setString(
+                              AllConstant.DIALOG_TICKET_COUNT,
+                              result,
+                            );
+                            setState(() {});
+                          } else {
+                            print("Dialog was canceled");
+                          }
+
                           setState(() {});
                         },
                         child: Text(
@@ -572,47 +584,4 @@ class _DialogDetailsState extends State<DialogDetails> {
     );
   }
 
-  void showDialogInput(String sec, String defaultTxt, {TextInputType? inputType}) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WidgetsUtil.inputBoxForAll(
-                    defaultTxt,
-                    sec,
-                    textEditingController,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
-                    ),
-                    onPressed: () async {
-                      Navigator.of(context).pop();
-
-                      if (textEditingController.text.toString().isNotEmpty) {
-                        if (inputType != null) {
-                          if (int.parse(textEditingController.text) < 1) return;
-                        }
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
-                        textEditingController.text = "";
-                        setState(() {});
-                      }
-                    },
-                  ),
-                ],
-              ),
-              //myPledge: model,
-            ),
-          );
-        });
-  }
 }

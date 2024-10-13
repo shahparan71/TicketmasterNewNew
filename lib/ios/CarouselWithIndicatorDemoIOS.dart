@@ -17,7 +17,9 @@ import 'package:ticket_master/ios/barcode_view_ios.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
+import 'package:ticket_master/utils/custom_dialog.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
+import 'package:ticket_master/utils/custom_dialog.dart';
 
 class CarouselWithIndicatorDemoIOS extends StatefulWidget {
   CarouselWithIndicatorDemoIOS();
@@ -32,7 +34,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
   int _current = 0;
   List<Widget>? imageSlidersM;
   List<Widget>? imageSlidersT;
-  var textEditingController = TextEditingController();
+
   String? filePath;
   List<String> imgList = ["1"];
   int assetUrl = 1;
@@ -82,8 +84,21 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
               }),
         ),
         GestureDetector(
-          onTap: () {
-            showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.CAROUSEL_COUNT, "6", inputType: TextInputType.number);
+          onTap: () async {
+            String? result = await CustomInputDialog.showInputDialog(
+                context: context,
+                defaultTxt: "6",
+                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.CAROUSEL_COUNT,
+                textInputType: TextInputType.number);
+            if (result != null) {
+              PrefUtil.preferences!.setString(
+                AllConstant.CURRENT_LIST_INDEX + AllConstant.CAROUSEL_COUNT,
+                result,
+              );
+              setState(() {});
+            } else {
+              print("Dialog was canceled");
+            }
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -111,8 +126,8 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
       child: Container(
         width: MediaQuery.of(context).size.width - 60,
         decoration: BoxDecoration(
-          color: AppColor.colorPageBackground(),
-          border: Border.all(color: AppColor.colorPageBackground(), width: 1, style: BorderStyle.solid),
+          color: AppColor.colorPageBackground,
+          border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
           boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 2, spreadRadius: 2)],
           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -122,8 +137,21 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
             Column(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND, "2166e5");
+                  onTap: () async {
+                    String? result = await CustomInputDialog.showInputDialog(
+                      context: context,
+                      defaultTxt: "2166e5",
+                      key: AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND,
+                    );
+                    if (result != null) {
+                      PrefUtil.preferences!.setString(
+                        AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND,
+                        result,
+                      );
+                      setState(() {});
+                    } else {
+                      print("Dialog was canceled");
+                    }
                   },
                   child: Container(
                     width: double.infinity,
@@ -143,11 +171,24 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                             return Container();
                           } else {
                             return GestureDetector(
-                              onTap: () {
-                                showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer");
+                              onTap: () async {
+                                String? result = await CustomInputDialog.showInputDialog(
+                                  context: context,
+                                  defaultTxt: "Verified Fan Offer",
+                                  key: AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,
+                                );
+                                if (result != null) {
+                                  PrefUtil.preferences!.setString(
+                                    AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,
+                                    result,
+                                  );
+                                  setState(() {});
+                                } else {
+                                  print("Dialog was canceled");
+                                }
                               },
                               child: Text(snapshot.data!,
-                                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white())),
+                                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
                             );
                           }
                         },
@@ -171,8 +212,21 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                               return Container();
                             } else {
                               return GestureDetector(
-                                onTap: () {
-                                  showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.GATE_235, "American VIP - 7");
+                                onTap: () async {
+                                  String? result = await CustomInputDialog.showInputDialog(
+                                    context: context,
+                                    defaultTxt: "GATE 2 3 5",
+                                    key: AllConstant.CURRENT_LIST_INDEX + AllConstant.GATE_235,
+                                  );
+                                  if (result != null) {
+                                    PrefUtil.preferences!.setString(
+                                      AllConstant.CURRENT_LIST_INDEX + AllConstant.GATE_235,
+                                      result,
+                                    );
+                                    setState(() {});
+                                  } else {
+                                    print("Dialog was canceled");
+                                  }
                                 },
                                 child: Text(snapshot.data!,
                                     style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black)),
@@ -182,7 +236,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           assetUrl++;
                           if (assetUrl > 4) assetUrl = 1;
 
@@ -194,7 +248,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => BarcodeViewIOS(_current)),
@@ -215,7 +269,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) => TicketDetails()),
@@ -313,9 +367,18 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
 
   Widget buildContainerTopTex() {
     return GestureDetector(
-      onTap: () {
-        //COLOR_MAIN
-        showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_MAIN, "2166e5");
+      onTap: () async {
+        String? result = await CustomInputDialog.showInputDialog(
+          context: context,
+          defaultTxt: "2166e5",
+          key: AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_MAIN,
+        );
+        if (result != null) {
+          PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_MAIN, result);
+          setState(() {});
+        } else {
+          print("Dialog was canceled");
+        }
       },
       child: Container(
         width: double.infinity,
@@ -335,7 +398,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                   children: [
                     Text("SEC",
                         style:
-                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
                     SizedBox(
                       height: 5,
                     ),
@@ -346,12 +409,22 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                           return Container();
                         } else {
                           return GestureDetector(
-                            onTap: () {
-                              showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "303");
+                            onTap: () async {
+                              String? result = await CustomInputDialog.showInputDialog(
+                                context: context,
+                                defaultTxt: "303",
+                                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC,
+                              );
+                              if (result != null) {
+                                PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, result);
+                                setState(() {});
+                              } else {
+                                print("Dialog was canceled");
+                              }
                             },
                             child: Text(snapshot.data!,
                                 style: TextStyle(
-                                    fontSize: 22, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                                    fontSize: 22, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white)),
                           );
                         }
                       },
@@ -362,7 +435,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                   children: [
                     Text("ROW",
                         style:
-                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
                     SizedBox(
                       height: 5,
                     ),
@@ -373,12 +446,22 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                           return Container();
                         } else {
                           return GestureDetector(
-                            onTap: () {
-                              showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, "5");
+                            onTap: () async {
+                              String? result = await CustomInputDialog.showInputDialog(
+                                context: context,
+                                defaultTxt: "5",
+                                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW,
+                              );
+                              if (result != null) {
+                                PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, result);
+                                setState(() {});
+                              } else {
+                                print("Dialog was canceled");
+                              }
                             },
                             child: Text(snapshot.data!,
                                 style: TextStyle(
-                                    fontSize: 22, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                                    fontSize: 22, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white)),
                           );
                         }
                       },
@@ -389,7 +472,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                   children: [
                     Text("SEAT",
                         style:
-                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white())),
+                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
                     SizedBox(
                       height: 5,
                     ),
@@ -401,13 +484,25 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                           return Container();
                         } else {
                           return GestureDetector(
-                            onTap: () {
-                              showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _current.toString(), _current.toString(),
-                                  inputType: TextInputType.number);
+                            onTap: () async {
+                              String? result = await CustomInputDialog.showInputDialog(
+                                  context: context,
+                                  defaultTxt: "6",
+                                  key: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _current.toString(),
+                                  textInputType: TextInputType.number);
+                              if (result != null) {
+                                PrefUtil.preferences!.setString(
+                                  AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _current.toString(),
+                                  result,
+                                );
+                                setState(() {});
+                              } else {
+                                print("Dialog was canceled");
+                              }
                             },
                             child: Text(snapshot.data!,
                                 style: TextStyle(
-                                    fontSize: 22, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white())),
+                                    fontSize: 22, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white)),
                           );
                         }
                       },
@@ -451,12 +546,12 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                                   child: Icon(
                                     Icons.camera_alt,
                                   ),
-                                  onTap: () {
+                                  onTap: () async {
                                     //pickImage(1, AllConstant.CURRENT_LIST_INDEX+AllConstant.IMAGE_PATH);
                                   },
                                 ),
                                 GestureDetector(
-                                    onTap: () {
+                                    onTap: () async {
                                       //pickImage(2, AllConstant.CURRENT_LIST_INDEX+AllConstant.IMAGE_PATH);
                                     },
                                     child: Icon(Icons.file_copy))
@@ -533,7 +628,17 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                         } else {
                           return GestureDetector(
                             onTap: () async {
-                              showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT_2, "Taylor Swift | The Eras Tour");
+                              String? result = await CustomInputDialog.showInputDialog(
+                                context: context,
+                                defaultTxt: "Taylor Swift | The Eras Tour",
+                                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT_2,
+                              );
+                              if (result != null) {
+                                PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT_2, result);
+                                setState(() {});
+                              } else {
+                                print("Dialog was canceled");
+                              }
                             },
                             child: Container(
                               child: Text(snapshot.data!,
@@ -546,7 +651,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                                               18,
                                       fontFamily: "metropolis",
                                       fontWeight: CommonOperation.getFontWeight(),
-                                      color: AppColor.white())),
+                                      color: AppColor.white)),
                             ),
                           );
                         }
@@ -563,7 +668,17 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                         } else {
                           return GestureDetector(
                             onTap: () async {
-                              showDialogInput(AllConstant.CURRENT_LIST_INDEX + AllConstant.DATE, "Sat, Dec 18, 4:30pm . SofFi Stadium");
+                              String? result = await CustomInputDialog.showInputDialog(
+                                context: context,
+                                defaultTxt: "Sat, Dec 18, 4:30pm . SofFi Stadium",
+                                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.DATE,
+                              );
+                              if (result != null) {
+                                PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.DATE, result);
+                                setState(() {});
+                              } else {
+                                print("Dialog was canceled");
+                              }
                             },
                             child: Container(
                               child: Text(snapshot.data!,
@@ -576,7 +691,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                                               14,
                                       fontFamily: "metropolis",
                                       fontWeight: CommonOperation.getFontWeight2(),
-                                      color: AppColor.white())),
+                                      color: AppColor.white)),
                             ),
                           );
                         }
@@ -607,48 +722,6 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
     print(filePath);
     PrefUtil.preferences!.setString(path, filePath!);
     setState(() {});
-  }
-
-  void showDialogInput(String sec, String defaultTxt, {TextInputType? inputType}) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController, inputType: inputType),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      print("totalAnnualWestController.value");
-                      print(textEditingController.text);
-                      if (textEditingController.text.toString().isNotEmpty) {
-                        /*if (inputType != null) {
-                          if (int.parse(textEditingController.text) < 2 || int.parse(textEditingController.text) > 10) return;
-                        }*/
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
-                        textEditingController.text = "";
-                        setState(() {});
-                        if (inputType != null) initSlide();
-                      }
-                    },
-                  ),
-                ],
-              ),
-              //myPledge: model,
-            ),
-          );
-        });
   }
 
   Future<void> initSlide() async {

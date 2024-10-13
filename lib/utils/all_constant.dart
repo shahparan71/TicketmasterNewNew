@@ -87,6 +87,7 @@ class AllConstant {
   static String USA = "usa";
   static String DIALOG_TICKET_COUNT = "0";
   static String NUMBER_OF_LIST_ITEM_COUNT = "number_of_list_count";
+  static String NAV_DRAWER_NAME = "nav_drawer_name";
   static String IS_CLICK_COUNT = "is_click_count";
 
 

@@ -44,7 +44,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
               width: MediaQuery.of(context).size.width,
             ),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(context);
                 showModalBottomSheet(
                   context: context,
@@ -102,7 +102,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
               ),
             ),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(context);
                 showModalBottomSheet(
                   context: context,
@@ -231,7 +231,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         Navigator.of(context).pop();
                       },
                       child: Row(

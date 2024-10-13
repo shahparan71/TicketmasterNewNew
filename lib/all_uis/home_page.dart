@@ -11,6 +11,7 @@ import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/main_landing_screen_ios.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
+import 'package:ticket_master/utils/custom_dialog.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,7 +22,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? filePath;
-  var textEditingController = TextEditingController();
 
   bool taxExeShowHide = false;
 
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 Flexible(
                                     child: GestureDetector(
-                                  onTap: () {
+                                  onTap: () async {
                                     showDialog(
                                         context: context,
                                         builder: (_) {
@@ -115,12 +115,12 @@ class _HomePageState extends State<HomePage> {
                                                     child: Icon(
                                                       Icons.camera_alt,
                                                     ),
-                                                    onTap: () {
+                                                    onTap: () async {
                                                       pickImage(1, index.toString() + AllConstant.IMAGE_PATH);
                                                     },
                                                   ),
                                                   GestureDetector(
-                                                      onTap: () {
+                                                      onTap: () async {
                                                         pickImage(2, index.toString() + AllConstant.IMAGE_PATH);
                                                       },
                                                       child: Icon(Icons.file_copy))
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                                 )),
                                 Flexible(
                                     child: GestureDetector(
-                                  onTap: () {
+                                  onTap: () async {
                                     AllConstant.CURRENT_LIST_INDEX = index.toString();
                                     Platform.isIOS
                                         ? Navigator.push(
@@ -173,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                                     PrefUtil.preferences!.getBool(index.toString() + AllConstant.TAX_EMP) == null ||
                                             PrefUtil.preferences!.getBool(index.toString() + AllConstant.TAX_EMP) == false
                                         ? GestureDetector(
-                                            onTap: () {
+                                            onTap: () async {
                                               setState(() {
                                                 PrefUtil.preferences!.setBool(index.toString() + AllConstant.TAX_EMP, true);
                                               });
@@ -198,7 +198,20 @@ class _HomePageState extends State<HomePage> {
                                               } else {
                                                 return GestureDetector(
                                                   onTap: () async {
-                                                    showDialogInput(index.toString() + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour");
+                                                    String? result = await CustomInputDialog.showInputDialog(
+                                                        context: context,
+                                                        defaultTxt: "Taylor Swift | The Eras Tour",
+                                                        key: index.toString() + AllConstant.IAMGE_BIG_TEXT,
+                                                        textInputType: TextInputType.number);
+                                                    if (result != null) {
+                                                      PrefUtil.preferences!.setString(
+                                                        index.toString() + AllConstant.IAMGE_BIG_TEXT,
+                                                        result,
+                                                      );
+                                                      setState(() {});
+                                                    } else {
+                                                      print("Dialog was canceled");
+                                                    }
                                                   },
                                                   child: Container(
                                                     child: Text(snapshot.data!,
@@ -211,7 +224,7 @@ class _HomePageState extends State<HomePage> {
                                                                 18,
                                                             fontFamily: "metropolis",
                                                             fontWeight: CommonOperation.getFontWeight(),
-                                                            color: AppColor.white())),
+                                                            color: AppColor.white)),
                                                   ),
                                                 );
                                               }
@@ -230,7 +243,20 @@ class _HomePageState extends State<HomePage> {
                                         } else {
                                           return GestureDetector(
                                             onTap: () async {
-                                              showDialogInput(index.toString() + AllConstant.IAMGE_BIG_TEXT_2, "Taylor Swift | The Eras Tour");
+                                              String? result = await CustomInputDialog.showInputDialog(
+                                                  context: context,
+                                                  defaultTxt: "Taylor Swift | The Eras Tour",
+                                                  key: index.toString() + AllConstant.IAMGE_BIG_TEXT_2,
+                                                  textInputType: TextInputType.number);
+                                              if (result != null) {
+                                                PrefUtil.preferences!.setString(
+                                                  index.toString() + AllConstant.IAMGE_BIG_TEXT_2,
+                                                  result,
+                                                );
+                                                setState(() {});
+                                              } else {
+                                                print("Dialog was canceled");
+                                              }
                                             },
                                             child: Container(
                                               child: Text(snapshot.data!,
@@ -243,7 +269,7 @@ class _HomePageState extends State<HomePage> {
                                                               18,
                                                       fontFamily: "metropolis",
                                                       fontWeight: CommonOperation.getFontWeight(),
-                                                      color: AppColor.white())),
+                                                      color: AppColor.white)),
                                             ),
                                           );
                                         }
@@ -266,7 +292,20 @@ class _HomePageState extends State<HomePage> {
                                               } else {
                                                 return GestureDetector(
                                                   onTap: () async {
-                                                    showDialogInput(index.toString() + AllConstant.DATE, "Sat, Dec 18, 4:30pm . SofFi Stadium");
+                                                    String? result = await CustomInputDialog.showInputDialog(
+                                                        context: context,
+                                                        defaultTxt: "Sat, Dec 18, 4:30pm . SofFi Stadium",
+                                                        key: index.toString() + AllConstant.DATE,
+                                                        textInputType: TextInputType.number);
+                                                    if (result != null) {
+                                                      PrefUtil.preferences!.setString(
+                                                        index.toString() + AllConstant.DATE,
+                                                        result,
+                                                      );
+                                                      setState(() {});
+                                                    } else {
+                                                      print("Dialog was canceled");
+                                                    }
                                                   },
                                                   child: Text(snapshot.data!,
                                                       textAlign: TextAlign.start,
@@ -274,7 +313,7 @@ class _HomePageState extends State<HomePage> {
                                                           fontSize: 14,
                                                           fontFamily: "metropolis",
                                                           fontWeight: FontWeight.normal,
-                                                          color: AppColor.white())),
+                                                          color: AppColor.white)),
                                                 );
                                               }
                                             },
@@ -302,9 +341,20 @@ class _HomePageState extends State<HomePage> {
                                               return Container();
                                             } else {
                                               return GestureDetector(
-                                                onTap: () {
-                                                  showDialogInput(index.toString() + AllConstant.SELECTED_TICKET_COUNT, "6",
-                                                      inputType: TextInputType.number);
+                                                onTap: () async {
+                                                  String? result = await CustomInputDialog.showInputDialog(
+                                                      context: context,
+                                                      defaultTxt: "6",
+                                                      key: index.toString() + AllConstant.SELECTED_TICKET_COUNT,
+                                                      textInputType: TextInputType.number);
+                                                  if (result != null) {
+                                                    if (int.parse(result) < 2 || int.parse(result) > 10) return;
+
+                                                    PrefUtil.preferences!.setString(index.toString() + AllConstant.SELECTED_TICKET_COUNT, result);
+                                                    setState(() {});
+                                                  } else {
+                                                    print("Dialog was canceled");
+                                                  }
 
                                                   setState(() {});
                                                 },
@@ -333,9 +383,21 @@ class _HomePageState extends State<HomePage> {
                                               return Container();
                                             } else {
                                               return GestureDetector(
-                                                onTap: () {
-                                                  showDialogInputListed(index.toString() + AllConstant.SELECTED_LISTED, "0",
-                                                      inputType: TextInputType.number);
+                                                onTap: () async {
+                                                  String? result = await CustomInputDialog.showInputDialog(
+                                                      context: context,
+                                                      defaultTxt: "0",
+                                                      key: index.toString() + AllConstant.SELECTED_LISTED,
+                                                      textInputType: TextInputType.number);
+                                                  if (result != null) {
+                                                    PrefUtil.preferences!.setString(
+                                                      index.toString() + AllConstant.SELECTED_LISTED,
+                                                      result,
+                                                    );
+                                                    setState(() {});
+                                                  } else {
+                                                    print("Dialog was canceled");
+                                                  }
 
                                                   setState(() {});
                                                 },
@@ -382,91 +444,5 @@ class _HomePageState extends State<HomePage> {
     print(filePath);
     PrefUtil.preferences!.setString(path, filePath!);
     setState(() {});
-  }
-
-  void showDialogInput(String sec, String defaultTxt, {TextInputType? inputType}) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController, inputType: inputType),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      print("totalAnnualWestController.value");
-                      print(textEditingController.text);
-                      if (textEditingController.text.toString().isNotEmpty) {
-                        if (inputType != null) {
-                          if (int.parse(textEditingController.text) < 2 || int.parse(textEditingController.text) > 10) return;
-                        }
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
-                        textEditingController.text = "";
-                        setState(() {});
-                        //if (inputType != null) initSlide();
-                      }
-                    },
-                  ),
-                ],
-              ),
-              //myPledge: model,
-            ),
-          );
-        });
-  }
-
-  void showDialogInputListed(String sec, String defaultTxt, {TextInputType? inputType}) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController, inputType: inputType),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      print("totalAnnualWestController.value");
-                      print(textEditingController.text);
-                      if (textEditingController.text.toString().isNotEmpty) {
-                        /*if (inputType != null) {
-                          if (int.parse(textEditingController.text) < -1 ||
-                              int.parse(textEditingController.text) > 10)
-                            return;
-                        }*/
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
-                        textEditingController.text = "";
-                        setState(() {});
-                        //if (inputType != null) initSlide();
-                      }
-                    },
-                  ),
-                ],
-              ),
-              //myPledge: model,
-            ),
-          );
-        });
   }
 }
