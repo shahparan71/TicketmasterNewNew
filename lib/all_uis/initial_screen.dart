@@ -25,7 +25,7 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
-  int index = 2;
+  int indexByPage = 2;
 
   double iconValue = 25.0;
 
@@ -34,7 +34,7 @@ class _InitialScreenState extends State<InitialScreen> {
   Map<int, bool> myMap = {
     1: false,
     2: false,
-    3: false,
+    3: true,
     4: false,
     5: false,
   };
@@ -48,193 +48,105 @@ class _InitialScreenState extends State<InitialScreen> {
         child: Scaffold(
       key: _scaffoldKey,
       drawer: buildDrawer(),
-      appBar: index == 0
-          ? AppBar(
-              backgroundColor: AppColor.white,
-              /*leading: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),*/
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset(
-                    "assets/images/logoticket.png",
-                    height: 20,
-                  ),
-                  Image.asset(
-                    "assets/images/profile_discover.png",
-                    height: 25,
-                  )
-                  //Image.asset("assets/images/logoticket.png")
-                ],
-              ),
-            )
-          : AppBar(
-              backgroundColor: AppColor.black,
-              automaticallyImplyLeading: false,
-              title: index == 4
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("My Account",
-                            style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white))
-                      ],
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CommonOperation.getInitIndexClick()!
-                            ? Container(
-                                width: 40,
-                                child: GestureDetector(
-                                    onLongPress: () async {
-                                      String? result = await CustomInputDialog.showInputDialog(
-                                        context: context,
-                                        defaultTxt: "1",
-                                        key: AllConstant.NUMBER_OF_LIST_ITEM_COUNT,
-                                        textInputType: TextInputType.number,
-                                      );
+      appBar: AppBar(
+        backgroundColor: AppColor.black,
+        automaticallyImplyLeading: false,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CommonOperation.getInitIndexClick()!
+                ? Container(
+                    width: 40,
+                    child: GestureDetector(
+                        onLongPress: () async {
+                          String? result = await CustomInputDialog.showInputDialog(
+                            context: context,
+                            defaultTxt: "1",
+                            key: AllConstant.NUMBER_OF_LIST_ITEM_COUNT,
+                            textInputType: TextInputType.number,
+                          );
 
-                                      if (result != null) {
-                                        if (result.isNotEmpty) {
-                                          if (int.parse(result) < 1) return;
+                          if (result != null) {
+                            if (result.isNotEmpty) {
+                              if (int.parse(result) < 1) return;
 
-                                          PrefUtil.preferences!.setString(AllConstant.NUMBER_OF_LIST_ITEM_COUNT, result);
+                              PrefUtil.preferences!.setString(AllConstant.NUMBER_OF_LIST_ITEM_COUNT, result);
 
-                                          for (var value in PrefUtil.preferences!.getKeys()) {
-                                            if (value != AllConstant.NUMBER_OF_LIST_ITEM_COUNT) PrefUtil.preferences!.remove(value);
-                                          }
-
-                                          setState(() {});
-                                        }
-                                      } else {
-                                        print("Dialog was canceled");
-                                      }
-                                    },
-                                    onTap: () async {
-                                      _scaffoldKey.currentState!.openDrawer();
-                                    },
-                                    child: Icon(
-                                      Icons.list,
-                                      color: Colors.white,
-                                      size: 40,
-                                    )),
-                              )
-                            : Container(
-                                width: 40,
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    PrefUtil.preferences!.setBool(AllConstant.IS_CLICK_COUNT, !CommonOperation.getInitIndexClick()!);
-                                    setState(() {});
-                                  },
-                                  child: Icon(
-                                    Icons.close,
-                                    size: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                        GestureDetector(
-                          onTap: () async {
-                            setState(() {
-                              if (Platform.isIOS)
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => EmailScreenIOS()),
-                                );
-                              else
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => EmailScreen()),
-                                );
+                              for (var value in PrefUtil.preferences!.getKeys()) {
+                                if (value != AllConstant.NUMBER_OF_LIST_ITEM_COUNT) PrefUtil.preferences!.remove(value);
+                              }
 
                               setState(() {});
-                            });
-                          },
-                          child: Text("My Events",
-                              style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ItsNotYou()),
-                            );
-                          },
-                          child: Text("Help",
-                              style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                        ),
-                      ],
+                            }
+                          } else {
+                            print("Dialog was canceled");
+                          }
+                        },
+                        onTap: () async {
+                          _scaffoldKey.currentState!.openDrawer();
+                        },
+                        child: Icon(
+                          Icons.menu,
+                          color: Colors.white,
+                          size: 40,
+                        )),
+                  )
+                : Container(
+                    width: 40,
+                    child: GestureDetector(
+                      onTap: () async {
+                        PrefUtil.preferences!.setBool(AllConstant.IS_CLICK_COUNT, !CommonOperation.getInitIndexClick()!);
+                        setState(() {});
+                      },
+                      child: Icon(
+                        Icons.close,
+                        size: 20,
+                        color: Colors.white,
+                      ),
                     ),
+                  ),
+            GestureDetector(
+              onTap: () async {
+                setState(() {
+                  if (Platform.isIOS)
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EmailScreenIOS()),
+                    );
+                  else
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EmailScreen()),
+                    );
+
+                  setState(() {});
+                });
+              },
+              child: Text(
+                  indexByPage == 1
+                      ? "Discover"
+                      : indexByPage == 2
+                          ? "For You"
+                          : indexByPage == 3
+                              ? "My Events"
+                              : indexByPage == 4
+                                  ? "Sell"
+                                  : "Profile",
+                  style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
             ),
-      bottomNavigationBar: new BottomNavigationBar(
-          currentIndex: index,
-          onTap: (int index) {
-            setState(() {
-              this.index = index;
-            });
-            _navigateToScreens(index);
-          },
-          type: BottomNavigationBarType.fixed,
-          items: [
-            new BottomNavigationBarItem(
-                backgroundColor: Colors.white,
-                icon: new Image.asset(
-                  'assets/images/bottom/01.png',
-                  width: iconValue,
-                ),
-                activeIcon: new Image.asset(
-                  'assets/images/bottom_click/1.png',
-                  width: iconValue,
-                ),
-                label: "Discover"),
-            new BottomNavigationBarItem(
-              icon: new Image.asset(
-                'assets/images/bottom/02.png',
-                width: iconValue,
-              ),
-              activeIcon: new Image.asset(
-                'assets/images/bottom_click/2.png',
-                width: iconValue,
-              ),
-              label: "For You",
+            GestureDetector(
+              onTap: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ItsNotYou()),
+                );
+              },
+              child: Text("Help", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
             ),
-            new BottomNavigationBarItem(
-              icon: new Image.asset(
-                'assets/images/bottom/03.png',
-                width: iconValue,
-              ),
-              activeIcon: new Image.asset(
-                'assets/images/bottom_click/3.png',
-                width: iconValue,
-              ),
-              label: "My Events",
-            ),
-            new BottomNavigationBarItem(
-              icon: new Image.asset(
-                'assets/images/bottom/04.png',
-                width: 30,
-              ),
-              activeIcon: new Image.asset(
-                'assets/images/bottom_click/4.png',
-                width: iconValue,
-              ),
-              label: "Sell",
-            ),
-            new BottomNavigationBarItem(
-              icon: new Image.asset(
-                'assets/images/bottom/05.png',
-                width: iconValue,
-              ),
-              activeIcon: new Image.asset(
-                'assets/images/bottom_click/5.png',
-                width: iconValue,
-              ),
-              label: "My Account",
-            )
-          ]),
-      body: getWidget(index),
+          ],
+        ),
+      ),
+      body: getWidget(indexByPage),
     ));
   }
 
@@ -254,7 +166,7 @@ class _InitialScreenState extends State<InitialScreen> {
               children: [
                 Container(
                   child: Image.asset(
-                    "assets/images/t.png",
+                    "assets/images/t_blue.jpg",
                     scale: .3,
                   ),
                   height: 80,
@@ -345,9 +257,12 @@ class _InitialScreenState extends State<InitialScreen> {
         for (int i = 1; i < 6; i++) {
           if (boolIndex == i) {
             myMap[i] = true;
+            indexByPage = i;
           } else
             myMap[i] = false;
         }
+        await Future.delayed(const Duration(milliseconds: 300));
+        Navigator.pop(context);
         setState(() {});
       },
     );
@@ -397,11 +312,11 @@ class _InitialScreenState extends State<InitialScreen> {
 
   getWidget(int index) {
     switch (index) {
-      case 0:
+      case 1:
         return Discover();
-      case 2:
+      case 3:
         return HomePage();
-      case 4:
+      case 5:
         return MyAccount();
     }
 
