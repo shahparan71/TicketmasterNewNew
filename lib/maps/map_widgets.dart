@@ -166,6 +166,7 @@ class GoogleMapFlutterState extends State<GoogleMapFlutter> {
                               if (result != null) {
                                 PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG, result);
                                 setState(() {});
+                                initData();
                               } else {
                                 print("Dialog was canceled");
                               }

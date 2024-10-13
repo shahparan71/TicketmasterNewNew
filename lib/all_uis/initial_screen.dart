@@ -25,7 +25,7 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
-  int indexByPage = 2;
+  int indexByPage = 3;
 
   double iconValue = 25.0;
 

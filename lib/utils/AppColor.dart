@@ -8,10 +8,9 @@ String redAlertText =
     "Asia Pacific is facing a mounting climate and environment emergency. Global heating is intensifying storms, floods, heatwaves and wildfires, as well as slow-burning disasters like drought and food insecurity. Hundreds of millions of people are threatened by worsening climate-related disasters and rising sea levels. Many communities – including some entire nations – are set to be displaced. All this hits the most vulnerable and marginalised communities and their children hardest. Pollution of our air, land and water is killing our children and damaging the environment. Entire ecosystems are crumbling as mass species extinction accelerates. ";
 
 class AppColor {
-
   static Color colorPrimary = Color(0xFFFC6011);
-  static Color colorGryaMyTicket = Color(0xFF4d5b66);
-  static Color colorGryaBlackMyTicket = Color(0xFF425059);
+  static Color colorGryaMyTicket = Color(0xff000000);
+  static Color colorGryaBlackMyTicket = Color(0xFF000000);
   static Color colorAccent = Color(0xFF585E5F);
   static Color colorTitle = Color(0xFF293032);
   static Color colorShadowGray = Color(0xFFCBC9C9);
@@ -45,7 +44,7 @@ class AppColor {
   static Color colorMain() {
     String? colorValue = PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_MAIN);
     if (colorValue == null) {
-      return Color(0xff026bde);
+      return Color(0xff000000);
     }
     return Color(int.parse("0xFF${colorValue}"));
   }
@@ -61,9 +60,8 @@ class AppColor {
   static Color colorSecond() {
     String? colorValue = PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND);
     if (colorValue == null) {
-      return Color(0xFF295fc3);
+      return Color(0xff000000);
     }
     return Color(int.parse("0xFF${colorValue}"));
   }
-
 }

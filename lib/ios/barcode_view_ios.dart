@@ -79,7 +79,7 @@ class _BarcodeViewIOSState extends State<BarcodeViewIOS> {
         Container(
           width: double.infinity,
           height: double.infinity,
-          color: Colors.black38,
+          color: Colors.black54,
         ),
         Container(
           height: 72,
@@ -272,7 +272,7 @@ class _BarcodeViewIOSState extends State<BarcodeViewIOS> {
                                       }
                                     },
                                     child: Text(snapshot.data!,
-                                        style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black)),
+                                        style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.white)),
                                   );
                                 }
                               },
