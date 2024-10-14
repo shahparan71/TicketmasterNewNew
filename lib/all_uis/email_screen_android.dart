@@ -13,16 +13,15 @@ import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
-class EmailScreen extends StatefulWidget {
-  const EmailScreen({Key? key}) : super(key: key);
+class EmailScreenAndroid extends StatefulWidget {
+  const EmailScreenAndroid({Key? key}) : super(key: key);
 
   @override
-  _EmailScreenState createState() => _EmailScreenState();
+  _EmailScreenAndroidState createState() => _EmailScreenAndroidState();
 }
 
-class _EmailScreenState extends State<EmailScreen> {
+class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
   String? filePath;
-
   bool taxExeShowHide = false;
 
   @override
@@ -43,10 +42,27 @@ class _EmailScreenState extends State<EmailScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    buildColumnTopYourNew(),
                     buildContainerTopBar1(),
                     buildContainerTopBar2(),
-                    buildContainerImageTop(),
-                    buildContainerTicketInfo(context),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0XFFffffff),
+                          border: Border.all(color: Colors.black54),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: Column(
+                            children: [
+                              buildContainerImageTop(),
+                              buildContainerTicketInfo(context),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                     buildContainerImportantInfo(),
                     buildContainerPaymentSummary(),
                     buildContainerSocialMedia()
@@ -77,11 +93,18 @@ class _EmailScreenState extends State<EmailScreen> {
                                 },
                                 child: Icon(Icons.arrow_back_rounded)),
                             Container(
-                                width: 110,
+                                width: 140,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    Image.asset("assets/images/delete_email.png", height: 15),
+                                    Icon(
+                                      Icons.archive_outlined,
+                                      size: 25,
+                                    ),
+                                    SizedBox(
+                                      width: 15,
+                                    ),
+                                    Image.asset("assets/images/delete_email.png", height: 18),
                                     SizedBox(
                                       width: 15,
                                     ),
@@ -117,6 +140,111 @@ class _EmailScreenState extends State<EmailScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  Column buildColumnTopYourNew() {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+          child: Row(
+            children: [
+              Expanded(
+                child: FutureBuilder<String>(
+                  future: CommonOperation.getSharedData(AllConstant.TOP_YOUR_NEW, "Your New Orleans Pelicans vs. Utah Jazz Ticket Order"),
+                  builder: (context, AsyncSnapshot<String> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Container();
+                    } else {
+                      return GestureDetector(
+                        onTap: () async {
+                          String? result = await CustomInputDialog.showInputDialog(
+                              context: context,
+                              defaultTxt: "Your New Orleans Pelicans vs. Utah Jazz Ticket Order",
+                              key: AllConstant.TOP_YOUR_NEW,
+                              textInputType: TextInputType.number);
+                          if (result != null) {
+                            PrefUtil.preferences!.setString(
+                              AllConstant.TOP_YOUR_NEW,
+                              result,
+                            );
+                            setState(() {});
+                          } else {
+                            print("Dialog was canceled");
+                          }
+                        },
+                        child: Container(
+                          child: Text("${snapshot.data}",
+                              style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+              Icon(
+                Icons.star,
+                color: Colors.blueGrey,
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 2, left: 20, right: 20),
+          child: Row(
+            children: [
+              FutureBuilder<String>(
+                future: CommonOperation.getSharedData(AllConstant.TOP_YOUR_NEW_2, "2900-0558-6256-0317-9"),
+                builder: (context, AsyncSnapshot<String> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Container();
+                  } else {
+                    return GestureDetector(
+                      onTap: () async {
+                        String? result = await CustomInputDialog.showInputDialog(
+                            context: context,
+                            defaultTxt: "2900-0558-6256-0317-9",
+                            key: AllConstant.TOP_YOUR_NEW_2,
+                            textInputType: TextInputType.number);
+                        if (result != null) {
+                          PrefUtil.preferences!.setString(
+                            AllConstant.TOP_YOUR_NEW_2,
+                            result,
+                          );
+                          setState(() {});
+                        } else {
+                          print("Dialog was canceled");
+                        }
+                      },
+                      child: Container(
+                        child: Text("${snapshot.data}",
+                            style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
+                      ),
+                    );
+                  }
+                },
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black12,
+                    //border: Border.all(color: Colors.black54),
+                    borderRadius: BorderRadius.all(Radius.circular(2)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                    child: Text("Inbox"),
+                  ))
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+      ],
     );
   }
 
@@ -495,16 +623,12 @@ class _EmailScreenState extends State<EmailScreen> {
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               "assets/images/logoticket.png",
               height: 20,
             ),
-            Image.asset(
-              "assets/images/profile_discover.png",
-              height: 25,
-            )
             //Image.asset("assets/images/logoticket.png")
           ],
         ),
@@ -525,17 +649,19 @@ class _EmailScreenState extends State<EmailScreen> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: AppColor.gmailParpul,
+                    color: Colors.black38,
                     boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                     border: Border.all(color: Colors.transparent),
                     borderRadius: BorderRadius.all(Radius.circular(40)),
                   ),
                   child: Center(
-                      child: Text(
-                    "T",
-                    style: TextStyle(color: Colors.black, fontSize: 20),
-                  )),
-                  height: double.infinity,
+                    child: Icon(
+                      Icons.person_rounded,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                  height: 45,
                   width: 45,
                 ),
                 SizedBox(
@@ -547,14 +673,14 @@ class _EmailScreenState extends State<EmailScreen> {
                     Row(
                       children: [
                         Text(
-                          "Ticketmas...",
+                          "Ticketmaster",
                           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 16),
                         ),
                         SizedBox(
                           width: 5,
                         ),
                         FutureBuilder<String>(
-                          future: CommonOperation.getSharedData(AllConstant.EMAIL_DATE, "11/22/2023"),
+                          future: CommonOperation.getSharedData(AllConstant.EMAIL_DATE, "4 days ago"),
                           builder: (context, AsyncSnapshot<String> snapshot) {
                             if (!snapshot.hasData) {
                               return Container();
@@ -562,7 +688,7 @@ class _EmailScreenState extends State<EmailScreen> {
                               return GestureDetector(
                                 onTap: () async {
                                   String? result = await CustomInputDialog.showInputDialog(
-                                      context: context, defaultTxt: "11/22/2023", key: AllConstant.EMAIL_DATE, textInputType: TextInputType.number);
+                                      context: context, defaultTxt: "4 days ago", key: AllConstant.EMAIL_DATE, textInputType: TextInputType.number);
                                   if (result != null) {
                                     PrefUtil.preferences!.setString(
                                       AllConstant.EMAIL_DATE,
@@ -629,20 +755,16 @@ class _EmailScreenState extends State<EmailScreen> {
 
   Container buildContainerImageTop() {
     return Container(
-      height: 380,
-      margin: EdgeInsets.symmetric(horizontal: 30),
+      height: 300,
+
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            height: 175,
+            height: 150,
+            color: AppColor.officialBlue,
             child: Stack(
               children: [
-                Image.asset(
-                  "assets/images/discover_back.png",
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                ),
                 Center(
                   child: Container(
                     height: 66,
@@ -716,7 +838,10 @@ class _EmailScreenState extends State<EmailScreen> {
               ],
             ),
           ),
-          DiscoverImage()
+          SizedBox(
+            height: 20,
+          ),
+          ClipRRect(borderRadius: BorderRadius.all(Radius.circular(5)), child: Container(child: DiscoverImageAndroid()))
         ],
       ),
     );
@@ -724,7 +849,7 @@ class _EmailScreenState extends State<EmailScreen> {
 
   Container buildContainerTicketInfo(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30),
+      margin: EdgeInsets.symmetric(horizontal: 10),
       color: Colors.white,
       width: double.infinity,
       child: SingleChildScrollView(
@@ -737,7 +862,7 @@ class _EmailScreenState extends State<EmailScreen> {
                 height: 20,
               ),
               FutureBuilder<String>(
-                future: CommonOperation.getSharedData(AllConstant.ORGAN_WALLEN, "Morgan Wallen"),
+                future: CommonOperation.getSharedData(AllConstant.ORGAN_WALLEN, "New Orleans Pelicans vs. Utah Jazz"),
                 builder: (context, AsyncSnapshot<String> snapshot) {
                   if (!snapshot.hasData) {
                     return Container();
@@ -745,7 +870,10 @@ class _EmailScreenState extends State<EmailScreen> {
                     return GestureDetector(
                       onTap: () async {
                         String? result = await CustomInputDialog.showInputDialog(
-                            context: context, defaultTxt: "Morgan Wallen", key: AllConstant.ORGAN_WALLEN, textInputType: TextInputType.number);
+                            context: context,
+                            defaultTxt: "New Orleans Pelicans vs. Utah Jazz",
+                            key: AllConstant.ORGAN_WALLEN,
+                            textInputType: TextInputType.number);
                         if (result != null) {
                           PrefUtil.preferences!.setString(
                             AllConstant.ORGAN_WALLEN,
@@ -763,14 +891,13 @@ class _EmailScreenState extends State<EmailScreen> {
                 },
               ),
               SizedBox(
-                height: 30,
+                height: 20,
               ),
               Row(
                 children: [
-                  Image.asset(
-                    "assets/images/date.png",
-                    width: 20,
-                    height: 20,
+                  Icon(
+                    Icons.calendar_today_outlined,
+                    color: Color(0xFF103E9A),
                   ),
                   SizedBox(
                     width: 15,
@@ -811,10 +938,9 @@ class _EmailScreenState extends State<EmailScreen> {
               ),
               Row(
                 children: [
-                  Image.asset(
-                    "assets/images/location.png",
-                    width: 20,
-                    height: 20,
+                  Icon(
+                    Icons.location_on_outlined,
+                    color: Color(0xFF103E9A),
                   ),
                   SizedBox(
                     width: 15,
@@ -827,7 +953,6 @@ class _EmailScreenState extends State<EmailScreen> {
                       } else {
                         return GestureDetector(
                           onTap: () async {
-
                             String? result = await CustomInputDialog.showInputDialog(
                                 context: context,
                                 defaultTxt: "Landers Center - Southaven, MS",
@@ -854,92 +979,11 @@ class _EmailScreenState extends State<EmailScreen> {
               SizedBox(
                 height: 10,
               ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.point_of_sale,
-                    color: Colors.transparent,
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Text("Get Directions", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: Colors.blue)),
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                children: [
-                  Image.asset(
-                    "assets/images/ticketN.png",
-                    width: 20,
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(AllConstant.DISCOVER_EVENT, "Sec SEC 4, Row 1, Seat 11 - 12"),
-                    builder: (context, AsyncSnapshot<String> snapshot) {
-                      if (!snapshot.hasData) {
-                        return Container();
-                      } else {
-                        return GestureDetector(
-                          onTap: () async {
-                            String? result = await CustomInputDialog.showInputDialog(
-                                context: context,
-                                defaultTxt: "Sec SEC 4, Row 1, Seat 11 - 12",
-                                key: AllConstant.DISCOVER_EVENT,
-                                textInputType: TextInputType.number);
-                            if (result != null) {
-                              PrefUtil.preferences!.setString(
-                                AllConstant.DISCOVER_EVENT,
-                                result,
-                              );
-                              setState(() {});
-                            } else {
-                              print("Dialog was canceled");
-                            }
-                          },
-                          child: Text(snapshot.data!,
-                              style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black)),
-                        );
-                      }
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(10),
-                  elevation: 0.0,
-                  backgroundColor: AppColor.colorMain(), // Background color
-                  foregroundColor: Colors.black, // Text color
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => TicketDetails()),
-                  );
-                  // rf.page.call(context, TicketDetails());
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text('View Mobile Ticket',
-                        style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.white)),
-                  ],
-                ),
-              ),
+
             ],
           ),
         ),
       ),
     );
   }
-
 }

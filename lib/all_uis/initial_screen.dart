@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/all_uis/discover.dart';
-import 'package:ticket_master/all_uis/email_screen.dart';
+import 'package:ticket_master/all_uis/email_screen_android.dart';
 import 'package:ticket_master/all_uis/home_page.dart';
 import 'package:ticket_master/all_uis/its_not_your.dart';
 import 'package:ticket_master/all_uis/my_account.dart';
@@ -109,7 +109,7 @@ class _InitialScreenState extends State<InitialScreen> {
             GestureDetector(
               onTap: () async {
                 setState(() {
-                  if (Platform.isIOS)
+                  if (Platform.isAndroid)
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => EmailScreenIOS()),
@@ -117,7 +117,7 @@ class _InitialScreenState extends State<InitialScreen> {
                   else
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => EmailScreen()),
+                      MaterialPageRoute(builder: (context) => EmailScreenAndroid()),
                     );
 
                   setState(() {});

@@ -123,7 +123,7 @@ class _DiscoverState extends State<Discover> {
                       ],
                     ),
                   ),
-                  DiscoverImage()
+                  DiscoverImageAndroid()
                 ],
               ),
             ),

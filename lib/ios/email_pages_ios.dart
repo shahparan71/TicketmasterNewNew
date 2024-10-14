@@ -801,7 +801,7 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
               ],
             ),
           ),
-          DiscoverImage()
+          DiscoverImageIOS()
         ],
       ),
     );
