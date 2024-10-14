@@ -61,6 +61,14 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                               height: 3,
                               color: AppColor.officialBlue,
                             ),
+                            SizedBox(height: 10,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("If this email is not displaying correctly, ",style: TextStyle(fontSize: 10),),
+                                Text("view in browser version.",style: TextStyle(fontSize: 10,color:Colors.blueAccent),),
+                              ],
+                            ),
                             buildContainerTopBar2(),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -573,7 +581,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                     width: 10,
                   ),
                   Text("Resale tickets",
-                      style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black)),
+                      style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
                 ],
               ),
               SizedBox(
@@ -628,6 +636,9 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                       ],
                     ),
                   ),
+
+                  Container(width: 1,height: 30,color: Colors.black26,),
+                  SizedBox(width: 7,),
                   Expanded(
                     flex: 1,
                     child: Column(
@@ -644,6 +655,8 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                       ],
                     ),
                   ),
+                  Container(width: 1,height: 30,color: Colors.black26,),
+                  SizedBox(width: 7,),
                   Expanded(
                     flex: 1,
                     child: Column(
@@ -693,13 +706,10 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Purchased:", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.black)),
-
                   CustomBuilderWidget(
                       keyValue: AllConstant.PURCHASED_DATE,
                       defaultValue: "Oct 10, 2024",
                       textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.black)),
-
-
                 ],
               ),
               SizedBox(
@@ -713,7 +723,6 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                       keyValue: AllConstant.PAID_AMOUNT,
                       defaultValue: "\$15.89",
                       textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.black)),
-
                 ],
               ),
               SizedBox(
