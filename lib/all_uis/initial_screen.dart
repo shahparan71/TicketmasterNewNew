@@ -109,7 +109,7 @@ class _InitialScreenState extends State<InitialScreen> {
             GestureDetector(
               onTap: () async {
                 setState(() {
-                  if (Platform.isAndroid)
+                  if (Platform.isIOS)
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => EmailScreenIOS()),

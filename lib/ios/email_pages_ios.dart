@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
+import 'package:ticket_master/utils/future_stateful_widget.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
@@ -606,38 +607,10 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
                               ),
                             ],
                           ),
-                          FutureBuilder<String>(
-                            future: CommonOperation.getSharedData(AllConstant.CUSTOMER_SUPPORT_EMAIL, "customer_support@email.com"),
-                            builder: (context, AsyncSnapshot<String> snapshot) {
-                              if (!snapshot.hasData) {
-                                return Container();
-                              } else {
-                                return GestureDetector(
-                                  onTap: () async {
-                                    String? result = await CustomInputDialog.showInputDialog(
-                                      context: context,
-                                      defaultTxt: "customer_support@email.com",
-                                      key: AllConstant.CUSTOMER_SUPPORT_EMAIL,
-                                    );
-                                    if (result != null) {
-                                      PrefUtil.preferences!.setString(AllConstant.CUSTOMER_SUPPORT_EMAIL, result);
-                                      setState(() {});
-                                    } else {
-                                      print("Dialog was canceled");
-                                    }
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Custom_supp@gmail.com",
-                                        style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }
-                            },
-                          ),
+                          CustomBuilderWidget(
+                              keyValue: AllConstant.CUSTOMER_SUPPORT_EMAIL,
+                              defaultValue: "customer_support@email.com",
+                              textStyle: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 12)),
                         ],
                       ),
                     ],
@@ -687,10 +660,10 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
                                 SizedBox(
                                   width: 5,
                                 ),
-                                Text(
-                                  "josephamoabeg120@outlook.com",
-                                  style: TextStyle(color: Colors.black54, fontWeight: FontWeight.w500, fontSize: 12),
-                                ),
+                                CustomBuilderWidget(
+                                    keyValue: AllConstant.CUSTOMER_SUPPORT_to,
+                                    defaultValue: "josephamoabeg120@outlook.com",
+                                    textStyle: TextStyle(color: Colors.black54, fontWeight: FontWeight.w500, fontSize: 12)),
                                 SizedBox(
                                   width: 5,
                                 ),
@@ -698,10 +671,10 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
                             ),
                             Row(
                               children: [
-                                Text(
-                                  "Sunday, September 15, 3:55 PM",
-                                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 12),
-                                ),
+                                CustomBuilderWidget(
+                                    keyValue: AllConstant.CUSTOMER_SUPPORT_to_date,
+                                    defaultValue: "Sunday, September 15, 3:55 PM",
+                                    textStyle: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 12)),
                               ],
                             ),
                           ],

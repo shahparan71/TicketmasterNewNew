@@ -38,6 +38,8 @@ class AllConstant {
 
   static String SEAT = "seat";
   static String CUSTOMER_SUPPORT_EMAIL = "custom_support_email";
+  static String CUSTOMER_SUPPORT_to = "custom_support_email_to";
+  static String CUSTOMER_SUPPORT_to_date = "custom_support_email_to_date";
   static String GOTTICKETS = "gotthetickets";
   static String ORDER_NUMBER = "OrderNumber";
   static String ORGAN_WALLEN = "morgan_wallen";

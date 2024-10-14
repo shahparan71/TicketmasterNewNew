@@ -141,8 +141,14 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                             GestureDetector(
                                 onTap: () async {
                                   Navigator.of(context).pop();
+                                  print("object3535");
                                 },
-                                child: Icon(Icons.arrow_back_rounded)),
+                                child: Container(
+                                    color: Colors.black26,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Icon(Icons.arrow_back_rounded),
+                                    ))),
                             Container(
                                 width: 140,
                                 child: Row(
