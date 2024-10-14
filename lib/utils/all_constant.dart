@@ -58,6 +58,8 @@ class AllConstant {
   static String EMAIL_2X = "email_2x";
   static String TOP_YOUR_NEW_2 = "top_your_new_2";
   static String EMAIL_DATE = "email_date";
+  static String PURCHASED_DATE = "purchased_date";
+  static String PAID_AMOUNT = "paid_amount";
   static String IAMGE_BIG_TEXT_2 = "ImageBigText_2";
   static String IS_MULTILINE = "is_multiline";
   static String OCT = "oct";

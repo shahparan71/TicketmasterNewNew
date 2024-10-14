@@ -88,6 +88,9 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                             ),
                             getYourOrderDetilas(),
                             getYourOrderAmount(),
+                            SizedBox(
+                              height: 20,
+                            ),
                             buildContainerSocialMedia(),
                           ],
                         ),
@@ -686,11 +689,36 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
               SizedBox(
                 height: 20,
               ),
-              Text("Purchased:", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.black)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Purchased:", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.black)),
+
+                  CustomBuilderWidget(
+                      keyValue: AllConstant.PURCHASED_DATE,
+                      defaultValue: "Oct 10, 2024",
+                      textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.black)),
+
+
+                ],
+              ),
               SizedBox(
                 height: 20,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Your Paid:", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.black)),
+                  CustomBuilderWidget(
+                      keyValue: AllConstant.PAID_AMOUNT,
+                      defaultValue: "\$15.89",
+                      textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.black)),
 
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),
