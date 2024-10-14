@@ -41,6 +41,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
               width: double.infinity,
               color: Colors.white,
               child: SingleChildScrollView(
+                physics: ClampingScrollPhysics(),
                 child: Column(
                   children: [
                     buildColumnTopYourNew(),
@@ -61,12 +62,20 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                               height: 3,
                               color: AppColor.officialBlue,
                             ),
-                            SizedBox(height: 10,),
+                            SizedBox(
+                              height: 10,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("If this email is not displaying correctly, ",style: TextStyle(fontSize: 10),),
-                                Text("view in browser version.",style: TextStyle(fontSize: 10,color:Colors.blueAccent),),
+                                Text(
+                                  "If this email is not displaying correctly, ",
+                                  style: TextStyle(fontSize: 10),
+                                ),
+                                Text(
+                                  "view in browser version.",
+                                  style: TextStyle(fontSize: 10, color: Colors.blueAccent),
+                                ),
                               ],
                             ),
                             buildContainerTopBar2(),
@@ -99,7 +108,11 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                             SizedBox(
                               height: 20,
                             ),
-                            buildContainerSocialMedia(),
+                            Image.asset("assets/images/social_link_android.png"),
+                            Image.asset(
+                              "assets/images/email_reply.png",
+                              height: 100,
+                            )
                           ],
                         ),
                       ),
@@ -171,8 +184,8 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
               height: 50,
               width: double.infinity, // Use width here to avoid issues
               child: Image.asset(
-                "assets/images/gmail_bottom.png",
-                fit: BoxFit.cover,
+                "assets/images/email_bottom.png",
+                fit: BoxFit.fitWidth,
               ),
             ),
           ),
@@ -315,13 +328,6 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
       ],
     );
   }
-
-  Container buildContainerSocialMedia() => Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [Image.asset("assets/images/social_link_android.png")],
-        ),
-      );
 
   Container buildContainerTopBar2() {
     return Container(
@@ -636,9 +642,14 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                       ],
                     ),
                   ),
-
-                  Container(width: 1,height: 30,color: Colors.black26,),
-                  SizedBox(width: 7,),
+                  Container(
+                    width: 1,
+                    height: 30,
+                    color: Colors.black26,
+                  ),
+                  SizedBox(
+                    width: 7,
+                  ),
                   Expanded(
                     flex: 1,
                     child: Column(
@@ -655,8 +666,14 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                       ],
                     ),
                   ),
-                  Container(width: 1,height: 30,color: Colors.black26,),
-                  SizedBox(width: 7,),
+                  Container(
+                    width: 1,
+                    height: 30,
+                    color: Colors.black26,
+                  ),
+                  SizedBox(
+                    width: 7,
+                  ),
                   Expanded(
                     flex: 1,
                     child: Column(
