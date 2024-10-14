@@ -404,7 +404,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
         color: Colors.white,
         height: MediaQuery.of(context).size.height,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+          padding: const EdgeInsets.fromLTRB(0, 10, 0, 6),
           child: Column(
             children: [
               Container(
