@@ -658,7 +658,6 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
                 ],
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(left: 25),
               child: Container(
@@ -709,7 +708,6 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
                         ),
                       ],
                     ),
-
                   ],
                 ),
               ),
