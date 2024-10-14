@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AllConstant {
-
   static String IMAGE_PATH = "image_path";
   static String DISCOVER_IMAGE_PATH = "discover_image_path";
   static String IMAGE_PATH_PLAY = "image_path_play";
@@ -81,6 +80,7 @@ class AllConstant {
   static String IncreaseDecreaseFontMain = "increase_decrease_font_main";
   static String IncreaseDecreaseFontSecond = "increase_decrease__font_second";
   static String CURRENT_LIST_INDEX = "0";
+  static String EMAIL_DOLLAR = "email_dollar";
   static String SANTA_BARBAR = "santa_barbar";
   static String DEREK = "derek";
   static String EMAIL_DEREK = "email_derek";
@@ -91,6 +91,4 @@ class AllConstant {
   static String YOUR_LOCATION = "your_location";
 
   static String IS_CLICK_COUNT = "is_click_count";
-
-
 }

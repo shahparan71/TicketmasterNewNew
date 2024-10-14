@@ -29,94 +29,176 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.offWhite2,
-      body: Stack(
-        children: [
-          Positioned(
-            top: 90,
-            left: 0,
-            right: 0,
-            bottom: 50,
-            child: Container(
-              height: MediaQuery.of(context).size.height - 100,
-              width: double.infinity,
-              color: Colors.white,
-              child: SingleChildScrollView(
+      backgroundColor: AppColor.white,
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: Stack(
+          children: [
+            Positioned(
+              top: 90,
+              left: 0,
+              right: 0,
+              bottom: 150,
+              child: Container(
+                height: MediaQuery.of(context).size.height - 100,
+                width: double.infinity,
+                color: Colors.white,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 1,
+                        color: Colors.black12,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                        child: Text(
+                          'You Got Tickets To Chicago White Sox vs. The Athletics',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 1,
+                        color: Colors.black12,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              "assets/images/inbox.png",
+                              width: 25,
+                              height: 30,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Inbox',
+                              style: TextStyle(
+                                color: Colors.black54,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 1,
+                        color: Colors.black12,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: buildContainerTopBar1(),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: Container(
+                          height: 3,
+                          color: Color(0xff103e9a),
+                        ),
+                      ),
+                      buildContainerTopBar2(),
+                      buildContainerImageTop(),
+                      buildContainerTicketInfo(context),
+                      buildContainerImportantInfo(),
+                      buildContainerPaymentSummary(),
+                      buildContainerSocialMedia()
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 30,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: 60,
                 child: Column(
                   children: [
-                    buildContainerTopBar1(),
-                    buildContainerTopBar2(),
-                    buildContainerImageTop(),
-                    buildContainerTicketInfo(context),
-                    buildContainerImportantInfo(),
-                    buildContainerPaymentSummary(),
-                    buildContainerSocialMedia()
+                    Expanded(
+                      child: Container(
+                        color: AppColor.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                  onTap: () async {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.black45,
+                                  )),
+                              Container(
+                                  width: 110,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Icon(
+                                        Icons.more_horiz,
+                                        color: Colors.black45,
+                                      ),
+                                      SizedBox(
+                                        width: 15,
+                                      ),
+                                      Image.asset(
+                                        "assets/images/delete_email_white.png",
+                                        width: 30,
+                                        height: 30,
+                                      ),
+                                      SizedBox(
+                                        width: 15,
+                                      ),
+                                      Image.asset(
+                                        "assets/images/archirive.png",
+                                        width: 25,
+                                        height: 30,
+                                      ),
+                                    ],
+                                  )),
+                            ],
+                          ),
+                        ),
+                      ),
+                      flex: 1,
+                    ),
                   ],
                 ),
               ),
             ),
-          ),
-          Positioned(
-            top: 30,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: 60,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Container(
-                      color: AppColor.offWhite2,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                                onTap: () async {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Icon(Icons.arrow_back_rounded)),
-                            Container(
-                                width: 110,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Image.asset("assets/images/delete_email.png", height: 15),
-                                    SizedBox(
-                                      width: 15,
-                                    ),
-                                    Icon(Icons.mark_email_unread_outlined),
-                                    SizedBox(
-                                      width: 15,
-                                    ),
-                                    Icon(Icons.more_vert),
-                                  ],
-                                )),
-                          ],
-                        ),
-                      ),
-                    ),
-                    flex: 1,
+            Positioned(
+              bottom: 0.0,
+              left: 0.0, // Added left constraint for better layout control
+              right: 0.0, // Added right constraint for better layout control
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Container(
+                  height: 120,
+                  width: double.infinity, // Use width here to avoid issues
+                  child: Image.asset(
+                    "assets/images/bottom_bar_email_ios.png",
+                    fit: BoxFit.cover,
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 0.0,
-            left: 0.0, // Added left constraint for better layout control
-            right: 0.0, // Added right constraint for better layout control
-            child: Container(
-              height: 50,
-              width: double.infinity, // Use width here to avoid issues
-              child: Image.asset(
-                "assets/images/gmail_bottom.png",
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -124,92 +206,7 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
   Container buildContainerSocialMedia() => Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Container(
-              color: Color(0xFF1A1A1A),
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-              child: Column(
-                children: [
-                  Text(
-                    'Stay Connected',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      height: 1.5,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  // Social media icons
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.facebook, color: Colors.white),
-                        onPressed: () {
-                          // Handle Facebook action
-                        },
-                      ),
-                      SizedBox(width: 20),
-                      IconButton(
-                        icon: Icon(Icons.install_desktop, color: Colors.white),
-                        onPressed: () {
-                          // Handle Instagram action
-                        },
-                      ),
-                      SizedBox(width: 20),
-                      IconButton(
-                        icon: Icon(Icons.facebook, color: Colors.white),
-                        onPressed: () {
-                          // Handle X (Twitter) action
-                        },
-                      ),
-                      SizedBox(width: 20),
-                      IconButton(
-                        icon: Icon(Icons.youtube_searched_for, color: Colors.white),
-                        onPressed: () {
-                          // Handle YouTube action
-                        },
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 16),
-                  // Footer text links
-                  Text(
-                    'Ticketmaster   |   About   |   Terms of Use   |   Privacy   |   International',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      height: 1.5,
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  // Address text
-                  Text(
-                    '707 Virginia Street East, Suite 170, Charleston, WV 25301',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      height: 1.5,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  // Copyright text
-                  Text(
-                    '© 2024 Ticketmaster. All rights reserved.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      height: 1.5,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          children: [Image.asset("assets/images/social_screen.png")],
         ),
       );
 
@@ -270,13 +267,37 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
                     ),
                   ),
                   SizedBox(height: 16),
-                  Text(
-                    'Total: \$13.68',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  FutureBuilder<String>(
+                    future: CommonOperation.getSharedData(AllConstant.EMAIL_DOLLAR, "13.68"),
+                    builder: (context, AsyncSnapshot<String> snapshot) {
+                      if (!snapshot.hasData) {
+                        return Container();
+                      } else {
+                        return GestureDetector(
+                          onTap: () async {
+                            String? result = await CustomInputDialog.showInputDialog(
+                              context: context,
+                              defaultTxt: "13.68",
+                              key: AllConstant.EMAIL_DOLLAR,
+                            );
+                            if (result != null) {
+                              PrefUtil.preferences!.setString(AllConstant.EMAIL_DOLLAR, result);
+                              setState(() {});
+                            } else {
+                              print("Dialog was canceled");
+                            }
+                          },
+                          child: Text(
+                            'Total: \$${snapshot.data}',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ],
               ),
@@ -515,8 +536,8 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
 
   Container buildContainerTopBar1() {
     return Container(
-      color: AppColor.gmailWhite,
-      height: 65,
+      color: AppColor.white,
+      height: 60,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -526,7 +547,7 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: AppColor.gmailParpul,
+                    color: Colors.yellow,
                     boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                     border: Border.all(color: Colors.transparent),
                     borderRadius: BorderRadius.all(Radius.circular(40)),
@@ -536,7 +557,6 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
                     "T",
                     style: TextStyle(color: Colors.black, fontSize: 20),
                   )),
-                  height: double.infinity,
                   width: 45,
                 ),
                 SizedBox(
@@ -548,58 +568,20 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
                     Row(
                       children: [
                         Text(
-                          "Ticketmas...",
-                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 16),
+                          "Ticketmaster",
+                          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w500, fontSize: 16),
                         ),
                         SizedBox(
                           width: 5,
                         ),
-                        FutureBuilder<String>(
-                          future: CommonOperation.getSharedData(AllConstant.EMAIL_DATE, "11/22/2023"),
-                          builder: (context, AsyncSnapshot<String> snapshot) {
-                            if (!snapshot.hasData) {
-                              return Container();
-                            } else {
-                              return GestureDetector(
-                                onTap: () async {
-                                  String? result = await CustomInputDialog.showInputDialog(
-                                    context: context,
-                                    defaultTxt: "11/22/2023",
-                                    key: AllConstant.EMAIL_DATE,
-                                  );
-                                  if (result != null) {
-                                    PrefUtil.preferences!.setString(AllConstant.EMAIL_DATE, result);
-                                    setState(() {});
-                                  } else {
-                                    print("Dialog was canceled");
-                                  }
-                                },
-                                child: Container(
-                                  child: Text(snapshot.data!,
-                                      maxLines: 1,
-                                      textAlign: TextAlign.start,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", color: AppColor.black)),
-                                ),
-                              );
-                            }
-                          },
-                        )
                       ],
-                    ),
-                    SizedBox(
-                      height: 3,
                     ),
                     Row(
                       children: [
                         Text(
-                          "to me",
-                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 15),
+                          "To You",
+                          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 14),
                         ),
-                        Icon(
-                          Icons.keyboard_arrow_down,
-                          size: 20,
-                        )
                       ],
                     ),
                   ],
@@ -608,18 +590,19 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
             ),
             Container(
                 width: 100,
-                child: Row(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Icon(Icons.emoji_emotions_outlined),
-                    SizedBox(
-                      width: 15,
+                    Text(
+                      "Sep 15",
+                      style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 14),
                     ),
-                    Image.asset("assets/images/replay_email.png", height: 15),
-                    SizedBox(
-                      width: 15,
+                    Text(
+                      "...",
+                      textAlign: TextAlign.end,
+                      style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 14),
                     ),
-                    Icon(Icons.more_vert),
                   ],
                 )),
           ],
@@ -899,12 +882,13 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
                 height: 15,
               ),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(10),
-                  elevation: 0.0,
-                  backgroundColor: AppColor.colorMain(), // Background color
-                  foregroundColor: Colors.black, // Text color
-                ),
+                style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                    backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                    elevation: MaterialStateProperty.all(0.0),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(6)), /*side: BorderSide(color: Colors.red)*/
+                    ))),
                 onPressed: () {
                   Navigator.push(
                     context,

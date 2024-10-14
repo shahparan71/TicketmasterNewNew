@@ -22,7 +22,7 @@ class GoogleMapFlutterState extends State<GoogleMapFlutter> {
 
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(41.8307148, -87.6353042),
-    zoom: 18.0,
+    zoom: 16.0,
   );
 
   Map<MarkerId, Marker> allTypeMarker = <MarkerId, Marker>{};
@@ -157,6 +157,22 @@ class GoogleMapFlutterState extends State<GoogleMapFlutter> {
                                 borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
                               ),
                             ),
+                            onLongPress: () async {
+                              String? latLong = await PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG);
+                              String? place = await PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE);
+
+                              if (latLong == null || latLong.isEmpty) return;
+
+                              final availableMaps = await launcher.MapLauncher.installedMaps;
+                              print(
+                                  availableMaps); // [AvailableMap { mapName: Google Maps, mapType: google }, ...]
+
+                              await availableMaps.first.showMarker(
+                                coords: launcher.Coords(double.parse(latLong.split(",")[0]),
+                                    double.parse(latLong.split(",")[1])),
+                                title: place??"SofFi Stadium",
+                              );
+                            },
                             onPressed: () async {
                               String? result = await CustomInputDialog.showInputDialog(
                                 context: context,
