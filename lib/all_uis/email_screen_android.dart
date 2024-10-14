@@ -10,6 +10,7 @@ import 'package:ticket_master/utils/all_constant.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
+import 'package:ticket_master/utils/future_stateful_widget.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
@@ -77,6 +78,16 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                               ),
                             ),
                             buildContainerOrderStatus(),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text("THIS EMAIL CANNOT BE USED FOR ENTRY ",
+                                style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            getYourOrderDetilas(),
+                            getYourOrderAmount(),
                             buildContainerSocialMedia(),
                           ],
                         ),
@@ -160,8 +171,86 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
   }
 
   Container buildContainerOrderStatus() => Container(
-        child: Column(
-          children: [],
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.1),
+                //border: Border.all(color: Colors.black54),
+                borderRadius: BorderRadius.all(Radius.circular(2)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    //blue_ticket.png
+                    Row(
+                      children: [
+                        Image.asset(
+                          "assets/images/blue_ticket.png",
+                          width: 25,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("Order Status: ",
+                            style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("Confirmed",
+                            style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: AppColor.gmailDarkParpul)),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+
+                    FutureBuilder<String>(
+                      future: CommonOperation.getSharedData(AllConstant.CONFIRMED_ORDER_DATE, "Jan 22, 2025"),
+                      builder: (context, AsyncSnapshot<String> snapshot) {
+                        if (!snapshot.hasData) {
+                          return Container();
+                        } else {
+                          return GestureDetector(
+                            onTap: () async {
+                              String? result = await CustomInputDialog.showInputDialog(
+                                context: context,
+                                defaultTxt: "Jan 22, 2025",
+                                key: AllConstant.CONFIRMED_ORDER_DATE,
+                              );
+                              if (result != null) {
+                                PrefUtil.preferences!.setString(
+                                  AllConstant.CONFIRMED_ORDER_DATE,
+                                  result,
+                                );
+                                setState(() {});
+                              } else {
+                                print("Dialog was canceled");
+                              }
+                            },
+                            child: Text("Your order is confirmed. You will be notified about your ticket delivery by ${snapshot.data}",
+                                style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
+                          );
+                        }
+                      },
+                    ),
+
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                        "When your tickets are ready to be viewed, you'll receive an"
+                        " email notification with details about accepting and accessing "
+                        "your tickets. Don't miss this important email that will be delivered "
+                        "to you prior to the event!",
+                        style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black))
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
       );
 
@@ -173,37 +262,10 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
           child: Row(
             children: [
               Expanded(
-                child: FutureBuilder<String>(
-                  future: CommonOperation.getSharedData(AllConstant.TOP_YOUR_NEW, "Your New Orleans Pelicans vs. Utah Jazz Ticket Order"),
-                  builder: (context, AsyncSnapshot<String> snapshot) {
-                    if (!snapshot.hasData) {
-                      return buildContainerOrderStatus();
-                    } else {
-                      return GestureDetector(
-                        onTap: () async {
-                          String? result = await CustomInputDialog.showInputDialog(
-                              context: context,
-                              defaultTxt: "Your New Orleans Pelicans vs. Utah Jazz Ticket Order",
-                              key: AllConstant.TOP_YOUR_NEW,
-                              textInputType: TextInputType.number);
-                          if (result != null) {
-                            PrefUtil.preferences!.setString(
-                              AllConstant.TOP_YOUR_NEW,
-                              result,
-                            );
-                            setState(() {});
-                          } else {
-                            print("Dialog was canceled");
-                          }
-                        },
-                        child: Container(
-                          child: Text("${snapshot.data}",
-                              style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
-                        ),
-                      );
-                    }
-                  },
-                ),
+                child: CustomBuilderWidget(
+                    keyValue: AllConstant.TOP_YOUR_NEW,
+                    defaultValue: "Your New Orleans Pelicans vs. Utah Jazz Ticket Order",
+                    textStyle: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
               ),
               Icon(
                 Icons.star,
@@ -216,37 +278,10 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
           padding: const EdgeInsets.only(top: 2, left: 20, right: 20),
           child: Row(
             children: [
-              FutureBuilder<String>(
-                future: CommonOperation.getSharedData(AllConstant.TOP_YOUR_NEW_2, "2900-0558-6256-0317-9"),
-                builder: (context, AsyncSnapshot<String> snapshot) {
-                  if (!snapshot.hasData) {
-                    return buildContainerOrderStatus();
-                  } else {
-                    return GestureDetector(
-                      onTap: () async {
-                        String? result = await CustomInputDialog.showInputDialog(
-                            context: context,
-                            defaultTxt: "2900-0558-6256-0317-9",
-                            key: AllConstant.TOP_YOUR_NEW_2,
-                            textInputType: TextInputType.number);
-                        if (result != null) {
-                          PrefUtil.preferences!.setString(
-                            AllConstant.TOP_YOUR_NEW_2,
-                            result,
-                          );
-                          setState(() {});
-                        } else {
-                          print("Dialog was canceled");
-                        }
-                      },
-                      child: Container(
-                        child: Text("${snapshot.data}",
-                            style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
-                      ),
-                    );
-                  }
-                },
-              ),
+              CustomBuilderWidget(
+                  keyValue: AllConstant.TOP_YOUR_NEW_2,
+                  defaultValue: "2900-0558-6256-0317-9",
+                  textStyle: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
               SizedBox(
                 width: 5,
               ),
@@ -340,37 +375,10 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                         SizedBox(
                           width: 5,
                         ),
-                        FutureBuilder<String>(
-                          future: CommonOperation.getSharedData(AllConstant.EMAIL_DATE, "4 days ago"),
-                          builder: (context, AsyncSnapshot<String> snapshot) {
-                            if (!snapshot.hasData) {
-                              return buildContainerOrderStatus();
-                            } else {
-                              return GestureDetector(
-                                onTap: () async {
-                                  String? result = await CustomInputDialog.showInputDialog(
-                                      context: context, defaultTxt: "4 days ago", key: AllConstant.EMAIL_DATE, textInputType: TextInputType.number);
-                                  if (result != null) {
-                                    PrefUtil.preferences!.setString(
-                                      AllConstant.EMAIL_DATE,
-                                      result,
-                                    );
-                                    setState(() {});
-                                  } else {
-                                    print("Dialog was canceled");
-                                  }
-                                },
-                                child: Container(
-                                  child: Text(snapshot.data!,
-                                      maxLines: 1,
-                                      textAlign: TextAlign.start,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", color: AppColor.black)),
-                                ),
-                              );
-                            }
-                          },
-                        )
+                        CustomBuilderWidget(
+                            keyValue: AllConstant.EMAIL_DATE,
+                            defaultValue: "4 days ago",
+                            textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", color: AppColor.black)),
                       ],
                     ),
                     SizedBox(
@@ -430,67 +438,17 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                     height: 66,
                     child: Column(
                       children: [
-                        FutureBuilder<String>(
-                          future: CommonOperation.getSharedData(AllConstant.GOTTICKETS, "Anisur, You Order is Confirmed"),
-                          builder: (context, AsyncSnapshot<String> snapshot) {
-                            if (!snapshot.hasData) {
-                              return buildContainerOrderStatus();
-                            } else {
-                              return GestureDetector(
-                                onTap: () async {
-                                  String? result = await CustomInputDialog.showInputDialog(
-                                      context: context,
-                                      defaultTxt: "Anisur, You Order is Confirmed",
-                                      key: AllConstant.GOTTICKETS,
-                                      textInputType: TextInputType.number);
-                                  if (result != null) {
-                                    PrefUtil.preferences!.setString(
-                                      AllConstant.GOTTICKETS,
-                                      result,
-                                    );
-                                    setState(() {});
-                                  } else {
-                                    print("Dialog was canceled");
-                                  }
-                                },
-                                child: Text(snapshot.data!,
-                                    style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: AppColor.white)),
-                              );
-                            }
-                          },
-                        ),
+                        CustomBuilderWidget(
+                            keyValue: AllConstant.GOTTICKETS,
+                            defaultValue: "Anisur, You Order is Confirmed",
+                            textStyle: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: AppColor.white)),
                         SizedBox(
                           height: 20,
                         ),
-                        FutureBuilder<String>(
-                          future: CommonOperation.getSharedData(AllConstant.ORDER_NUMBER, "Order # 53-1325/SCS"),
-                          builder: (context, AsyncSnapshot<String> snapshot) {
-                            if (!snapshot.hasData) {
-                              return buildContainerOrderStatus();
-                            } else {
-                              return GestureDetector(
-                                onTap: () async {
-                                  String? result = await CustomInputDialog.showInputDialog(
-                                      context: context,
-                                      defaultTxt: "Order # 53-1325/SCS",
-                                      key: AllConstant.ORDER_NUMBER,
-                                      textInputType: TextInputType.number);
-                                  if (result != null) {
-                                    PrefUtil.preferences!.setString(
-                                      AllConstant.ORDER_NUMBER,
-                                      result,
-                                    );
-                                    setState(() {});
-                                  } else {
-                                    print("Dialog was canceled");
-                                  }
-                                },
-                                child: Text(snapshot.data!,
-                                    style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.white)),
-                              );
-                            }
-                          },
-                        ),
+                        CustomBuilderWidget(
+                            keyValue: AllConstant.ORDER_NUMBER,
+                            defaultValue: "Order # 53-1325/SCS",
+                            textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.white)),
                       ],
                     ),
                   ),
@@ -521,34 +479,28 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
               SizedBox(
                 height: 20,
               ),
-              FutureBuilder<String>(
-                future: CommonOperation.getSharedData(AllConstant.ORGAN_WALLEN, "New Orleans Pelicans vs. Utah Jazz"),
-                builder: (context, AsyncSnapshot<String> snapshot) {
-                  if (!snapshot.hasData) {
-                    return buildContainerOrderStatus();
-                  } else {
-                    return GestureDetector(
-                      onTap: () async {
-                        String? result = await CustomInputDialog.showInputDialog(
-                            context: context,
-                            defaultTxt: "New Orleans Pelicans vs. Utah Jazz",
-                            key: AllConstant.ORGAN_WALLEN,
-                            textInputType: TextInputType.number);
-                        if (result != null) {
-                          PrefUtil.preferences!.setString(
-                            AllConstant.ORGAN_WALLEN,
-                            result,
-                          );
-                          setState(() {});
-                        } else {
-                          print("Dialog was canceled");
-                        }
-                      },
-                      child: Text(snapshot.data!,
-                          style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.black)),
-                    );
-                  }
-                },
+              CustomBuilderWidget(
+                  keyValue: AllConstant.ORGAN_WALLEN,
+                  defaultValue: "New Orleans Pelicans vs. Utah Jazz",
+                  textStyle: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.black)),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Icon(
+                    Icons.location_on_outlined,
+                    color: Color(0xFF103E9A),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  CustomBuilderWidget(
+                    keyValue: AllConstant.DISCOVER_LOCATION,
+                    defaultValue: "Landers Center - Southaven, MS",
+                    textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 20,
@@ -562,83 +514,183 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                   SizedBox(
                     width: 15,
                   ),
-                  FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(AllConstant.DISCOVER_DATE, "Sun . Dec 12 2921 . 7:30 PM"),
-                    builder: (context, AsyncSnapshot<String> snapshot) {
-                      if (!snapshot.hasData) {
-                        return buildContainerOrderStatus();
-                      } else {
-                        return GestureDetector(
-                          onTap: () async {
-                            String? result = await CustomInputDialog.showInputDialog(
-                                context: context,
-                                defaultTxt: "Sun . Dec 12 2921 . 7:30 PM",
-                                key: AllConstant.DISCOVER_DATE,
-                                textInputType: TextInputType.number);
-                            if (result != null) {
-                              PrefUtil.preferences!.setString(
-                                AllConstant.DISCOVER_DATE,
-                                result,
-                              );
-                              setState(() {});
-                            } else {
-                              print("Dialog was canceled");
-                            }
-                          },
-                          child: Text(snapshot.data!,
-                              style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black)),
-                        );
-                      }
-                    },
+                  CustomBuilderWidget(
+                    keyValue: AllConstant.DISCOVER_DATE,
+                    defaultValue: "Sun . Dec 12 2921 . 7:30 PM",
+                    textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black),
                   ),
                 ],
               ),
               SizedBox(
                 height: 15,
               ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget getYourOrderDetilas() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color(0XFFffffff),
+          border: Border.all(color: Colors.black26),
+        ),
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Text("Your Order", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.black)),
+              SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
-                  Icon(
-                    Icons.location_on_outlined,
-                    color: Color(0xFF103E9A),
+                  Image.asset(
+                    "assets/images/blue_ticket.png",
+                    width: 25,
                   ),
                   SizedBox(
-                    width: 15,
+                    width: 10,
                   ),
-                  FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(AllConstant.DISCOVER_LOCATION, "Landers Center - Southaven, MS"),
-                    builder: (context, AsyncSnapshot<String> snapshot) {
-                      if (!snapshot.hasData) {
-                        return buildContainerOrderStatus();
-                      } else {
-                        return GestureDetector(
-                          onTap: () async {
-                            String? result = await CustomInputDialog.showInputDialog(
-                                context: context,
-                                defaultTxt: "Landers Center - Southaven, MS",
-                                key: AllConstant.DISCOVER_LOCATION,
-                                textInputType: TextInputType.number);
-                            if (result != null) {
-                              PrefUtil.preferences!.setString(
-                                AllConstant.DISCOVER_LOCATION,
-                                result,
-                              );
-                              setState(() {});
-                            } else {
-                              print("Dialog was canceled");
-                            }
-                          },
-                          child: Text(snapshot.data!,
-                              style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black)),
-                        );
-                      }
-                    },
+                  CustomBuilderWidget(
+                    keyValue: AllConstant.EMAIL_2X,
+                    defaultValue: "2x",
+                    textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black),
                   ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text("Resale tickets",
+                      style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black)),
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
+              ElevatedButton(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "View Order Details",
+                      style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500 ?? FontWeight.normal, color: Colors.white),
+                    ),
+                  ],
+                ),
+                style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.all<Color>(AppColor.officialBlue),
+                    backgroundColor: MaterialStateProperty.all<Color>(AppColor.officialBlue),
+                    elevation: MaterialStateProperty.all(0.0),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
+                    ))),
+                onPressed: () {},
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 1,
+                color: Colors.black12,
+                width: double.infinity,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Section",
+                          style: TextStyle(color: AppColor.officialBlue, fontWeight: FontWeight.w500),
+                        ),
+                        CustomBuilderWidget(
+                          keyValue: AllConstant.EMAIL_SEC,
+                          defaultValue: "307",
+                        )
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Row",
+                          style: TextStyle(color: AppColor.officialBlue, fontWeight: FontWeight.w500),
+                        ),
+                        CustomBuilderWidget(
+                          keyValue: AllConstant.EMAIL_ROW,
+                          defaultValue: "12",
+                        )
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Seat",
+                          style: TextStyle(color: AppColor.officialBlue, fontWeight: FontWeight.w500),
+                        ),
+                        CustomBuilderWidget(
+                          keyValue: AllConstant.EMAIL_SEAT,
+                          defaultValue: "1 - 2",
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget getYourOrderAmount() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color(0XFFffffff),
+          border: Border.all(color: Colors.black26),
+        ),
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Text("Purchased:", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.black)),
+              SizedBox(
+                height: 20,
+              ),
+
             ],
           ),
         ),

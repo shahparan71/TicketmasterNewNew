@@ -33,6 +33,7 @@ class AppColor {
   static Color offWhite2 = Color(0xFFe8eef6);
   static Color gmailWhite = Color(0xFFf6faff);
   static Color gmailParpul = Color(0xFFba68c8);
+  static Color gmailDarkParpul = Color(0xFF904eba);
   static Color colorRed = Color(0xFFDA291C);
   static Color colour1 = Color(0xFFEFC84E);
   static Color lightGrayBorder = Color(0xFFE6E6EC);
