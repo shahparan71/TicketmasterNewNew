@@ -50,16 +50,41 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
                         height: 1,
                         color: Colors.black12,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                        child: Text(
-                          'You Got Tickets To Chicago White Sox vs. The Athletics',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                      FutureBuilder<String>(
+                        future:
+                            CommonOperation.getSharedData(AllConstant.EMAIL_YOUGOTTICKETS, "You Got Tickets To Chicago White Sox vs. The Athletics"),
+                        builder: (context, AsyncSnapshot<String> snapshot) {
+                          if (!snapshot.hasData) {
+                            return Container();
+                          } else {
+                            return GestureDetector(
+                              onTap: () async {
+                                String? result = await CustomInputDialog.showInputDialog(
+                                  context: context,
+                                  defaultTxt: "You Got Tickets",
+                                  key: AllConstant.EMAIL_YOUGOTTICKETS,
+                                );
+                                if (result != null) {
+                                  PrefUtil.preferences!.setString(AllConstant.EMAIL_YOUGOTTICKETS, result);
+                                  setState(() {});
+                                } else {
+                                  print("Dialog was canceled");
+                                }
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                                child: Text(
+                                  '${snapshot.data}',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                        },
                       ),
                       Container(
                         height: 1,
@@ -469,7 +494,7 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
                 child: Container(
                     width: double.infinity,
                     child: Padding(
@@ -537,74 +562,158 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
   Container buildContainerTopBar1() {
     return Container(
       color: AppColor.white,
-      height: 60,
+      height: 120,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
           children: [
-            Row(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.yellow,
-                    boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                    border: Border.all(color: Colors.transparent),
-                    borderRadius: BorderRadius.all(Radius.circular(40)),
+            Container(
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.yellow,
+                          boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+                          border: Border.all(color: Colors.transparent),
+                          borderRadius: BorderRadius.all(Radius.circular(40)),
+                        ),
+                        child: Center(
+                            child: Text(
+                          "T",
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )),
+                        width: 45,
+                        height: 45,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Ticketmaster",
+                                style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w500, fontSize: 16),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                            ],
+                          ),
+                          FutureBuilder<String>(
+                            future: CommonOperation.getSharedData(AllConstant.CUSTOMER_SUPPORT_EMAIL, "customer_support@email.com"),
+                            builder: (context, AsyncSnapshot<String> snapshot) {
+                              if (!snapshot.hasData) {
+                                return Container();
+                              } else {
+                                return GestureDetector(
+                                  onTap: () async {
+                                    String? result = await CustomInputDialog.showInputDialog(
+                                      context: context,
+                                      defaultTxt: "customer_support@email.com",
+                                      key: AllConstant.CUSTOMER_SUPPORT_EMAIL,
+                                    );
+                                    if (result != null) {
+                                      PrefUtil.preferences!.setString(AllConstant.CUSTOMER_SUPPORT_EMAIL, result);
+                                      setState(() {});
+                                    } else {
+                                      print("Dialog was canceled");
+                                    }
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "Custom_supp@gmail.com",
+                                        style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  child: Center(
-                      child: Text(
-                    "T",
-                    style: TextStyle(color: Colors.black, fontSize: 20),
-                  )),
-                  width: 45,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  Container(
+                      width: 20,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "...",
+                            textAlign: TextAlign.end,
+                            style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 14),
+                          ),
+                        ],
+                      )),
+                ],
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 25),
+              child: Container(
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Ticketmaster",
-                          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w500, fontSize: 16),
+                          "To",
+                          style: TextStyle(fontWeight: FontWeight.w600),
                         ),
                         SizedBox(
-                          width: 5,
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "You",
+                                  style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.w500, fontSize: 14),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  "josephamoabeg120@outlook.com",
+                                  style: TextStyle(color: Colors.black54, fontWeight: FontWeight.w500, fontSize: 12),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Sunday, September 15, 3:55 PM",
+                                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 12),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          "To You",
-                          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 14),
-                        ),
-                      ],
-                    ),
+
                   ],
                 ),
-              ],
+              ),
             ),
-            Container(
-                width: 100,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      "Sep 15",
-                      style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 14),
-                    ),
-                    Text(
-                      "...",
-                      textAlign: TextAlign.end,
-                      style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 14),
-                    ),
-                  ],
-                )),
           ],
         ),
       ),

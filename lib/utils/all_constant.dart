@@ -37,6 +37,7 @@ class AllConstant {
   static String CIRCLE_VALUE = "circle_value";
 
   static String SEAT = "seat";
+  static String CUSTOMER_SUPPORT_EMAIL = "custom_support_email";
   static String GOTTICKETS = "gotthetickets";
   static String ORDER_NUMBER = "OrderNumber";
   static String ORGAN_WALLEN = "morgan_wallen";
@@ -81,6 +82,7 @@ class AllConstant {
   static String IncreaseDecreaseFontSecond = "increase_decrease__font_second";
   static String CURRENT_LIST_INDEX = "0";
   static String EMAIL_DOLLAR = "email_dollar";
+  static String EMAIL_YOUGOTTICKETS = "email_you_got";
   static String SANTA_BARBAR = "santa_barbar";
   static String DEREK = "derek";
   static String EMAIL_DEREK = "email_derek";
