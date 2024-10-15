@@ -353,8 +353,8 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontFamily: "metropolis",
-                                                fontWeight: FontWeight.normal,
-                                                color: AppColor.officialBlue))
+                                                fontWeight: FontWeight.w600,
+                                                color: Color(0xff0979b5)))
                                       ],
                                     ),
                                   ),

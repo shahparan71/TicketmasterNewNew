@@ -75,11 +75,18 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
         ),
         elevation: 0.0,
         backgroundColor: AppColor.colorSecond(),
-        title: Center(
-            child: Text(
-          "My Tickets",
-          style: TextStyle(color: Colors.white, fontSize: 18),
-        )),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(),
+            Text(
+              "My Tickets",
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+            Container(),
+            Container()
+          ],
+        ),
       ),
       body: Column(
         children: [
@@ -101,7 +108,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                     });
                   }),
             ),
-            Row(
+            /*Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: imgList.map((url) {
                 int index = imgList.indexOf(url);
@@ -115,7 +122,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                   ),
                 );
               }).toList(),
-            ),
+            ),*/
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -131,7 +138,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                           backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
                           elevation: MaterialStateProperty.all(0.0),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
+                            borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
                           ))),
                       onPressed: () async {
                         Navigator.push(
@@ -141,7 +148,9 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                       },
                     ),
                   ),
-                  Expanded(flex: 1, child: Container()),
+                  SizedBox(
+                    width: 20,
+                  ),
                   Expanded(
                     flex: 1,
                     child: TextButton(
@@ -151,11 +160,11 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                         backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
                       ),*/
                       style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                          backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
+                          foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                          backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
                           elevation: MaterialStateProperty.all(0.0),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
+                            borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
                           ))),
                       onPressed: () async {
                         /*Navigator.push(
@@ -183,15 +192,14 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
         decoration: BoxDecoration(
           color: AppColor.white,
           border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
-          boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-          //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 2)],
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
-        height: MediaQuery.of(context).size.height - 200,
-        child: Column(
+        height: MediaQuery.of(context).size.height - 250,
+        child: Stack(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height - 250,
+              height: MediaQuery.of(context).size.height - 260,
               child: Column(
                 children: [
                   Container(
@@ -263,7 +271,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                           onTap: () async {
                             String? result = await CustomInputDialog.showInputDialog(
                               context: context,
-                              defaultTxt:"6-44639/TOR",
+                              defaultTxt: "6-44639/TOR",
                               key: AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER,
                             );
                             if (result != null) {
@@ -272,7 +280,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                             } else {
                               print("Dialog was canceled");
                             }
-
                           },
                           child: Text("Order ${PrefUtil.preferences!.get(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER) ?? "6-44639/TOR"}",
                               style: TextStyle(
@@ -297,7 +304,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                             } else {
                               print("Dialog was canceled");
                             }
-
                           },
                           child: Text("Cancel Transfer",
                               style: TextStyle(
@@ -309,21 +315,19 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                 ],
               ),
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: AppColor.colorGryaBlackMyTicket,
-                border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
-                boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
-              ),
-              height: 40,
-              child: Center(
-                child: Image.asset(
-                  "assets/images/icon_my_account/logo_ticket.png",
-                  height: 20,
-                ),
-              ),
+            Positioned.fill(
+              child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColor.colorSecond(),
+                      border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
+                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+                      //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
+                    ),
+                    height: 2,
+                  )),
             ),
           ],
         ),

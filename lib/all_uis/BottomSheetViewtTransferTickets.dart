@@ -29,7 +29,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
             SizedBox(
               height: 10,
             ),
-            Text("TRANSFER TO", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black45)),
+            Text("Forward To", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w300, color: Colors.black87)),
             SizedBox(
               height: 10,
             ),
@@ -50,7 +50,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                   decoration: BoxDecoration(
                     color: Color(0XFFffffff),
                     boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                    border: Border.all(color: AppColor.colorMain()),
+                    border: Border.all(color: AppColor.officialBlue),
                     borderRadius: BorderRadius.all(Radius.circular(2)),
                   ),
                   child: Padding(
@@ -61,11 +61,9 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Select From Contacts",
+                            Text("Select From Contacts".toUpperCase(),
                                 style: TextStyle(
-                                    fontSize: 16,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: AppColor.colorMain(),
+                                    fontSize: 12,
                                     decorationThickness: 2,
                                     fontFamily: "metropolis",
                                     fontWeight: FontWeight.w600,
@@ -76,14 +74,14 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                             Icon(
                               Icons.perm_contact_calendar_outlined,
                               color: AppColor.officialBlue,
-                              size: 25,
+                              size: 20,
                             )
                           ],
                         ),
                       ),
                     ),
                   ),
-                  height: 48.0,
+                  height: 40.0,
                 ),
               ),
             ),
@@ -103,7 +101,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                   decoration: BoxDecoration(
                     color: Color(0XFFffffff),
                     boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                    border: Border.all(color: AppColor.colorMain()),
+                    border: Border.all(color: AppColor.officialBlue),
                     borderRadius: BorderRadius.all(Radius.circular(2)),
                   ),
                   child: Padding(
@@ -115,12 +113,9 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text("Manually Enter A Recipient",
+                            Text("Manually Enter A Recipient".toUpperCase(),
                                 style: TextStyle(
-                                    fontSize: 16,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: AppColor.colorMain(),
-                                    decorationThickness: 2,
+                                    fontSize: 12,
                                     fontFamily: "metropolis",
                                     fontWeight: FontWeight.w600,
                                     color: AppColor.officialBlue)),
@@ -137,17 +132,17 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                       ),
                     ),
                   ),
-                  height: 48.0,
+                  height: 40.0,
                 ),
               ),
             ),
             SizedBox(
-              height: 50,
+              height: 20,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                width: 80,
+                width: 60,
                 decoration: BoxDecoration(
                   color: Colors.black12,
                   /*boxShadow: [
@@ -164,24 +159,24 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                   child: Center(
                     child: Image.asset(
                       "assets/images/paper-plane.png",
-                      width: 40,
-                      height: 40,
+                      width: 30,
+                      height: 30,
                     ),
                   ),
                 ),
-                height: 80.0,
+                height: 60.0,
               ),
             ),
             SizedBox(
               height: 20,
             ),
             Text("Transfer Tickets Via Email or Text Message",
-                style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: Colors.black54)),
+                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: Colors.black87)),
             SizedBox(
               height: 5,
             ),
             Text("Select an Email or mobile number to\n transfer tickets to your recipient.",
-                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.black54)),
+                style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: Colors.black.withOpacity(0.8))),
             SizedBox(
               height: 20,
             )

@@ -386,7 +386,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                                   backgroundColor: AppColor.colorMain(), // Background color
                                   foregroundColor: Colors.white, // Text color
                                   shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                                    borderRadius: BorderRadius.all(Radius.circular(2)),
                                   ),
                                 ),
                                 onLongPress: () {
