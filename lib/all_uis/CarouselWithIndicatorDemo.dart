@@ -90,7 +90,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                 });
               }),
         ),
-        GestureDetector(
+        /* GestureDetector(
           onTap: () async {
             String? result = await CustomInputDialog.showInputDialog(
               context: context,
@@ -119,176 +119,228 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
               );
             }).toList(),
           ),
-        ),
+        ),*/
       ]),
     );
   }
 
   Widget buildMainCardHome(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
           color: AppColor.white,
           border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
-          boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+          boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 2, spreadRadius: 2)],
           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
-        height: MediaQuery.of(context).size.height - 200,
+        height: MediaQuery.of(context).size.height - 220,
         child: Stack(
           children: [
             Column(
               children: [
-                GestureDetector(
-                  onTap: () async {
-                    String? result = await CustomInputDialog.showInputDialog(
-                      context: context,
-                      defaultTxt: "2166e5",
-                      key: AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND,
-                    );
-                    if (result != null) {
-                      PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND, result);
-                      setState(() {});
-                    } else {
-                      print("Dialog was canceled");
-                    }
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColor.colorSecond(),
-
-                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                      //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                      borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
-                    ),
-                    height: 40,
-                    child: Center(
-                      child: FutureBuilder<String>(
-                        future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
-                        builder: (context, AsyncSnapshot<String> snapshot) {
-                          if (!snapshot.hasData) {
-                            return Container();
-                          } else {
-                            return GestureDetector(
-                              onTap: () async {
-                                String? result = await CustomInputDialog.showInputDialog(
-                                  context: context,
-                                  defaultTxt: "Verified Fan Offer",
-                                  key: AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,
-                                );
-                                if (result != null) {
-                                  PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, result);
-                                  setState(() {});
-                                } else {
-                                  print("Dialog was canceled");
-                                }
-                              },
-                              child: Text(snapshot.data!,
-                                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                buildContainerTopTex(),
-                buildContainerImageBox(context),
                 Container(
-                  height: MediaQuery.of(context).size.height / 4,
+                  decoration: BoxDecoration(
+                    color: AppColor.colorMain(),
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
+                    //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+                  ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 50),
-                        child: FutureBuilder<String>(
-                          future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7, "American VIP - 7"),
-                          builder: (context, AsyncSnapshot<String> snapshot) {
-                            if (!snapshot.hasData) {
-                              return Container();
-                            } else {
-                              return GestureDetector(
-                                onTap: () async {
-                                  String? result = await CustomInputDialog.showInputDialog(
-                                    context: context,
-                                    defaultTxt: "American VIP - 7",
-                                    key: AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7,
-                                  );
-                                  if (result != null) {
-                                    PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7, result);
-                                    setState(() {});
-                                  } else {
-                                    print("Dialog was canceled");
-                                  }
-                                },
-                                child: Text(snapshot.data!,
-                                    style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black)),
-                              );
-                            }
-                          },
-                        ),
-                      ),
                       GestureDetector(
                         onTap: () async {
-                          assetUrl++;
-                          if (assetUrl > 4) assetUrl = 1;
-
-                          print("assetUrl");
-                          print(assetUrl);
-
-                          setState(() {});
+                          String? result = await CustomInputDialog.showInputDialog(
+                            context: context,
+                            defaultTxt: "2166e5",
+                            key: AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND,
+                          );
+                          if (result != null) {
+                            PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND, result);
+                            setState(() {});
+                          } else {
+                            print("Dialog was canceled");
+                          }
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: GestureDetector(
-                            onLongPress: () {
-                              if (assetUrl == 4) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => BarcodeView(_current)),
-                                );
-                              }
-                            },
-                            child: Image.asset(
-                              "assets/images/logo/${assetUrl.toString()}.png",
-                              height: PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.IMAGE_SIZE) == null
-                                  ? 50.0
-                                  : PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.IMAGE_SIZE)!.toDouble(),
+                        child: Container(
+                          width: double.infinity,
+                          height: 40,
+                          child: Center(
+                            child: FutureBuilder<String>(
+                              future:
+                                  CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
+                              builder: (context, AsyncSnapshot<String> snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Container();
+                                } else {
+                                  return GestureDetector(
+                                    onTap: () async {
+                                      String? result = await CustomInputDialog.showInputDialog(
+                                        context: context,
+                                        defaultTxt: "Verified Fan Offer",
+                                        key: AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,
+                                      );
+                                      if (result != null) {
+                                        PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, result);
+                                        setState(() {});
+                                      } else {
+                                        print("Dialog was canceled");
+                                      }
+                                    },
+                                    child: Text(snapshot.data!,
+                                        style:
+                                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
+                                  );
+                                }
+                              },
                             ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                        child: Row(
-                          mainAxisAlignment: assetUrl == 4 ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
+                      buildContainerTopTex(),
+                    ],
+                  ),
+                ),
+                buildContainerImageBox(context),
+                Container(
+                  height: MediaQuery.of(context).size.height / 3,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            assetUrl == 4
-                                ? Container()
-                                : GestureDetector(
-                                    child: Text("View Barcode",
-                                        style: TextStyle(
-                                            fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.colorSecond())),
+                            Container(
+                              child: FutureBuilder<String>(
+                                future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7, "American VIP - 7"),
+                                builder: (context, AsyncSnapshot<String> snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return Container();
+                                  } else {
+                                    return GestureDetector(
+                                      onTap: () async {
+                                        String? result = await CustomInputDialog.showInputDialog(
+                                          context: context,
+                                          defaultTxt: "American VIP - 7",
+                                          key: AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7,
+                                        );
+                                        if (result != null) {
+                                          PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7, result);
+                                          setState(() {});
+                                        } else {
+                                          print("Dialog was canceled");
+                                        }
+                                      },
+                                      child: Center(
+                                        child: Text(snapshot.data!,
+                                            style:
+                                                TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black)),
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: () async {
+                                assetUrl++;
+                                if (assetUrl > 4) assetUrl = 1;
+
+                                print("assetUrl");
+                                print(assetUrl);
+
+                                setState(() {});
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: GestureDetector(
+                                  onLongPress: () {
+                                    if (assetUrl == 4) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => BarcodeView(_current)),
+                                      );
+                                    }
+                                  },
+                                  child: Column(
+                                    children: [
+                                      assetUrl == 4
+                                          ? Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: AppColor.colorSecond(),
+                                                  border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
+                                                ),
+                                                height: 45,
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.qr_code,
+                                                      color: Colors.white,
+                                                    ),
+                                                    SizedBox(width: 10,),
+                                                    Text(
+                                                      "View Tickets",
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily: "metropolis",
+                                                          fontWeight: FontWeight.w400,
+                                                          color: AppColor.white),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          : Image.asset(
+                                              "assets/images/logo/${assetUrl.toString()}.png",
+                                              height: PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.IMAGE_SIZE) == null
+                                                  ? 50.0
+                                                  : PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.IMAGE_SIZE)!.toDouble(),
+                                            ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
                                     onTap: () async {
                                       Navigator.push(
                                         context,
-                                        MaterialPageRoute(builder: (context) => QRViewMain()),
+                                        MaterialPageRoute(builder: (context) => TicketDetails()),
                                       );
                                     },
+                                    child: Text("Ticket Details",
+                                        style: TextStyle(
+                                            fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.officialBlue)),
                                   ),
-                            GestureDetector(
-                              onTap: () async {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => TicketDetails()),
-                                );
-                              },
-                              child: Text("Ticket Details",
-                                  style:
-                                      TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.colorSecond())),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -301,30 +353,15 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
             Positioned.fill(
               child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: GestureDetector(
-                    onTap: () async {
-                      setState(() {
-                        showHideLogo = !showHideLogo;
-                      });
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppColor.colorSecond(),
-                        border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
-                        boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                        //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
-                      ),
-                      height: 40,
-                      child: Center(
-                        child: showHideLogo == true
-                            ? Container()
-                            : Image.asset(
-                                "assets/images/tm_verified.png",
-                                height: 25,
-                              ),
-                      ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColor.colorSecond(),
+                      border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
+                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+                      //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
                     ),
+                    height: 2,
                   )),
             ),
           ],
@@ -405,11 +442,6 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
       },
       child: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
-          color: AppColor.colorMain(),
-
-          //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-        ),
         height: 70,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -539,13 +571,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
 
   Container buildContainerImageBox(BuildContext context) {
     return Container(
-      height: 220,
-      /*decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/shadow.png"),
-          fit: BoxFit.cover,
-        ),
-      ),*/
+      height: 200,
       child: Stack(
         children: [
           //Jimmy Kimmel LV Bowl Presented By Stifel
@@ -589,13 +615,13 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                           Image.file(
                             snapshot.data!,
                             fit: BoxFit.cover,
-                            height: 220.0,
+                            height: double.infinity,
                             width: double.infinity,
                           ),
                           Image.asset(
                             "assets/images/shadow.png",
                             fit: BoxFit.cover,
-                            height: 220.0,
+                            height: double.infinity,
                             width: double.infinity,
                           ),
                         ],

@@ -75,6 +75,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Container(),
                     Text("My Tickets", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                     Container(),
                     GestureDetector(
@@ -445,7 +446,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                                             foregroundColor: Colors.white,
                                             // Text color
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
+                                              borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
                                             ),
                                           ),
                                           onPressed: () async {
@@ -459,7 +460,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                                           },
                                         ),
                                       ),
-                                      Expanded(flex: 1, child: Container()),
+                                      SizedBox(width: 20,),
                                       Expanded(
                                         flex: 1,
                                         child: TextButton(
@@ -472,13 +473,12 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                                           style: ElevatedButton.styleFrom(
                                             padding: const EdgeInsets.all(10),
                                             elevation: 0.0,
-                                            backgroundColor: AppColor.colorMain().withOpacity(
-                                                PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
+                                            backgroundColor: AppColor.colorMain(),
                                             // Background color
                                             foregroundColor: Colors.white,
                                             // Text color
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
+                                              borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
                                             ),
                                           ),
                                           onPressed: () async {
