@@ -197,7 +197,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                     ),
                   ),
                 ),
-                buildContainerTopTex(),
+                SecRowSeat(_current),
                 buildContainerImageBox(context),
                 Container(
                   height: MediaQuery.of(context).size.height / 5,
@@ -366,86 +366,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
     );
   }
 
-  Widget buildContainerTopTex() {
-    return GestureDetector(
-      onTap: () async {
-        String? result = await CustomInputDialog.showInputDialog(
-          context: context,
-          defaultTxt: "2166e5",
-          key: AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_MAIN,
-        );
-        if (result != null) {
-          PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_MAIN, result);
-          setState(() {});
-        } else {
-          print("Dialog was canceled");
-        }
-      },
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: AppColor.colorMain(),
 
-          //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-        ),
-        height: 70,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    Text("SEC",
-                        style:
-                        TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    CustomBuilderWidget(
-                        keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC,
-                        defaultValue: "407A",
-                        textStyle: CommonOperation.getFontThinkNessNewDesign()),
-
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text("ROW",
-                        style:
-                        TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    CustomBuilderWidget(
-                        keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW,
-                        defaultValue: "5",
-                        textStyle: CommonOperation.getFontThinkNessNewDesign()),
-
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text("SEAT",
-                        style:
-                        TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    CustomBuilderWidget(
-                        keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _current.toString(),
-                        defaultValue: "${ _current.toString()}",
-                        textStyle: CommonOperation.getFontThinkNessNewDesign()),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   Container buildContainerImageBox(BuildContext context) {
     return Container(

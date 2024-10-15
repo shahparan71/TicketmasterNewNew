@@ -144,7 +144,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                                   print("object3535");
                                 },
                                 child: Container(
-                                    color: Colors.black26,
+
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Icon(Icons.arrow_back_rounded),

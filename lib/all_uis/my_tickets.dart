@@ -206,7 +206,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: AppColor.colorGryaBlackMyTicket,
-
                       boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                       //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                       borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
@@ -229,7 +228,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                       ),
                     ),
                   ),
-                  buildContainerTopTex(),
+                  SecRowSeatJustShow(widget.ticketCount,seatRange),
                   buildContainerImageBox(context),
                   Container(
                     height: 20,
@@ -389,80 +388,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
     );
   }
 
-  Widget buildContainerTopTex() {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: AppColor.colorGryaMyTicket,
-
-        //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-      ),
-      height: 70,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                children: [
-                  Text("SEC",
-                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "407A"),
-                    builder: (context, AsyncSnapshot<String> snapshot) {
-                      if (!snapshot.hasData) {
-                        return Container();
-                      } else {
-                        return Text(snapshot.data!,
-                            style: TextStyle(
-                                fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white));
-                      }
-                    },
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Text("ROW",
-                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, "5"),
-                    builder: (context, AsyncSnapshot<String> snapshot) {
-                      if (!snapshot.hasData) {
-                        return Container();
-                      } else {
-                        return Text(snapshot.data!,
-                            style: TextStyle(
-                                fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white));
-                      }
-                    },
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Text("SEAT",
-                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text("${int.parse(widget.ticketCount) == 0 ? "0" : seatRange}",
-                      style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white))
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
 
   Container buildContainerImageBox(BuildContext context) {
     return Container(

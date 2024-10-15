@@ -6,6 +6,8 @@ import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
+import 'package:ticket_master/utils/custom_dialog.dart';
+import 'package:ticket_master/utils/future_stateful_widget.dart';
 
 class DiscoverImageAndroid extends StatefulWidget {
   @override
@@ -272,5 +274,179 @@ class _DiscoverImageIOSState extends State<DiscoverImageIOS> {
             ),
           );
         });
+  }
+}
+
+class SecRowSeatJustShow extends StatefulWidget {
+  String ticketCount;
+  String seatRange;
+
+  SecRowSeatJustShow(this.ticketCount, this.seatRange);
+
+  @override
+  State<SecRowSeatJustShow> createState() => _SecRowSeatJustShowState();
+}
+
+class _SecRowSeatJustShowState extends State<SecRowSeatJustShow> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: AppColor.colorGryaMyTicket,
+
+        //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+      ),
+      height: 70,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                children: [
+                  Text("SEC",
+                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  FutureBuilder<String>(
+                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "407A"),
+                    builder: (context, AsyncSnapshot<String> snapshot) {
+                      if (!snapshot.hasData) {
+                        return Container();
+                      } else {
+                        return Text(snapshot.data!, style: CommonOperation.getFontThinkNessNewDesign());
+                      }
+                    },
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Text("ROW",
+                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  FutureBuilder<String>(
+                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, "5"),
+                    builder: (context, AsyncSnapshot<String> snapshot) {
+                      if (!snapshot.hasData) {
+                        return Container();
+                      } else {
+                        return Text(snapshot.data!, style: CommonOperation.getFontThinkNessNewDesign());
+                      }
+                    },
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Text("SEAT",
+                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text("${int.parse(widget.ticketCount) == 0 ? "0" : widget.seatRange}", style: CommonOperation.getFontThinkNessNewDesign())
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SecRowSeat extends StatefulWidget {
+  int current;
+
+  SecRowSeat(this.current);
+
+  @override
+  State<SecRowSeat> createState() => _SecRowSeatState();
+}
+
+class _SecRowSeatState extends State<SecRowSeat> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        String? result = await CustomInputDialog.showInputDialog(
+          context: context,
+          defaultTxt: "2166e5",
+          key: AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_MAIN,
+        );
+        if (result != null) {
+          PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_MAIN, result);
+          setState(() {});
+        } else {
+          print("Dialog was canceled");
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: AppColor.colorMain(),
+
+          //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+        ),
+        height: 70,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    Text("SEC",
+                        style:
+                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    CustomBuilderWidget(
+                        keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC,
+                        defaultValue: "407A",
+                        textStyle: CommonOperation.getFontThinkNessNewDesign()),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text("ROW",
+                        style:
+                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    CustomBuilderWidget(
+                        keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW,
+                        defaultValue: "5",
+                        textStyle: CommonOperation.getFontThinkNessNewDesign()),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text("SEAT",
+                        style:
+                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    CustomBuilderWidget(
+                        keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget.current.toString(),
+                        defaultValue: "${widget.current.toString()}",
+                        textStyle: CommonOperation.getFontThinkNessNewDesign()),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -339,23 +341,26 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
                                     onTap: () async {
                                       Navigator.of(context).pop();
                                     },
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.arrow_back_ios,
-                                          color: AppColor.officialBlue,
-                                          size: 18,
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text("Back",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontFamily: "metropolis",
-                                                fontWeight: FontWeight.w600,
-                                                color: Color(0xff0979b5)))
-                                      ],
+                                    child: Padding(
+                                      padding:  EdgeInsets.only(left: Platform.isIOS?15: 2),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.arrow_back_ios,
+                                            color: AppColor.officialBlue,
+                                            size: 18,
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text("Back",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontFamily: "metropolis",
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0xff0979b5)))
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   Container()
