@@ -32,8 +32,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
 
   var seatRange = "";
 
-  
-
   @override
   void initState() {
     initSlide();
@@ -63,7 +61,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: Padding(
-          padding:  EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0),
           child: GestureDetector(
               onTap: () async {
                 Navigator.of(context).pop();
@@ -102,7 +100,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                 });
               }),
         ),
-        Row(
+        /*Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: imgList.map((url) {
             int index = imgList.indexOf(url);
@@ -116,7 +114,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
               ),
             );
           }).toList(),
-        ),
+        ),*/
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(
@@ -135,7 +133,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                       backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
                       elevation: MaterialStateProperty.all(0.0),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
+                        borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
                       ))),
                   onPressed: () async {
                     /*Navigator.push(
@@ -145,7 +143,9 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                   },
                 ),
               ),
-              Expanded(flex: 1, child: Container()),
+              SizedBox(
+                width: 20,
+              ),
               Expanded(
                 flex: 1,
                 child: TextButton(
@@ -158,7 +158,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                       backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
                       elevation: MaterialStateProperty.all(0.0),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
+                        borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
                       ))),
                   onPressed: () async {
                     /*Navigator.push(
@@ -177,49 +177,54 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
 
   Widget buildMainCardHome(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
           color: AppColor.white,
           border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
-          boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+          boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 2, spreadRadius: 2)],
           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
-        height: MediaQuery.of(context).size.height - 200,
+        height: MediaQuery.of(context).size.height - 240,
         child: Stack(
           children: [
             Column(
               children: [
                 Container(
-                  width: double.infinity,
                   decoration: BoxDecoration(
                     color: AppColor.colorGryaBlackMyTicket,
-
                     boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                     //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                     borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
                   ),
-                  height: 40,
-                  child: Center(
-                    child: FutureBuilder<String>(
-                      future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
-                      builder: (context, AsyncSnapshot<String> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container();
-                        } else {
-                          return GestureDetector(
-                            onTap: () async {},
-                            child: Text(snapshot.data!,
-                                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
-                          );
-                        }
-                      },
-                    ),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 40,
+                        child: Center(
+                          child: FutureBuilder<String>(
+                            future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
+                            builder: (context, AsyncSnapshot<String> snapshot) {
+                              if (!snapshot.hasData) {
+                                return Container();
+                              } else {
+                                return GestureDetector(
+                                  onTap: () async {},
+                                  child: Text(snapshot.data!,
+                                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
+                                );
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                      buildContainerTopTex(),
+                    ],
                   ),
                 ),
-                buildContainerTopTex(),
                 buildContainerImageBox(context),
                 Container(
                   height: 20,
@@ -262,25 +267,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                   ),
                 )
               ],
-            ),
-            Positioned.fill(
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppColor.colorGryaBlackMyTicket,
-                      border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
-                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                      //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
-                    ),
-                    height: 40,
-                    /*child: Center(
-                      child: Image.asset(
-                        "assets/images/tm_verified.png",
-                      ),
-                    ),*/
-                  )),
             ),
           ],
         ),
@@ -345,11 +331,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
   Widget buildContainerTopTex() {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: AppColor.colorGryaMyTicket,
-
-        //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-      ),
       height: 70,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -360,8 +341,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
               Column(
                 children: [
                   Text("SEC",
-                      style:
-                          TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
+                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
                   SizedBox(
                     height: 5,
                   ),
@@ -371,9 +351,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                       if (!snapshot.hasData) {
                         return Container();
                       } else {
-                        return Text(snapshot.data!,
-                            style: TextStyle(
-                                fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white));
+                        return Text(snapshot.data!, style: CommonOperation.getFontThinkNessNewDesign());
                       }
                     },
                   ),
@@ -382,8 +360,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
               Column(
                 children: [
                   Text("ROW",
-                      style:
-                          TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
+                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
                   SizedBox(
                     height: 5,
                   ),
@@ -393,9 +370,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                       if (!snapshot.hasData) {
                         return Container();
                       } else {
-                        return Text(snapshot.data!,
-                            style: TextStyle(
-                                fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white));
+                        return Text(snapshot.data!, style: CommonOperation.getFontThinkNessNewDesign());
                       }
                     },
                   ),
@@ -404,13 +379,11 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
               Column(
                 children: [
                   Text("SEAT",
-                      style:
-                          TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
+                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
                   SizedBox(
                     height: 5,
                   ),
-                  Text("${int.parse(widget.ticketCount) == 0 ? "0" : seatRange}",
-                      style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white))
+                  Text("${int.parse(widget.ticketCount) == 0 ? "0" : seatRange}", style: CommonOperation.getFontThinkNessNewDesign())
                 ],
               ),
             ],
@@ -581,5 +554,4 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
       setState(() {});
     }
   }
-
 }
