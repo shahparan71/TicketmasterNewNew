@@ -277,6 +277,11 @@ class CommonOperation {
     }
   }
 
+  static TextStyle getFontThinkNessNewDesign() {
+    return TextStyle(
+        fontSize: 20, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: AppColor.white);
+  }
+
   static FontWeight getFontWeight2() {
     int? value = PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.THICK_2);
 

@@ -505,7 +505,7 @@ class _BarcodeViewIOSState extends State<BarcodeViewIOS> {
     showMaterialModalBottomSheet(
       context: context,
       builder: (context) => Container(
-        height: MediaQuery.of(context).size.height - 400,
+        height: MediaQuery.of(context).size.height - 450,
         child: BottomSheetViewSelectTickets(),
       ),
     );

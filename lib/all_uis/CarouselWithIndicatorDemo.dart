@@ -16,6 +16,7 @@ import 'package:ticket_master/all_uis/ticket_details.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
+import 'package:ticket_master/utils/future_stateful_widget.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
@@ -166,35 +167,22 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                         child: Container(
                           width: double.infinity,
                           height: 40,
-                          child: Center(
-                            child: FutureBuilder<String>(
-                              future:
-                                  CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
-                              builder: (context, AsyncSnapshot<String> snapshot) {
-                                if (!snapshot.hasData) {
-                                  return Container();
-                                } else {
-                                  return GestureDetector(
-                                    onTap: () async {
-                                      String? result = await CustomInputDialog.showInputDialog(
-                                        context: context,
-                                        defaultTxt: "Verified Fan Offer",
-                                        key: AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,
-                                      );
-                                      if (result != null) {
-                                        PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, result);
-                                        setState(() {});
-                                      } else {
-                                        print("Dialog was canceled");
-                                      }
-                                    },
-                                    child: Text(snapshot.data!,
-                                        style:
-                                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
-                                  );
-                                }
-                              },
-                            ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(),
+                              CustomBuilderWidget(
+                                  keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,
+                                  defaultValue: "Standard Ticket",
+                                  textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(
+                                  Icons.info_outline,
+                                  color: Colors.white,
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -214,35 +202,10 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
-                              child: FutureBuilder<String>(
-                                future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7, "American VIP - 7"),
-                                builder: (context, AsyncSnapshot<String> snapshot) {
-                                  if (!snapshot.hasData) {
-                                    return Container();
-                                  } else {
-                                    return GestureDetector(
-                                      onTap: () async {
-                                        String? result = await CustomInputDialog.showInputDialog(
-                                          context: context,
-                                          defaultTxt: "American VIP - 7",
-                                          key: AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7,
-                                        );
-                                        if (result != null) {
-                                          PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7, result);
-                                          setState(() {});
-                                        } else {
-                                          print("Dialog was canceled");
-                                        }
-                                      },
-                                      child: Center(
-                                        child: Text(snapshot.data!,
-                                            style:
-                                                TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black)),
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
+                              child: CustomBuilderWidget(
+                                  keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7,
+                                  defaultValue: "GRANDSTAND 407A",
+                                  textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black)),
                             ),
                           ],
                         ),
@@ -291,14 +254,13 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                                                       Icons.qr_code,
                                                       color: Colors.white,
                                                     ),
-                                                    SizedBox(width: 10,),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
                                                     Text(
                                                       "View Tickets",
                                                       style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily: "metropolis",
-                                                          fontWeight: FontWeight.w400,
-                                                          color: AppColor.white),
+                                                          fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.white),
                                                     )
                                                   ],
                                                 ),
@@ -457,33 +419,10 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                     SizedBox(
                       height: 5,
                     ),
-                    FutureBuilder<String>(
-                      future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "303"),
-                      builder: (context, AsyncSnapshot<String> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container();
-                        } else {
-                          return GestureDetector(
-                            onTap: () async {
-                              String? result = await CustomInputDialog.showInputDialog(
-                                context: context,
-                                defaultTxt: "303",
-                                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC,
-                              );
-                              if (result != null) {
-                                PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, result);
-                                setState(() {});
-                              } else {
-                                print("Dialog was canceled");
-                              }
-                            },
-                            child: Text(snapshot.data!,
-                                style: TextStyle(
-                                    fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white)),
-                          );
-                        }
-                      },
-                    ),
+                    CustomBuilderWidget(
+                        keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC,
+                        defaultValue: "407A",
+                        textStyle: CommonOperation.getFontThinkNessNewDesign()),
                   ],
                 ),
                 Column(
@@ -494,33 +433,10 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                     SizedBox(
                       height: 5,
                     ),
-                    FutureBuilder<String>(
-                      future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, "5"),
-                      builder: (context, AsyncSnapshot<String> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container();
-                        } else {
-                          return GestureDetector(
-                            onTap: () async {
-                              String? result = await CustomInputDialog.showInputDialog(
-                                context: context,
-                                defaultTxt: "5",
-                                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW,
-                              );
-                              if (result != null) {
-                                PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, result);
-                                setState(() {});
-                              } else {
-                                print("Dialog was canceled");
-                              }
-                            },
-                            child: Text(snapshot.data!,
-                                style: TextStyle(
-                                    fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white)),
-                          );
-                        }
-                      },
-                    ),
+                    CustomBuilderWidget(
+                        keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW,
+                        defaultValue: "5",
+                        textStyle: CommonOperation.getFontThinkNessNewDesign()),
                   ],
                 ),
                 Column(
@@ -531,34 +447,10 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                     SizedBox(
                       height: 5,
                     ),
-                    FutureBuilder<String>(
-                      future:
-                          CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _current.toString(), _current.toString()),
-                      builder: (context, AsyncSnapshot<String> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container();
-                        } else {
-                          return GestureDetector(
-                            onTap: () async {
-                              String? result = await CustomInputDialog.showInputDialog(
-                                context: context,
-                                defaultTxt: _current.toString(),
-                                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _current.toString(),
-                              );
-                              if (result != null) {
-                                PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _current.toString(), result);
-                                setState(() {});
-                              } else {
-                                print("Dialog was canceled");
-                              }
-                            },
-                            child: Text(snapshot.data!,
-                                style: TextStyle(
-                                    fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white)),
-                          );
-                        }
-                      },
-                    ),
+                    CustomBuilderWidget(
+                        keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + _current.toString(),
+                        defaultValue: "${_current.toString()}",
+                        textStyle: CommonOperation.getFontThinkNessNewDesign()),
                   ],
                 ),
               ],
@@ -709,84 +601,25 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                     SizedBox(
                       height: 2,
                     ),
-                    FutureBuilder<String>(
-                      future: CommonOperation.getSharedData(
-                          AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT_2, "Taylor Swift | The Eras Tour"),
-                      builder: (context, AsyncSnapshot<String> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container();
-                        } else {
-                          return GestureDetector(
-                            onTap: () async {
-                              String? result = await CustomInputDialog.showInputDialog(
-                                context: context,
-                                defaultTxt: "Taylor Swift | The Eras Tour",
-                                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT_2,
-                              );
-                              if (result != null) {
-                                PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT_2, result);
-                                setState(() {});
-                              } else {
-                                print("Dialog was canceled");
-                              }
-                            },
-                            child: Container(
-                              child: Text(snapshot.data!,
-                                  maxLines: 1,
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize:
-                                          PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain) ??
-                                              18,
-                                      fontFamily: "metropolis",
-                                      fontWeight: CommonOperation.getFontWeight(),
-                                      color: AppColor.white)),
-                            ),
-                          );
-                        }
-                      },
-                    ),
+                    CustomBuilderWidget(
+                        keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT_2,
+                        defaultValue: "Taylor Swift | The Eras Tour",
+                        textStyle: TextStyle(
+                            fontSize: PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain) ?? 18,
+                            fontFamily: "metropolis",
+                            fontWeight: CommonOperation.getFontWeight(),
+                            color: AppColor.white)),
                     SizedBox(
                       height: 2,
                     ),
-                    FutureBuilder<String>(
-                      future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.DATE, "Sat, Dec 18, 4:30pm . SofFi Stadium"),
-                      builder: (context, AsyncSnapshot<String> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container();
-                        } else {
-                          return GestureDetector(
-                            onTap: () async {
-                              String? result = await CustomInputDialog.showInputDialog(
-                                context: context,
-                                defaultTxt: "Sat, Dec 18, 4:30pm . SofFi Stadium",
-                                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.DATE,
-                              );
-                              if (result != null) {
-                                PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.DATE, result);
-                                setState(() {});
-                              } else {
-                                print("Dialog was canceled");
-                              }
-                            },
-                            child: Container(
-                              child: Text(snapshot.data!,
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize:
-                                          PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ??
-                                              14,
-                                      fontFamily: "metropolis",
-                                      fontWeight: CommonOperation.getFontWeight2(),
-                                      color: AppColor.white)),
-                            ),
-                          );
-                        }
-                      },
-                    ),
+                    CustomBuilderWidget(
+                        keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.DATE,
+                        defaultValue: "Sat, Dec 18, 4:30pm . SofFi Stadium",
+                        textStyle: TextStyle(
+                            fontSize: PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ?? 14,
+                            fontFamily: "metropolis",
+                            fontWeight: CommonOperation.getFontWeight2(),
+                            color: AppColor.white)),
                     SizedBox(
                       height: 10,
                     ),

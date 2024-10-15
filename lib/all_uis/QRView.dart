@@ -365,7 +365,7 @@ class _QRViewMainState extends State<QRViewMain> {
                             showMaterialModalBottomSheet(
                               context: context,
                               builder: (context) => Container(
-                                height: MediaQuery.of(context).size.height - 400,
+                                height: MediaQuery.of(context).size.height - 450,
                                 child: BottomSheetViewSelectTickets(),
                               ),
                             );

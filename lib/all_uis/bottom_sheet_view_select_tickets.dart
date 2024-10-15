@@ -37,17 +37,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
             ),
             Text("SELECT TICKETS TO TRANSFER",
                 style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black45)),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              color: Colors.black12,
-              height: 1,
-              width: MediaQuery.of(context).size.width,
-            ),
-            SizedBox(
-              height: 5,
-            ),
+
             SizedBox(
               height: 15,
             ),
@@ -286,8 +276,8 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
                         setState(() {});
                       },
                       child: snapshot.data == false
-                          ? Icon(Icons.circle_outlined, color: Colors.black26)
-                          : Icon(Icons.check_circle, color: AppColor.colorMain()),
+                          ? Icon(Icons.check_box_outline_blank, color: Colors.black26)
+                          : Icon(Icons.check_box, color: AppColor.colorMain()),
                     );
                   }
                 },

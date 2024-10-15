@@ -448,7 +448,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                               showMaterialModalBottomSheet(
                                 context: context,
                                 builder: (context) => Container(
-                                  height: MediaQuery.of(context).size.height - 400,
+                                  height: MediaQuery.of(context).size.height - 450,
                                   child: BottomSheetViewSelectTickets(),
                                 ),
                               );

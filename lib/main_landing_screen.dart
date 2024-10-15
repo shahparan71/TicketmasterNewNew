@@ -439,8 +439,6 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                                             backgroundColor: AppColor.colorMain(),
                                           ),*/
                                           style: ElevatedButton.styleFrom(
-                                            padding: const EdgeInsets.all(10),
-                                            elevation: 0.0,
                                             backgroundColor: AppColor.colorMain(),
                                             // Background color
                                             foregroundColor: Colors.white,
@@ -453,26 +451,23 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                                             showMaterialModalBottomSheet(
                                               context: context,
                                               builder: (context) => Container(
-                                                height: MediaQuery.of(context).size.height - 400,
+                                                height: MediaQuery.of(context).size.height - 450,
                                                 child: BottomSheetViewSelectTickets(),
                                               ),
                                             );
                                           },
                                         ),
                                       ),
-                                      SizedBox(width: 20,),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
                                       Expanded(
                                         flex: 1,
                                         child: TextButton(
                                           child: Text("Sell",
                                               style: TextStyle(
                                                   fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                                          /*style: ElevatedButton.styleFrom(
-                                            backgroundColor: AppColor.colorMain().withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
-                                          ),*/
                                           style: ElevatedButton.styleFrom(
-                                            padding: const EdgeInsets.all(10),
-                                            elevation: 0.0,
                                             backgroundColor: AppColor.colorMain(),
                                             // Background color
                                             foregroundColor: Colors.white,
