@@ -345,6 +345,10 @@ class CommonOperation {
     return (await fi.image.toByteData(format: ImageByteFormat.png))!.buffer.asUint8List();
   }
 
+  static TextStyle getFontStyleProfielBottomSheet() {
+    return TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.w100, color: Colors.black);
+  }
+
 
 
 }

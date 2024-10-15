@@ -386,7 +386,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
                     height: 5,
                   ),
                   FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "303"),
+                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "407A"),
                     builder: (context, AsyncSnapshot<String> snapshot) {
                       if (!snapshot.hasData) {
                         return Container();

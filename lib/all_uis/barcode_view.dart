@@ -399,7 +399,7 @@ class _BarcodeViewState extends State<BarcodeView> {
                     height: 5,
                   ),
                   FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "303"),
+                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "407A"),
                     builder: (context, AsyncSnapshot<String> snapshot) {
                       if (!snapshot.hasData) {
                         return Container();
@@ -408,7 +408,7 @@ class _BarcodeViewState extends State<BarcodeView> {
                           onTap: () async {
                             String? result = await CustomInputDialog.showInputDialog(
                               context: context,
-                              defaultTxt: "303",
+                              defaultTxt: "407A",
                               key: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC,
                             );
                             if (result != null) {
