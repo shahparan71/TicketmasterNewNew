@@ -318,14 +318,14 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
               child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 0.4),
+                    padding: const EdgeInsets.only(left: 1,right: 1),
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppColor.colorMain().withOpacity(0.8),
                         //boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 1, spreadRadius: 1)],
                         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
                       ),
-                      height: 2,
+                      height: 3,
                     ),
                   )),
             ),

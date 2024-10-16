@@ -71,53 +71,19 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Column(children: [
-        CarouselSlider(
-          items: imageSlidersM,
-          options: CarouselOptions(
-              enableInfiniteScroll: false,
-              viewportFraction: dblViewPort ?? 1,
-              height: MediaQuery.of(context).size.height - 340,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _current = index;
-                });
-              }),
-        ),
-        /*GestureDetector(
-          onTap: () async {
-            String? result = await CustomInputDialog.showInputDialog(
-                context: context,
-                defaultTxt: "6",
-                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.CAROUSEL_COUNT,
-                textInputType: TextInputType.number);
-            if (result != null) {
-              PrefUtil.preferences!.setString(
-                AllConstant.CURRENT_LIST_INDEX + AllConstant.CAROUSEL_COUNT,
-                result,
-              );
-              setState(() {});
-            } else {
-              print("Dialog was canceled");
-            }
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: imgList.map((url) {
-              int index = imgList.indexOf(url);
-              return Container(
-                width: _current == index ? 10.0 : 8.0,
-                height: _current == index ? 10.0 : 8.0,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _current == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
-                ),
-              );
-            }).toList(),
-          ),
-        ),*/
-      ]),
+      backgroundColor: Colors.white,
+      body: CarouselSlider(
+        items: imageSlidersM,
+        options: CarouselOptions(
+            enableInfiniteScroll: false,
+            viewportFraction: dblViewPort ?? 1,
+            height: MediaQuery.of(context).size.height - 250,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _current = index;
+              });
+            }),
+      ),
     );
   }
 
@@ -128,7 +94,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
         width: MediaQuery.of(context).size.width - 60,
         decoration: BoxDecoration(
           color: AppColor.colorPageBackground,
-          
+
           boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 2, spreadRadius: 2)],
           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -239,7 +205,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => BarcodeViewIOS(_current)),
@@ -263,8 +229,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                                 ),
                                 Text(
                                   "View Barcode",
-                                  style: TextStyle(
-                                      fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.white),
+                                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.white),
                                 )
                               ],
                             ),
@@ -400,8 +365,6 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
       ],
     );
   }
-
-
 
   Container buildContainerImageBox(BuildContext context) {
     return Container(
