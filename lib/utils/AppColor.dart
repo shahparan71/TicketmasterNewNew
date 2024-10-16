@@ -54,6 +54,13 @@ class AppColor {
     }
     return Color(int.parse("0xFF${colorValue}"));
   }
+  static Color buttonColorMain() {
+    String? colorValue = PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.BUTTON_COLOR,);
+    if (colorValue == null) {
+      return Color(0xff000000);
+    }
+    return Color(int.parse("0xFF${colorValue}"));
+  }
 
   static Color colorBlueLight() {
     String? colorValue = PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_MAIN);

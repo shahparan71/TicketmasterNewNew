@@ -493,12 +493,15 @@ class _TransferAndSellButtonState extends State<TransferAndSellButton> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: widget.button1Color ?? AppColor.colorMain(),
+                      backgroundColor: widget.button1Color ?? AppColor.buttonColorMain(),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
                       ),
                     ),
+                    onLongPress: () {
+                      showColorPicker();
+                    },
                     onPressed: widget.isButton1Enable == true
                         ? () async {
                             widget.function!();
@@ -522,12 +525,15 @@ class _TransferAndSellButtonState extends State<TransferAndSellButton> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: widget.button2Color?? AppColor.colorMain(),
+                      backgroundColor: widget.button2Color ?? AppColor.buttonColorMain(),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
                       ),
                     ),
+                    onLongPress: () {
+                      showColorPicker();
+                    },
                     onPressed: widget.isButton2Enable == true
                         ? () async {
                             Navigator.push(
@@ -544,5 +550,19 @@ class _TransferAndSellButtonState extends State<TransferAndSellButton> {
         ),
       ),
     );
+  }
+
+  Future<void> showColorPicker() async {
+    String? result = await CustomInputDialog.showInputDialog(
+        context: context, defaultTxt: "262626", key: AllConstant.CURRENT_LIST_INDEX + AllConstant.BUTTON_COLOR, textInputType: TextInputType.text);
+    if (result != null) {
+      PrefUtil.preferences!.setString(
+        AllConstant.CURRENT_LIST_INDEX + AllConstant.BUTTON_COLOR,
+        result,
+      );
+      setState(() {});
+    } else {
+      print("Dialog was canceled");
+    }
   }
 }
