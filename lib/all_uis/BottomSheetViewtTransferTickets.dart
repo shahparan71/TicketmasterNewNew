@@ -10,8 +10,7 @@ class BottomSheetViewTransferTickets extends StatefulWidget {
   BottomSheetViewTransferTickets();
 
   @override
-  State<BottomSheetViewTransferTickets> createState() =>
-      _BottomSheetVIewState();
+  State<BottomSheetViewTransferTickets> createState() => _BottomSheetVIewState();
 }
 
 class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
@@ -22,29 +21,21 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Column(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        child: Column(
           children: [
-            SizedBox(
-              height: 20,
-            ),
-            Text("TRANSFER TO",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: "metropolis",
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black45)),
             SizedBox(
               height: 10,
             ),
-            Container(
-              color: Colors.black12,
-              height: 1,
-              width: MediaQuery.of(context).size.width,
+            Text("Forward To", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w300, color: Colors.black87)),
+            SizedBox(
+              height: 10,
             ),
+
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(context);
                 showModalBottomSheet(
                   context: context,
@@ -58,13 +49,8 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Color(0XFFffffff),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Color(0X95E9EBF0),
-                          blurRadius: 2,
-                          spreadRadius: 2)
-                    ],
-                    border: Border.all(color: AppColor.colorMain()),
+                    boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+                    border: Border.all(color: AppColor.officialBlue),
                     borderRadius: BorderRadius.all(Radius.circular(2)),
                   ),
                   child: Padding(
@@ -75,34 +61,32 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Select From Contacts",
+                            Text("Select From Contacts".toUpperCase(),
                                 style: TextStyle(
-                                    fontSize: 18,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: AppColor.colorMain(),
+                                    fontSize: 12,
                                     decorationThickness: 2,
                                     fontFamily: "metropolis",
                                     fontWeight: FontWeight.w600,
-                                    color: AppColor.colorMain())),
+                                    color: AppColor.officialBlue)),
                             SizedBox(
                               width: 5,
                             ),
                             Icon(
                               Icons.perm_contact_calendar_outlined,
-                              color: AppColor.colorMain(),
-                              size: 30,
+                              color: AppColor.officialBlue,
+                              size: 20,
                             )
                           ],
                         ),
                       ),
                     ),
                   ),
-                  height: 48.0,
+                  height: 40.0,
                 ),
               ),
             ),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(context);
                 showModalBottomSheet(
                   context: context,
@@ -116,13 +100,8 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Color(0XFFffffff),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Color(0X95E9EBF0),
-                          blurRadius: 2,
-                          spreadRadius: 2)
-                    ],
-                    border: Border.all(color: AppColor.colorMain()),
+                    boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+                    border: Border.all(color: AppColor.officialBlue),
                     borderRadius: BorderRadius.all(Radius.circular(2)),
                   ),
                   child: Padding(
@@ -134,39 +113,36 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text("Manually Enter A Recipient",
+                            Text("Manually Enter A Recipient".toUpperCase(),
                                 style: TextStyle(
-                                    fontSize: 18,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: AppColor.colorMain(),
-                                    decorationThickness: 2,
+                                    fontSize: 12,
                                     fontFamily: "metropolis",
                                     fontWeight: FontWeight.w600,
-                                    color: AppColor.colorMain())),
+                                    color: AppColor.officialBlue)),
                             SizedBox(
                               width: 5,
                             ),
                             Icon(
                               Icons.add_circle_outline,
-                              color: AppColor.colorMain(),
-                              size: 30,
+                              color: AppColor.officialBlue,
+                              size: 25,
                             )
                           ],
                         ),
                       ),
                     ),
                   ),
-                  height: 48.0,
+                  height: 40.0,
                 ),
               ),
             ),
             SizedBox(
-              height: 50,
+              height: 20,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                width: 80,
+                width: 60,
                 decoration: BoxDecoration(
                   color: Colors.black12,
                   /*boxShadow: [
@@ -183,83 +159,30 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                   child: Center(
                     child: Image.asset(
                       "assets/images/paper-plane.png",
-                      width: 40,
-                      height: 40,
+                      width: 30,
+                      height: 30,
                     ),
                   ),
                 ),
-                height: 80.0,
+                height: 60.0,
               ),
             ),
             SizedBox(
               height: 20,
             ),
             Text("Transfer Tickets Via Email or Text Message",
-                style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: "metropolis",
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black54)),
+                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: Colors.black87)),
             SizedBox(
               height: 5,
             ),
-            Text(
-                "Select an Email or mobile number to\n transfer tickets to your recipient.",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: "metropolis",
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black54)),
+            Text("Select an Email or mobile number to\n transfer tickets to your recipient.",
+                style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: Colors.black.withOpacity(0.8))),
+            SizedBox(
+              height: 20,
+            )
           ],
         ),
-        Positioned.fill(
-            child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: 70,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              //border: Border.all(color: AppColor.blue(), width: 1),
-              //borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
-              //borderRadius: BorderRadius.all(Radius.circular(10.0),),
-            ),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.arrow_back_ios,
-                            color: AppColor.colorMain(),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text("Back",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontFamily: "metropolis",
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColor.colorMain()))
-                        ],
-                      ),
-                    ),
-                    Container()
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ))
-      ],
+      ),
     );
   }
 }

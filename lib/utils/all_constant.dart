@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AllConstant {
-
   static String IMAGE_PATH = "image_path";
   static String DISCOVER_IMAGE_PATH = "discover_image_path";
   static String IMAGE_PATH_PLAY = "image_path_play";
@@ -12,6 +11,7 @@ class AllConstant {
   static String LIVE_CON = "live_in_concert";
   static String KIT_SMITH = "kit_smith";
   static String VIP_7 = "vip_7";
+  static String GATE_235 = "gate234";
   static String GEN_ADM = "gen_adm";
   static String HOME_SUB_TITLE = "home_sub_title";
   static String STANDARD_ADMISSION = "standard_admission";
@@ -37,6 +37,9 @@ class AllConstant {
   static String CIRCLE_VALUE = "circle_value";
 
   static String SEAT = "seat";
+  static String CUSTOMER_SUPPORT_EMAIL = "custom_support_email";
+  static String CUSTOMER_SUPPORT_to = "custom_support_email_to";
+  static String CUSTOMER_SUPPORT_to_date = "custom_support_email_to_date";
   static String GOTTICKETS = "gotthetickets";
   static String ORDER_NUMBER = "OrderNumber";
   static String ORGAN_WALLEN = "morgan_wallen";
@@ -49,7 +52,16 @@ class AllConstant {
   static String LAT_LONG = "lat_long";
   static String TIME = "time";
   static String IAMGE_BIG_TEXT = "ImageBigText";
+  static String TOP_YOUR_NEW = "top_your_new";
+  static String CONFIRMED_ORDER_DATE = "top_your_new";
+  static String EMAIL_SEC = "email_sec";
+  static String EMAIL_ROW = "email_row";
+  static String EMAIL_SEAT = "email_seat";
+  static String EMAIL_2X = "email_2x";
+  static String TOP_YOUR_NEW_2 = "top_your_new_2";
   static String EMAIL_DATE = "email_date";
+  static String PURCHASED_DATE = "purchased_date";
+  static String PAID_AMOUNT = "paid_amount";
   static String IAMGE_BIG_TEXT_2 = "ImageBigText_2";
   static String IS_MULTILINE = "is_multiline";
   static String OCT = "oct";
@@ -80,13 +92,16 @@ class AllConstant {
   static String IncreaseDecreaseFontMain = "increase_decrease_font_main";
   static String IncreaseDecreaseFontSecond = "increase_decrease__font_second";
   static String CURRENT_LIST_INDEX = "0";
+  static String EMAIL_DOLLAR = "email_dollar";
+  static String EMAIL_YOUGOTTICKETS = "email_you_got";
   static String SANTA_BARBAR = "santa_barbar";
   static String DEREK = "derek";
   static String EMAIL_DEREK = "email_derek";
   static String USA = "usa";
   static String DIALOG_TICKET_COUNT = "0";
   static String NUMBER_OF_LIST_ITEM_COUNT = "number_of_list_count";
+  static String NAV_DRAWER_NAME = "nav_drawer_name";
+  static String YOUR_LOCATION = "your_location";
+
   static String IS_CLICK_COUNT = "is_click_count";
-
-
 }

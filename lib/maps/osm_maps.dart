@@ -1,21 +1,10 @@
-import 'dart:math';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
-import 'package:map_launcher/map_launcher.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:ticket_master/PrefUtil.dart';
-import 'package:ticket_master/utils/AppColor.dart';
-import 'package:ticket_master/utils/CommonOperation.dart';
-import 'package:ticket_master/utils/all_constant.dart';
-import 'package:ticket_master/utils/widgets_util.dart';
-
-class MapWidgets extends StatefulWidget {
+/*class OSMMap extends StatefulWidget {
   @override
-  State<MapWidgets> createState() => _MapWidgetsState();
+  State<OSMMap> createState() => _OSMMapState();
 }
 
-class _MapWidgetsState extends State<MapWidgets> {
+class _OSMMapState extends State<OSMMap> {
   // default constructor
   MapController controllerM = MapController(
     initPosition: GeoPoint(latitude: 47.4358055, longitude: 8.4737324),
@@ -27,7 +16,7 @@ class _MapWidgetsState extends State<MapWidgets> {
     ),
   );
 
-  var textEditingController = TextEditingController();
+  
 
   List<GeoPoint> markers = [];
 
@@ -50,7 +39,9 @@ class _MapWidgetsState extends State<MapWidgets> {
               decoration: BoxDecoration(
                 color: AppColor.colorSecond(),
                 //border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0)),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15.0),
+                    topRight: Radius.circular(15.0)),
               ),
               child: Stack(
                 children: [
@@ -66,7 +57,7 @@ class _MapWidgetsState extends State<MapWidgets> {
                           unFollowUser: false,
                         ),
                         zoomOption: ZoomOption(
-                          initZoom: 18,
+                          initZoom: 16,
                           minZoomLevel: 3,
                           maxZoomLevel: 19,
                           stepZoom: 1.0,
@@ -89,36 +80,44 @@ class _MapWidgetsState extends State<MapWidgets> {
                         roadConfiguration: RoadOption(
                           roadColor: Colors.yellowAccent,
                         ),
-                        /*markerOption: MarkerOption(
+                        */ /*markerOption: MarkerOption(
                                 defaultMarker: MarkerIcon(
                               icon: Icon(
                                 Icons.person_pin_circle,
                                 color: Colors.blue,
                                 size: 56,
                               ),
-                            )),*/
+                            )),*/ /*
                       )),
                   FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE, "SofFi Stadium"),
+                    future: CommonOperation.getSharedData(
+                        AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE,
+                        "SofFi Stadium"),
                     builder: (context, AsyncSnapshot<String> snapshot) {
                       if (!snapshot.hasData) {
                         return Container();
                       } else {
                         return GestureDetector(
                           onTap: () async {
-                            putLatLong(AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE, "SofFi Stadium");
+                            putLatLong(
+                                AllConstant.CURRENT_LIST_INDEX +
+                                    AllConstant.PLACE,
+                                "SofFi Stadium");
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
                             child: Container(
                               child: Text(snapshot.data!,
                                   maxLines: 2,
                                   textAlign: TextAlign.center,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      fontSize:
-                                          PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ??
-                                              20,
+                                      fontSize: PrefUtil.preferences!.getDouble(
+                                              AllConstant.CURRENT_LIST_INDEX +
+                                                  AllConstant
+                                                      .IncreaseDecreaseFontSecond) ??
+                                          20,
                                       fontFamily: "metropolis",
                                       fontWeight: FontWeight.w700,
                                       color: Colors.black38)),
@@ -141,7 +140,11 @@ class _MapWidgetsState extends State<MapWidgets> {
                 flex: 1,
                 child: ElevatedButton(
                   child: Text("Get Directions",
-                      style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: "metropolis",
+                          fontWeight: FontWeight.normal,
+                          color: Colors.white)),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(10),
                     elevation: 0.0,
@@ -150,22 +153,28 @@ class _MapWidgetsState extends State<MapWidgets> {
                     foregroundColor: Colors.white,
                     // Text color
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
+                      borderRadius: BorderRadius.circular(
+                          5.0), // Adjust the radius as needed
                     ),
                   ),
                   onLongPress: () {
-                    putLatLong(AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG, "23.42424,92.8787");
+                    putLatLong(
+                        AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG,
+                        "23.42424,92.8787");
                   },
                   onPressed: () async {
-                    String? latLong = await PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG);
+                    String? latLong = await PrefUtil.preferences!.getString(
+                        AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG);
 
                     if (latLong == null || latLong.isEmpty) return;
 
                     final availableMaps = await MapLauncher.installedMaps;
-                    print(availableMaps); // [AvailableMap { mapName: Google Maps, mapType: google }, ...]
+                    print(
+                        availableMaps); // [AvailableMap { mapName: Google Maps, mapType: google }, ...]
 
                     await availableMaps.first.showMarker(
-                      coords: Coords(double.parse(latLong.split(",")[0]), double.parse(latLong.split(",")[1])),
+                      coords: Coords(double.parse(latLong.split(",")[0]),
+                          double.parse(latLong.split(",")[1])),
                       title: "Basundara",
                     );
                   },
@@ -179,7 +188,8 @@ class _MapWidgetsState extends State<MapWidgets> {
   }
 
   Future<void> gotoPosition() async {
-    String? valueT = await PrefUtil.preferences!.getString("${AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG}");
+    String? valueT = await PrefUtil.preferences!
+        .getString("${AllConstant.CURRENT_LIST_INDEX + AllConstant.LAT_LONG}");
     if (valueT == null)
       return;
     else {
@@ -222,18 +232,26 @@ class _MapWidgetsState extends State<MapWidgets> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController, inputType: TextInputType.number),
+                  WidgetsUtil.inputBoxForAll(
+                      defaultTxt, sec, textEditingController,
+                      inputType: TextInputType.number),
                   SizedBox(
                     height: 20,
                   ),
                   ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
+                    child: Text("OK",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: "metropolis",
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white)),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
+                      backgroundColor: AppColor.green,
                     ),
                     onPressed: () {
                       if (textEditingController.text.toString().isNotEmpty) {
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
+                        PrefUtil.preferences!
+                            .setString(sec, textEditingController.text);
                         textEditingController.text = "";
                         setState(() {});
                       }
@@ -258,4 +276,4 @@ class _MapWidgetsState extends State<MapWidgets> {
     }
     markers.clear(); // Clear the list after removing all markers
   }
-}
+}*/

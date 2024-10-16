@@ -73,7 +73,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   TextEditingController textEditingControllerID = TextEditingController();
   TextEditingController textEditingControllerPass = TextEditingController();
 
@@ -110,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(color: Colors.white),
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     setState(() {
                       changeView = 0;
                       PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 0);
@@ -212,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                       style: TextStyle(fontSize: 20),
                                                     ),
                                                     GestureDetector(
-                                                        onTap: () {
+                                                        onTap: () async {
                                                           showDialog(
                                                               context: context,
                                                               builder: (_) {
@@ -238,12 +237,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                                   "Yes",
                                                                                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                                                                                 ),
-                                                                                onTap: () {
+                                                                                onTap: () async {
                                                                                   Navigator.of(context).pop(true);
                                                                                 },
                                                                               ),
                                                                               GestureDetector(
-                                                                                onTap: () {
+                                                                                onTap: () async {
                                                                                   Navigator.of(context).pop(false);
                                                                                 },
                                                                                 child: Text(
@@ -310,7 +309,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: TextField(
                       keyboardType: isAdmin ? TextInputType.text : TextInputType.number,
                       controller: textEditingControllerID,
-                      decoration: InputDecoration(border: OutlineInputBorder(), labelText: isAdmin ? 'Admin User ID' : "User ID", hintText: 'Enter ID'),
+                      decoration:
+                          InputDecoration(border: OutlineInputBorder(), labelText: isAdmin ? 'Admin User ID' : "User ID", hintText: 'Enter ID'),
                     ),
                   ),
                   SizedBox(
@@ -334,7 +334,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   dateLoading == true
                       ? CircularProgressIndicator()
                       : ElevatedButton(
-                          child: Text("Login", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                          child: Text("Login",
+                              style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                           style: ButtonStyle(
                               foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
                               backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
@@ -630,8 +631,6 @@ class _MyHomePageState extends State<MyHomePage> {
       initUserListDate();
     });
   }
-
-
 }
 
 class User {
@@ -641,7 +640,6 @@ class User {
   bool? isEnable;
 
   User.name();
-
 
   User({this.name, this.id, this.date, this.isEnable});
 }

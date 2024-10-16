@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/all_uis/my_tickets.dart';
+import 'package:ticket_master/ios/my_tickets_ios.dart';
 
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
+import 'package:ticket_master/utils/custom_dialog.dart';
 
 class BottomSheetViewPersonal extends StatefulWidget {
   BottomSheetViewPersonal();
@@ -45,7 +49,8 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 580,
+      height: 450,
+      color: Colors.white,
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
@@ -55,35 +60,33 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                 height: 20,
               ),
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   getCount();
                 },
-                child: Text("TRANSFER TICKETS", style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black45)),
+                child: Text("Transfer Tickets",
+                    style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: Colors.black87)),
               ),
               SizedBox(
                 height: 10,
               ),
-              Container(
-                color: Colors.black12,
-                height: 1,
-                width: MediaQuery.of(context).size.width,
-              ),
+
               SizedBox(
                 height: 5,
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
-                    Text(ticketCount.toString() + " Tickets Selected", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
+                    Text(ticketCount.toString() + " Tickets Selected",
+                        style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black87)),
                   ],
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -93,36 +96,41 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text("Sec ", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
+                        Text("Section ", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
                         FutureBuilder<String>(
                           future: getData(1),
                           builder: (context, AsyncSnapshot<String> snapshot) {
                             if (!snapshot.hasData) {
                               return Container();
                             } else {
-                              return Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black87));
+                              return Text(snapshot.data!,
+                                  style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.black87));
                             }
                           },
                         ),
-                        Text(", Row ", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
+                        Text(", Row ",
+                            style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
                         FutureBuilder<String>(
                           future: getData(2),
                           builder: (context, AsyncSnapshot<String> snapshot) {
                             if (!snapshot.hasData) {
                               return Container();
                             } else {
-                              return Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black87));
+                              return Text(snapshot.data!,
+                                  style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.black87));
                             }
                           },
                         ),
-                        Text(", Seat ", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
+                        Text(", Seat ",
+                            style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
                         FutureBuilder<String>(
                           future: CommonOperation.getSortValue(ticketTitle),
                           builder: (context, AsyncSnapshot<String> snapshot) {
                             if (!snapshot.hasData) {
                               return Container();
                             } else {
-                              return Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black54));
+                              return Text(snapshot.data!,
+                                  style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.black87));
                             }
                           },
                         ),
@@ -132,7 +140,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Container(
                 height: 380,
@@ -141,29 +149,39 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("First Name", style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black)),
+                      Text("First Name", style: CommonOperation.getFontStyleProfielBottomSheet()),
                       SizedBox(
                         height: 5,
                       ),
                       Container(
-                        height: 40.0,
                         decoration: BoxDecoration(
-                          color: Color(0XFFffffff),
-                          boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                          border: Border.all(color: Colors.black54),
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black54, width: 0.5),
                           borderRadius: BorderRadius.all(Radius.circular(4)),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: TextField(
-                            controller: firstNameUsedController,
-                            keyboardType: TextInputType.text,
-                            textAlign: TextAlign.left,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "First Name",
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: firstNameUsedController,
+                                  keyboardType: TextInputType.text,
+                                  textAlign: TextAlign.left,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 7),
+                                    hintText: "First Name",
+                                    hintStyle: CommonOperation.getFontStyleProfielBottomSheet(),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: Icon(Icons.cancel_outlined,size: 18,color: Colors.black38,),
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -173,29 +191,40 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                       SizedBox(
                         height: 15,
                       ),
-                      Text("Last Name", style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black)),
+                      Text("Last Name", style: CommonOperation.getFontStyleProfielBottomSheet()),
                       SizedBox(
                         height: 5,
                       ),
                       Container(
                         height: 40.0,
                         decoration: BoxDecoration(
-                          color: Color(0XFFffffff),
-                          boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                          border: Border.all(color: Colors.black54),
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black54, width: 0.5),
                           borderRadius: BorderRadius.all(Radius.circular(4)),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: TextField(
-                            controller: lastNameUsedController,
-                            keyboardType: TextInputType.text,
-                            textAlign: TextAlign.left,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Last Name",
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: lastNameUsedController,
+                                  keyboardType: TextInputType.text,
+                                  textAlign: TextAlign.left,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 7),
+                                    hintText: "Last Name",
+                                    hintStyle: CommonOperation.getFontStyleProfielBottomSheet(),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: Icon(Icons.cancel_outlined,size: 18,color: Colors.black38,),
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -205,29 +234,41 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                       SizedBox(
                         height: 15,
                       ),
-                      Text("Email or Mobile Number", style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black)),
+                      Text("Email or Mobile Number",
+                          style: CommonOperation.getFontStyleProfielBottomSheet()),
                       SizedBox(
                         height: 5,
                       ),
                       Container(
                         height: 40.0,
                         decoration: BoxDecoration(
-                          color: Color(0XFFffffff),
-                          boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                          border: Border.all(color: Colors.black54),
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black54, width: 0.5),
                           borderRadius: BorderRadius.all(Radius.circular(4)),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: TextField(
-                            controller: emailUsedController,
-                            keyboardType: TextInputType.text,
-                            textAlign: TextAlign.left,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Email or Mobile Number",
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: emailUsedController,
+                                  keyboardType: TextInputType.text,
+                                  textAlign: TextAlign.left,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 7),
+                                    hintText: "Email or Mobile Number",
+                                    hintStyle: CommonOperation.getFontStyleProfielBottomSheet(),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: Icon(Icons.cancel_outlined,size: 18,color: Colors.black38,),
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -237,7 +278,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                       SizedBox(
                         height: 15,
                       ),
-                      Text("Note", style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black)),
+                      Text("Note", style: CommonOperation.getFontStyleProfielBottomSheet()),
                       SizedBox(
                         height: 5,
                       ),
@@ -245,9 +286,8 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                         constraints: BoxConstraints(maxHeight: 100),
                         height: 100.0,
                         decoration: BoxDecoration(
-                          color: Color(0XFFffffff),
-                          boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                          border: Border.all(color: Colors.black54),
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black54, width: 0.5),
                           borderRadius: BorderRadius.all(Radius.circular(4)),
                         ),
                         child: SingleChildScrollView(
@@ -260,8 +300,10 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                               maxLines: null,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
+                                isDense: true,
+                                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 7),
                                 hintText: "Note",
-                                hintStyle: TextStyle(color: Colors.grey),
+                                hintStyle: CommonOperation.getFontStyleProfielBottomSheet(),
                               ),
                             ),
                           ),
@@ -300,9 +342,9 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 70,
+                height: 60,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
+                  color: AppColor.lightBlue2,
                   //border: Border.all(color: AppColor.blue(), width: 1),
                   //borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
                   //borderRadius: BorderRadius.all(Radius.circular(10.0),),
@@ -314,7 +356,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             Navigator.of(context).pop();
                             saveShared();
                           },
@@ -322,12 +364,14 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                             children: [
                               Icon(
                                 Icons.arrow_back_ios,
-                                color: AppColor.colorMain(),
+                                color: AppColor.officialBlue,
+                                size: 18,
                               ),
                               SizedBox(
                                 width: 5,
                               ),
-                              Text("Back", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.colorMain()))
+                              Text("Back",
+                                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.officialBlue))
                             ],
                           ),
                         ),
@@ -342,7 +386,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                                   backgroundColor: AppColor.colorMain(), // Background color
                                   foregroundColor: Colors.white, // Text color
                                   shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                                    borderRadius: BorderRadius.all(Radius.circular(2)),
                                   ),
                                 ),
                                 onLongPress: () {
@@ -357,19 +401,25 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                                   transferButtonLoading = false;
                                   Navigator.of(context).pop();
                                   saveShared();
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => MyTicketsNewView(ticketCount, ticketTitle)),
-                                  );
+                                  if (Platform.isAndroid)
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => MyTicketsNewView(ticketCount, ticketTitle)),
+                                    );
+                                  else
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => MyTicketsiOS(ticketCount, ticketTitle)),
+                                    );
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     "Transfer ${ticketCount} Tickets",
                                     style: const TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 16,
                                       fontFamily: "metropolis",
-                                      fontWeight: FontWeight.normal,
+                                      fontWeight: FontWeight.w500,
                                       color: Colors.white,
                                     ),
                                   ),
@@ -391,7 +441,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
     var secValue = await PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC);
     var rowValue = await PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW);
 
-    var value1 = secValue == null ? "303" : secValue;
+    var value1 = secValue == null ? "407A" : secValue;
     var value2 = rowValue == null ? "5" : rowValue;
 
     if (temp == 1) {
@@ -450,8 +500,6 @@ class DialogDetails extends StatefulWidget {
 }
 
 class _DialogDetailsState extends State<DialogDetails> {
-  var textEditingController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     double boxHeight = 10;
@@ -499,8 +547,21 @@ class _DialogDetailsState extends State<DialogDetails> {
                         )),
                     Expanded(
                       child: GestureDetector(
-                        onTap: () {
-                          showDialogInput(AllConstant.DIALOG_TICKET_COUNT, "0", inputType: TextInputType.number);
+                        onTap: () async {
+                          String? result = await CustomInputDialog.showInputDialog(
+                              context: context, defaultTxt: "0", key: AllConstant.DIALOG_TICKET_COUNT, textInputType: TextInputType.number);
+                          if (result != null) {
+                            if (int.parse(result) < 1) return;
+
+                            PrefUtil.preferences!.setString(
+                              AllConstant.DIALOG_TICKET_COUNT,
+                              result,
+                            );
+                            setState(() {});
+                          } else {
+                            print("Dialog was canceled");
+                          }
+
                           setState(() {});
                         },
                         child: Text(
@@ -551,49 +612,5 @@ class _DialogDetailsState extends State<DialogDetails> {
         ),
       ),
     );
-  }
-
-  void showDialogInput(String sec, String defaultTxt, {TextInputType? inputType}) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WidgetsUtil.inputBoxForAll(
-                    defaultTxt,
-                    sec,
-                    textEditingController,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
-                    ),
-                    onPressed: () async {
-                      Navigator.of(context).pop();
-
-                      if (textEditingController.text.toString().isNotEmpty) {
-                        if (inputType != null) {
-                          if (int.parse(textEditingController.text) < 1) return;
-                        }
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
-                        textEditingController.text = "";
-                        setState(() {});
-                      }
-                    },
-                  ),
-                ],
-              ),
-              //myPledge: model,
-            ),
-          );
-        });
   }
 }

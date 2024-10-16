@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ticket_master/PrefUtil.dart';
 
@@ -103,7 +105,7 @@ class CommonOperation {
     return Text(
       s,
       textAlign: TextAlign.center,
-      style: TextStyle(color: AppColor.darkGreen(), fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: fontSize == null ? 18 : 14),
+      style: TextStyle(color: AppColor.darkGreen, fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: fontSize == null ? 18 : 14),
     );
   }
 
@@ -111,14 +113,14 @@ class CommonOperation {
     return Text(
       s,
       textAlign: TextAlign.center,
-      style: TextStyle(color: AppColor.darkGreen(), fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 14),
+      style: TextStyle(color: AppColor.darkGreen, fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 14),
     );
   }
 
   static BoxDecoration getBoxDecorationLightGreen() {
     return BoxDecoration(
       boxShadow: [BoxShadow(color: Colors.green.withOpacity(0.1), blurRadius: 2, spreadRadius: 2)],
-      color: AppColor.lightGreen(),
+      color: AppColor.lightGreen,
       border: Border.all(color: Colors.white),
       borderRadius: BorderRadius.all(Radius.circular(10)),
     );
@@ -275,6 +277,11 @@ class CommonOperation {
     }
   }
 
+  static TextStyle getFontThinkNessNewDesign() {
+    return TextStyle(
+        fontSize: 20, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: AppColor.white);
+  }
+
   static FontWeight getFontWeight2() {
     int? value = PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.THICK_2);
 
@@ -330,4 +337,18 @@ class CommonOperation {
     print(string);
     return string;
   }
+
+  static Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    var codec = await instantiateImageCodec(data.buffer.asUint8List(), targetWidth: 120, targetHeight: 150);
+    FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ImageByteFormat.png))!.buffer.asUint8List();
+  }
+
+  static TextStyle getFontStyleProfielBottomSheet() {
+    return TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.w100, color: Colors.black);
+  }
+
+
+
 }

@@ -4,18 +4,14 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/all_uis/CarouselWithIndicatorDemo.dart';
 import 'package:ticket_master/all_uis/QRView.dart';
-
 import 'package:ticket_master/all_uis/bottom_sheet_view_select_tickets.dart';
-import 'package:ticket_master/all_uis/map_widgets.dart';
-import 'package:ticket_master/utils/CommonOperation.dart';
+import 'package:ticket_master/maps/map_widgets.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
-import 'package:ticket_master/utils/widgets_util.dart';
 
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -34,12 +30,7 @@ class MainLandingScreen extends StatefulWidget {
 
 class _MainLandingScreenState extends State<MainLandingScreen> {
   String? filePath;
-  var textEditingController = TextEditingController();
-
-  List<Widget>? imageSliders;
-
   bool showHideStatusAppBarIcon = false;
-
   bool isMultiline = false;
 
   @override
@@ -53,7 +44,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
         child: Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: AppColor.black(),
+        backgroundColor: AppColor.black,
         leading: Container(
           width: 50,
           child: Padding(
@@ -61,7 +52,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
             child: Row(
               children: [
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     setState(() {
                       showHideStatusAppBarIcon = !showHideStatusAppBarIcon;
                     });
@@ -84,10 +75,11 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Container(),
                     Text("My Tickets", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                     Container(),
                     GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           Navigator.pop(context);
                         },
                         child: Text("Help",
@@ -104,7 +96,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                     scrollDirection: Axis.horizontal,
                     children: <Widget>[
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           double? value = PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIEWPORT_VALUE);
                           print(value);
                           if (value == null) {
@@ -131,7 +123,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                             style: TextStyle(color: Colors.white),
                           )),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             double? valueIncrease =
                                 PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain);
                             if (valueIncrease == null) {
@@ -153,7 +145,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                         width: 5,
                       ),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             double? valueIncrease =
                                 PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain);
                             if (valueIncrease == null) {
@@ -174,7 +166,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                       ),
                       Container(alignment: Alignment.center, child: Text("ST-", style: TextStyle(color: Colors.white))),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             double? valueIncrease =
                                 PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond);
                             if (valueIncrease == null) {
@@ -196,7 +188,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                         width: 5,
                       ),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             double? valueIncrease =
                                 PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond);
                             if (valueIncrease == null) {
@@ -217,7 +209,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                       ),
                       Container(alignment: Alignment.center, child: Text("MStyle-", style: TextStyle(color: Colors.white))),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             int? valueDecrease = PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.THICK);
 
                             if (valueDecrease == null) {
@@ -238,7 +230,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                         width: 5,
                       ),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             int? valueIncrease = PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.THICK);
 
                             if (valueIncrease == null) {
@@ -259,7 +251,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                       ),
                       Container(alignment: Alignment.center, child: Text("SStyle-", style: TextStyle(color: Colors.white))),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             int? valueDecrease = PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.THICK_2);
 
                             if (valueDecrease == null) {
@@ -280,7 +272,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                         width: 5,
                       ),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             int? valueIncrease = PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.THICK_2);
 
                             if (valueIncrease == null) {
@@ -303,7 +295,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                       PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE) == null ||
                               PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE) == false
                           ? GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 setState(() {
                                   bool? value = PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE);
                                   if (value == null) {
@@ -314,7 +306,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                               },
                               child: Icon(Icons.line_weight_sharp, color: Colors.white))
                           : GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 setState(() {
                                   bool? value = PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE);
                                   PrefUtil.preferences!.setBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE, !value!);
@@ -326,7 +318,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                       ),
                       Container(alignment: Alignment.center, child: Text("Gpay-", style: TextStyle(color: Colors.white))),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             int? valueDecrease = PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.IMAGE_SIZE);
 
                             if (valueDecrease == null) {
@@ -347,7 +339,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                         width: 5,
                       ),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             int? valueIncrease = PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.IMAGE_SIZE);
 
                             if (valueIncrease == null) {
@@ -367,7 +359,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                       ),
                       Container(alignment: Alignment.center, child: Text("Sell-", style: TextStyle(color: Colors.white))),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             double? valueDecrease = PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS);
 
                             if (valueDecrease == null) {
@@ -388,7 +380,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                         width: 5,
                       ),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             double? valueIncrease = PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS);
 
                             if (valueIncrease == null) {
@@ -411,17 +403,18 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
       ),
       body: Container(
         color: Colors.white,
-        height: MediaQuery.of(context).size.height,
+        height: MediaQuery.of(context).size.height - 50,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+          padding: const EdgeInsets.fromLTRB(0, 10, 0, 6),
           child: SingleChildScrollView(
+            physics: ClampingScrollPhysics(),
             child: Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height - 100,
+                  height: MediaQuery.of(context).size.height - 140,
                   child: Stack(
                     children: [
-                      CarouselWithIndicatorDemo(),
+                      CarouselWithIndicatorAndroid(),
                       Positioned.fill(
                         child: Align(
                           alignment: Alignment.bottomLeft,
@@ -446,47 +439,41 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                                             backgroundColor: AppColor.colorMain(),
                                           ),*/
                                           style: ElevatedButton.styleFrom(
-                                            padding: const EdgeInsets.all(10),
-                                            elevation: 0.0,
                                             backgroundColor: AppColor.colorMain(),
                                             // Background color
                                             foregroundColor: Colors.white,
                                             // Text color
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
+                                              borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
                                             ),
                                           ),
                                           onPressed: () async {
                                             showMaterialModalBottomSheet(
                                               context: context,
                                               builder: (context) => Container(
-                                                height: MediaQuery.of(context).size.height - 400,
+                                                height: MediaQuery.of(context).size.height - 450,
                                                 child: BottomSheetViewSelectTickets(),
                                               ),
                                             );
                                           },
                                         ),
                                       ),
-                                      Expanded(flex: 1, child: Container()),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
                                       Expanded(
                                         flex: 1,
                                         child: TextButton(
                                           child: Text("Sell",
                                               style: TextStyle(
                                                   fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                                          /*style: ElevatedButton.styleFrom(
-                                            backgroundColor: AppColor.colorMain().withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
-                                          ),*/
                                           style: ElevatedButton.styleFrom(
-                                            padding: const EdgeInsets.all(10),
-                                            elevation: 0.0,
-                                            backgroundColor: AppColor.colorMain().withOpacity(
-                                                PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
+                                            backgroundColor: AppColor.colorMain(),
                                             // Background color
                                             foregroundColor: Colors.white,
                                             // Text color
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
+                                              borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
                                             ),
                                           ),
                                           onPressed: () async {
@@ -511,7 +498,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                Platform.isAndroid?Container(): MapWidgets()
+                Platform.isAndroid ? Container() : GoogleMapFlutter()
               ],
             ),
           ),

@@ -9,6 +9,7 @@ import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
+import 'package:ticket_master/utils/custom_dialog.dart';
 
 class Discover extends StatefulWidget {
   const Discover({Key? key}) : super(key: key);
@@ -19,7 +20,6 @@ class Discover extends StatefulWidget {
 
 class _DiscoverState extends State<Discover> {
   String? filePath;
-  var textEditingController = TextEditingController();
 
   bool taxExeShowHide = false;
 
@@ -56,7 +56,7 @@ class _DiscoverState extends State<Discover> {
                         ),
                         Center(
                           child: Container(
-                            height: 62,
+                            height: 70,
                             child: Column(
                               children: [
                                 FutureBuilder<String>(
@@ -66,10 +66,22 @@ class _DiscoverState extends State<Discover> {
                                       return Container();
                                     } else {
                                       return GestureDetector(
-                                        onTap: () {
-                                          showDialogInput(AllConstant.GOTTICKETS, "You Got the Tickets");
+                                        onTap: () async {
+                                          String? result = await CustomInputDialog.showInputDialog(
+                                            context: context,
+                                            defaultTxt: "You Got the Tickets",
+                                            key: AllConstant.GOTTICKETS,
+                                          );
+                                          if (result != null) {
+                                            PrefUtil.preferences!.setString(AllConstant.GOTTICKETS, result);
+                                            setState(() {});
+                                          } else {
+                                            print("Dialog was canceled");
+                                          }
                                         },
-                                        child: Text(snapshot.data!, style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: AppColor.white())),
+                                        child: Text(snapshot.data!,
+                                            style: TextStyle(
+                                                fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: AppColor.white)),
                                       );
                                     }
                                   },
@@ -84,10 +96,22 @@ class _DiscoverState extends State<Discover> {
                                       return Container();
                                     } else {
                                       return GestureDetector(
-                                        onTap: () {
-                                          showDialogInput(AllConstant.ORDER_NUMBER, "Order # 53-1325/SCS");
+                                        onTap: () async {
+                                          String? result = await CustomInputDialog.showInputDialog(
+                                            context: context,
+                                            defaultTxt: "Order # 53-1325/SCS",
+                                            key: AllConstant.ORDER_NUMBER,
+                                          );
+                                          if (result != null) {
+                                            PrefUtil.preferences!.setString(AllConstant.ORDER_NUMBER, result);
+                                            setState(() {});
+                                          } else {
+                                            print("Dialog was canceled");
+                                          }
                                         },
-                                        child: Text(snapshot.data!, style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.white())),
+                                        child: Text(snapshot.data!,
+                                            style: TextStyle(
+                                                fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.white)),
                                       );
                                     }
                                   },
@@ -99,7 +123,7 @@ class _DiscoverState extends State<Discover> {
                       ],
                     ),
                   ),
-                  DiscoverImage()
+                  DiscoverImageAndroid()
                 ],
               ),
             ),
@@ -123,10 +147,21 @@ class _DiscoverState extends State<Discover> {
                               return Container();
                             } else {
                               return GestureDetector(
-                                onTap: () {
-                                  showDialogInput(AllConstant.ORGAN_WALLEN, "Morgan Wallen");
+                                onTap: () async {
+                                  String? result = await CustomInputDialog.showInputDialog(
+                                    context: context,
+                                    defaultTxt: "Morgan Wallen",
+                                    key: AllConstant.ORGAN_WALLEN,
+                                  );
+                                  if (result != null) {
+                                    PrefUtil.preferences!.setString(AllConstant.ORGAN_WALLEN, result);
+                                    setState(() {});
+                                  } else {
+                                    print("Dialog was canceled");
+                                  }
                                 },
-                                child: Text(snapshot.data!, style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.black())),
+                                child: Text(snapshot.data!,
+                                    style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.black)),
                               );
                             }
                           },
@@ -151,10 +186,22 @@ class _DiscoverState extends State<Discover> {
                                   return Container();
                                 } else {
                                   return GestureDetector(
-                                    onTap: () {
-                                      showDialogInput(AllConstant.DISCOVER_DATE, "Sun . Dec 12 2921 . 7:30 PM");
+                                    onTap: () async {
+                                      String? result = await CustomInputDialog.showInputDialog(
+                                        context: context,
+                                        defaultTxt: "Sun . Dec 12 2921 . 7:30 PM",
+                                        key: AllConstant.DISCOVER_DATE,
+                                      );
+                                      if (result != null) {
+                                        PrefUtil.preferences!.setString(AllConstant.DISCOVER_DATE, result);
+                                        setState(() {});
+                                      } else {
+                                        print("Dialog was canceled");
+                                      }
+
                                     },
-                                    child: Text(snapshot.data!, style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black())),
+                                    child: Text(snapshot.data!,
+                                        style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black)),
                                   );
                                 }
                               },
@@ -181,10 +228,21 @@ class _DiscoverState extends State<Discover> {
                                   return Container();
                                 } else {
                                   return GestureDetector(
-                                    onTap: () {
-                                      showDialogInput(AllConstant.DISCOVER_LOCATION, "Landers Center - Southaven, MS");
+                                    onTap: () async {
+                                      String? result = await CustomInputDialog.showInputDialog(
+                                        context: context,
+                                        defaultTxt: "Landers Center - Southaven, MS",
+                                        key: AllConstant.DISCOVER_LOCATION,
+                                      );
+                                      if (result != null) {
+                                        PrefUtil.preferences!.setString(AllConstant.DISCOVER_LOCATION, result);
+                                        setState(() {});
+                                      } else {
+                                        print("Dialog was canceled");
+                                      }
                                     },
-                                    child: Text(snapshot.data!, style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black())),
+                                    child: Text(snapshot.data!,
+                                        style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black)),
                                   );
                                 }
                               },
@@ -203,7 +261,8 @@ class _DiscoverState extends State<Discover> {
                             SizedBox(
                               width: 15,
                             ),
-                            Text("Get Directions", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: Colors.blue)),
+                            Text("Get Directions",
+                                style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: Colors.blue)),
                           ],
                         ),
                         SizedBox(
@@ -226,10 +285,21 @@ class _DiscoverState extends State<Discover> {
                                   return Container();
                                 } else {
                                   return GestureDetector(
-                                    onTap: () {
-                                      showDialogInput(AllConstant.DISCOVER_EVENT, "Sec SEC 4, Row 1, Seat 11 - 12");
+                                    onTap: () async {
+                                      String? result = await CustomInputDialog.showInputDialog(
+                                        context: context,
+                                        defaultTxt: "Sec SEC 4, Row 1, Seat 11 - 12",
+                                        key: AllConstant.DISCOVER_EVENT,
+                                      );
+                                      if (result != null) {
+                                        PrefUtil.preferences!.setString(AllConstant.DISCOVER_EVENT, result);
+                                        setState(() {});
+                                      } else {
+                                        print("Dialog was canceled");
+                                      }
                                     },
-                                    child: Text(snapshot.data!, style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black())),
+                                    child: Text(snapshot.data!,
+                                        style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black)),
                                   );
                                 }
                               },
@@ -271,89 +341,4 @@ class _DiscoverState extends State<Discover> {
     );
   }
 
-  void showDialogInput(String sec, String defaultTxt, {TextInputType? inputType}) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      print("totalAnnualWestController.value");
-                      print(textEditingController.text);
-                      if (textEditingController.text.toString().isNotEmpty) {
-                        if (inputType != null) {
-                          if (int.parse(textEditingController.text) < 2 || int.parse(textEditingController.text) > 10) return;
-                        }
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
-                        textEditingController.text = "";
-                        setState(() {});
-                        //if (inputType != null) initSlide();
-                      }
-                    },
-                  ),
-                ],
-              ),
-              //myPledge: model,
-            ),
-          );
-        });
-  }
-
-  void showDialogInputListed(String sec, String defaultTxt, {TextInputType? inputType}) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WidgetsUtil.inputBoxForAll(defaultTxt, sec, textEditingController,inputType: inputType),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: Text("OK", style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.green(),
-                    ),
-                    onPressed: () async {
-                      Navigator.of(context).pop();
-                      print("totalAnnualWestController.value");
-                      print(textEditingController.text);
-                      if (textEditingController.text.toString().isNotEmpty) {
-                        /*if (inputType != null) {
-                          if (int.parse(textEditingController.text) < -1 ||
-                              int.parse(textEditingController.text) > 10)
-                            return;
-                        }*/
-                        PrefUtil.preferences!.setString(sec, textEditingController.text);
-                        textEditingController.text = "";
-                        setState(() {});
-                        //if (inputType != null) initSlide();
-                      }
-                    },
-                  ),
-                ],
-              ),
-              //myPledge: model,
-            ),
-          );
-        });
-  }
 }
