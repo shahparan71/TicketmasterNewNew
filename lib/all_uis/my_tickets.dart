@@ -186,13 +186,13 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
 
   Widget buildMainCardHome(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 10),
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
           color: AppColor.white,
           border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
-          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 2)],
+          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 1, spreadRadius: 2)],
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
         height: MediaQuery.of(context).size.height - 250,
@@ -208,7 +208,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                       color: AppColor.colorGryaBlackMyTicket,
                       boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                       //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                      borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
+                      borderRadius: BorderRadius.only(topRight: Radius.circular(7.0), topLeft: Radius.circular(7.0)),
                     ),
                     height: 40,
                     child: Center(
@@ -228,7 +228,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                       ),
                     ),
                   ),
-                  SecRowSeatJustShow(widget.ticketCount,seatRange),
+                  SecRowSeatJustShow(widget.ticketCount, seatRange),
                   buildContainerImageBox(context),
                   Container(
                     height: 20,
@@ -387,7 +387,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
       ],
     );
   }
-
 
   Container buildContainerImageBox(BuildContext context) {
     return Container(

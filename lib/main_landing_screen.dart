@@ -76,6 +76,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(),
+                    Container(),
                     Text("My Tickets", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                     Container(),
                     GestureDetector(

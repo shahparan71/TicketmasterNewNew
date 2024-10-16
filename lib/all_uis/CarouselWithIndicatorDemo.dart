@@ -133,7 +133,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
         decoration: BoxDecoration(
           color: AppColor.white,
           border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
-          boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 2, spreadRadius: 2)],
+          boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 1, spreadRadius: 2)],
           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
@@ -145,8 +145,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                 Container(
                   decoration: BoxDecoration(
                     color: AppColor.colorMain(),
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
-                    //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(7.0), topRight: Radius.circular(7.0)),
                   ),
                   child: Column(
                     children: [
@@ -170,6 +169,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              Container(),
                               Container(),
                               CustomBuilderWidget(
                                   keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,

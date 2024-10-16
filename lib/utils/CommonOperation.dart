@@ -278,8 +278,7 @@ class CommonOperation {
   }
 
   static TextStyle getFontThinkNessNewDesign() {
-    return TextStyle(
-        fontSize: 20, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: AppColor.white);
+    return TextStyle(fontSize: 20, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: AppColor.white);
   }
 
   static FontWeight getFontWeight2() {
@@ -348,7 +347,4 @@ class CommonOperation {
   static TextStyle getFontStyleProfielBottomSheet() {
     return TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.w100, color: Colors.black);
   }
-
-
-
 }

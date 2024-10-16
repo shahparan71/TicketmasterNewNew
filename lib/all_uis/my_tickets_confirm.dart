@@ -221,7 +221,8 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                           ),
                         ),
                       ),
-                      buildContainerTopTex(),
+                      //buildContainerTopTex(),
+                      SecRowSeatJustShow(widget.ticketCount, seatRange),
                     ],
                   ),
                 ),
@@ -325,71 +326,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget buildContainerTopTex() {
-    return Container(
-      width: double.infinity,
-      height: 70,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                children: [
-                  Text("SEC",
-                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "407A"),
-                    builder: (context, AsyncSnapshot<String> snapshot) {
-                      if (!snapshot.hasData) {
-                        return Container();
-                      } else {
-                        return Text(snapshot.data!, style: CommonOperation.getFontThinkNessNewDesign());
-                      }
-                    },
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Text("ROW",
-                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, "5"),
-                    builder: (context, AsyncSnapshot<String> snapshot) {
-                      if (!snapshot.hasData) {
-                        return Container();
-                      } else {
-                        return Text(snapshot.data!, style: CommonOperation.getFontThinkNessNewDesign());
-                      }
-                    },
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Text("SEAT",
-                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text("${int.parse(widget.ticketCount) == 0 ? "0" : seatRange}", style: CommonOperation.getFontThinkNessNewDesign())
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 
