@@ -178,7 +178,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 : Stack(
                                     children: [
                                       Image.asset(
-                                        "assets/images/album.jpg",
+                                        "assets/images/default_image_card.jpeg",
                                         fit: BoxFit.cover,
                                         height: 220.0,
                                         width: MediaQuery.of(context).size.width - 10,

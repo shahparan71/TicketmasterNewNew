@@ -469,7 +469,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                     : Stack(
                         children: [
                           Image.asset(
-                            "assets/images/album.jpg",
+                            "assets/images/default_image_card.jpeg",
                             fit: BoxFit.cover,
                             height: 220.0,
                             width: double.infinity,

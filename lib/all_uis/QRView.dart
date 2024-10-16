@@ -343,62 +343,12 @@ class _QRViewMainState extends State<QRViewMain> {
               Positioned.fill(
                 child: Align(
                   alignment: Alignment.bottomLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ElevatedButton(
-                          child: Text("Transfer",
-                              style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                          /*style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColor.colorMain(),
-                          ),*/
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
-                              backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
-                              elevation: MaterialStateProperty.all(0.0),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
-                              ))),
-                          onPressed: () {
-                            showMaterialModalBottomSheet( isDismissible: false,  // Prevents closing by tapping outside
-                    enableDrag: false,    
-                              context: context,
-                              builder: (context) => Container(
-                                height: MediaQuery.of(context).size.height - 450,
-                                child: BottomSheetViewSelectTickets(),
-                              ),
-                            );
-                          },
-                        ),
-                        TextButton(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: Text("Sell",
-                                style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                          ),
-                          /* style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColor.colorMain().withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
-                          ),*/
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()
-                                  .withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4)),
-                              backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()
-                                  .withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4)),
-                              elevation: MaterialStateProperty.all(0.0),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
-                              ))),
-                          onPressed: () async {
-                            /*Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => QRViewMain()),
-                            );*/
-                          },
-                        )
-                      ],
-                    ),
+                  child: TransferAndSellButton(
+                    function: () {
+
+                    },
+                    isButton1Enable: true,
+                    isButton2Enable: true,
                   ),
                 ),
               ),

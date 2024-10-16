@@ -458,8 +458,10 @@ class TransferAndSellButton extends StatefulWidget {
   final Function? function;
   final bool? isButton1Enable;
   final bool? isButton2Enable;
+  final Color? button1Color;
+  final Color? button2Color;
 
-  TransferAndSellButton({this.function, this.isButton1Enable, this.isButton2Enable});
+  TransferAndSellButton({this.function, this.isButton1Enable, this.isButton2Enable, this.button1Color, this.button2Color});
 
   @override
   State<TransferAndSellButton> createState() => _TransferAndSellButtonState();
@@ -491,7 +493,7 @@ class _TransferAndSellButtonState extends State<TransferAndSellButton> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.colorMain(),
+                      backgroundColor: widget.button1Color ?? AppColor.colorMain(),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
@@ -520,7 +522,7 @@ class _TransferAndSellButtonState extends State<TransferAndSellButton> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.colorMain(),
+                      backgroundColor: widget.button2Color?? AppColor.colorMain(),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed

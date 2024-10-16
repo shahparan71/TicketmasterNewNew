@@ -354,18 +354,13 @@ class _BarcodeViewState extends State<BarcodeView> {
               Positioned.fill(
                 child: Align(
                   alignment: Alignment.bottomLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(flex: 1, child: WidgetsUtil.CustomElevatedButton(buttonText: "Transfer", function: functionTransfer)),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(flex: 1, child: WidgetsUtil.CustomElevatedButton(buttonText: "Sell", function: functionSell)),
-                      ],
-                    ),
+                  child: TransferAndSellButton(
+                    function: () {
+                      functionTransfer("");
+                    },
+                    isButton1Enable: true,
+                    isButton2Enable: true,
+
                   ),
                 ),
               ),

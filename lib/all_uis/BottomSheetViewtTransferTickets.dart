@@ -42,11 +42,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                 GestureDetector(
                   onTap: () async {
                     Navigator.pop(context);
-                    /*showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (context) => BottomSheetViewPersonal(),
-                    );*/
+
                     showMaterialModalBottomSheet(
                       isDismissible: false, // Prevents closing by tapping outside
                       enableDrag: false,
@@ -102,11 +98,15 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                 GestureDetector(
                   onTap: () async {
                     Navigator.pop(context);
-                    /* showModalBottomSheet(
+                    showMaterialModalBottomSheet(
+                      isDismissible: false, // Prevents closing by tapping outside
+                      enableDrag: false,
                       context: context,
-                      isScrollControlled: true,
-                      builder: (context) => BottomSheetViewPersonal(),
-                    );*/
+                      builder: (context) => Container(
+                        height: MediaQuery.of(context).size.height - 450,
+                        child: BottomSheetViewPersonal(),
+                      ),
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

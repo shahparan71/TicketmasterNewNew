@@ -10,6 +10,7 @@ import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
+import 'package:ticket_master/utils/widgets_style.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
@@ -129,8 +130,8 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                   MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
                 );
               },
-              isButton1Enable: false,
-              isButton2Enable: false,
+              isButton1Enable: true,
+              isButton2Enable: true,
             ) ,
           ),
         ]),
@@ -143,13 +144,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
-        decoration: BoxDecoration(
-          color: AppColor.white,
-
-          boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 2, spreadRadius: 2)],
-          //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-        ),
+        decoration: WidgetsStyle.BoxDecorationHomePage(),
         height: MediaQuery.of(context).size.height - 240,
         child: Stack(
           children: [
@@ -336,7 +331,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                   : Stack(
                       children: [
                         Image.asset(
-                          "assets/images/album.jpg",
+                          "assets/images/default_image_card.jpeg",
                           fit: BoxFit.cover,
                           height: 220.0,
                           width: double.infinity,

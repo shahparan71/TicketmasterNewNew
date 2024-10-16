@@ -66,7 +66,7 @@ class AppColor {
   static Color colorSecond() {
     String? colorValue = PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND);
     if (colorValue == null) {
-      return Color(0xff000000);
+      return Color(0xff0d0d0d);
     }
     return Color(int.parse("0xFF${colorValue}"));
   }

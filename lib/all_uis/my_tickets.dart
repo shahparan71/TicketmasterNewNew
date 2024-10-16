@@ -12,6 +12,7 @@ import 'package:ticket_master/all_uis/my_tickets_confirm.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
+import 'package:ticket_master/utils/widgets_style.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
@@ -133,6 +134,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
               },
               isButton1Enable: true,
               isButton2Enable: true,
+              button1Color: Colors.black26,
             )
 
           ]),
@@ -147,11 +149,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
-        decoration: BoxDecoration(
-          color: AppColor.white,
-          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 2)],
-          borderRadius: BorderRadius.all(Radius.circular(6)),
-        ),
+        decoration: WidgetsStyle.BoxDecorationHomePage(),
         height: MediaQuery.of(context).size.height - 200,
         child: Stack(
           children: [
@@ -160,32 +158,59 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
               child: Column(
                 children: [
                   Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColor.colorSecond(),
-                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                      borderRadius: BorderRadius.only(topRight: Radius.circular(6.0), topLeft: Radius.circular(6.0)),
-                    ),
-                    height: 40,
-                    child: Center(
-                      child: FutureBuilder<String>(
-                        future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Standard Ticket"),
-                        builder: (context, AsyncSnapshot<String> snapshot) {
-                          if (!snapshot.hasData) {
-                            return Container();
-                          } else {
-                            return GestureDetector(
-                              onTap: () async {},
-                              child: Text(snapshot.data!,
-                                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
-                            );
-                          }
-                        },
-                      ),
+                    height: 330,
+                    child: Stack(
+                      children: [
+
+                        Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: AppColor.colorSecond(),
+                                borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
+                              ),
+                              height: 40,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(),
+                                  Container(),
+                                  Container(),
+                                  FutureBuilder<String>(
+                                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Standard Ticket"),
+                                    builder: (context, AsyncSnapshot<String> snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return Container();
+                                      } else {
+                                        return GestureDetector(
+                                          onTap: () async {},
+                                          child: Text(snapshot.data!,
+                                              style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
+                                        );
+                                      }
+                                    },
+                                  ),
+                                  Container(),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 5),
+                                    child: Icon(Icons.info_outline,color: Colors.white,),
+                                  )
+                                ],
+                              ),
+                            ),
+                            SecRowSeatJustShow(widget.ticketCount, seatRange),
+                            buildContainerImageBox(context),
+                          ],
+                        ),
+                        Container(height: 330,width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: AppColor.gray.withOpacity(0.4),
+                            borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SecRowSeatJustShow(widget.ticketCount, seatRange),
-                  buildContainerImageBox(context),
                   Container(
                     height: 20,
                     color: AppColor.colorSecond(),
@@ -386,7 +411,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                   : Stack(
                       children: [
                         Image.asset(
-                          "assets/images/album.jpg",
+                          "assets/images/default_image_card.jpeg",
                           fit: BoxFit.cover,
                           height: 220.0,
                           width: double.infinity,

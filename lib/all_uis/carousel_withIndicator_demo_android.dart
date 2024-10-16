@@ -18,6 +18,7 @@ import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/future_stateful_widget.dart';
+import 'package:ticket_master/utils/widgets_style.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
@@ -128,16 +129,10 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
 
   Widget buildMainCardHome(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
-        decoration: BoxDecoration(
-          color: AppColor.white,
-
-          boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 1, spreadRadius: 0.5)],
-          //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-          borderRadius: BorderRadius.all(Radius.circular(6)),
-        ),
+        decoration: WidgetsStyle.BoxDecorationHomePage(),
         height: MediaQuery.of(context).size.height - 210,
         child: Stack(
           children: [
@@ -146,7 +141,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                 Container(
                   decoration: BoxDecoration(
                     color: AppColor.colorSecond(),
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0), topRight: Radius.circular(6.0)),
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
                     //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                   ),
                   child: Column(
@@ -253,14 +248,14 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    /*Image.asset(
+                                                    Image.asset(
                                                       "assets/images/bar_code.png",
                                                       height: 20,
-                                                    ),*/
-                                                    SvgPicture.asset(
+                                                    ),
+                                                    /*SvgPicture.asset(
                                                       "assets/images/barcode.svg",
                                                       colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                                                    ),
+                                                    ),*/
                                                     SizedBox(
                                                       width: 10,
                                                     ),
@@ -323,11 +318,11 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
               child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 0.1),
+                    padding: const EdgeInsets.only(bottom: 0.4),
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppColor.colorMain().withOpacity(0.8),
-                        boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 5, spreadRadius: 5)],
+                        //boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 1, spreadRadius: 1)],
                         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
                       ),
                       height: 2,
@@ -454,7 +449,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                     : Stack(
                         children: [
                           Image.asset(
-                            "assets/images/album.jpg",
+                            "assets/images/default_image_card.jpeg",
                             fit: BoxFit.cover,
                             height: 220.0,
                             width: double.infinity,
@@ -489,47 +484,18 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                   children: [
                     PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE) == null ||
                             PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE) == false
-                        ? FutureBuilder<String>(
-                            future: CommonOperation.getSharedData(
-                                AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour"),
-                            builder: (context, AsyncSnapshot<String> snapshot) {
-                              if (!snapshot.hasData) {
-                                return Container();
-                              } else {
-                                return GestureDetector(
-                                  onTap: () async {
-                                    String? result = await CustomInputDialog.showInputDialog(
-                                      context: context,
-                                      defaultTxt: "Taylor Swift | The Eras Tour",
-                                      key: AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT,
-                                    );
-                                    if (result != null) {
-                                      PrefUtil.preferences!.setString(
-                                        AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT,
-                                        result,
-                                      );
-                                      setState(() {});
-                                    } else {
-                                      print("Dialog was canceled");
-                                    }
-                                  },
-                                  child: Container(
-                                    child: Text(snapshot.data!,
-                                        maxLines: 1,
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontSize: PrefUtil.preferences!
-                                                    .getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain) ??
-                                                18,
-                                            fontFamily: "metropolis",
-                                            fontWeight: CommonOperation.getFontWeight(),
-                                            color: AppColor.white)),
-                                  ),
-                                );
-                              }
-                            },
-                          )
+                        ? CustomBuilderWidget(
+                            keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT,
+                            defaultValue: "Taylor Swift | The Eras Tour",
+                            maxLines: 1,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            textStyle: TextStyle(
+                                fontSize:
+                                    PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain) ?? 18,
+                                fontFamily: "metropolis",
+                                fontWeight: CommonOperation.getFontWeight(),
+                                color: AppColor.white))
                         : Container(),
                     SizedBox(
                       height: 2,

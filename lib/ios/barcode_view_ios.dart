@@ -59,7 +59,7 @@ class _BarcodeViewIOSState extends State<BarcodeViewIOS> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(
-                          "assets/images/album.jpg",
+                          "assets/images/default_image_card.jpeg",
                         ),
                         fit: BoxFit.cover,
                       ),
