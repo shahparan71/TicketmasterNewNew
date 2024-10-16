@@ -362,7 +362,8 @@ class _QRViewMainState extends State<QRViewMain> {
                                 borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
                               ))),
                           onPressed: () {
-                            showMaterialModalBottomSheet(
+                            showMaterialModalBottomSheet( isDismissible: false,  // Prevents closing by tapping outside
+                    enableDrag: false,    
                               context: context,
                               builder: (context) => Container(
                                 height: MediaQuery.of(context).size.height - 450,

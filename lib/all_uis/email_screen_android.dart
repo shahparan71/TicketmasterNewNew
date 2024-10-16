@@ -39,7 +39,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
             child: Container(
               height: MediaQuery.of(context).size.height - 100,
               width: double.infinity,
-              color: Colors.white,
+              color:AppColor.offWhite2,
               child: SingleChildScrollView(
                 physics: ClampingScrollPhysics(),
                 child: Column(
@@ -111,6 +111,8 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                             Image.asset("assets/images/social_link_android.png"),
                             Image.asset(
                               "assets/images/email_reply.png",
+                              width: double.infinity,
+                              fit: BoxFit.fitWidth,
                               height: 100,
                             )
                           ],
@@ -357,7 +359,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
 
   Container buildContainerTopBar1() {
     return Container(
-      color: AppColor.gmailWhite,
+      color: AppColor.offWhite2,
       height: 65,
       child: Padding(
         padding: const EdgeInsets.all(8.0),

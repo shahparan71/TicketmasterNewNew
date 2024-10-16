@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ticket_master/PrefUtil.dart';
-import 'package:ticket_master/main_landing_screen.dart';
+import 'package:ticket_master/main_landing_screen_android.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
-import 'package:ticket_master/utils/main_landing_screen_ios.dart';
+import 'package:ticket_master/main_landing_screen_ios.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 

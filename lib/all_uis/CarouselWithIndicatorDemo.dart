@@ -76,7 +76,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
       //appBar: AppBar(title: Text('Carousel with indicator demo')),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: Column(children: [
+      body: Stack(children: [
         CarouselSlider(
           items: imageSlidersM,
           options: CarouselOptions(
@@ -385,7 +385,6 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
       ],
     );
   }
-
 
   Container buildContainerImageBox(BuildContext context) {
     return Container(

@@ -48,274 +48,263 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 450,
-      color: Colors.white,
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: Container(
-          height: 450,
-          color: Colors.white,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  height: 380,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Transfer Tickets",
-                                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: Colors.black87)),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 25,
-                          ),
-                          Row(
-                            children: [
-                              Text(ticketCount.toString() + " Tickets Selected",
-                                  style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black87)),
-                            ],
-                          ),
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: Stack(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height - 450,
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Transfer Tickets",
+                            style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: Colors.black87)),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Row(
+                      children: [
+                        Text(ticketCount.toString() + " Tickets Selected",
+                            style: TextStyle(fontSize: 15, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black87)),
+                      ],
+                    ),
 
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text("Section ",
-                                      style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
-                                  FutureBuilder<String>(
-                                    future: getData(1),
-                                    builder: (context, AsyncSnapshot<String> snapshot) {
-                                      if (!snapshot.hasData) {
-                                        return Container();
-                                      } else {
-                                        return Text(snapshot.data!,
-                                            style: TextStyle(
-                                                fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.black87));
-                                      }
-                                    },
-                                  ),
-                                  Text(", Row ",
-                                      style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
-                                  FutureBuilder<String>(
-                                    future: getData(2),
-                                    builder: (context, AsyncSnapshot<String> snapshot) {
-                                      if (!snapshot.hasData) {
-                                        return Container();
-                                      } else {
-                                        return Text(snapshot.data!,
-                                            style: TextStyle(
-                                                fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.black87));
-                                      }
-                                    },
-                                  ),
-                                  Text(", Seat ",
-                                      style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
-                                  FutureBuilder<String>(
-                                    future: CommonOperation.getSortValue(ticketTitle),
-                                    builder: (context, AsyncSnapshot<String> snapshot) {
-                                      if (!snapshot.hasData) {
-                                        return Container();
-                                      } else {
-                                        return Text(snapshot.data!,
-                                            style: TextStyle(
-                                                fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.black87));
-                                      }
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text("First Name", style: CommonOperation.getFontStyleProfielBottomSheet()),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          getInputFields(firstNameUsedController, "First name"),
-
-                          ///Last--------------------------------
-                          ///Last--------------------------------
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Text("Last Name", style: CommonOperation.getFontStyleProfielBottomSheet()),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          getInputFields(lastNameUsedController, "Last name"),
-
-                          ///Email--------------------------------
-                          ///Email--------------------------------
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Text("Email or Mobile Number", style: CommonOperation.getFontStyleProfielBottomSheet()),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          getInputFields(emailUsedController, "Email or Mobile Number"),
-
-                          ///Note--------------------------------
-                          ///Note--------------------------------
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Text("Note", style: CommonOperation.getFontStyleProfielBottomSheet()),
-                          SizedBox(
-                            height: 5,
-                          ),
-
-                          Container(
-                            constraints: BoxConstraints(maxHeight: 100),
-                            height: 100.0,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(color: Colors.black54, width: 0.5),
-                              borderRadius: BorderRadius.all(Radius.circular(4)),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text("Section ",
+                                style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
+                            FutureBuilder<String>(
+                              future: getData(1),
+                              builder: (context, AsyncSnapshot<String> snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Container();
+                                } else {
+                                  return Text(snapshot.data!,
+                                      style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.black87));
+                                }
+                              },
                             ),
-                            child: SingleChildScrollView(
+                            Text(", Row ",
+                                style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
+                            FutureBuilder<String>(
+                              future: getData(2),
+                              builder: (context, AsyncSnapshot<String> snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Container();
+                                } else {
+                                  return Text(snapshot.data!,
+                                      style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.black87));
+                                }
+                              },
+                            ),
+                            Text(", Seat ",
+                                style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black38)),
+                            FutureBuilder<String>(
+                              future: CommonOperation.getSortValue(ticketTitle),
+                              builder: (context, AsyncSnapshot<String> snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Container();
+                                } else {
+                                  return Text(snapshot.data!,
+                                      style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.black87));
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text("First Name", style: CommonOperation.getFontStyleProfielBottomSheet()),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    getInputFields(firstNameUsedController, "First name"),
+
+                    ///Last--------------------------------
+                    ///Last--------------------------------
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text("Last Name", style: CommonOperation.getFontStyleProfielBottomSheet()),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    getInputFields(lastNameUsedController, "Last name"),
+
+                    ///Email--------------------------------
+                    ///Email--------------------------------
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text("Email or Mobile Number", style: CommonOperation.getFontStyleProfielBottomSheet()),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    getInputFields(emailUsedController, "Email or Mobile Number"),
+
+                    ///Note--------------------------------
+                    ///Note--------------------------------
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text("Note", style: CommonOperation.getFontStyleProfielBottomSheet()),
+                    SizedBox(
+                      height: 5,
+                    ),
+
+                    Container(
+                      constraints: BoxConstraints(maxHeight: 100),
+                      height: 100.0,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.black54, width: 0.5),
+                        borderRadius: BorderRadius.all(Radius.circular(4)),
+                      ),
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: TextField(
+                            controller: noteUsedController,
+                            keyboardType: TextInputType.text,
+                            textAlign: TextAlign.left,
+                            maxLines: null,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              isDense: true,
+                              contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 7),
+                              hintText: "Max. 200 Characters",
+                              hintStyle: CommonOperation.getFontStyleProfielBottomSheet(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 70,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 60,
+              decoration: BoxDecoration(
+                color: AppColor.lightBlue2,
+                //border: Border.all(color: AppColor.blue(), width: 1),
+                //borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
+                //borderRadius: BorderRadius.all(Radius.circular(10.0),),
+              ),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          Navigator.of(context).pop();
+                          saveShared();
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.arrow_back_ios,
+                              color: AppColor.officialBlue,
+                              size: 18,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text("Back",
+                                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.officialBlue))
+                          ],
+                        ),
+                      ),
+                      transferButtonLoading == true
+                          ? Padding(
+                              padding: const EdgeInsets.only(right: 20),
+                              child: CircularProgressIndicator(),
+                            )
+                          : TextButton(
+                              style: TextButton.styleFrom(
+                                padding: const EdgeInsets.all(0), // Remove any extra padding
+                                backgroundColor: AppColor.colorMain(), // Background color
+                                foregroundColor: Colors.white, // Text color
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(2)),
+                                ),
+                              ),
+                              onLongPress: () {
+                                sowDialog();
+                              },
+                              onPressed: () async {
+                                setState(() {
+                                  transferButtonLoading = true;
+                                });
+                                await Future.delayed(const Duration(seconds: 2), () {});
+
+                                transferButtonLoading = false;
+                                Navigator.of(context).pop();
+                                saveShared();
+                                if (Platform.isAndroid)
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => MyTicketsNewView(ticketCount, ticketTitle)),
+                                  );
+                                else
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => MyTicketsiOS(ticketCount, ticketTitle)),
+                                  );
+                              },
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: TextField(
-                                  controller: noteUsedController,
-                                  keyboardType: TextInputType.text,
-                                  textAlign: TextAlign.left,
-                                  maxLines: null,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    isDense: true,
-                                    contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 7),
-                                    hintText: "Max. 200 Characters",
-                                    hintStyle: CommonOperation.getFontStyleProfielBottomSheet(),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Transfer ${ticketCount} Tickets",
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: "metropolis",
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                        ],
-                      ),
-                    ),
+                    ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: AppColor.lightBlue2,
-                      //border: Border.all(color: AppColor.blue(), width: 1),
-                      //borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
-                      //borderRadius: BorderRadius.all(Radius.circular(10.0),),
-                    ),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () async {
-                                Navigator.of(context).pop();
-                                saveShared();
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.arrow_back_ios,
-                                    color: AppColor.officialBlue,
-                                    size: 18,
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text("Back",
-                                      style: TextStyle(
-                                          fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.officialBlue))
-                                ],
-                              ),
-                            ),
-                            transferButtonLoading == true
-                                ? Padding(
-                                    padding: const EdgeInsets.only(right: 20),
-                                    child: CircularProgressIndicator(),
-                                  )
-                                : TextButton(
-                                    style: TextButton.styleFrom(
-                                      padding: const EdgeInsets.all(0), // Remove any extra padding
-                                      backgroundColor: AppColor.colorMain(), // Background color
-                                      foregroundColor: Colors.white, // Text color
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(2)),
-                                      ),
-                                    ),
-                                    onLongPress: () {
-                                      sowDialog();
-                                    },
-                                    onPressed: () async {
-                                      setState(() {
-                                        transferButtonLoading = true;
-                                      });
-                                      await Future.delayed(const Duration(seconds: 2), () {});
-
-                                      transferButtonLoading = false;
-                                      Navigator.of(context).pop();
-                                      saveShared();
-                                      if (Platform.isAndroid)
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => MyTicketsNewView(ticketCount, ticketTitle)),
-                                        );
-                                      else
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => MyTicketsiOS(ticketCount, ticketTitle)),
-                                        );
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "Transfer ${ticketCount} Tickets",
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: "metropolis",
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

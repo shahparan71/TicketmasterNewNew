@@ -89,22 +89,19 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
         ),
       ),
       body: Stack(children: [
-        Container(
-          height: MediaQuery.of(context).size.height - 50,
-          child: CarouselSlider(
-            items: imageSlidersM,
-            options: CarouselOptions(
-                enableInfiniteScroll: false,
-                viewportFraction: dblViewPort ?? 1.0,
-                height: MediaQuery.of(context).size.height - 100,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _current = index;
-                    print("_current");
-                    print(_current);
-                  });
-                }),
-          ),
+        CarouselSlider(
+          items: imageSlidersM,
+          options: CarouselOptions(
+              enableInfiniteScroll: false,
+              viewportFraction: dblViewPort ?? 1.0,
+              height: MediaQuery.of(context).size.height - 120,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _current = index;
+                  print("_current");
+                  print(_current);
+                });
+              }),
         ),
         /*Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -194,7 +191,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
           boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 1, spreadRadius: 2)],
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
-        height: MediaQuery.of(context).size.height - 200,
         child: Stack(
           children: [
             Container(
@@ -216,7 +212,8 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                           height: 40,
                           child: Center(
                             child: FutureBuilder<String>(
-                              future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
+                              future:
+                                  CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
                               builder: (context, AsyncSnapshot<String> snapshot) {
                                 if (!snapshot.hasData) {
                                   return Container();
@@ -224,7 +221,8 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                                   return GestureDetector(
                                     onTap: () async {},
                                     child: Text(snapshot.data!,
-                                        style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
+                                        style:
+                                            TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
                                   );
                                 }
                               },
@@ -252,7 +250,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                   Expanded(
                     flex: 4,
                     child: Container(
-
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 50),
                         child: Column(
@@ -316,7 +313,10 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                               },
                               child: Text("Cancel Transfer",
                                   style: TextStyle(
-                                      fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.blueAccent.withOpacity(0.8))),
+                                      fontSize: 14,
+                                      fontFamily: "metropolis",
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blueAccent.withOpacity(0.8))),
                             ),
                           ],
                         ),

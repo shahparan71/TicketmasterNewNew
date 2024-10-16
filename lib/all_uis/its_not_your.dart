@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ticket_master/PrefUtil.dart';
-import 'package:ticket_master/main_landing_screen.dart';
+import 'package:ticket_master/main_landing_screen_android.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ticket_master/utils/AppColor.dart';

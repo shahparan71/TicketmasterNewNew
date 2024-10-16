@@ -206,7 +206,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
-        height: MediaQuery.of(context).size.height - 200,
         child: Stack(
           children: [
             Container(
