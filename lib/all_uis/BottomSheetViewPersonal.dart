@@ -218,93 +218,96 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                     ),
                   ),
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: AppColor.lightBlue2,
-                    //border: Border.all(color: AppColor.blue(), width: 1),
-                    //borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
-                    //borderRadius: BorderRadius.all(Radius.circular(10.0),),
-                  ),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            onTap: () async {
-                              Navigator.of(context).pop();
-                              saveShared();
-                            },
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.arrow_back_ios,
-                                  color: AppColor.officialBlue,
-                                  size: 18,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text("Back",
-                                    style: TextStyle(
-                                        fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.officialBlue))
-                              ],
-                            ),
-                          ),
-                          transferButtonLoading == true
-                              ? Padding(
-                                  padding: const EdgeInsets.only(right: 20),
-                                  child: CircularProgressIndicator(),
-                                )
-                              : TextButton(
-                                  style: TextButton.styleFrom(
-                                    padding: const EdgeInsets.all(0), // Remove any extra padding
-                                    backgroundColor: AppColor.colorMain(), // Background color
-                                    foregroundColor: Colors.white, // Text color
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(2)),
-                                    ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: AppColor.lightBlue2,
+                      //border: Border.all(color: AppColor.blue(), width: 1),
+                      //borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
+                      //borderRadius: BorderRadius.all(Radius.circular(10.0),),
+                    ),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () async {
+                                Navigator.of(context).pop();
+                                saveShared();
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.arrow_back_ios,
+                                    color: AppColor.officialBlue,
+                                    size: 18,
                                   ),
-                                  onLongPress: () {
-                                    sowDialog();
-                                  },
-                                  onPressed: () async {
-                                    setState(() {
-                                      transferButtonLoading = true;
-                                    });
-                                    await Future.delayed(const Duration(seconds: 2), () {});
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text("Back",
+                                      style: TextStyle(
+                                          fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.officialBlue))
+                                ],
+                              ),
+                            ),
+                            transferButtonLoading == true
+                                ? Padding(
+                                    padding: const EdgeInsets.only(right: 20),
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : TextButton(
+                                    style: TextButton.styleFrom(
+                                      padding: const EdgeInsets.all(0), // Remove any extra padding
+                                      backgroundColor: AppColor.colorMain(), // Background color
+                                      foregroundColor: Colors.white, // Text color
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(2)),
+                                      ),
+                                    ),
+                                    onLongPress: () {
+                                      sowDialog();
+                                    },
+                                    onPressed: () async {
+                                      setState(() {
+                                        transferButtonLoading = true;
+                                      });
+                                      await Future.delayed(const Duration(seconds: 2), () {});
 
-                                    transferButtonLoading = false;
-                                    Navigator.of(context).pop();
-                                    saveShared();
-                                    if (Platform.isAndroid)
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => MyTicketsNewView(ticketCount, ticketTitle)),
-                                      );
-                                    else
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => MyTicketsiOS(ticketCount, ticketTitle)),
-                                      );
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Transfer ${ticketCount} Tickets",
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: "metropolis",
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white,
+                                      transferButtonLoading = false;
+                                      Navigator.of(context).pop();
+                                      saveShared();
+                                      if (Platform.isAndroid)
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => MyTicketsNewView(ticketCount, ticketTitle)),
+                                        );
+                                      else
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => MyTicketsiOS(ticketCount, ticketTitle)),
+                                        );
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "Transfer ${ticketCount} Tickets",
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: "metropolis",
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

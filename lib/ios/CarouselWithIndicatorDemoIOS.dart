@@ -84,7 +84,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                 });
               }),
         ),
-        GestureDetector(
+        /*GestureDetector(
           onTap: () async {
             String? result = await CustomInputDialog.showInputDialog(
                 context: context,
@@ -116,7 +116,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
               );
             }).toList(),
           ),
-        ),
+        ),*/
       ]),
     );
   }
