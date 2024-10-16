@@ -236,7 +236,42 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                           },
                         ),
                       ),
-                      GestureDetector(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => BarcodeViewIOS(_current)),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColor.colorSecond(),
+                              border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
+                            ),
+                            height: 45,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.qr_code,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "View Barcode",
+                                  style: TextStyle(
+                                      fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.white),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      /*GestureDetector(
                         onTap: () async {
                           assetUrl++;
                           if (assetUrl > 4) assetUrl = 1;
@@ -263,7 +298,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                             ),
                           ),
                         ),
-                      ),
+                      ),*/
                       Padding(
                         padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                         child: Row(

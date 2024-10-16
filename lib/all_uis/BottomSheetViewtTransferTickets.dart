@@ -50,7 +50,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                   decoration: BoxDecoration(
                     color: Color(0XFFffffff),
                     boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                    border: Border.all(color: AppColor.officialBlue),
+                    border: Border.all(color: AppColor.officialBlueProfile),
                     borderRadius: BorderRadius.all(Radius.circular(2)),
                   ),
                   child: Padding(
@@ -66,14 +66,14 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                                     fontSize: 12,
                                     decorationThickness: 2,
                                     fontFamily: "metropolis",
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColor.officialBlue)),
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColor.officialBlueProfile)),
                             SizedBox(
                               width: 5,
                             ),
                             Icon(
                               Icons.perm_contact_calendar_outlined,
-                              color: AppColor.officialBlue,
+                              color: AppColor.officialBlueProfile,
                               size: 20,
                             )
                           ],
@@ -101,7 +101,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                   decoration: BoxDecoration(
                     color: Color(0XFFffffff),
                     boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                    border: Border.all(color: AppColor.officialBlue),
+                    border: Border.all(color: AppColor.officialBlueProfile),
                     borderRadius: BorderRadius.all(Radius.circular(2)),
                   ),
                   child: Padding(
@@ -117,14 +117,14 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                                 style: TextStyle(
                                     fontSize: 12,
                                     fontFamily: "metropolis",
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColor.officialBlue)),
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColor.officialBlueProfile)),
                             SizedBox(
                               width: 5,
                             ),
                             Icon(
                               Icons.add_circle_outline,
-                              color: AppColor.officialBlue,
+                              color: AppColor.officialBlueProfile,
                               size: 25,
                             )
                           ],
@@ -170,13 +170,14 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
             SizedBox(
               height: 20,
             ),
-            Text("Transfer Tickets Via Email or Text Message",
-                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: Colors.black87)),
+            Text("Transfer Tickets Via Email or\n Text Message",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: Colors.black.withOpacity(0.6))),
             SizedBox(
               height: 5,
             ),
             Text("Select an Email or mobile number to\n transfer tickets to your recipient.",
-                style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: Colors.black.withOpacity(0.8))),
+                style: TextStyle(fontSize: 13, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: Colors.black.withOpacity(0.8))),
             SizedBox(
               height: 20,
             )

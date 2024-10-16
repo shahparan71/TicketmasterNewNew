@@ -170,7 +170,7 @@ class GoogleMapFlutterState extends State<GoogleMapFlutter> {
                               await availableMaps.first.showMarker(
                                 coords: launcher.Coords(double.parse(latLong.split(",")[0]),
                                     double.parse(latLong.split(",")[1])),
-                                title: place??"SofFi Stadium",
+                                title: place ??"SofFi Stadium",
                               );
                             },
                             onPressed: () async {

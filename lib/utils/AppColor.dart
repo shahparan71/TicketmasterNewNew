@@ -11,6 +11,7 @@ class AppColor {
   static Color colorPrimary = Color(0xFFFC6011);
   static Color colorGryaMyTicket = Color(0xff000000);
   static Color officialBlue = Color(0xff024ddf);
+  static Color officialBlueProfile = Color(0xff3485cd);
   static Color colorGryaBlackMyTicket = Color(0xFF000000);
   static Color colorAccent = Color(0xFF585E5F);
   static Color colorTitle = Color(0xFF293032);
