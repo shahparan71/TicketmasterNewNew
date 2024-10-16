@@ -242,7 +242,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                     child: GestureDetector(
                                   onTap: () async {
                                     AllConstant.CURRENT_LIST_INDEX = index.toString();
-                                    if (Platform.isAndroid) {
+                                    if (Platform.isIOS) {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(builder: (context) => MainLandingScreenIOS()),
