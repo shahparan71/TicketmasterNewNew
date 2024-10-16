@@ -132,7 +132,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
           color: AppColor.white,
-          
+
           boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 1, spreadRadius: 0.5)],
           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
           borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -156,6 +156,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            Container(),
                             Container(),
                             GestureDetector(
                               onLongPress: () async {
@@ -245,7 +246,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                   color: AppColor.colorMain(),
-                                                  border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
+                                                  //border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
                                                 ),
                                                 height: 45,
                                                 child: Row(
@@ -320,10 +321,8 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                     padding: const EdgeInsets.only(bottom: 0.1),
                     child: Container(
                       decoration: BoxDecoration(
-                        //border: Border.all(color: Colors.black.withOpacity(0.9), width: 1, style: BorderStyle.solid),
-                        color: Colors.black.withOpacity(0.8),
+                        color: AppColor.colorMain().withOpacity(0.8),
                         boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 5, spreadRadius: 5)],
-                        //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
                       ),
                       height: 2,

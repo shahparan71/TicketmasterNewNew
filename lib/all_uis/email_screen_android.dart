@@ -612,8 +612,8 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                   ],
                 ),
                 style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>(AppColor.officialBlue),
-                    backgroundColor: MaterialStateProperty.all<Color>(AppColor.officialBlue),
+                    foregroundColor: MaterialStateProperty.all<Color>( AppColor.colorMain()),
+                    backgroundColor: MaterialStateProperty.all<Color>( AppColor.colorMain()),
                     elevation: MaterialStateProperty.all(0.0),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/

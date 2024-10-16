@@ -160,7 +160,7 @@ class _InitialScreenState extends State<InitialScreen> {
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.black,
+              color:  AppColor.colorMain()
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

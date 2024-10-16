@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:ticket_master/PrefUtil.dart';
-import 'package:ticket_master/all_uis/CarouselWithIndicatorDemo.dart';
 import 'package:ticket_master/all_uis/QRView.dart';
 import 'package:ticket_master/all_uis/bottom_sheet_view_select_tickets.dart';
+import 'package:ticket_master/all_uis/carousel_withIndicator_demo_android.dart';
 import 'package:ticket_master/maps/map_widgets.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
+import 'package:ticket_master/utils/widgets_util.dart';
 
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -107,82 +108,22 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                   CarouselWithIndicatorAndroid(),
                   Positioned.fill(
                     child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25),
-                        child: Container(
-                          height: 100,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              //buildRowFourDot(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: ElevatedButton(
-                                      child: Text("Transfer",
-                                          style:
-                                              TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                                      /*style: ElevatedButton.styleFrom(
-                                        backgroundColor: AppColor.colorMain(),
-                                      ),*/
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: AppColor.colorMain(),
-                                        // Background color
-                                        foregroundColor: Colors.white,
-                                        // Text color
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
-                                        ),
-                                      ),
-                                      onPressed: () async {
-                                        showMaterialModalBottomSheet(
-                                          isDismissible: false, // Prevents closing by tapping outside
-                                          enableDrag: true,
-                                          context: context,
-                                          builder: (context) => Container(
-                                            height: MediaQuery.of(context).size.height - 450,
-                                            child: BottomSheetViewSelectTickets(),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: TextButton(
-                                      child: Text("Sell",
-                                          style:
-                                              TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: AppColor.colorMain(),
-                                        // Background color
-                                        foregroundColor: Colors.white,
-                                        // Text color
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
-                                        ),
-                                      ),
-                                      onPressed: () async {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => QRViewMain()),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
+                        alignment: Alignment.bottomLeft,
+                        child: TransferAndSellButton(
+                          function: () {
+                            showMaterialModalBottomSheet(
+                              isDismissible: false, // Prevents closing by tapping outside
+                              enableDrag: true,
+                              context: context,
+                              builder: (context) => Container(
+                                height: MediaQuery.of(context).size.height - 450,
+                                child: BottomSheetViewSelectTickets(),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                            );
+                          },
+                          isButton1Enable: true,
+                          isButton2Enable: true,
+                        )),
                   ),
                 ],
               ),

@@ -223,14 +223,14 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                           children: [
                             Icon(
                               Icons.arrow_back_ios,
-                              color: AppColor.officialBlue,
+                              color:  AppColor.colorMain(),
                               size: 18,
                             ),
                             SizedBox(
                               width: 5,
                             ),
                             Text("Back",
-                                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Color(0xff0979b5)))
+                                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color:  AppColor.colorMain()))
                           ],
                         ),
                       ),

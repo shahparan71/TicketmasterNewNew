@@ -122,63 +122,16 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
             bottom: 0,
             left: 0,
             right: 0,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: TextButton(
-                      child: Text("Transfer",
-                          style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                      /*style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
-                      ),*/
-                      style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                          backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                          elevation: MaterialStateProperty.all(0.0),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
-                          ))),
-                      onPressed: () async {
-                        /*Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => QRViewMain()),
-                        );*/
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: TextButton(
-                      child:
-                          Text("Sell", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                      /*style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
-                      ),*/
-                      style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                          backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                          elevation: MaterialStateProperty.all(0.0),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
-                          ))),
-                      onPressed: () async {
-                        /*Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => QRViewMain()),
-                        );*/
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            child: TransferAndSellButton(
+              function: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
+                );
+              },
+              isButton1Enable: false,
+              isButton2Enable: false,
+            ) ,
           ),
         ]),
       ),
@@ -192,7 +145,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
           color: AppColor.white,
-          
+
           boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 2, spreadRadius: 2)],
           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
           borderRadius: BorderRadius.all(Radius.circular(8)),

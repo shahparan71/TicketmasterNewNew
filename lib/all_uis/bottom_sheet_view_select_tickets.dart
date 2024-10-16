@@ -177,7 +177,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
                                 fontSize: 13,
                                 fontFamily: "metropolis",
                                 fontWeight: FontWeight.normal,
-                                color: int.parse(selected_item.split(" ")[0]) > 0 ? AppColor.officialBlue : Colors.black38)),
+                                color: int.parse(selected_item.split(" ")[0]) > 0 ?  AppColor.colorMain(): Colors.black38)),
                       ),
                     ],
                   ),
@@ -291,7 +291,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
                       },
                       child: snapshot.data == false
                           ? Icon(Icons.check_box_outline_blank, color: Colors.black26)
-                          : Icon(Icons.check_box, color: AppColor.officialBlue),
+                          : Icon(Icons.check_box, color: AppColor.colorMain()),
                     );
                   }
                 },

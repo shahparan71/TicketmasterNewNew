@@ -12,6 +12,7 @@ import 'package:ticket_master/ios/CarouselWithIndicatorDemoIOS.dart';
 import 'package:ticket_master/maps/map_widgets.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
+import 'package:ticket_master/utils/widgets_util.dart';
 
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -30,7 +31,7 @@ class MainLandingScreenIOS extends StatefulWidget {
 
 class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
   String? filePath;
-  
+
   List<Widget>? imageSliders;
   bool showHideStatusAppBarIcon = false;
   bool isMultiline = false;
@@ -110,79 +111,24 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                     child: CarouselWithIndicatorDemoIOS(),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: ElevatedButton(
-                            child: Text("Transfer",
-                                style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                            /*style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColor.colorMain(),
-                            ),*/
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(10),
-                              elevation: 0.0,
-                              backgroundColor: AppColor.colorMain(),
-                              // Background color
-                              foregroundColor: Colors.white,
-                              // Text color
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
+                Positioned.fill(
+                    child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: TransferAndSellButton(
+                          function: () {
+                            showMaterialModalBottomSheet(
+                              isDismissible: false, // Prevents closing by tapping outside
+                              enableDrag: true,
+                              context: context,
+                              builder: (context) => Container(
+                                height: MediaQuery.of(context).size.height - 450,
+                                child: BottomSheetViewSelectTickets(),
                               ),
-                            ),
-                            onPressed: () async {
-                              showMaterialModalBottomSheet( isDismissible: false,  // Prevents closing by tapping outside
-                    enableDrag: false,    
-                                context: context,
-                                builder: (context) => Container(
-                                  height: MediaQuery.of(context).size.height - 450,
-                                  child: BottomSheetViewSelectTickets(),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: TextButton(
-                            child: Text("Sell",
-                                style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                            /*style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColor.colorMain()
-                                  .withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
-                            ),*/
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(10),
-                              elevation: 0.0,
-                              backgroundColor: AppColor.colorMain()
-                                  .withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
-                              // Background color
-                              foregroundColor: Colors.white,
-                              // Text color
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0), // Adjust the radius as needed
-                              ),
-                            ),
-                            onPressed: () async {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => QRViewMain()),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                            );
+                          },
+                          isButton1Enable: true,
+                          isButton2Enable: true,
+                        ))),
                 SizedBox(
                   height: 10,
                 ),
@@ -217,7 +163,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
                 setState(() {});
               },
               child: PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIEWPORT_VALUE) == null ||
-                  PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIEWPORT_VALUE) == 0.9
+                      PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIEWPORT_VALUE) == 0.9
                   ? Icon(Icons.fullscreen_outlined, color: Colors.white)
                   : Icon(Icons.fullscreen_exit, color: Colors.white),
             ),
@@ -393,26 +339,26 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
             ),
             Container(alignment: Alignment.center, child: Text("View-", style: TextStyle(color: Colors.white))),
             PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE) == null ||
-                PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE) == false
+                    PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE) == false
                 ? GestureDetector(
-                onTap: () async {
-                  setState(() {
-                    bool? value = PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE);
-                    if (value == null) {
-                      PrefUtil.preferences!.setBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE, true);
-                    } else
-                      PrefUtil.preferences!.setBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE, !value);
-                  });
-                },
-                child: Icon(Icons.line_weight_sharp, color: Colors.white))
+                    onTap: () async {
+                      setState(() {
+                        bool? value = PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE);
+                        if (value == null) {
+                          PrefUtil.preferences!.setBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE, true);
+                        } else
+                          PrefUtil.preferences!.setBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE, !value);
+                      });
+                    },
+                    child: Icon(Icons.line_weight_sharp, color: Colors.white))
                 : GestureDetector(
-                onTap: () async {
-                  setState(() {
-                    bool? value = PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE);
-                    PrefUtil.preferences!.setBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE, !value!);
-                  });
-                },
-                child: Icon(Icons.indeterminate_check_box_outlined, color: Colors.white)),
+                    onTap: () async {
+                      setState(() {
+                        bool? value = PrefUtil.preferences!.getBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE);
+                        PrefUtil.preferences!.setBool(AllConstant.CURRENT_LIST_INDEX + AllConstant.IS_MULTILINE, !value!);
+                      });
+                    },
+                    child: Icon(Icons.indeterminate_check_box_outlined, color: Colors.white)),
             SizedBox(
               width: 10,
             ),
