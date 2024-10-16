@@ -247,13 +247,16 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                     children: [
                       Text(
                         "Tickets successfully accepted by the recipient",
+                        textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.w700, fontSize: 15),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
+
                         "and no longer valid in your account for event entry ",
+                        textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.normal, fontSize: 14),
                       ),
                       Container(
