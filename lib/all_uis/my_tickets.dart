@@ -88,105 +88,104 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          Column(children: [
-            SizedBox(
-              height: 3,
-            ),
-            CarouselSlider(
-              items: imageSlidersM,
-              options: CarouselOptions(
-                  enableInfiniteScroll: false,
-                  viewportFraction: dblViewPort ?? 1.0,
-                  height: MediaQuery.of(context).size.height - 200,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      _current = index;
-                      print("_current");
-                      print(_current);
-                    });
-                  }),
-            ),
-            /*Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: imgList.map((url) {
-                int index = imgList.indexOf(url);
-                return Container(
-                  width: _current == index ? 10.0 : 8.0,
-                  height: _current == index ? 10.0 : 8.0,
-                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _current == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
-                  ),
-                );
-              }).toList(),
-            ),*/
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: ElevatedButton(
-                      child: Text("Transfer",
-                          style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                      style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
-                          backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
-                          elevation: MaterialStateProperty.all(0.0),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
-                          ))),
-                      onPressed: () async {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
-                        );
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: TextButton(
-                      child:
-                          Text("Sell", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                      /*style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
-                      ),*/
-                      style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
-                          backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
-                          elevation: MaterialStateProperty.all(0.0),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
-                          ))),
-                      onPressed: () async {
-                        /*Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => QRViewMain()),
-                        );*/
-                      },
-                    ),
-                  ),
-                ],
+      body: Stack(children: [
+        Container(
+          height: MediaQuery.of(context).size.height - 50,
+          child: CarouselSlider(
+            items: imageSlidersM,
+            options: CarouselOptions(
+                enableInfiniteScroll: false,
+                viewportFraction: dblViewPort ?? 1.0,
+                height: MediaQuery.of(context).size.height - 100,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _current = index;
+                    print("_current");
+                    print(_current);
+                  });
+                }),
+          ),
+        ),
+        /*Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: imgList.map((url) {
+            int index = imgList.indexOf(url);
+            return Container(
+              width: _current == index ? 10.0 : 8.0,
+              height: _current == index ? 10.0 : 8.0,
+              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _current == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
               ),
+            );
+          }).toList(),
+        ),*/
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: ElevatedButton(
+                    child: Text("Transfer",
+                        style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                    style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                        backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                        elevation: MaterialStateProperty.all(0.0),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
+                        ))),
+                    onPressed: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                    child: Text("Sell", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                    /*style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
+                    ),*/
+                    style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                        backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                        elevation: MaterialStateProperty.all(0.0),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
+                        ))),
+                    onPressed: () async {
+                      /*Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => QRViewMain()),
+                      );*/
+                    },
+                  ),
+                ),
+              ],
             ),
-          ]),
-          //Platform.isAndroid?Container(): MapWidgets()
-        ],
-      ),
+          ),
+        ),
+      ]),
     );
   }
 
   Widget buildMainCardHome(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
@@ -195,120 +194,133 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
           boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 1, spreadRadius: 2)],
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
-        height: MediaQuery.of(context).size.height - 250,
+        height: MediaQuery.of(context).size.height - 200,
         child: Stack(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height - 260,
+              height: MediaQuery.of(context).size.height - 220,
               child: Column(
                 children: [
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColor.colorGryaBlackMyTicket,
-                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                      //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                      borderRadius: BorderRadius.only(topRight: Radius.circular(7.0), topLeft: Radius.circular(7.0)),
-                    ),
-                    height: 40,
-                    child: Center(
-                      child: FutureBuilder<String>(
-                        future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
-                        builder: (context, AsyncSnapshot<String> snapshot) {
-                          if (!snapshot.hasData) {
-                            return Container();
-                          } else {
-                            return GestureDetector(
-                              onTap: () async {},
-                              child: Text(snapshot.data!,
-                                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                  ),
-                  SecRowSeatJustShow(widget.ticketCount, seatRange),
-                  buildContainerImageBox(context),
-                  Container(
-                    height: 20,
-                    color: AppColor.colorSecond(),
-                    width: MediaQuery.of(context).size.width,
-                    child: Center(
-                        child: Text(
-                      "Sent",
-                      style: TextStyle(color: Colors.white),
-                    )),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                  Expanded(
+                    flex: 8,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          "${widget.ticketCount} tickets sent to",
-                          style: TextStyle(color: Colors.black.withOpacity(0.8), fontSize: 16),
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: AppColor.colorGryaBlackMyTicket,
+                            boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+                            //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+                            borderRadius: BorderRadius.only(topRight: Radius.circular(7.0), topLeft: Radius.circular(7.0)),
+                          ),
+                          height: 40,
+                          child: Center(
+                            child: FutureBuilder<String>(
+                              future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
+                              builder: (context, AsyncSnapshot<String> snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Container();
+                                } else {
+                                  return GestureDetector(
+                                    onTap: () async {},
+                                    child: Text(snapshot.data!,
+                                        style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
+                                  );
+                                }
+                              },
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text("${PrefUtil.preferences!.get(AllConstant.CURRENT_LIST_INDEX + AllConstant.EMAIL)} waiting for recipient to claim.",
-                            textAlign: TextAlign.center,
-                            //style: TextStyle(color: Colors.black.withOpacity(0.8)),
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: "metropolis",
-                                fontWeight: CommonOperation.getFontWeight2(),
-                                color: Colors.black.withOpacity(0.8))),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            String? result = await CustomInputDialog.showInputDialog(
-                              context: context,
-                              defaultTxt: "6-44639/TOR",
-                              key: AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER,
-                            );
-                            if (result != null) {
-                              PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER, result);
-                              setState(() {});
-                            } else {
-                              print("Dialog was canceled");
-                            }
-                          },
-                          child: Text("Order ${PrefUtil.preferences!.get(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER) ?? "6-44639/TOR"}",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: "metropolis",
-                                  fontWeight: CommonOperation.getFontWeight2(),
-                                  color: Colors.black.withOpacity(0.8))),
-                        ),
-                        SizedBox(
+                        SecRowSeatJustShow(widget.ticketCount, seatRange),
+                        buildContainerImageBox(context),
+                        Container(
                           height: 20,
+                          color: AppColor.colorSecond(),
+                          width: MediaQuery.of(context).size.width,
+                          child: Center(
+                              child: Text(
+                            "Sent",
+                            style: TextStyle(color: Colors.white),
+                          )),
                         ),
-                        GestureDetector(
-                          onTap: () async {
-                            String? result = await CustomInputDialog.showInputDialog(
-                              context: context,
-                              defaultTxt: "6-44639/TOR",
-                              key: AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER,
-                            );
-                            if (result != null) {
-                              PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER, result);
-                              setState(() {});
-                            } else {
-                              print("Dialog was canceled");
-                            }
-                          },
-                          child: Text("Cancel Transfer",
-                              style: TextStyle(
-                                  fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.blueAccent.withOpacity(0.8))),
+                        SizedBox(
+                          height: 50,
                         ),
                       ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Container(
+
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 50),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${widget.ticketCount} tickets sent to",
+                              style: TextStyle(color: Colors.black.withOpacity(0.8), fontSize: 16),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text("${PrefUtil.preferences!.get(AllConstant.CURRENT_LIST_INDEX + AllConstant.EMAIL)} waiting for recipient to claim.",
+                                textAlign: TextAlign.center,
+                                //style: TextStyle(color: Colors.black.withOpacity(0.8)),
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: "metropolis",
+                                    fontWeight: CommonOperation.getFontWeight2(),
+                                    color: Colors.black.withOpacity(0.8))),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            GestureDetector(
+                              onTap: () async {
+                                String? result = await CustomInputDialog.showInputDialog(
+                                  context: context,
+                                  defaultTxt: "6-44639/TOR",
+                                  key: AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER,
+                                );
+                                if (result != null) {
+                                  PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER, result);
+                                  setState(() {});
+                                } else {
+                                  print("Dialog was canceled");
+                                }
+                              },
+                              child: Text("Order ${PrefUtil.preferences!.get(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER) ?? "6-44639/TOR"}",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: "metropolis",
+                                      fontWeight: CommonOperation.getFontWeight2(),
+                                      color: Colors.black.withOpacity(0.8))),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            GestureDetector(
+                              onTap: () async {
+                                String? result = await CustomInputDialog.showInputDialog(
+                                  context: context,
+                                  defaultTxt: "6-44639/TOR",
+                                  key: AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER,
+                                );
+                                if (result != null) {
+                                  PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER, result);
+                                  setState(() {});
+                                } else {
+                                  print("Dialog was canceled");
+                                }
+                              },
+                              child: Text("Cancel Transfer",
+                                  style: TextStyle(
+                                      fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.blueAccent.withOpacity(0.8))),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   )
                 ],
