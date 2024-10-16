@@ -412,7 +412,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
             child: Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height - 140,
+                  height: MediaQuery.of(context).size.height - 120,
                   child: Stack(
                     children: [
                       CarouselWithIndicatorAndroid(),

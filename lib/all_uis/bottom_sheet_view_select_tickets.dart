@@ -310,7 +310,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
                   return Column(
                     children: [
                       Container(
-                        height: 380,
+                        height: 360,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
