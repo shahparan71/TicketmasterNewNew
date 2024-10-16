@@ -128,7 +128,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
         width: MediaQuery.of(context).size.width - 60,
         decoration: BoxDecoration(
           color: AppColor.colorPageBackground,
-          border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
+          
           boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 2, spreadRadius: 2)],
           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -166,7 +166,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                     height: 40,
                     child: Center(
                       child: FutureBuilder<String>(
-                        future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
+                        future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Standard Ticket"),
                         builder: (context, AsyncSnapshot<String> snapshot) {
                           if (!snapshot.hasData) {
                             return Container();
@@ -175,7 +175,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                               onTap: () async {
                                 String? result = await CustomInputDialog.showInputDialog(
                                   context: context,
-                                  defaultTxt: "Verified Fan Offer",
+                                  defaultTxt: "Standard Ticket",
                                   key: AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,
                                 );
                                 if (result != null) {

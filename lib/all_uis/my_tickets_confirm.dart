@@ -60,6 +60,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
       //appBar: AppBar(title: Text('Carousel with indicator demo')),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: AppColor.colorSecond(),
         leading: Padding(
           padding: EdgeInsets.all(8.0),
           child: GestureDetector(
@@ -75,7 +76,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
         ),
         leadingWidth: 0.0,
         elevation: 0.0,
-        backgroundColor: AppColor.colorSecond(),
         title: Center(
             child: Text(
           "My Tickets",
@@ -177,12 +177,12 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
 
   Widget buildMainCardHome(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
           color: AppColor.white,
-          border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
+          
           boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 2, spreadRadius: 2)],
           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -194,7 +194,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: AppColor.colorGryaBlackMyTicket,
+                    color: AppColor.colorMain(),
                     boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                     //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                     borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
@@ -206,7 +206,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                         height: 40,
                         child: Center(
                           child: FutureBuilder<String>(
-                            future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
+                            future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Standard Ticket"),
                             builder: (context, AsyncSnapshot<String> snapshot) {
                               if (!snapshot.hasData) {
                                 return Container();

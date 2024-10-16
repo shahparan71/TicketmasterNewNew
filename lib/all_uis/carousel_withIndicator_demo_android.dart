@@ -132,58 +132,58 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
           color: AppColor.white,
-          border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
-          boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 2, spreadRadius: 2)],
+          
+          boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 1, spreadRadius: 0.5)],
           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius: BorderRadius.all(Radius.circular(6)),
         ),
-        height: MediaQuery.of(context).size.height - 220,
+        height: MediaQuery.of(context).size.height - 210,
         child: Stack(
           children: [
             Column(
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: AppColor.colorMain(),
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
+                    color: AppColor.colorSecond(),
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(6.0), topRight: Radius.circular(6.0)),
                     //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                   ),
                   child: Column(
                     children: [
-                      GestureDetector(
-                        onTap: () async {
-                          String? result = await CustomInputDialog.showInputDialog(
-                            context: context,
-                            defaultTxt: "2166e5",
-                            key: AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND,
-                          );
-                          if (result != null) {
-                            PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND, result);
-                            setState(() {});
-                          } else {
-                            print("Dialog was canceled");
-                          }
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          height: 40,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(),
-                              CustomBuilderWidget(
+                      Container(
+                        width: double.infinity,
+                        height: 40,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(),
+                            GestureDetector(
+                              onLongPress: () async {
+                                String? result = await CustomInputDialog.showInputDialog(
+                                  context: context,
+                                  defaultTxt: "2166e5",
+                                  key: AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND,
+                                );
+                                if (result != null) {
+                                  PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND, result);
+                                  setState(() {});
+                                } else {
+                                  print("Dialog was canceled");
+                                }
+                              },
+                              child: CustomBuilderWidget(
                                   keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,
                                   defaultValue: "Standard Ticket",
                                   textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Icons.info_outline,
-                                  color: Colors.white,
-                                ),
-                              )
-                            ],
-                          ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.info_outline,
+                                color: Colors.white,
+                              ),
+                            )
+                          ],
                         ),
                       ),
                       SecRowSeat(_current),
@@ -204,8 +204,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                             Container(
                               child: CustomBuilderWidget(
                                   keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7,
-                                  defaultValue: "GRANDSTAND 407A",
-                                  textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: Colors.black)),
+                                  defaultValue: "GATE 1",
+                                  textStyle: TextStyle(
+                                      fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.7))),
                             ),
                           ],
                         ),
@@ -238,27 +239,27 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                                   },
                                   child: Column(
                                     children: [
-                                      assetUrl == 4
+                                      assetUrl == 1
                                           ? Padding(
                                               padding: const EdgeInsets.symmetric(horizontal: 10),
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  color: AppColor.colorSecond(),
+                                                  color: AppColor.colorMain(),
                                                   border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
                                                 ),
                                                 height: 45,
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    Icon(
-                                                      Icons.qr_code,
-                                                      color: Colors.white,
+                                                    Image.asset(
+                                                      "assets/images/bar_code.png",
+                                                      height: 20,
                                                     ),
                                                     SizedBox(
                                                       width: 10,
                                                     ),
                                                     Text(
-                                                      "View Tickets",
+                                                      "View Ticket",
                                                       style: TextStyle(
                                                           fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.white),
                                                     )
@@ -315,15 +316,18 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
             Positioned.fill(
               child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppColor.colorSecond(),
-                      border: Border.all(color: AppColor.colorSecond(), width: 1, style: BorderStyle.solid),
-                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                      //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 0.1),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        //border: Border.all(color: Colors.black.withOpacity(0.9), width: 1, style: BorderStyle.solid),
+                        color: Colors.black.withOpacity(0.8),
+                        boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 5, spreadRadius: 5)],
+                        //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
+                      ),
+                      height: 2,
                     ),
-                    height: 2,
                   )),
             ),
           ],
@@ -385,7 +389,6 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
       ],
     );
   }
-
 
   Container buildContainerImageBox(BuildContext context) {
     return Container(

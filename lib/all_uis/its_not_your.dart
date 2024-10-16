@@ -52,7 +52,7 @@ class _ItsNotYouState extends State<ItsNotYou> {
             width: double.infinity,
             decoration: BoxDecoration(
               color: AppColor.white,
-              border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
+              
               boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
               //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
               borderRadius: BorderRadius.all(Radius.circular(8)),

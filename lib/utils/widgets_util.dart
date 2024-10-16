@@ -293,7 +293,7 @@ class _SecRowSeatJustShowState extends State<SecRowSeatJustShow> {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: AppColor.colorGryaMyTicket,
+        color:  AppColor.colorMain(),
 
         //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
       ),

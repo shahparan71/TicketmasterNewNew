@@ -99,7 +99,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
               options: CarouselOptions(
                   enableInfiniteScroll: false,
                   viewportFraction: dblViewPort ?? 1.0,
-                  height: MediaQuery.of(context).size.height - 200,
+                  height: MediaQuery.of(context).size.height - 150,
                   onPageChanged: (index, reason) {
                     setState(() {
                       _current = index;
@@ -186,34 +186,33 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
 
   Widget buildMainCardHome(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
           color: AppColor.white,
-          border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
+
           boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 2)],
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius: BorderRadius.all(Radius.circular(6)),
         ),
-        height: MediaQuery.of(context).size.height - 250,
+        height: MediaQuery.of(context).size.height - 200,
         child: Stack(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height - 260,
+              height: MediaQuery.of(context).size.height - 200,
               child: Column(
                 children: [
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: AppColor.colorGryaBlackMyTicket,
+                      color: AppColor.colorSecond(),
                       boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                      //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                      borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
+                      borderRadius: BorderRadius.only(topRight: Radius.circular(6.0), topLeft: Radius.circular(6.0)),
                     ),
                     height: 40,
                     child: Center(
                       child: FutureBuilder<String>(
-                        future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
+                        future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Standard Ticket"),
                         builder: (context, AsyncSnapshot<String> snapshot) {
                           if (!snapshot.hasData) {
                             return Container();
@@ -228,7 +227,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                       ),
                     ),
                   ),
-                  SecRowSeatJustShow(widget.ticketCount,seatRange),
+                  SecRowSeatJustShow(widget.ticketCount, seatRange),
                   buildContainerImageBox(context),
                   Container(
                     height: 20,
@@ -387,7 +386,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
       ],
     );
   }
-
 
   Container buildContainerImageBox(BuildContext context) {
     return Container(

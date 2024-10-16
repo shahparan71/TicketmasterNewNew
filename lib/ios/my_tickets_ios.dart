@@ -200,7 +200,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
         width: MediaQuery.of(context).size.width - 40,
         decoration: BoxDecoration(
           color: AppColor.white,
-          //border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
+          //
           boxShadow: [BoxShadow(color: Colors.black38, blurRadius: 1, spreadRadius: 1)],
           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -224,7 +224,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
                     height: 40,
                     child: Center(
                       child: FutureBuilder<String>(
-                        future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
+                        future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Standard Ticket"),
                         builder: (context, AsyncSnapshot<String> snapshot) {
                           if (!snapshot.hasData) {
                             return Container();

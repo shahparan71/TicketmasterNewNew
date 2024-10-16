@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:ticket_master/PrefUtil.dart';
-import 'package:ticket_master/all_uis/CarouselWithIndicatorDemo.dart';
+import 'package:ticket_master/all_uis/carousel_withIndicator_demo_android.dart';
 import 'package:ticket_master/all_uis/QRView.dart';
 import 'package:ticket_master/all_uis/bottom_sheet_view_select_tickets.dart';
 import 'package:ticket_master/maps/map_widgets.dart';
@@ -44,7 +44,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
         child: Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: AppColor.black,
+        backgroundColor: AppColor.colorSecond(),
         leading: Container(
           width: 50,
           child: Padding(
@@ -405,7 +405,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
         color: Colors.white,
         height: MediaQuery.of(context).size.height - 50,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 10, 0, 6),
+          padding: const EdgeInsets.fromLTRB(0, 2, 0, 6),
           child: SingleChildScrollView(
             physics: ClampingScrollPhysics(),
             child: Column(
@@ -419,7 +419,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                         child: Align(
                           alignment: Alignment.bottomLeft,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25),
+                            padding: const EdgeInsets.symmetric(horizontal: 29),
                             child: Container(
                               height: 100,
                               child: Column(
@@ -432,12 +432,14 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                                       Expanded(
                                         flex: 1,
                                         child: ElevatedButton(
+
                                           child: Text("Transfer",
                                               style: TextStyle(
                                                   fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
                                           /*style: ElevatedButton.styleFrom(
                                             backgroundColor: AppColor.colorMain(),
                                           ),*/
+
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: AppColor.colorMain(),
                                             // Background color
@@ -446,6 +448,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
                                             ),
+
                                           ),
                                           onPressed: () async {
                                             showMaterialModalBottomSheet(
@@ -456,6 +459,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                                               ),
                                             );
                                           },
+
                                         ),
                                       ),
                                       SizedBox(
