@@ -27,6 +27,7 @@ class AppColor {
   static Color green = Color(0xFF45B383);
   static Color offWhite = Color(0xFFF3F2EE);
   static Color white = Color(0xFFFFFFFF);
+  //static Color white = Color(0xFF1A1C1C);
   static Color darkGreen = Color(0xFF194601);
   static Color colorGreenLight = Color(0xFFE7F1EA);
   static Color cardColor = Color(0xFFE7F1EA);

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/all_uis/QRView.dart';
@@ -252,9 +253,13 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    Image.asset(
+                                                    /*Image.asset(
                                                       "assets/images/bar_code.png",
                                                       height: 20,
+                                                    ),*/
+                                                    SvgPicture.asset(
+                                                      "assets/images/barcode.svg",
+                                                      colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
                                                     ),
                                                     SizedBox(
                                                       width: 10,
@@ -470,7 +475,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: 100,
-                width: MediaQuery.of(context).size.width - 60,
+                width: MediaQuery.of(context).size.width - 70,
                 /* decoration: BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
@@ -532,6 +537,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                     CustomBuilderWidget(
                         keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT_2,
                         defaultValue: "Taylor Swift | The Eras Tour",
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
                         textStyle: TextStyle(
                             fontSize: PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain) ?? 18,
                             fontFamily: "metropolis",
