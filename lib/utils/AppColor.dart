@@ -11,6 +11,7 @@ class AppColor {
   static Color colorPrimary = Color(0xFFFC6011);
   static Color colorGryaMyTicket = Color(0xff000000);
   static Color officialBlue = Color(0xff024ddf);
+  static Color officialBlueProfile = Color(0xff3485cd);
   static Color colorGryaBlackMyTicket = Color(0xFF000000);
   static Color colorAccent = Color(0xFF585E5F);
   static Color colorTitle = Color(0xFF293032);
@@ -31,7 +32,7 @@ class AppColor {
   static Color cardColor = Color(0xFFE7F1EA);
   static Color lightBlue = Color(0xFFe6f5f5);
   static Color lightBlue2 = Color(0xfff0f4f4);
-  static Color offWhite2 = Color(0xFFe8eef6);
+  static Color offWhite2 = Color(0xfff7f8fa);
   static Color gmailWhite = Color(0xFFf6faff);
   static Color gmailParpul = Color(0xFFba68c8);
   static Color gmailDarkParpul = Color(0xFF904eba);

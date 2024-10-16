@@ -115,7 +115,8 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
                       }),
                 ),
               ),
-              Row(
+              SizedBox(height: 20,),
+              /*Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: imgList.map((url) {
                   int index = imgList.indexOf(url);
@@ -129,7 +130,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
                     ),
                   );
                 }).toList(),
-              ),
+              ),*/
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
@@ -205,7 +206,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
-        height: MediaQuery.of(context).size.height - 200,
         child: Stack(
           children: [
             Container(

@@ -29,151 +29,164 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Text("SELECT TICKETS TO TRANSFER",
-                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black45)),
-
-            SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FutureBuilder<String>(
-                    future: getData(),
-                    builder: (context, AsyncSnapshot<String> snapshot) {
-                      if (!snapshot.hasData) {
-                        return Container();
-                      } else {
-                        return Text(snapshot.data!,
-                            style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black87));
-                      }
-                    },
-                  ),
-                  Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/TicketTransfer.png',
-                        width: 20,
-                        height: 20,
-                      ),
-                      FutureBuilder<String>(
-                        future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SELECTED_TICKET_COUNT, "6"),
-                        builder: (context, AsyncSnapshot<String> snapshot) {
-                          if (!snapshot.hasData) {
-                            return Container();
-                          } else {
-                            return GestureDetector(
-                              onTap: () async {
-                                String? result = await CustomInputDialog.showInputDialog(
-                                    context: context, defaultTxt: "1", key: AllConstant.CURRENT_LIST_INDEX + AllConstant.SELECTED_TICKET_COUNT);
-                                if (result != null) {
-                                  if (int.parse(result) > 0 && int.parse(result) < 9) {
-                                    PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.SELECTED_TICKET_COUNT, result);
-                                    initGridValue = int.parse(result);
-                                    clearPref();
-                                    getCount();
-                                    setState(() {});
-                                  }
-                                } else {
-                                  print("Dialog was canceled");
-                                }
-
-                                setState(() {});
-                              },
-                              child: Text(snapshot.data! + " tickets",
-                                  style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black45)),
-                            );
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+    return Container(
+      color: Colors.white,
+      child: Stack(
+        children: [
+          Column(
+            children: [
+              SizedBox(
+                height: 20,
               ),
-            ),
+              Text("SELECT TICKETS TO TRANSFER",
+                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black45)),
 
-            Container(
-              height: 220,
-              child: Center(
-                child: GridView.builder(
-                    padding: EdgeInsets.only(top: 20), // Remove any padding
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                    ),
-                    itemCount: initGridValue,
-                    itemBuilder: (BuildContext context, int index) {
-                      return getGridItem(index);
-                    }),
+              SizedBox(
+                height: 15,
               ),
-            ),
-            //getGridItem(),
-
-            SizedBox(
-              height: 30,
-            ),
-          ],
-        ),
-        Positioned.fill(
-            child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              //border: Border.all(color: AppColor.blue(), width: 1),
-              //borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
-              //borderRadius: BorderRadius.all(Radius.circular(10.0),),
-            ),
-            child: Center(
-              child: Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(selected_item,
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: "metropolis",
-                            fontWeight: FontWeight.bold,
-                            color: int.parse(selected_item.split(" ")[0]) > 0 ? Colors.black38 : Colors.black38)),
-                    GestureDetector(
-                      onTap: () async {
-                        Navigator.pop(context);
-                        _showBottomSheet(context);
-                        /*showModalBottomSheet(
-                          isDismissible: false,
-                          isScrollControlled: true,
-                          context: context,
-                          builder: (context) => Container(
-                            height: MediaQuery.of(context).size.height - 450,
-                            child: BottomSheetViewTransferTickets(),
-                          ),
-                        );*/
+                    FutureBuilder<String>(
+                      future: getData(),
+                      builder: (context, AsyncSnapshot<String> snapshot) {
+                        if (!snapshot.hasData) {
+                          return Container();
+                        } else {
+                          return Text(snapshot.data!,
+                              style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black87));
+                        }
                       },
-                      child: Text("Transfer To >",
-                          style: TextStyle(
-                              fontSize: 13,
-                              fontFamily: "metropolis",
-                              fontWeight: FontWeight.normal,
-                              color: int.parse(selected_item.split(" ")[0]) > 0 ? AppColor.officialBlue : Colors.black38)),
+                    ),
+                    Row(
+                      children: [
+                        Image.asset(
+                          'assets/images/TicketTransfer.png',
+                          width: 20,
+                          height: 20,
+                        ),
+                        FutureBuilder<String>(
+                          future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SELECTED_TICKET_COUNT, "6"),
+                          builder: (context, AsyncSnapshot<String> snapshot) {
+                            if (!snapshot.hasData) {
+                              return Container();
+                            } else {
+                              return GestureDetector(
+                                onTap: () async {
+                                  String? result = await CustomInputDialog.showInputDialog(
+                                      context: context, defaultTxt: "1", key: AllConstant.CURRENT_LIST_INDEX + AllConstant.SELECTED_TICKET_COUNT);
+                                  if (result != null) {
+                                    if (int.parse(result) > 0 && int.parse(result) < 9) {
+                                      PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.SELECTED_TICKET_COUNT, result);
+                                      initGridValue = int.parse(result);
+                                      clearPref();
+                                      getCount();
+                                      setState(() {});
+                                    }
+                                  } else {
+                                    print("Dialog was canceled");
+                                  }
+
+                                  setState(() {});
+                                },
+                                child: Text(snapshot.data! + " tickets",
+                                    style: TextStyle(fontSize: 12, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.black45)),
+                              );
+                            }
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-            ),
+
+              Container(
+                height: 220,
+                child: Center(
+                  child: GridView.builder(
+                      padding: EdgeInsets.only(top: 20), // Remove any padding
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                      ),
+                      itemCount: initGridValue,
+                      itemBuilder: (BuildContext context, int index) {
+                        return getGridItem(index);
+                      }),
+                ),
+              ),
+              //getGridItem(),
+
+              SizedBox(
+                height: 30,
+              ),
+            ],
           ),
-        ))
-      ],
+          Positioned.fill(
+              child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                //border: Border.all(color: AppColor.blue(), width: 1),
+                //borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
+                //borderRadius: BorderRadius.all(Radius.circular(10.0),),
+              ),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(selected_item,
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: "metropolis",
+                              fontWeight: FontWeight.bold,
+                              color: int.parse(selected_item.split(" ")[0]) > 0 ? Colors.black38 : Colors.black38)),
+                      GestureDetector(
+                        onTap: () async {
+                          Navigator.pop(context);
+                          //_showBottomSheet(context);
+                          showMaterialModalBottomSheet(
+                            isDismissible: false,
+                            // Prevents closing by tapping outside
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) => Container(
+                              height: MediaQuery.of(context).size.height - 450,
+                              child: BottomSheetViewTransferTickets(),
+                            ),
+                          );
+                          /*showModalBottomSheet(
+                            isDismissible: false,
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (context) => Container(
+                              height: MediaQuery.of(context).size.height - 450,
+                              child: BottomSheetViewTransferTickets(),
+                            ),
+                          );*/
+                        },
+                        child: Text("Transfer To >",
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontFamily: "metropolis",
+                                fontWeight: FontWeight.normal,
+                                color: int.parse(selected_item.split(" ")[0]) > 0 ? AppColor.officialBlue : Colors.black38)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ))
+        ],
+      ),
     );
   }
 
@@ -287,97 +300,6 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
           ],
         ),
       ),
-    );
-  }
-
-  void _showBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
-          child: Container(
-            color: Color.fromRGBO(0, 0, 0, 0.001),
-            child: GestureDetector(
-              onTap: () {},
-              child: DraggableScrollableSheet(
-                initialChildSize: 0.5,
-                minChildSize: 0.2,
-                maxChildSize: 0.5,
-                builder: (_, controller) {
-                  return Column(
-                    children: [
-                      Container(
-                        height: 380,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: const Radius.circular(1.0),
-                            topRight: const Radius.circular(1.0),
-                          ),
-                        ),
-                        child: BottomSheetViewTransferTickets(),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            //border: Border.all(color: AppColor.blue(), width: 1),
-                            //borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
-                            //borderRadius: BorderRadius.all(Radius.circular(10.0),),
-                          ),
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () async {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Padding(
-                                      padding:  EdgeInsets.only(left: Platform.isIOS?15: 2),
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.arrow_back_ios,
-                                            color: AppColor.officialBlue,
-                                            size: 18,
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text("Back",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontFamily: "metropolis",
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Color(0xff0979b5)))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Container()
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  );
-                },
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 }

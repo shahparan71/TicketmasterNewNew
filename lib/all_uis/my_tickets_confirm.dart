@@ -59,6 +59,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
     return Scaffold(
       //appBar: AppBar(title: Text('Carousel with indicator demo')),
       resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: AppColor.colorSecond(),
         leading: Padding(
@@ -82,96 +83,105 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
           style: TextStyle(color: Colors.white, fontSize: 18),
         )),
       ),
-      body: Column(children: [
-        SizedBox(
-          height: 4,
-        ),
-        CarouselSlider(
-          items: imageSlidersM,
-          options: CarouselOptions(
-              enableInfiniteScroll: false,
-              viewportFraction: dblViewPort ?? 1.0,
-              height: MediaQuery.of(context).size.height - 200,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _current = index;
-                  print("_current");
-                  print(_current);
-                });
-              }),
-        ),
-        /*Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: imgList.map((url) {
-            int index = imgList.indexOf(url);
-            return Container(
-              width: _current == index ? 10.0 : 8.0,
-              height: _current == index ? 10.0 : 8.0,
-              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _current == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
-              ),
-            );
-          }).toList(),
-        ),*/
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                flex: 1,
-                child: TextButton(
-                  child:
-                      Text("Transfer", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                  /*style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
-                  ),*/
-                  style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                      backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                      elevation: MaterialStateProperty.all(0.0),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
-                      ))),
-                  onPressed: () async {
-                    /*Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => QRViewMain()),
-                    );*/
-                  },
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                flex: 1,
-                child: TextButton(
-                  child: Text("Sell", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                  /*style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
-                  ),*/
-                  style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                      backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                      elevation: MaterialStateProperty.all(0.0),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
-                      ))),
-                  onPressed: () async {
-                    /*Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => QRViewMain()),
-                    );*/
-                  },
-                ),
-              ),
-            ],
+      body: Container(
+        color: Colors.white,
+        child: Stack(children: [
+          SizedBox(
+            height: 4,
           ),
-        ),
-      ]),
+          CarouselSlider(
+            items: imageSlidersM,
+            options: CarouselOptions(
+                enableInfiniteScroll: false,
+                viewportFraction: dblViewPort ?? 1.0,
+                height: MediaQuery.of(context).size.height - 120,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _current = index;
+                    print("_current");
+                    print(_current);
+                  });
+                }),
+          ),
+          /*Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: imgList.map((url) {
+              int index = imgList.indexOf(url);
+              return Container(
+                width: _current == index ? 10.0 : 8.0,
+                height: _current == index ? 10.0 : 8.0,
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: _current == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
+                ),
+              );
+            }).toList(),
+          ),*/
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: TextButton(
+                      child: Text("Transfer",
+                          style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                      /*style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
+                      ),*/
+                      style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
+                          backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
+                          elevation: MaterialStateProperty.all(0.0),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
+                          ))),
+                      onPressed: () async {
+                        /*Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => QRViewMain()),
+                        );*/
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: TextButton(
+                      child:
+                          Text("Sell", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                      /*style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
+                      ),*/
+                      style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
+                          backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
+                          elevation: MaterialStateProperty.all(0.0),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
+                          ))),
+                      onPressed: () async {
+                        /*Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => QRViewMain()),
+                        );*/
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ]),
+      ),
     );
   }
 
@@ -221,7 +231,8 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                           ),
                         ),
                       ),
-                      buildContainerTopTex(),
+                      //buildContainerTopTex(),
+                      SecRowSeatJustShow(widget.ticketCount, seatRange),
                     ],
                   ),
                 ),
@@ -246,6 +257,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                     children: [
                       Text(
                         "Tickets successfully accepted by the recipient",
+                        textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.w700, fontSize: 15),
                       ),
                       SizedBox(
@@ -253,6 +265,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                       ),
                       Text(
                         "and no longer valid in your account for event entry ",
+                        textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.normal, fontSize: 14),
                       ),
                       Container(
@@ -325,71 +338,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget buildContainerTopTex() {
-    return Container(
-      width: double.infinity,
-      height: 70,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                children: [
-                  Text("SEC",
-                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC, "407A"),
-                    builder: (context, AsyncSnapshot<String> snapshot) {
-                      if (!snapshot.hasData) {
-                        return Container();
-                      } else {
-                        return Text(snapshot.data!, style: CommonOperation.getFontThinkNessNewDesign());
-                      }
-                    },
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Text("ROW",
-                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW, "5"),
-                    builder: (context, AsyncSnapshot<String> snapshot) {
-                      if (!snapshot.hasData) {
-                        return Container();
-                      } else {
-                        return Text(snapshot.data!, style: CommonOperation.getFontThinkNessNewDesign());
-                      }
-                    },
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Text("SEAT",
-                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight2(), color: AppColor.white)),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text("${int.parse(widget.ticketCount) == 0 ? "0" : seatRange}", style: CommonOperation.getFontThinkNessNewDesign())
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 

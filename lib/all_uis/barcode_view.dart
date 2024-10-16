@@ -538,7 +538,8 @@ class _BarcodeViewState extends State<BarcodeView> {
   }
 
   functionTransfer(String abc) {
-    showMaterialModalBottomSheet(
+    showMaterialModalBottomSheet( isDismissible: false,  // Prevents closing by tapping outside
+                    enableDrag: false,    
       context: context,
       builder: (context) => Container(
         height: MediaQuery.of(context).size.height - 450,
