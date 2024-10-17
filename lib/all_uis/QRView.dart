@@ -11,6 +11,7 @@ import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:ticket_master/utils/future_stateful_widget.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
@@ -146,7 +147,7 @@ class _QRViewMainState extends State<QRViewMain> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: AppColor.colorPageBackground,
-                          
+
                           boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -344,9 +345,7 @@ class _QRViewMainState extends State<QRViewMain> {
                 child: Align(
                   alignment: Alignment.bottomLeft,
                   child: TransferAndSellButton(
-                    function: () {
-
-                    },
+                    function: () {},
                     isButton1Enable: true,
                     isButton2Enable: true,
                   ),
@@ -448,32 +447,12 @@ class _QRViewMainState extends State<QRViewMain> {
                   SizedBox(
                     height: 5,
                   ),
-                  FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT, "4"),
-                    builder: (context, AsyncSnapshot<String> snapshot) {
-                      if (!snapshot.hasData) {
-                        return Container();
-                      } else {
-                        return GestureDetector(
-                          onTap: () async {
-                            String? result = await CustomInputDialog.showInputDialog(
-                                context: context,
-                                defaultTxt: "4",
-                                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT,
-                                textInputType: TextInputType.number);
-                            if (result != null) {
-                              PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT, result);
-                              setState(() {});
-                            } else {
-                              print("Dialog was canceled");
-                            }
-                          },
-                          child: Text(snapshot.data!,
-                              style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white)),
-                        );
-                      }
-                    },
-                  ),
+                  CustomBuilderWidget(
+                      keyValue:AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT,
+                      defaultValue: "4",
+                      textInputType: TextInputType.number,
+                      style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white))
+
                 ],
               ),
             ],

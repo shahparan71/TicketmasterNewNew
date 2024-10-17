@@ -13,6 +13,7 @@ import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
+import 'package:ticket_master/utils/future_stateful_widget.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
@@ -113,28 +114,15 @@ class _BarcodeViewIOSState extends State<BarcodeViewIOS> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    FutureBuilder<String>(
-                      future:
-                          CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour"),
-                      builder: (context, AsyncSnapshot<String> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container();
-                        } else {
-                          return GestureDetector(
-                            onTap: () async {
-
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width - 100,
-                              child: Text(snapshot.data!,
-                                  textAlign: TextAlign.left,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white)),
-                            ),
-                          );
-                        }
-                      },
+                    Container(
+                      width: MediaQuery.of(context).size.width - 100,
+                      child: CustomBuilderWidget(
+                          keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT,
+                          defaultValue: "Taylor Swift | The Eras Tour",
+                          textAlign: TextAlign.left,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: AppColor.white)),
                     ),
                     SizedBox(
                       height: 5,
@@ -146,9 +134,7 @@ class _BarcodeViewIOSState extends State<BarcodeViewIOS> {
                           return Container();
                         } else {
                           return GestureDetector(
-                            onTap: () async {
-
-                            },
+                            onTap: () async {},
                             child: Container(
                               width: MediaQuery.of(context).size.width - 100,
                               child: Text(snapshot.data!,
@@ -360,7 +346,6 @@ class _BarcodeViewIOSState extends State<BarcodeViewIOS> {
                       } else {
                         return GestureDetector(
                           onTap: () async {
-
                             String? result = await CustomInputDialog.showInputDialog(
                               context: context,
                               defaultTxt: "407A",
@@ -389,37 +374,11 @@ class _BarcodeViewIOSState extends State<BarcodeViewIOS> {
                   SizedBox(
                     height: 5,
                   ),
-                  FutureBuilder<String>(
-                    future: CommonOperation.getSharedData(
-                        AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._current.toString(), widget._current.toString()),
-                    builder: (context, AsyncSnapshot<String> snapshot) {
-                      if (!snapshot.hasData) {
-                        return Container();
-                      } else {
-                        return GestureDetector(
-                          onTap: () async {
-                            String? result = await CustomInputDialog.showInputDialog(
-                                context: context,
-                                defaultTxt: widget._current.toString(),
-                                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._current.toString(),
-                                textInputType: TextInputType.number);
-                            if (result != null) {
-                              PrefUtil.preferences!.setString(
-                                AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._current.toString(),
-                                result,
-                              );
-                              setState(() {});
-                            } else {
-                              print("Dialog was canceled");
-                            }
-                          },
-                          child: Text(snapshot.data!,
-                              style: TextStyle(
-                                  fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white)),
-                        );
-                      }
-                    },
-                  ),
+                  CustomBuilderWidget(
+                      keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget._current.toString(),
+                      defaultValue: widget._current.toString(),
+                      textInputType: TextInputType.number,
+                      style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: CommonOperation.getFontWeight(), color: AppColor.white)),
                 ],
               ),
             ],
@@ -470,7 +429,7 @@ class _BarcodeViewIOSState extends State<BarcodeViewIOS> {
       ),
     );
   }
-  
+
   Future<String> getTitleValueQr1() async {
     var value1 = await CommonOperation.getSharedData(
       AllConstant.CURRENT_LIST_INDEX + AllConstant.STUDIUM,
@@ -502,8 +461,9 @@ class _BarcodeViewIOSState extends State<BarcodeViewIOS> {
   }
 
   functionTransfer(String abc) {
-    showMaterialModalBottomSheet( isDismissible: false,  // Prevents closing by tapping outside
-                    enableDrag: false,    
+    showMaterialModalBottomSheet(
+      isDismissible: false, // Prevents closing by tapping outside
+      enableDrag: false,
       context: context,
       builder: (context) => Container(
         height: MediaQuery.of(context).size.height - 450,

@@ -171,7 +171,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                               child: CustomBuilderWidget(
                                   keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,
                                   defaultValue: "Standard Ticket",
-                                  textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
+                                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -202,7 +202,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                               child: CustomBuilderWidget(
                                   keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7,
                                   defaultValue: "GATE 1",
-                                  textStyle: TextStyle(
+                                  style: TextStyle(
                                       fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.7))),
                             ),
                           ],
@@ -490,7 +490,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                             maxLines: 1,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
-                            textStyle: TextStyle(
+                            style: TextStyle(
                                 fontSize:
                                     PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain) ?? 18,
                                 fontFamily: "metropolis",
@@ -506,7 +506,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                         maxLines: 1,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
-                        textStyle: TextStyle(
+                        style: TextStyle(
                             fontSize: PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain) ?? 18,
                             fontFamily: "metropolis",
                             fontWeight: CommonOperation.getFontWeight(),
@@ -517,7 +517,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                     CustomBuilderWidget(
                         keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.DATE,
                         defaultValue: "Sat, Dec 18, 4:30pm . SofFi Stadium",
-                        textStyle: TextStyle(
+                        style: TextStyle(
                             fontSize: PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ?? 14,
                             fontFamily: "metropolis",
                             fontWeight: CommonOperation.getFontWeight2(),

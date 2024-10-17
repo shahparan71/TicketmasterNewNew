@@ -6,19 +6,21 @@ import 'package:ticket_master/utils/custom_dialog.dart';
 class CustomBuilderWidget extends StatefulWidget {
   final String keyValue;
   final String defaultValue;
-  final TextStyle? textStyle; // Add TextStyle parameter
+  final TextStyle? style; // Add TextStyle parameter
   final int? maxLines; // Optional maxLines parameter
   final TextAlign? textAlign; // Optional textAlign parameter
   final TextOverflow? overflow; // Optional overflow parameter
+  final TextInputType? textInputType; // Optional overflow parameter
 
   const CustomBuilderWidget({
     Key? key,
     required this.keyValue,
     required this.defaultValue,
-    this.textStyle, // Accept TextStyle parameter
+    this.style, // Accept TextStyle parameter
     this.maxLines, // Optional maxLines
     this.textAlign, // Optional textAlign
     this.overflow, // Optional overflow
+    this.textInputType, // Optional overflow
   }) : super(key: key);
 
   @override
@@ -41,10 +43,7 @@ class _CustomBuilderWidgetState extends State<CustomBuilderWidget> {
           return GestureDetector(
             onTap: () async {
               String? result = await CustomInputDialog.showInputDialog(
-                context: context,
-                defaultTxt: widget.defaultValue,
-                key: widget.keyValue,
-              );
+                  context: context, defaultTxt: widget.defaultValue, key: widget.keyValue, textInputType: widget.textInputType ?? TextInputType.text);
               if (result != null) {
                 PrefUtil.preferences!.setString(
                   widget.keyValue,
@@ -57,7 +56,7 @@ class _CustomBuilderWidgetState extends State<CustomBuilderWidget> {
             },
             child: Text(
               snapshot.data ?? "",
-              style: widget.textStyle ?? TextStyle(), // Use the passed TextStyle
+              style: widget.style ?? TextStyle(), // Use the passed TextStyle
               maxLines: widget.maxLines, // Use the passed maxLines or null
               textAlign: widget.textAlign, // Use the passed textAlign or null
               overflow: widget.overflow, // Use the passed overflow or null

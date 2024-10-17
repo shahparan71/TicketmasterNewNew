@@ -610,7 +610,7 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
                           CustomBuilderWidget(
                               keyValue: AllConstant.CUSTOMER_SUPPORT_EMAIL,
                               defaultValue: "customer_support@email.com",
-                              textStyle: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 12)),
+                              style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 12)),
                         ],
                       ),
                     ],
@@ -663,7 +663,7 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
                                 CustomBuilderWidget(
                                     keyValue: AllConstant.CUSTOMER_SUPPORT_to,
                                     defaultValue: "josephamoabeg120@outlook.com",
-                                    textStyle: TextStyle(color: Colors.black54, fontWeight: FontWeight.w500, fontSize: 12)),
+                                    style: TextStyle(color: Colors.black54, fontWeight: FontWeight.w500, fontSize: 12)),
                                 SizedBox(
                                   width: 5,
                                 ),
@@ -674,7 +674,7 @@ class _EmailScreenIOSState extends State<EmailScreenIOS> {
                                 CustomBuilderWidget(
                                     keyValue: AllConstant.CUSTOMER_SUPPORT_to_date,
                                     defaultValue: "Sunday, September 15, 3:55 PM",
-                                    textStyle: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 12)),
+                                    style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 12)),
                               ],
                             ),
                           ],

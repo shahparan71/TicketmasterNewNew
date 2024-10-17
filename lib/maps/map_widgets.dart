@@ -8,6 +8,7 @@ import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
+import 'package:ticket_master/utils/future_stateful_widget.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
@@ -83,46 +84,19 @@ class GoogleMapFlutterState extends State<GoogleMapFlutter> {
                               width: double.infinity,
                               color: Colors.white.withOpacity(0.1),
                             ),
-                            FutureBuilder<String>(
-                              future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE, "SofFi Stadium"),
-                              builder: (context, AsyncSnapshot<String> snapshot) {
-                                if (!snapshot.hasData) {
-                                  return Container();
-                                } else {
-                                  return GestureDetector(
-                                    onTap: () async {
-                                      String? result = await CustomInputDialog.showInputDialog(
-                                        context: context,
-                                        defaultTxt: "SofFi Stadium",
-                                        key: AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE,
-                                      );
-                                      if (result != null) {
-                                        PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE, result);
-                                        setState(() {});
-                                      } else {
-                                        print("Dialog was canceled");
-                                      }
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                                      child: Container(
-                                        child: Text(snapshot.data!,
-                                            maxLines: 2,
-                                            textAlign: TextAlign.center,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                fontSize: PrefUtil.preferences!
-                                                        .getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ??
-                                                    20,
-                                                fontFamily: "metropolis",
-                                                fontWeight: FontWeight.w700,
-                                                color: Colors.black38)),
-                                      ),
-                                    ),
-                                  );
-                                }
-                              },
-                            )
+                            CustomBuilderWidget(
+                                keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.PLACE,
+                                defaultValue: "SofFi Stadium",
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize:
+                                        PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ??
+                                            20,
+                                    fontFamily: "metropolis",
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black38))
                           ],
                         ),
                       ),
@@ -164,13 +138,11 @@ class GoogleMapFlutterState extends State<GoogleMapFlutter> {
                               if (latLong == null || latLong.isEmpty) return;
 
                               final availableMaps = await launcher.MapLauncher.installedMaps;
-                              print(
-                                  availableMaps); // [AvailableMap { mapName: Google Maps, mapType: google }, ...]
+                              print(availableMaps); // [AvailableMap { mapName: Google Maps, mapType: google }, ...]
 
                               await availableMaps.first.showMarker(
-                                coords: launcher.Coords(double.parse(latLong.split(",")[0]),
-                                    double.parse(latLong.split(",")[1])),
-                                title: place ??"SofFi Stadium",
+                                coords: launcher.Coords(double.parse(latLong.split(",")[0]), double.parse(latLong.split(",")[1])),
+                                title: place ?? "SofFi Stadium",
                               );
                             },
                             onPressed: () async {

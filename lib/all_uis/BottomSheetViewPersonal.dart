@@ -237,14 +237,14 @@ class _BottomSheetVIewState extends State<BottomSheetViewPersonal> {
                           children: [
                             Icon(
                               Icons.arrow_back_ios,
-                              color:  AppColor.colorMain(),
+                              color: AppColor.colorMain(),
                               size: 18,
                             ),
                             SizedBox(
                               width: 5,
                             ),
                             Text("Back",
-                                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color:  AppColor.colorMain()))
+                                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.colorMain()))
                           ],
                         ),
                       ),
@@ -462,6 +462,7 @@ class _DialogDetailsState extends State<DialogDetails> {
                         onTap: () async {
                           String? result = await CustomInputDialog.showInputDialog(
                               context: context, defaultTxt: "0", key: AllConstant.DIALOG_TICKET_COUNT, textInputType: TextInputType.number);
+
                           if (result != null) {
                             if (int.parse(result) < 1) return;
 

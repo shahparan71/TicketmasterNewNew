@@ -298,7 +298,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                 child: CustomBuilderWidget(
                     keyValue: AllConstant.TOP_YOUR_NEW,
                     defaultValue: "Your New Orleans Pelicans vs. Utah Jazz Ticket Order",
-                    textStyle: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
+                    style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
               ),
               Icon(
                 Icons.star,
@@ -314,7 +314,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
               CustomBuilderWidget(
                   keyValue: AllConstant.TOP_YOUR_NEW_2,
                   defaultValue: "2900-0558-6256-0317-9",
-                  textStyle: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
+                  style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black)),
               SizedBox(
                 width: 5,
               ),
@@ -404,7 +404,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                         CustomBuilderWidget(
                             keyValue: AllConstant.EMAIL_DATE,
                             defaultValue: "4 days ago",
-                            textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", color: AppColor.black)),
+                            style: TextStyle(fontSize: 14, fontFamily: "metropolis", color: AppColor.black)),
                       ],
                     ),
                     SizedBox(
@@ -467,14 +467,14 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                         CustomBuilderWidget(
                             keyValue: AllConstant.GOTTICKETS,
                             defaultValue: "Anisur, You Order is Confirmed",
-                            textStyle: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: AppColor.white)),
+                            style: TextStyle(fontSize: 18, fontFamily: "metropolis", fontWeight: FontWeight.w800, color: AppColor.white)),
                         SizedBox(
                           height: 20,
                         ),
                         CustomBuilderWidget(
                             keyValue: AllConstant.ORDER_NUMBER,
                             defaultValue: "Order # 53-1325/SCS",
-                            textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.white)),
+                            style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.white)),
                       ],
                     ),
                   ),
@@ -508,7 +508,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
               CustomBuilderWidget(
                   keyValue: AllConstant.ORGAN_WALLEN,
                   defaultValue: "New Orleans Pelicans vs. Utah Jazz",
-                  textStyle: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.black)),
+                  style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.w700, color: AppColor.black)),
               SizedBox(
                 height: 20,
               ),
@@ -524,7 +524,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                   CustomBuilderWidget(
                     keyValue: AllConstant.DISCOVER_LOCATION,
                     defaultValue: "Landers Center - Southaven, MS",
-                    textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black),
+                    style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black),
                   ),
                 ],
               ),
@@ -543,7 +543,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                   CustomBuilderWidget(
                     keyValue: AllConstant.DISCOVER_DATE,
                     defaultValue: "Sun . Dec 12 2921 . 7:30 PM",
-                    textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black),
+                    style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.black),
                   ),
                 ],
               ),
@@ -590,7 +590,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                   CustomBuilderWidget(
                     keyValue: AllConstant.EMAIL_2X,
                     defaultValue: "2x",
-                    textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black),
+                    style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.black),
                   ),
                   SizedBox(
                     width: 10,
@@ -735,7 +735,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                   CustomBuilderWidget(
                       keyValue: AllConstant.PURCHASED_DATE,
                       defaultValue: "Oct 10, 2024",
-                      textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.black)),
+                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.black)),
                 ],
               ),
               SizedBox(
@@ -748,7 +748,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                   CustomBuilderWidget(
                       keyValue: AllConstant.PAID_AMOUNT,
                       defaultValue: "\$15.89",
-                      textStyle: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.black)),
+                      style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.black)),
                 ],
               ),
               SizedBox(

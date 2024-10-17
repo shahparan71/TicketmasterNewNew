@@ -13,6 +13,7 @@ import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
+import 'package:ticket_master/utils/future_stateful_widget.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
@@ -115,7 +116,9 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
                       }),
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               /*Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: imgList.map((url) {
@@ -143,7 +146,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
                 isButton2Enable: true,
                 button1Color: Colors.black26,
               ),
-
               Container(height: 350, child: GoogleMapFlutter())
             ]),
             //Platform.isAndroid?Container(): MapWidgets()
@@ -198,7 +200,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
                       ),
                     ),
                   ),
-                  SecRowSeatJustShow(widget.ticketCount,seatRange),
+                  SecRowSeatJustShow(widget.ticketCount, seatRange),
                   buildContainerImageBox(context),
                   Container(
                     height: 20,
@@ -322,7 +324,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
     );
   }
 
-
   Container buildContainerImageBox(BuildContext context) {
     return Container(
       height: 200,
@@ -402,53 +403,31 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    FutureBuilder<String>(
-                      future: CommonOperation.getSharedData(
-                          AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT_2, "Taylor Swift | The Eras Tour"),
-                      builder: (context, AsyncSnapshot<String> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container();
-                        } else {
-                          return Container(
-                            child: Text(snapshot.data!,
-                                maxLines: 1,
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize:
-                                        PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain) ?? 18,
-                                    fontFamily: "metropolis",
-                                    fontWeight: CommonOperation.getFontWeight(),
-                                    color: AppColor.white)),
-                          );
-                        }
-                      },
-                    ),
+                    CustomBuilderWidget(
+                        keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.IAMGE_BIG_TEXT_2,
+                        defaultValue: "Taylor Swift | The Eras Tour",
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontMain) ?? 18,
+                            fontFamily: "metropolis",
+                            fontWeight: CommonOperation.getFontWeight(),
+                            color: AppColor.white)),
                     SizedBox(
                       height: 5,
                     ),
-                    FutureBuilder<String>(
-                      future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.DATE, "Sat, Dec 18, 4:30pm . SofFi Stadium"),
-                      builder: (context, AsyncSnapshot<String> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container();
-                        } else {
-                          return Container(
-                            child: Text(snapshot.data!,
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize:
-                                        PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ??
-                                            14,
-                                    fontFamily: "metropolis",
-                                    fontWeight: CommonOperation.getFontWeight2(),
-                                    color: AppColor.white)),
-                          );
-                        }
-                      },
-                    ),
+                    CustomBuilderWidget(
+                        keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.DATE,
+                        defaultValue: "Sat, Dec 18, 4:30pm . SofFi Stadium",
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.IncreaseDecreaseFontSecond) ?? 14,
+                            fontFamily: "metropolis",
+                            fontWeight: CommonOperation.getFontWeight2(),
+                            color: AppColor.white)),
                     SizedBox(
                       height: 10,
                     ),

@@ -414,7 +414,7 @@ class _SecRowSeatState extends State<SecRowSeat> {
                     CustomBuilderWidget(
                         keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEC,
                         defaultValue: "407A",
-                        textStyle: CommonOperation.getFontThinkNessNewDesign()),
+                        style: CommonOperation.getFontThinkNessNewDesign()),
                   ],
                 ),
                 Column(
@@ -428,7 +428,7 @@ class _SecRowSeatState extends State<SecRowSeat> {
                     CustomBuilderWidget(
                         keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.ROW,
                         defaultValue: "5",
-                        textStyle: CommonOperation.getFontThinkNessNewDesign()),
+                        style: CommonOperation.getFontThinkNessNewDesign()),
                   ],
                 ),
                 Column(
@@ -442,7 +442,7 @@ class _SecRowSeatState extends State<SecRowSeat> {
                     CustomBuilderWidget(
                         keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget.current.toString(),
                         defaultValue: "${widget.current.toString()}",
-                        textStyle: CommonOperation.getFontThinkNessNewDesign()),
+                        style: CommonOperation.getFontThinkNessNewDesign()),
                   ],
                 ),
               ],

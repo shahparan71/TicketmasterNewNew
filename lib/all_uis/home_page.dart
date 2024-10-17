@@ -10,6 +10,7 @@ import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/main_landing_screen_ios.dart';
+import 'package:ticket_master/utils/future_stateful_widget.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
@@ -293,92 +294,33 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                     ),
                                     PrefUtil.preferences!.getBool(index.toString() + AllConstant.IS_MULTILINE) == null ||
                                             PrefUtil.preferences!.getBool(index.toString() + AllConstant.IS_MULTILINE) == false
-                                        ? FutureBuilder<String>(
-                                            future: CommonOperation.getSharedData(
-                                                index.toString() + AllConstant.IAMGE_BIG_TEXT, "Taylor Swift | The Eras Tour"),
-                                            builder: (context, AsyncSnapshot<String> snapshot) {
-                                              if (!snapshot.hasData) {
-                                                return Container();
-                                              } else {
-                                                return GestureDetector(
-                                                  onTap: () async {
-                                                    String? result = await CustomInputDialog.showInputDialog(
-                                                        context: context,
-                                                        defaultTxt: "Taylor Swift | The Eras Tour",
-                                                        key: index.toString() + AllConstant.IAMGE_BIG_TEXT,
-                                                        textInputType: TextInputType.number);
-                                                    if (result != null) {
-                                                      PrefUtil.preferences!.setString(
-                                                        index.toString() + AllConstant.IAMGE_BIG_TEXT,
-                                                        result,
-                                                      );
-                                                      setState(() {});
-                                                    } else {
-                                                      print("Dialog was canceled");
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    child: Text(snapshot.data!,
-                                                        maxLines: 1,
-                                                        textAlign: TextAlign.start,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        style: TextStyle(
-                                                            fontSize: PrefUtil.preferences!
-                                                                    .getDouble(index.toString() + AllConstant.IncreaseDecreaseFontMain) ??
-                                                                18,
-                                                            fontFamily: "metropolis",
-                                                            fontWeight: CommonOperation.getFontWeight(),
-                                                            color: AppColor.white)),
-                                                  ),
-                                                );
-                                              }
-                                            },
-                                          )
+                                        ? CustomBuilderWidget(
+                                            keyValue: index.toString() + AllConstant.IAMGE_BIG_TEXT,
+                                            defaultValue: "Taylor Swift | The Eras Tour",
+                                            maxLines: 1,
+                                            textAlign: TextAlign.start,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontSize:
+                                                    PrefUtil.preferences!.getDouble(index.toString() + AllConstant.IncreaseDecreaseFontMain) ?? 18,
+                                                fontFamily: "metropolis",
+                                                fontWeight: CommonOperation.getFontWeight(),
+                                                color: AppColor.white))
                                         : Container(),
                                     SizedBox(
                                       height: 3,
                                     ),
-                                    FutureBuilder<String>(
-                                      future: CommonOperation.getSharedData(
-                                          index.toString() + AllConstant.IAMGE_BIG_TEXT_2, "Taylor Swift | The Eras Tour"),
-                                      builder: (context, AsyncSnapshot<String> snapshot) {
-                                        if (!snapshot.hasData) {
-                                          return Container();
-                                        } else {
-                                          return GestureDetector(
-                                            onTap: () async {
-                                              String? result = await CustomInputDialog.showInputDialog(
-                                                  context: context,
-                                                  defaultTxt: "Taylor Swift | The Eras Tour",
-                                                  key: index.toString() + AllConstant.IAMGE_BIG_TEXT_2,
-                                                  textInputType: TextInputType.number);
-                                              if (result != null) {
-                                                PrefUtil.preferences!.setString(
-                                                  index.toString() + AllConstant.IAMGE_BIG_TEXT_2,
-                                                  result,
-                                                );
-                                                setState(() {});
-                                              } else {
-                                                print("Dialog was canceled");
-                                              }
-                                            },
-                                            child: Container(
-                                              child: Text(snapshot.data!,
-                                                  maxLines: 1,
-                                                  textAlign: TextAlign.start,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          PrefUtil.preferences!.getDouble(index.toString() + AllConstant.IncreaseDecreaseFontMain) ??
-                                                              18,
-                                                      fontFamily: "metropolis",
-                                                      fontWeight: CommonOperation.getFontWeight(),
-                                                      color: AppColor.white)),
-                                            ),
-                                          );
-                                        }
-                                      },
-                                    ),
+                                    CustomBuilderWidget(
+                                        keyValue: index.toString() + AllConstant.IAMGE_BIG_TEXT_2,
+                                        defaultValue: "Taylor Swift | The Eras Tour",
+                                        textAlign: TextAlign.left,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontSize: PrefUtil.preferences!.getDouble(index.toString() + AllConstant.IncreaseDecreaseFontMain) ?? 18,
+                                            fontFamily: "metropolis",
+                                            fontWeight: CommonOperation.getFontWeight(),
+                                            color: AppColor.white)),
                                     SizedBox(
                                       height: 5,
                                     ),
@@ -400,7 +342,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                                         context: context,
                                                         defaultTxt: "Sat, Dec 18, 4:30pm . SofFi Stadium",
                                                         key: index.toString() + AllConstant.DATE,
-                                                        textInputType: TextInputType.number);
+                                                        textInputType: TextInputType.text);
                                                     if (result != null) {
                                                       PrefUtil.preferences!.setString(
                                                         index.toString() + AllConstant.DATE,
@@ -451,6 +393,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                                       defaultTxt: "6",
                                                       key: index.toString() + AllConstant.SELECTED_TICKET_COUNT,
                                                       textInputType: TextInputType.number);
+
                                                   if (result != null) {
                                                     if (int.parse(result) < 2 || int.parse(result) > 10) return;
 
@@ -493,6 +436,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                                       defaultTxt: "0",
                                                       key: index.toString() + AllConstant.SELECTED_LISTED,
                                                       textInputType: TextInputType.number);
+
                                                   if (result != null) {
                                                     PrefUtil.preferences!.setString(
                                                       index.toString() + AllConstant.SELECTED_LISTED,
