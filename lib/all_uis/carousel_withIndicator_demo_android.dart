@@ -78,13 +78,13 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
       //appBar: AppBar(title: Text('Carousel with indicator demo')),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: Column(children: [
+      body: Stack(children: [
         CarouselSlider(
           items: imageSlidersM,
           options: CarouselOptions(
               enableInfiniteScroll: false,
               viewportFraction: dblViewPort ?? 1.0,
-              height: MediaQuery.of(context).size.height - 200,
+              height: double.infinity,
               onPageChanged: (index, reason) {
                 setState(() {
                   _current = index;
@@ -196,8 +196,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                       Expanded(
                         flex: 1,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            SizedBox(height: 20,),
                             Container(
                               child: CustomBuilderWidget(
                                   keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7,
@@ -211,7 +212,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                       Expanded(
                         flex: 1,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             GestureDetector(
                               onTap: () async {
@@ -285,7 +286,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                       Expanded(
                         flex: 1,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
                               padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
@@ -318,7 +319,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
               child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 1,right: 1),
+                    padding: const EdgeInsets.only(left: 1, right: 1),
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppColor.colorMain().withOpacity(0.8),

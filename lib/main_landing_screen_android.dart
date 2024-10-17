@@ -102,7 +102,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
           child: SingleChildScrollView(
             physics: ClampingScrollPhysics(),
             child: Container(
-              height: MediaQuery.of(context).size.height - 120,
+              height: MediaQuery.of(context).size.height - 100,
               child: Stack(
                 children: [
                   CarouselWithIndicatorAndroid(),
