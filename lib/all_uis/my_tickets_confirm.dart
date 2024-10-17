@@ -143,7 +143,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: Container(
-        
         decoration: WidgetsStyle.BoxDecorationHomePage(),
         height: double.infinity,
         child: Stack(
@@ -152,7 +151,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: AppColor.colorMain(),
+                    color: AppColor.colorSecond(),
                     boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                     //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                     borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
@@ -198,33 +197,40 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                 SizedBox(
                   height: 50,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Tickets successfully accepted by the recipient",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.w700, fontSize: 15),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "and no longer valid in your account for event entry ",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.normal, fontSize: 14),
-                      ),
-                      Container(
-                        child: Lottie.asset(
-                          'assets/images/animation_llahve39.json',
-                          repeat: false,
+                Container(
+                  height: 200,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              "Tickets successfully accepted by the recipient",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.w700, fontSize: 15),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "and no longer valid in your account for event entry ",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.black.withOpacity(0.8), fontWeight: FontWeight.normal, fontSize: 14),
+                            ),
+                          ],
                         ),
-                        height: 80,
-                        width: 80,
-                      ),
-                    ],
+                        Container(
+                          child: Lottie.asset(
+                            'assets/images/animation_llahve39.json',
+                            repeat: false,
+                          ),
+                          height: 100,
+                          width: 100,
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],

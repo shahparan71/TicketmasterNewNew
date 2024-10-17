@@ -470,9 +470,7 @@ class _BarcodeShareViewState extends State<BarcodeShareView> {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: AppColor.colorPageBackground,
-                
                 boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
               height: 470,

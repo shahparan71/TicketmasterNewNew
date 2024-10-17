@@ -42,6 +42,7 @@ class GoogleMapFlutterState extends State<GoogleMapFlutter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
           padding: EdgeInsets.all(10),
           child: SizedBox(
@@ -123,7 +124,7 @@ class GoogleMapFlutterState extends State<GoogleMapFlutter> {
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(10),
                               elevation: 0.0,
-                              backgroundColor: AppColor.colorMain(),
+                              backgroundColor: AppColor.buttonColorMain(),
                               // Background color
                               foregroundColor: Colors.white,
                               // Text color

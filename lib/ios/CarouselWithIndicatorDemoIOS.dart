@@ -19,6 +19,7 @@ import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 import 'package:ticket_master/utils/future_stateful_widget.dart';
+import 'package:ticket_master/utils/widgets_style.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
@@ -59,10 +60,12 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     imageSlidersM = imgList
         .map((item) => Stack(
               children: <Widget>[
-                buildMainCardHome(context),
+                buildMainCardHome(context, screenHeight),
               ],
             ))
         .toList();
@@ -77,7 +80,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
         options: CarouselOptions(
             enableInfiniteScroll: false,
             viewportFraction: dblViewPort ?? 1,
-            height: MediaQuery.of(context).size.height - 250,
+            height: double.infinity,
             onPageChanged: (index, reason) {
               setState(() {
                 _current = index;
@@ -87,86 +90,52 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
     );
   }
 
-  Widget buildMainCardHome(BuildContext context) {
+  Widget buildMainCardHome(BuildContext context, double screenHeight) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         width: MediaQuery.of(context).size.width - 60,
-        decoration: BoxDecoration(
-          color: AppColor.colorPageBackground,
-
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 2, spreadRadius: 2)],
-          //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-        ),
+        decoration: WidgetsStyle.BoxDecorationHomePage(),
         child: Stack(
           children: [
             Column(
               children: [
-                GestureDetector(
-                  onTap: () async {
-                    String? result = await CustomInputDialog.showInputDialog(
-                      context: context,
-                      defaultTxt: "2166e5",
-                      key: AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND,
-                    );
-                    if (result != null) {
-                      PrefUtil.preferences!.setString(
-                        AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND,
-                        result,
-                      );
-                      setState(() {});
-                    } else {
-                      print("Dialog was canceled");
-                    }
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColor.colorSecond(),
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: AppColor.colorSecond(),
 
-                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                      //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                      borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
-                    ),
-                    height: 40,
+                    boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
+                    //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
+                  ),
+                  height: 40,
+                  child: GestureDetector(
+                    onLongPress: () async {
+                      String? result = await CustomInputDialog.showInputDialog(
+                        context: context,
+                        defaultTxt: "2166e5",
+                        key: AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND,
+                      );
+                      if (result != null) {
+                        PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND, result);
+                        setState(() {});
+                      } else {
+                        print("Dialog was canceled");
+                      }
+                    },
                     child: Center(
-                      child: FutureBuilder<String>(
-                        future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Standard Ticket"),
-                        builder: (context, AsyncSnapshot<String> snapshot) {
-                          if (!snapshot.hasData) {
-                            return Container();
-                          } else {
-                            return GestureDetector(
-                              onTap: () async {
-                                String? result = await CustomInputDialog.showInputDialog(
-                                  context: context,
-                                  defaultTxt: "Standard Ticket",
-                                  key: AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,
-                                );
-                                if (result != null) {
-                                  PrefUtil.preferences!.setString(
-                                    AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,
-                                    result,
-                                  );
-                                  setState(() {});
-                                } else {
-                                  print("Dialog was canceled");
-                                }
-                              },
-                              child: Text(snapshot.data!,
-                                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
-                            );
-                          }
-                        },
-                      ),
+                      child: CustomBuilderWidget(
+                          keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,
+                          defaultValue: "Standard Ticket",
+                          style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
                     ),
                   ),
                 ),
                 SecRowSeat(_current),
                 buildContainerImageBox(context),
                 Container(
-                  height: MediaQuery.of(context).size.height / 5,
+                  height: screenHeight * 0.25,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -236,34 +205,6 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemoIOS> {
                           ),
                         ),
                       ),
-                      /*GestureDetector(
-                        onTap: () async {
-                          assetUrl++;
-                          if (assetUrl > 4) assetUrl = 1;
-
-                          print("assetUrl");
-                          print(assetUrl);
-
-                          setState(() {});
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: GestureDetector(
-                            onTap: () async {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => BarcodeViewIOS(_current)),
-                              );
-                            },
-                            child: Image.asset(
-                              "assets/images/logo/4.png",
-                              height: PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.IMAGE_SIZE) == null
-                                  ? 40.0
-                                  : PrefUtil.preferences!.getInt(AllConstant.CURRENT_LIST_INDEX + AllConstant.IMAGE_SIZE)!.toDouble(),
-                            ),
-                          ),
-                        ),
-                      ),*/
                       Padding(
                         padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                         child: Row(

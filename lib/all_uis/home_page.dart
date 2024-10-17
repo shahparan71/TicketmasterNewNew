@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                         },
                         child: Container(
                           height: 50,
-                          color: AppColor.colorMain(),
+                          color: AppColor.colorSecond(),
                           child: Center(
                             child: FutureBuilder<String>(
                               future: CommonOperation.getSharedData(AllConstant.NUMBER_OF_LIST_ITEM_COUNT, "1"),
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                         },
                         child: Container(
                           height: 50,
-                          color: AppColor.colorMain(),
+                          color: AppColor.colorSecond(),
                           child: Center(
                             child: Text(
                               "PAST (0)",

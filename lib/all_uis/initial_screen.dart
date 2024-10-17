@@ -52,111 +52,110 @@ class _InitialScreenState extends State<InitialScreen> {
     iconValue = 25.0;
     print(CommonOperation.getInitIndexClick());
 
-    return Material(
-        child: Scaffold(
-      key: _scaffoldKey,
-      resizeToAvoidBottomInset: false,
-      drawer: buildDrawer(),
-      appBar: AppBar(
-        backgroundColor: AppColor.colorMain(),
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CommonOperation.getInitIndexClick()!
-                ? Container(
-                    width: 40,
-                    child: GestureDetector(
-                        onLongPress: () async {
-                          String? result = await CustomInputDialog.showInputDialog(
-                            context: context,
-                            defaultTxt: "1",
-                            key: AllConstant.NUMBER_OF_LIST_ITEM_COUNT,
-                            textInputType: TextInputType.number,
-                          );
+    return Scaffold(
+          key: _scaffoldKey,
+          resizeToAvoidBottomInset: false,
+          drawer: buildDrawer(),
+          appBar: AppBar(
+    backgroundColor: AppColor.colorSecond(),
+    automaticallyImplyLeading: false,
+    title: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        CommonOperation.getInitIndexClick()!
+            ? Container(
+                width: 40,
+                child: GestureDetector(
+                    onLongPress: () async {
+                      String? result = await CustomInputDialog.showInputDialog(
+                        context: context,
+                        defaultTxt: "1",
+                        key: AllConstant.NUMBER_OF_LIST_ITEM_COUNT,
+                        textInputType: TextInputType.number,
+                      );
 
-                          if (result != null) {
-                            if (result.isNotEmpty) {
-                              if (int.parse(result) < 1) return;
+                      if (result != null) {
+                        if (result.isNotEmpty) {
+                          if (int.parse(result) < 1) return;
 
-                              PrefUtil.preferences!.setString(AllConstant.NUMBER_OF_LIST_ITEM_COUNT, result);
+                          PrefUtil.preferences!.setString(AllConstant.NUMBER_OF_LIST_ITEM_COUNT, result);
 
-                              for (var value in PrefUtil.preferences!.getKeys()) {
-                                if (value != AllConstant.NUMBER_OF_LIST_ITEM_COUNT) PrefUtil.preferences!.remove(value);
-                              }
-
-                              setState(() {});
-                            }
-                          } else {
-                            print("Dialog was canceled");
+                          for (var value in PrefUtil.preferences!.getKeys()) {
+                            if (value != AllConstant.NUMBER_OF_LIST_ITEM_COUNT) PrefUtil.preferences!.remove(value);
                           }
-                        },
-                        onTap: () async {
-                          _scaffoldKey.currentState!.openDrawer();
-                        },
-                        child: Icon(
-                          Icons.menu,
-                          color: Colors.white,
-                          size: 40,
-                        )),
-                  )
-                : Container(
-                    width: 40,
-                    child: GestureDetector(
-                      onTap: () async {
-                        PrefUtil.preferences!.setBool(AllConstant.IS_CLICK_COUNT, !CommonOperation.getInitIndexClick()!);
-                        setState(() {});
-                      },
-                      child: Icon(
-                        Icons.close,
-                        size: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-            GestureDetector(
-              onTap: () async {
-                setState(() {
-                  if (Platform.isIOS)
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EmailScreenIOS()),
-                    );
-                  else
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EmailScreenAndroid()),
-                    );
 
-                  setState(() {});
-                });
-              },
-              child: Text(
-                  indexByPage == 1
-                      ? "Discover"
-                      : indexByPage == 2
-                          ? "For You"
-                          : indexByPage == 3
-                              ? "My Events"
-                              : indexByPage == 4
-                                  ? "Sell"
-                                  : "Profile",
-                  style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-            ),
-            GestureDetector(
-              onTap: () async {
+                          setState(() {});
+                        }
+                      } else {
+                        print("Dialog was canceled");
+                      }
+                    },
+                    onTap: () async {
+                      _scaffoldKey.currentState!.openDrawer();
+                    },
+                    child: Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                      size: 40,
+                    )),
+              )
+            : Container(
+                width: 40,
+                child: GestureDetector(
+                  onTap: () async {
+                    PrefUtil.preferences!.setBool(AllConstant.IS_CLICK_COUNT, !CommonOperation.getInitIndexClick()!);
+                    setState(() {});
+                  },
+                  child: Icon(
+                    Icons.close,
+                    size: 20,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+        GestureDetector(
+          onTap: () async {
+            setState(() {
+              if (Platform.isIOS)
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ItsNotYou()),
+                  MaterialPageRoute(builder: (context) => EmailScreenIOS()),
                 );
-              },
-              child: Text("Help", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-            ),
-          ],
+              else
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EmailScreenAndroid()),
+                );
+
+              setState(() {});
+            });
+          },
+          child: Text(
+              indexByPage == 1
+                  ? "Discover"
+                  : indexByPage == 2
+                      ? "For You"
+                      : indexByPage == 3
+                          ? "My Events"
+                          : indexByPage == 4
+                              ? "Sell"
+                              : "Profile",
+              style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
         ),
-      ),
-      body: getWidget(indexByPage),
-    ));
+        GestureDetector(
+          onTap: () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ItsNotYou()),
+            );
+          },
+          child: Text("Help", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+        ),
+      ],
+    ),
+          ),
+          body: getWidget(indexByPage),
+        );
   }
 
   Drawer buildDrawer() {
@@ -167,7 +166,7 @@ class _InitialScreenState extends State<InitialScreen> {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(color: AppColor.colorMain()),
+            decoration: BoxDecoration(color: AppColor.colorSecond(),),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

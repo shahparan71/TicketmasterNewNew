@@ -511,82 +511,79 @@ class _TransferAndSellButtonState extends State<TransferAndSellButton> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: Container(
-        height: 100,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: ElevatedButton(
-                    child: Text(
-                      "Transfer",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: "metropolis",
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white,
-                      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 1,
+                child: ElevatedButton(
+                  child: Text(
+                    "Transfer",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: "metropolis",
+                      fontWeight: FontWeight.normal,
+                      color: Colors.white,
                     ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: widget.button1Color ?? AppColor.buttonColorMain(),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
-                      ),
-                    ),
-                    onLongPress: () {
-                      showColorPicker();
-                    },
-                    onPressed: widget.isButton1Enable == true
-                        ? () async {
-                            widget.function!();
-                          }
-                        : null, // Button is disabled if isButton1Enable is false or null
                   ),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  flex: 1,
-                  child: ElevatedButton(
-                    child: Text(
-                      "Sell",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: "metropolis",
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white,
-                      ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: widget.button1Color ?? AppColor.buttonColorMain(),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
                     ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: widget.button2Color ?? AppColor.buttonColorMain(),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
-                      ),
-                    ),
-                    onLongPress: () {
-                      showColorPicker();
-                    },
-                    onPressed: widget.isButton2Enable == true
-                        ? () async {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => QRViewMain()),
-                            );
-                          }
-                        : null, // Button is disabled if isButton2Enable is false or null
                   ),
+                  onLongPress: () {
+                    showColorPicker();
+                  },
+                  onPressed: widget.isButton1Enable == true
+                      ? () async {
+                          widget.function!();
+                        }
+                      : null, // Button is disabled if isButton1Enable is false or null
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                flex: 1,
+                child: ElevatedButton(
+                  child: Text(
+                    "Sell",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: "metropolis",
+                      fontWeight: FontWeight.normal,
+                      color: Colors.white,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: widget.button2Color ?? AppColor.buttonColorMain(),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
+                    ),
+                  ),
+                  onLongPress: () {
+                    showColorPicker();
+                  },
+                  onPressed: widget.isButton2Enable == true
+                      ? () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => QRViewMain()),
+                          );
+                        }
+                      : null, // Button is disabled if isButton2Enable is false or null
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

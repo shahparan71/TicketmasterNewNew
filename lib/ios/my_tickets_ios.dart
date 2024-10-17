@@ -14,6 +14,7 @@ import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 import 'package:ticket_master/utils/future_stateful_widget.dart';
+import 'package:ticket_master/utils/widgets_style.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
@@ -50,6 +51,9 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
 
   @override
   Widget build(BuildContext context) {
+
+    double screenHeight = MediaQuery.of(context).size.height;
+
     imageSlidersM = imgList
         .map((item) => Stack(
               children: <Widget>[
@@ -62,6 +66,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
 
     return Scaffold(
       //appBar: AppBar(title: Text('Carousel with indicator demo')),
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: Container(
@@ -93,64 +98,58 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
       ),
       body: SingleChildScrollView(
         physics: ClampingScrollPhysics(),
-        child: Column(
-          children: [
-            Column(children: [
-              SizedBox(
-                height: 2,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height - 320,
-                child: CarouselSlider(
-                  items: imageSlidersM,
-                  options: CarouselOptions(
-                      enableInfiniteScroll: false,
-                      viewportFraction: dblViewPort ?? 1.0,
-                      height: MediaQuery.of(context).size.height - 250,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _current = index;
-                          print("_current");
-                          print(_current);
-                        });
-                      }),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              /*Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: imgList.map((url) {
-                  int index = imgList.indexOf(url);
-                  return Container(
-                    width: _current == index ? 10.0 : 8.0,
-                    height: _current == index ? 10.0 : 8.0,
-                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _current == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
-                    ),
-                  );
-                }).toList(),
-              ),*/
+        child: Column(children: [
+          SizedBox(
+            height: 2,
+          ),
+          Container(
+            height: screenHeight * 0.68,
+            child: CarouselSlider(
+              items: imageSlidersM,
+              options: CarouselOptions(
+                  enableInfiniteScroll: false,
+                  viewportFraction: dblViewPort ?? 1.0,
+                  height: double.infinity,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index;
+                      print("_current");
+                      print(_current);
+                    });
+                  }),
+            ),
+          ),
 
-              TransferAndSellButton(
-                function: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
-                  );
-                },
-                isButton1Enable: true,
-                isButton2Enable: true,
-                button1Color: Colors.black26,
-              ),
-              Container(height: 350, child: GoogleMapFlutter())
-            ]),
-            //Platform.isAndroid?Container(): MapWidgets()
-          ],
-        ),
+          /*Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: imgList.map((url) {
+              int index = imgList.indexOf(url);
+              return Container(
+                width: _current == index ? 10.0 : 8.0,
+                height: _current == index ? 10.0 : 8.0,
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: _current == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
+                ),
+              );
+            }).toList(),
+          ),*/
+          SizedBox(height: 20,),
+          TransferAndSellButton(
+            function: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
+              );
+            },
+            isButton1Enable: true,
+            isButton2Enable: true,
+            button1Color: Colors.black26,
+          ),
+          SizedBox(height: 20,),
+          Container(height: 350, child: GoogleMapFlutter(),color: Colors.white,)
+        ]),
       ),
     );
   }
@@ -159,27 +158,16 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: Container(
-        
-        decoration: BoxDecoration(
-          color: AppColor.white,
-          //
-          boxShadow: [BoxShadow(color: Colors.black38, blurRadius: 1, spreadRadius: 1)],
-          //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-        ),
+        decoration: WidgetsStyle.BoxDecorationHomePage(),
         child: Stack(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height - 334,
               child: Column(
                 children: [
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: AppColor.colorGryaBlackMyTicket,
-
-                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                      //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
+                      color: AppColor.colorSecond(),
                       borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
                     ),
                     height: 40,

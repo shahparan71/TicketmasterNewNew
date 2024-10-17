@@ -43,11 +43,12 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-        child: Scaffold(
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: AppColor.black,
+        backgroundColor: AppColor.colorSecond(),
         leading: Container(
           width: 50,
           child: Padding(
@@ -105,30 +106,30 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
             child: Column(
               children: [
                 Container(
-                  height: 580,
+                  height: screenHeight * 0.68,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CarouselWithIndicatorDemoIOS(),
                   ),
                 ),
-                Positioned.fill(
-                    child: Align(
-                        alignment: Alignment.bottomLeft,
-                        child: TransferAndSellButton(
-                          function: () {
-                            showMaterialModalBottomSheet(
-                              isDismissible: false, // Prevents closing by tapping outside
-                              enableDrag: true,
-                              context: context,
-                              builder: (context) => Container(
-                                height: MediaQuery.of(context).size.height - 450,
-                                child: BottomSheetViewSelectTickets(),
-                              ),
-                            );
-                          },
-                          isButton1Enable: true,
-                          isButton2Enable: true,
-                        ))),
+                SizedBox(
+                  height: 20,
+                ),
+                TransferAndSellButton(
+                  function: () {
+                    showMaterialModalBottomSheet(
+                      isDismissible: false, // Prevents closing by tapping outside
+                      enableDrag: true,
+                      context: context,
+                      builder: (context) => Container(
+                        height: MediaQuery.of(context).size.height - 450,
+                        child: BottomSheetViewSelectTickets(),
+                      ),
+                    );
+                  },
+                  isButton1Enable: true,
+                  isButton2Enable: true,
+                ),
                 SizedBox(
                   height: 10,
                 ),
@@ -138,7 +139,7 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
           ),
         ),
       ),
-    ));
+    );
   }
 
   Widget getUIControl() {

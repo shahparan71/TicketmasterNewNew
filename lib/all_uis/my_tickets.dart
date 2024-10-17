@@ -231,72 +231,81 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                   SizedBox(
                     height: 50,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "${widget.ticketCount} tickets sent to",
-                          style: TextStyle(color: Colors.black.withOpacity(0.8), fontSize: 16),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text("${PrefUtil.preferences!.get(AllConstant.CURRENT_LIST_INDEX + AllConstant.EMAIL)} waiting for recipient to claim.",
-                            textAlign: TextAlign.center,
-                            //style: TextStyle(color: Colors.black.withOpacity(0.8)),
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: "metropolis",
-                                fontWeight: CommonOperation.getFontWeight2(),
-                                color: Colors.black.withOpacity(0.8))),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            String? result = await CustomInputDialog.showInputDialog(
-                              context: context,
-                              defaultTxt: "6-44639/TOR",
-                              key: AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER,
-                            );
-                            if (result != null) {
-                              PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER, result);
-                              setState(() {});
-                            } else {
-                              print("Dialog was canceled");
-                            }
-                          },
-                          child: Text("Order ${PrefUtil.preferences!.get(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER) ?? "6-44639/TOR"}",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: "metropolis",
-                                  fontWeight: CommonOperation.getFontWeight2(),
-                                  color: Colors.black.withOpacity(0.8))),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            String? result = await CustomInputDialog.showInputDialog(
-                              context: context,
-                              defaultTxt: "6-44639/TOR",
-                              key: AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER,
-                            );
-                            if (result != null) {
-                              PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER, result);
-                              setState(() {});
-                            } else {
-                              print("Dialog was canceled");
-                            }
-                          },
-                          child: Text("Cancel Transfer",
-                              style: TextStyle(
-                                  fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.blueAccent.withOpacity(0.8))),
-                        ),
-                      ],
+                  Container(
+                    height: 200,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                "${widget.ticketCount} tickets sent to",
+                                style: TextStyle(color: Colors.black.withOpacity(0.8), fontSize: 16),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text("${PrefUtil.preferences!.get(AllConstant.CURRENT_LIST_INDEX + AllConstant.EMAIL)} waiting for recipient to claim.",
+                                  textAlign: TextAlign.center,
+                                  //style: TextStyle(color: Colors.black.withOpacity(0.8)),
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: "metropolis",
+                                      fontWeight: CommonOperation.getFontWeight2(),
+                                      color: Colors.black.withOpacity(0.8))),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  String? result = await CustomInputDialog.showInputDialog(
+                                    context: context,
+                                    defaultTxt: "6-44639/TOR",
+                                    key: AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER,
+                                  );
+                                  if (result != null) {
+                                    PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER, result);
+                                    setState(() {});
+                                  } else {
+                                    print("Dialog was canceled");
+                                  }
+                                },
+                                child: Text("Order ${PrefUtil.preferences!.get(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER) ?? "6-44639/TOR"}",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: "metropolis",
+                                        fontWeight: CommonOperation.getFontWeight2(),
+                                        color: Colors.black.withOpacity(0.8))),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              String? result = await CustomInputDialog.showInputDialog(
+                                context: context,
+                                defaultTxt: "6-44639/TOR",
+                                key: AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER,
+                              );
+                              if (result != null) {
+                                PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.ORDER, result);
+                                setState(() {});
+                              } else {
+                                print("Dialog was canceled");
+                              }
+                            },
+                            child: Text("Cancel Transfer",
+                                style: TextStyle(
+                                    fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.blueAccent.withOpacity(0.8))),
+                          ),
+                          SizedBox(height: 5,),
+                        ],
+                      ),
                     ),
                   )
                 ],
