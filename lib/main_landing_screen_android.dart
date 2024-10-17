@@ -9,6 +9,7 @@ import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/all_uis/QRView.dart';
 import 'package:ticket_master/all_uis/bottom_sheet_view_select_tickets.dart';
 import 'package:ticket_master/all_uis/carousel_withIndicator_demo_android.dart';
+import 'package:ticket_master/all_uis/initial_screen.dart';
 import 'package:ticket_master/maps/map_widgets.dart';
 import 'package:ticket_master/utils/all_constant.dart';
 import 'package:ticket_master/utils/AppColor.dart';
@@ -41,92 +42,106 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-        child: Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: AppColor.black,
-        leading: Container(
-          width: 50,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
+
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return PopScope(
+      canPop: false,
+      onPopInvoked : (didPop){
+        // logic
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: AppColor.black,
+          leading: Container(
+            width: 50,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      setState(() {
+                        showHideStatusAppBarIcon = !showHideStatusAppBarIcon;
+                      });
+                    },
+                    child: Icon(
+                      Icons.close,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (showHideStatusAppBarIcon == false)
+                Container(
+                  width: MediaQuery.of(context).size.width - 100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(),
+                      Container(),
+                      Text("My Tickets",
+                          style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                      Container(),
+                      GestureDetector(
+                          onTap: () async {
+                            Future.delayed(Duration.zero, () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => InitialScreen()),
+                              );
+                            });
+                          },
+                          child: Text("Help",
+                              style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white))),
+                    ],
+                  ),
+                )
+              else
+                getUIControl()
+            ],
+          ),
+        ),
+        body: Container(
+          color: Colors.white,
+          height: MediaQuery.of(context).size.height - 50,
+          child: Container(
+            height: MediaQuery.of(context).size.height - 100,
+            child: Stack(
               children: [
-                GestureDetector(
-                  onTap: () async {
-                    setState(() {
-                      showHideStatusAppBarIcon = !showHideStatusAppBarIcon;
-                    });
-                  },
-                  child: Icon(
-                    Icons.close,
-                    color: Colors.white,
+                Container(  height: screenHeight * 0.78, child: CarouselWithIndicatorAndroid()),
+                Positioned(
+                  bottom: 10.0,
+                  left: 0.0,
+                  right: 0.0,
+                  child: TransferAndSellButton(
+                    function: () {
+                      showMaterialModalBottomSheet(
+                        isDismissible: false, // Prevents closing by tapping outside
+                        enableDrag: true,
+                        context: context,
+                        builder: (context) => Container(
+                          height: MediaQuery.of(context).size.height - 450,
+                          child: BottomSheetViewSelectTickets(),
+                        ),
+                      );
+                    },
+                    isButton1Enable: true,
+                    isButton2Enable: true,
                   ),
                 ),
               ],
             ),
           ),
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            if (showHideStatusAppBarIcon == false)
-              Container(
-                width: MediaQuery.of(context).size.width - 100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(),
-                    Container(),
-                    Text("My Tickets", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                    Container(),
-                    GestureDetector(
-                        onTap: () async {
-                          Navigator.pop(context);
-                        },
-                        child: Text("Help",
-                            style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white))),
-                  ],
-                ),
-              )
-            else
-              getUIControl()
-          ],
-        ),
       ),
-      body: Container(
-        color: Colors.white,
-        height: MediaQuery.of(context).size.height - 50,
-        child: Container(
-          height: MediaQuery.of(context).size.height - 100,
-          child: Stack(
-            children: [
-              Container(height: MediaQuery.of(context).size.height - 200, child: CarouselWithIndicatorAndroid()),
-              Positioned(
-                bottom: 10.0,
-                left: 0.0,
-                right: 0.0,
-                child: TransferAndSellButton(
-                  function: () {
-                    showMaterialModalBottomSheet(
-                      isDismissible: false, // Prevents closing by tapping outside
-                      enableDrag: true,
-                      context: context,
-                      builder: (context) => Container(
-                        height: MediaQuery.of(context).size.height - 450,
-                        child: BottomSheetViewSelectTickets(),
-                      ),
-                    );
-                  },
-                  isButton1Enable: true,
-                  isButton2Enable: true,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ));
+    );
   }
 
   Widget getUIControl() {

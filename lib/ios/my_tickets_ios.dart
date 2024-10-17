@@ -130,7 +130,8 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
                 margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: _current == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
+
+                  color: _current == index ? AppColor.colorSecond() : AppColor.colorSecond().withOpacity(0.4),
                 ),
               );
             }).toList(),

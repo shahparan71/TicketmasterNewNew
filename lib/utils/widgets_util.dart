@@ -208,7 +208,7 @@ class WidgetsUtil {
         left: 0.0,
         right: 0.0,
         child: Padding(
-          padding: const EdgeInsets.only(left: 1, right: 1, bottom: 0.3),
+          padding: const EdgeInsets.only(left: 1, right: 1, bottom: 0.2),
           child: Container(
             decoration: BoxDecoration(
               color: AppColor.colorMain().withOpacity(0.8),

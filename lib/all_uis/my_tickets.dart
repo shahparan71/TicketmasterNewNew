@@ -60,89 +60,98 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
 
     double? dblViewPort = PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIEWPORT_VALUE);
 
-    return Scaffold(
-      //appBar: AppBar(title: Text('Carousel with indicator demo')),
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: Container(
-          child: GestureDetector(
-              onTap: () async {
-                Navigator.of(context).pop();
-                print("d9f0d9fd");
-              },
-              child: Icon(
-                Icons.close,
-                color: Colors.white,
-              )),
-        ),
-        elevation: 0.0,
-        backgroundColor: AppColor.colorSecond(),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(),
-            Text(
-              "My Tickets",
-              style: TextStyle(color: Colors.white, fontSize: 18),
-            ),
-            Container(),
-            Container()
-          ],
-        ),
-      ),
-      body: Container(
-        height: MediaQuery.of(context).size.height - 50,
-        child: Stack(children: [
-          SizedBox(
-            height: 3,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        // logic
+      },
+      child: Scaffold(
+        //appBar: AppBar(title: Text('Carousel with indicator demo')),
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          leading: Container(
+            child: GestureDetector(
+                onTap: () async {
+                  Navigator.of(context).pop();
+                  print("d9f0d9fd");
+                },
+                child: Icon(
+                  Icons.close,
+                  color: Colors.white,
+                )),
           ),
-          CarouselSlider(
-            items: imageSlidersM,
-            options: CarouselOptions(
-                enableInfiniteScroll: false,
-                viewportFraction: dblViewPort ?? 1.0,
-                height: MediaQuery.of(context).size.height - 200,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _current = index;
-                    print("_current");
-                    print(_current);
-                  });
-                }),
+          elevation: 0.0,
+          backgroundColor: AppColor.colorSecond(),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(),
+              Text(
+                "My Tickets",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              Container(),
+              Container()
+            ],
           ),
-          /*Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: imgList.map((url) {
-              int index = imgList.indexOf(url);
-              return Container(
-                width: _current == index ? 10.0 : 8.0,
-                height: _current == index ? 10.0 : 8.0,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _current == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
-                ),
-              );
-            }).toList(),
-          ),*/
-          Positioned(
-            bottom: 10,
-            left: 0,
-            right: 0,
-            child: TransferAndSellButton(
-              function: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
-                );
-              },
-              isButton1Enable: true,
-              isButton2Enable: true,
-              button1Color: Colors.black26,
+        ),
+        body: Container(
+          height: MediaQuery.of(context).size.height - 50,
+          child: Stack(children: [
+
+            CarouselSlider(
+              items: imageSlidersM,
+              options: CarouselOptions(
+                  enableInfiniteScroll: false,
+                  viewportFraction: dblViewPort ?? 1.0,
+                  height: MediaQuery.of(context).size.height - 200,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index;
+                      print("_current");
+                      print(_current);
+                    });
+                  }),
             ),
-          )
-        ]),
+            Positioned(
+              bottom: 70,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: imgList.map((url) {
+                  int index = imgList.indexOf(url);
+                  return Container(
+                    width: _current == index ? 10.0 : 8.0,
+                    height: _current == index ? 10.0 : 8.0,
+                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _current == index ? AppColor.colorSecond() : AppColor.colorSecond().withOpacity(0.4),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            Positioned(
+              bottom: 10,
+              left: 0,
+              right: 0,
+              child: TransferAndSellButton(
+                function: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
+                  );
+                },
+                isButton1Enable: true,
+                isButton2Enable: true,
+                button1Color: Colors.black26,
+              ),
+            )
+          ]),
+        ),
       ),
     );
   }
@@ -303,7 +312,9 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                                 style: TextStyle(
                                     fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Colors.blueAccent.withOpacity(0.8))),
                           ),
-                          SizedBox(height: 5,),
+                          SizedBox(
+                            height: 5,
+                          ),
                         ],
                       ),
                     ),

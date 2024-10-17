@@ -183,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
-            leadingWidth: 0.0,
+            
             leading: Container(),
             backgroundColor: AppColor.colorMain()),
         body: changeView == 1

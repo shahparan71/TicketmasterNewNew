@@ -73,57 +73,74 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
         .toList();
 
     double? dblViewPort = PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIEWPORT_VALUE);
-
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       //appBar: AppBar(title: Text('Carousel with indicator demo')),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: Stack(children: [
-        CarouselSlider(
-          items: imageSlidersM,
-          options: CarouselOptions(
-              enableInfiniteScroll: false,
-              viewportFraction: dblViewPort ?? 1.0,
-              height: double.infinity,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _current = index;
-                  print("_current");
-                  print(_current);
-                });
-              }),
-        ),
-        /* GestureDetector(
-          onTap: () async {
-            String? result = await CustomInputDialog.showInputDialog(
-              context: context,
-              defaultTxt: "6",
-              key: AllConstant.CURRENT_LIST_INDEX + AllConstant.CAROUSEL_COUNT,
-            );
-            if (result != null) {
-              PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.CAROUSEL_COUNT, result);
-              setState(() {});
-            } else {
-              print("Dialog was canceled");
-            }
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: imgList.map((url) {
-              int index = imgList.indexOf(url);
-              return Container(
-                width: _current == index ? 10.0 : 8.0,
-                height: _current == index ? 10.0 : 8.0,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _current == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
-                ),
-              );
-            }).toList(),
+      body: Container(
+        height: double.infinity,
+        child: Stack(children: [
+          Positioned(
+            top: 0.0,
+            bottom: 30.0,
+            left: 0.0,
+            right: 0.0,
+            child: CarouselSlider(
+              items: imageSlidersM,
+              options: CarouselOptions(
+                  enableInfiniteScroll: false,
+                  viewportFraction: dblViewPort ?? 1.0,
+                  height: double.infinity,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index;
+                      print("_current");
+                      print(_current);
+                    });
+                  }),
+            ),
           ),
-        ),*/
-      ]),
+          Positioned(
+            bottom: 0.0,
+            left: 0.0,
+            right: 0.0,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: GestureDetector(
+                onTap: () async {
+                  String? result = await CustomInputDialog.showInputDialog(
+                    context: context,
+                    defaultTxt: "6",
+                    key: AllConstant.CURRENT_LIST_INDEX + AllConstant.CAROUSEL_COUNT,
+                  );
+                  if (result != null) {
+                    PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.CAROUSEL_COUNT, result);
+                    setState(() {});
+                  } else {
+                    print("Dialog was canceled");
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: imgList.map((url) {
+                    int index = imgList.indexOf(url);
+                    return Container(
+                      width: _current == index ? 10.0 : 8.0,
+                      height: _current == index ? 10.0 : 8.0,
+                      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: _current == index ? AppColor.colorSecond() : AppColor.colorSecond().withOpacity(0.4),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
+          ),
+        ]),
+      ),
     );
   }
 
@@ -170,7 +187,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                               child: CustomBuilderWidget(
                                   keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,
                                   defaultValue: "Standard Ticket",
-                                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
+                                  style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w500, color: AppColor.white)),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -307,7 +324,10 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                                     },
                                     child: Text("Ticket Details",
                                         style: TextStyle(
-                                            fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w400, color: AppColor.officialBlue)),
+                                            fontSize: 16,
+                                            fontFamily: "metropolis",
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColor.officialBlue.withOpacity(0.8))),
                                   ),
                                 ],
                               ),

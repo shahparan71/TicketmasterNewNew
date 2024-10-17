@@ -249,10 +249,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                         MaterialPageRoute(builder: (context) => MainLandingScreenIOS()),
                                       );
                                     } else {
-                                      Navigator.push(
+                                      var value = await Navigator.push(
                                         context,
                                         MaterialPageRoute(builder: (context) => MainLandingScreen()),
                                       );
+                                      setState(() {});
                                     }
                                   },
                                   child: Container(

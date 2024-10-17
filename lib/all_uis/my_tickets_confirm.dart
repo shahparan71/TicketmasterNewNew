@@ -58,83 +58,94 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
 
     double? dblViewPort = PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.VIEWPORT_VALUE);
 
-    return Scaffold(
-      //appBar: AppBar(title: Text('Carousel with indicator demo')),
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: AppColor.colorSecond(),
-        leading: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: GestureDetector(
-              onTap: () async {
-                Navigator.of(context).pop();
-              },
-              child: Container(
-                child: Icon(
-                  Icons.close,
-                  color: Colors.white,
-                ),
-              )),
+    return PopScope(
+      canPop: false,
+      onPopInvoked : (didPop){
+        // logic
+      },
+      child: Scaffold(
+        //appBar: AppBar(title: Text('Carousel with indicator demo')),
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: AppColor.colorSecond(),
+          leading: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: GestureDetector(
+                onTap: () async {
+                  Navigator.pop(context); //
+                },
+                child: Container(
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  ),
+                )),
+          ),
+          
+          elevation: 0.0,
+          title: Center(
+              child: Text(
+            "My Tickets",
+            style: TextStyle(color: Colors.white, fontSize: 18),
+          )),
         ),
-        leadingWidth: 0.0,
-        elevation: 0.0,
-        title: Center(
-            child: Text(
-          "My Tickets",
-          style: TextStyle(color: Colors.white, fontSize: 18),
-        )),
-      ),
-      body: Container(
-        color: Colors.white,
-        height: MediaQuery.of(context).size.height - 100,
-        child: Stack(children: [
+        body: Container(
+          color: Colors.white,
+          height: MediaQuery.of(context).size.height - 100,
+          child: Stack(children: [
 
-          CarouselSlider(
-            items: imageSlidersM,
-            options: CarouselOptions(
-                enableInfiniteScroll: false,
-                viewportFraction: dblViewPort ?? 1.0,
-                height: MediaQuery.of(context).size.height - 200,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _current = index;
-                    print("_current");
-                    print(_current);
-                  });
-                }),
-          ),
-          /*Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: imgList.map((url) {
-              int index = imgList.indexOf(url);
-              return Container(
-                width: _current == index ? 10.0 : 8.0,
-                height: _current == index ? 10.0 : 8.0,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _current == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
-                ),
-              );
-            }).toList(),
-          ),*/
-          Positioned(
-            bottom: 10,
-            left: 0,
-            right: 0,
-            child: TransferAndSellButton(
-              function: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
-                );
-              },
-              isButton1Enable: true,
-              isButton2Enable: true,
+            CarouselSlider(
+              items: imageSlidersM,
+              options: CarouselOptions(
+                  enableInfiniteScroll: false,
+                  viewportFraction: dblViewPort ?? 1.0,
+                  height: MediaQuery.of(context).size.height - 200,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index;
+                      print("_current");
+                      print(_current);
+                    });
+                  }),
             ),
-          ),
-        ]),
+            Positioned(
+              bottom: 70,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: imgList.map((url) {
+                  int index = imgList.indexOf(url);
+                  return Container(
+                    width: _current == index ? 10.0 : 8.0,
+                    height: _current == index ? 10.0 : 8.0,
+                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _current == index ? AppColor.colorSecond() : AppColor.colorSecond().withOpacity(0.4),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            Positioned(
+              bottom: 10,
+              left: 0,
+              right: 0,
+              child: TransferAndSellButton(
+                function: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
+                  );
+                },
+                isButton1Enable: true,
+                isButton2Enable: true,
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }
@@ -202,7 +213,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
                           children: [

@@ -35,11 +35,11 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
             top: 90,
             left: 0,
             right: 0,
-            bottom: 50,
+            bottom: 0,
             child: Container(
-              height: MediaQuery.of(context).size.height - 100,
+              height: MediaQuery.of(context).size.height,
               width: double.infinity,
-              color:AppColor.offWhite2,
+              color: AppColor.white,
               child: SingleChildScrollView(
                 physics: ClampingScrollPhysics(),
                 child: Column(
@@ -109,13 +109,15 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                               height: 20,
                             ),
                             Image.asset("assets/images/social_link_android.png"),
-                            Container(height: 10,color: AppColor.white,),
+                            Container(
+                              height: 10,
+                              color: AppColor.white,
+                            ),
                             Image.asset(
-                              "assets/images/email_reply.png",
+                              "assets/images/email_reply_new.png",
                               width: double.infinity,
                               fit: BoxFit.fitWidth,
-                              height: 100,
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -147,11 +149,10 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                                   print("object3535");
                                 },
                                 child: Container(
-
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Icon(Icons.arrow_back_rounded),
-                                    ))),
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Icon(Icons.arrow_back_rounded),
+                                ))),
                             Container(
                                 width: 140,
                                 child: Row(
@@ -185,19 +186,16 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
               ),
             ),
           ),
-          Positioned(
+          /*Positioned(
             bottom: 0.0,
             left: 0.0, // Added left constraint for better layout control
             right: 0.0, // Added right constraint for better layout control
-            child: Container(
-              height: 50,
-              width: double.infinity, // Use width here to avoid issues
-              child: Image.asset(
-                "assets/images/email_bottom.png",
-                fit: BoxFit.fitWidth,
-              ),
+            child: Image.asset(
+              "assets/images/email_reply_new.png",
+              width: double.infinity,
+              fit: BoxFit.fitWidth,
             ),
-          ),
+          ),*/
         ],
       ),
     );
@@ -613,8 +611,8 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                   ],
                 ),
                 style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>( AppColor.colorMain()),
-                    backgroundColor: MaterialStateProperty.all<Color>( AppColor.colorMain()),
+                    foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                    backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
                     elevation: MaterialStateProperty.all(0.0),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
