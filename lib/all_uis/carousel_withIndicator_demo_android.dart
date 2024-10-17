@@ -198,7 +198,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(height: 20,),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Container(
                               child: CustomBuilderWidget(
                                   keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.VIP_7,

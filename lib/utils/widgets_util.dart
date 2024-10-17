@@ -180,6 +180,27 @@ class WidgetsUtil {
       ),
     );
   }
+
+  static showSnackBar(BuildContext context, String s, {Color? color}) async {
+    final SnackBar snackBar = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      width: 400.0,
+      content: Text(s),
+      duration: const Duration(milliseconds: 1000),
+      backgroundColor: color ?? Colors.black,
+      action: SnackBarAction(
+        label: 'Close',
+        onPressed: () {},
+      ),
+    );
+
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+    await Future.delayed(const Duration(milliseconds: 1500), () {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    });
+  }
 }
 
 class DiscoverImageIOS extends StatefulWidget {

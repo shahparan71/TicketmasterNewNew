@@ -1,19 +1,17 @@
 import 'dart:async';
-import 'dart:ui';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/all_uis/initial_screen.dart';
 import 'package:ticket_master/all_uis/user_add_dialog.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/all_constant.dart';
+import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:unique_identifier/unique_identifier.dart';
+
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -56,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> initScreen() async {
-    await Future.delayed(const Duration(seconds: 2), () {
+    await Future.delayed(const Duration(seconds: 1), () {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => MyHomePage()),
@@ -94,8 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    /*textEditingControllerID.text = "anisxtmz";
-    textEditingControllerPass.text = "347612";*/
+
 
     return Scaffold(
       body: Scaffold(
@@ -103,10 +100,19 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  changeView == 0 ? "Login" : "User List",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white),
+                GestureDetector(
+                  onTap: (){
+                    textEditingControllerID.text = "anisxtmz";
+                    textEditingControllerPass.text = "347612";
+                    setState(() {
+
+                    });
+                  },
+                  child: Text(
+                    changeView == 0 ? "Login" : "User List",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 GestureDetector(
                   onTap: () async {
@@ -262,7 +268,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                             print("ffsf${value}");
                                                             if (value != null && value == true) {
                                                               FirebaseDatabase.instance.ref().child("Users").child('${listUser[index].id}').remove();
-                                                              showSnackBar("User Remove Successfully");
+                                                              WidgetsUtil.showSnackBar(context,  "User Remove Successfully");
                                                               initUserListDate();
                                                             }
                                                           });
@@ -355,7 +361,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _login() async {
     if (textEditingControllerID.text.isEmpty) {
-      showSnackBar("User ID can't be empty");
+      WidgetsUtil.showSnackBar(context, "User ID can't be empty");
       return;
     }
 
@@ -365,7 +371,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if (isAdmin) {
       if (textEditingControllerPass.text.isEmpty) {
-        showSnackBar("Password can't be empty");
+        WidgetsUtil.showSnackBar(context, "Password can't be empty");
         setState(() {
           dateLoading = false;
         });
@@ -376,7 +382,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       reference.once().then((DatabaseEvent event) {
         if (event.snapshot.children.length == 0) {
-          showSnackBar("User Not found");
+          WidgetsUtil.showSnackBar(context, "User Not found");
           setState(() {
             dateLoading = false;
             textEditingControllerID.text = "";
@@ -393,7 +399,7 @@ class _MyHomePageState extends State<MyHomePage> {
               PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 1);
               uiRefresh();
             } else {
-              showSnackBar("ID or Password doesn't match");
+              WidgetsUtil.showSnackBar(context, "ID or Password doesn't match");
               setState(() {
                 dateLoading = false;
               });
@@ -403,10 +409,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
             if (yearMap['UserID'] == textEditingControllerID.text && yearMap['Password'].toString() == textEditingControllerPass.text) {
               PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 1);
-              showSnackBar("Login Successfully");
+              WidgetsUtil.showSnackBar(context, "Login Successfully");
               uiRefresh();
             } else {
-              showSnackBar("ID or Password doesn't match");
+              WidgetsUtil.showSnackBar(context, "ID or Password doesn't match");
               setState(() {
                 dateLoading = false;
               });
@@ -422,7 +428,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     reference.once().then((DatabaseEvent event) async {
       if (event.snapshot.children.length == 0) {
-        showSnackBar("User Not found");
+        WidgetsUtil.showSnackBar(context, "User Not found");
         setState(() {
           dateLoading = false;
           textEditingControllerID.text = "";
@@ -435,7 +441,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
           Map<int, dynamic> yearMap = yearList.asMap();
           if (yearMap['isEnable'] == false) {
-            showSnackBar("You are not allowed to login");
+            WidgetsUtil.showSnackBar(context, "You are not allowed to login");
 
             return;
           }
@@ -445,12 +451,12 @@ class _MyHomePageState extends State<MyHomePage> {
           var identifier = await UniqueIdentifier.serial;
 
           if (yearMap['isEnable'] == false) {
-            showSnackBar("You are not allowed to login");
+            WidgetsUtil.showSnackBar(context, "You are not allowed to login");
             return;
           }
           if (yearMap.containsKey('identifier')) {
             if (yearMap['identifier'] != identifier) {
-              showSnackBar("You are logged in with another device");
+              WidgetsUtil.showSnackBar(context, "You are logged in with another device");
               setState(() {
                 dateLoading = false;
                 textEditingControllerID.text = "";
@@ -459,52 +465,35 @@ class _MyHomePageState extends State<MyHomePage> {
             }
           } else {
             yearMap['identifier'] = identifier;
-
             final DatabaseReference referenceAddUser = FirebaseDatabase.instance.ref().child('Users');
             await referenceAddUser.child("${textEditingControllerID.text}").update({"identifier": identifier}).then((onValue) {
-              showSnackBar("Info Update Successfully");
+              WidgetsUtil.showSnackBar(context, "Info Update Successfully");
               //dataInit();
             }).catchError((onError) {
-              showSnackBar("User failed to add");
+              WidgetsUtil.showSnackBar(context, "User failed to add");
             });
           }
         }
 
+        PrefUtil.preferences!.setString(AllConstant.LOGIN_USER_ID, textEditingControllerID.text);
         PrefUtil.preferences!.setInt(AllConstant.USER_LOGIN_MODE, 2);
+
+        setState(() {
+          dateLoading = false;
+          textEditingControllerID.text = "";
+        });
+
         Future.delayed(Duration.zero, () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => InitialScreen()),
           );
         });
-
-        setState(() {
-          dateLoading = false;
-          textEditingControllerID.text = "";
-        });
       }
     });
   }
 
-  Future<void> showSnackBar(String s) async {
-    final SnackBar snackBar = SnackBar(
-      behavior: SnackBarBehavior.floating,
-      width: 400.0,
-      content: Text(s),
-      duration: const Duration(milliseconds: 1000),
-      action: SnackBarAction(
-        label: 'Close',
-        onPressed: () {},
-      ),
-    );
-
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-    await Future.delayed(const Duration(milliseconds: 1500), () {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    });
-  }
+  
 
   Future<void> addUser() async {
     showDialog<String>(
@@ -514,7 +503,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     ).then((value) async {
       if (value.toString().split(",")[0].isEmpty || value.toString().split(",")[1].isEmpty) {
-        showSnackBar("Name or ID field can't be empty");
+        WidgetsUtil.showSnackBar(context, "Name or ID field can't be empty");
       }
 
       setState(() {
@@ -525,7 +514,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       await reference.once().then((DatabaseEvent event) async {
         if (event.snapshot.children.length > 0) {
-          showSnackBar("User already taken");
+          WidgetsUtil.showSnackBar(context, "User already taken");
           return;
         } else {
           final DatabaseReference referenceAddUser = FirebaseDatabase.instance.ref().child('Users');
@@ -534,13 +523,13 @@ class _MyHomePageState extends State<MyHomePage> {
             "date": "${DateTime.now()}",
             "isEnable": true,
           }).then((onValue) {
-            showSnackBar("User added successfully");
+            WidgetsUtil.showSnackBar(context, "User added successfully");
             setState(() {
               dateLoading = false;
             });
             dataInit();
           }).catchError((onError) {
-            showSnackBar("User failed to add");
+            WidgetsUtil.showSnackBar(context, "User failed to add");
           });
         }
       });
@@ -558,11 +547,21 @@ class _MyHomePageState extends State<MyHomePage> {
         });
       }
       if (usrMode == 2) {
-        Future.delayed(Duration.zero, () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => InitialScreen()),
-          );
+        var userID = PrefUtil.preferences!.getString(AllConstant.LOGIN_USER_ID);
+        final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Users').child("${userID}");
+
+        reference.once().then((DatabaseEvent event) async {
+          if (event.snapshot.children.length == 0) {
+            WidgetsUtil.showSnackBar(context, "User not found, Please contact with admin");
+            return;
+          }
+
+          Future.delayed(Duration.zero, () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => InitialScreen()),
+            );
+          });
         });
       }
     }
@@ -571,10 +570,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> updateField(User listUser) async {
     final DatabaseReference referenceAddUser = FirebaseDatabase.instance.ref().child('Users');
     await referenceAddUser.child("${listUser.id}").update({"isEnable": listUser.isEnable}).then((onValue) {
-      showSnackBar("Update successfully");
+      WidgetsUtil.showSnackBar(context, "Update successfully");
       //dataInit();
     }).catchError((onError) {
-      showSnackBar("User failed to add");
+      WidgetsUtil.showSnackBar(context, "User failed to add");
     });
   }
 

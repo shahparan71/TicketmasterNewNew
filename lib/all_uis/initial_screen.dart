@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,6 +11,7 @@ import 'package:ticket_master/all_uis/home_page.dart';
 import 'package:ticket_master/all_uis/its_not_your.dart';
 import 'package:ticket_master/all_uis/my_account.dart';
 import 'package:ticket_master/ios/email_pages_ios.dart';
+import 'package:ticket_master/main.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
@@ -38,6 +40,12 @@ class _InitialScreenState extends State<InitialScreen> {
     4: false,
     5: false,
   };
+
+  @override
+  void initState() {
+    firebaseListener();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -159,9 +167,7 @@ class _InitialScreenState extends State<InitialScreen> {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(
-              color:  AppColor.colorMain()
-            ),
+            decoration: BoxDecoration(color: AppColor.colorMain()),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -326,5 +332,31 @@ class _InitialScreenState extends State<InitialScreen> {
         : index == 0
         ? Discover()
         : Container()*/
+  }
+
+  void firebaseListener() {
+    final DatabaseReference referenceUsers = FirebaseDatabase.instance.ref().child('Users');
+
+    referenceUsers.onChildRemoved.listen((event) {
+      var usrMode = PrefUtil.preferences!.getInt(AllConstant.USER_LOGIN_MODE);
+
+      if (usrMode != null) {
+        if (usrMode == 2) {
+          var userID = PrefUtil.preferences!.getString(AllConstant.LOGIN_USER_ID);
+          final DatabaseReference referenceUser = referenceUsers.child("${userID}");
+          referenceUser.once().then((DatabaseEvent event) async {
+            if (event.snapshot.children.length == 0) {
+              WidgetsUtil.showSnackBar(context, "Something went wrong", color: Colors.red);
+              await Future.delayed(const Duration(milliseconds: 1500), () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyHomePage()),
+                );
+              });
+            }
+          });
+        }
+      }
+    });
   }
 }
