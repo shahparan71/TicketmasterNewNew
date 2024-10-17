@@ -426,6 +426,11 @@ class _MyHomePageState extends State<MyHomePage> {
       final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Admins').child("1");
 
       reference.once().then((DatabaseEvent event) {
+
+        setState(() {
+          dateLoading = false;
+        });
+
         if (event.snapshot.children.length == 0) {
           WidgetsUtil.showSnackBar(context, "User Not found");
           setState(() {
@@ -445,9 +450,7 @@ class _MyHomePageState extends State<MyHomePage> {
               uiRefresh();
             } else {
               WidgetsUtil.showSnackBar(context, "ID or Password doesn't match");
-              setState(() {
-                dateLoading = false;
-              });
+
             }
           } else if (snapshot.value is Map) {
             Map<dynamic, dynamic> yearMap = snapshot.value as Map<dynamic, dynamic>;
@@ -472,6 +475,9 @@ class _MyHomePageState extends State<MyHomePage> {
     final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Users').child("${textEditingControllerID.text}");
 
     reference.once().then((DatabaseEvent event) async {
+      setState(() {
+        dateLoading = false;
+      });
       if (event.snapshot.children.length == 0) {
         WidgetsUtil.showSnackBar(context, "User Not found");
         setState(() {
@@ -486,8 +492,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
           Map<int, dynamic> yearMap = yearList.asMap();
           if (yearMap['isEnable'] == false) {
+            setState(() {
+              dateLoading = false;
+            });
             WidgetsUtil.showSnackBar(context, "You are not allowed to login");
-
             return;
           }
         } else if (snapshot.value is Map) {
