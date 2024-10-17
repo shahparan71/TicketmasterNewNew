@@ -146,7 +146,7 @@ class _QRViewMainState extends State<QRViewMain> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: AppColor.colorPageBackground,
-                          border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
+                          
                           boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -174,7 +174,7 @@ class _QRViewMainState extends State<QRViewMain> {
                                         Container(),
                                         FutureBuilder<String>(
                                           future: CommonOperation.getSharedData(
-                                              AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
+                                              AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Standard Ticket"),
                                           builder: (context, AsyncSnapshot<String> snapshot) {
                                             if (!snapshot.hasData) {
                                               return Container();
@@ -183,7 +183,7 @@ class _QRViewMainState extends State<QRViewMain> {
                                                 onTap: () async {
                                                   String? result = await CustomInputDialog.showInputDialog(
                                                     context: context,
-                                                    defaultTxt: "Verified Fan Offer",
+                                                    defaultTxt: "Standard Ticket",
                                                     key: AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE,
                                                   );
                                                   if (result != null) {
@@ -343,62 +343,12 @@ class _QRViewMainState extends State<QRViewMain> {
               Positioned.fill(
                 child: Align(
                   alignment: Alignment.bottomLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ElevatedButton(
-                          child: Text("Transfer",
-                              style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                          /*style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColor.colorMain(),
-                          ),*/
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
-                              backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
-                              elevation: MaterialStateProperty.all(0.0),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
-                              ))),
-                          onPressed: () {
-                            showMaterialModalBottomSheet( isDismissible: false,  // Prevents closing by tapping outside
-                    enableDrag: false,    
-                              context: context,
-                              builder: (context) => Container(
-                                height: MediaQuery.of(context).size.height - 450,
-                                child: BottomSheetViewSelectTickets(),
-                              ),
-                            );
-                          },
-                        ),
-                        TextButton(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: Text("Sell",
-                                style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                          ),
-                          /* style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColor.colorMain().withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4),
-                          ),*/
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()
-                                  .withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4)),
-                              backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()
-                                  .withOpacity(PrefUtil.preferences!.getDouble(AllConstant.CURRENT_LIST_INDEX + AllConstant.Sell_TRANS) ?? 0.4)),
-                              elevation: MaterialStateProperty.all(0.0),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(5)), /*side: BorderSide(color: Colors.red)*/
-                              ))),
-                          onPressed: () async {
-                            /*Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => QRViewMain()),
-                            );*/
-                          },
-                        )
-                      ],
-                    ),
+                  child: TransferAndSellButton(
+                    function: () {
+
+                    },
+                    isButton1Enable: true,
+                    isButton2Enable: true,
                   ),
                 ),
               ),

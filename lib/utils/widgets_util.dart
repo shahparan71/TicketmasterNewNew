@@ -2,7 +2,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:ticket_master/PrefUtil.dart';
+import 'package:ticket_master/all_uis/QRView.dart';
+import 'package:ticket_master/all_uis/bottom_sheet_view_select_tickets.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
@@ -293,7 +296,7 @@ class _SecRowSeatJustShowState extends State<SecRowSeatJustShow> {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: AppColor.colorGryaMyTicket,
+        color: AppColor.colorMain(),
 
         //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
       ),
@@ -448,5 +451,118 @@ class _SecRowSeatState extends State<SecRowSeat> {
         ),
       ),
     );
+  }
+}
+
+class TransferAndSellButton extends StatefulWidget {
+  final Function? function;
+  final bool? isButton1Enable;
+  final bool? isButton2Enable;
+  final Color? button1Color;
+  final Color? button2Color;
+
+  TransferAndSellButton({this.function, this.isButton1Enable, this.isButton2Enable, this.button1Color, this.button2Color});
+
+  @override
+  State<TransferAndSellButton> createState() => _TransferAndSellButtonState();
+}
+
+class _TransferAndSellButtonState extends State<TransferAndSellButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: Container(
+        height: 100,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: ElevatedButton(
+                    child: Text(
+                      "Transfer",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: "metropolis",
+                        fontWeight: FontWeight.normal,
+                        color: Colors.white,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: widget.button1Color ?? AppColor.buttonColorMain(),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
+                      ),
+                    ),
+                    onLongPress: () {
+                      showColorPicker();
+                    },
+                    onPressed: widget.isButton1Enable == true
+                        ? () async {
+                            widget.function!();
+                          }
+                        : null, // Button is disabled if isButton1Enable is false or null
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: ElevatedButton(
+                    child: Text(
+                      "Sell",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: "metropolis",
+                        fontWeight: FontWeight.normal,
+                        color: Colors.white,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: widget.button2Color ?? AppColor.buttonColorMain(),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(1.0), // Adjust the radius as needed
+                      ),
+                    ),
+                    onLongPress: () {
+                      showColorPicker();
+                    },
+                    onPressed: widget.isButton2Enable == true
+                        ? () async {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => QRViewMain()),
+                            );
+                          }
+                        : null, // Button is disabled if isButton2Enable is false or null
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> showColorPicker() async {
+    String? result = await CustomInputDialog.showInputDialog(
+        context: context, defaultTxt: "262626", key: AllConstant.CURRENT_LIST_INDEX + AllConstant.BUTTON_COLOR, textInputType: TextInputType.text);
+    if (result != null) {
+      PrefUtil.preferences!.setString(
+        AllConstant.CURRENT_LIST_INDEX + AllConstant.BUTTON_COLOR,
+        result,
+      );
+      setState(() {});
+    } else {
+      print("Dialog was canceled");
+    }
   }
 }

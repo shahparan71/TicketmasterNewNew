@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                         },
                         child: Container(
                           height: 50,
-                          color: Colors.black,
+                          color: AppColor.colorMain(),
                           child: Center(
                             child: FutureBuilder<String>(
                               future: CommonOperation.getSharedData(AllConstant.NUMBER_OF_LIST_ITEM_COUNT, "1"),
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                         },
                         child: Container(
                           height: 50,
-                          color: Colors.black,
+                          color: AppColor.colorMain(),
                           child: Center(
                             child: Text(
                               "PAST (0)",
@@ -110,14 +110,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     Expanded(
                       child: Container(
                         height: 4,
-                        color: is1Active ? Colors.white : Colors.black,
+                        color: is1Active ? Colors.white : AppColor.colorMain(),
                       ),
                       flex: 1,
                     ),
                     Expanded(
                       child: Container(
                         height: 4,
-                        color: is1Active ? Colors.black : Colors.white,
+                        color: is1Active ? AppColor.colorMain() : Colors.white,
                       ),
                       flex: 1,
                     ),
@@ -178,7 +178,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 : Stack(
                                     children: [
                                       Image.asset(
-                                        "assets/images/album.jpg",
+                                        "assets/images/default_image_card.jpeg",
                                         fit: BoxFit.cover,
                                         height: 220.0,
                                         width: MediaQuery.of(context).size.width - 10,

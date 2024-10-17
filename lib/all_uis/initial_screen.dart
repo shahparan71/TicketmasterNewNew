@@ -50,7 +50,7 @@ class _InitialScreenState extends State<InitialScreen> {
       resizeToAvoidBottomInset: false,
       drawer: buildDrawer(),
       appBar: AppBar(
-        backgroundColor: AppColor.black,
+        backgroundColor: AppColor.colorMain(),
         automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -160,7 +160,7 @@ class _InitialScreenState extends State<InitialScreen> {
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.black,
+              color:  AppColor.colorMain()
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

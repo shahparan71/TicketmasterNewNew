@@ -42,11 +42,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                 GestureDetector(
                   onTap: () async {
                     Navigator.pop(context);
-                    /*showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (context) => BottomSheetViewPersonal(),
-                    );*/
+
                     showMaterialModalBottomSheet(
                       isDismissible: false, // Prevents closing by tapping outside
                       enableDrag: false,
@@ -102,11 +98,15 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                 GestureDetector(
                   onTap: () async {
                     Navigator.pop(context);
-                    /* showModalBottomSheet(
+                    showMaterialModalBottomSheet(
+                      isDismissible: false, // Prevents closing by tapping outside
+                      enableDrag: false,
                       context: context,
-                      isScrollControlled: true,
-                      builder: (context) => BottomSheetViewPersonal(),
-                    );*/
+                      builder: (context) => Container(
+                        height: MediaQuery.of(context).size.height - 450,
+                        child: BottomSheetViewPersonal(),
+                      ),
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -223,14 +223,14 @@ class _BottomSheetVIewState extends State<BottomSheetViewTransferTickets> {
                           children: [
                             Icon(
                               Icons.arrow_back_ios,
-                              color: AppColor.officialBlue,
+                              color:  AppColor.colorMain(),
                               size: 18,
                             ),
                             SizedBox(
                               width: 5,
                             ),
                             Text("Back",
-                                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color: Color(0xff0979b5)))
+                                style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.w600, color:  AppColor.colorMain()))
                           ],
                         ),
                       ),

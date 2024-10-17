@@ -10,6 +10,7 @@ import 'package:ticket_master/PrefUtil.dart';
 import 'package:ticket_master/utils/AppColor.dart';
 import 'package:ticket_master/utils/CommonOperation.dart';
 import 'package:ticket_master/utils/all_constant.dart';
+import 'package:ticket_master/utils/widgets_style.dart';
 import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
@@ -61,6 +62,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: AppColor.colorSecond(),
         leading: Padding(
           padding: EdgeInsets.all(8.0),
           child: GestureDetector(
@@ -76,7 +78,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
         ),
         leadingWidth: 0.0,
         elevation: 0.0,
-        backgroundColor: AppColor.colorSecond(),
         title: Center(
             child: Text(
           "My Tickets",
@@ -122,63 +123,16 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
             bottom: 0,
             left: 0,
             right: 0,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: TextButton(
-                      child: Text("Transfer",
-                          style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                      /*style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
-                      ),*/
-                      style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                          backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                          elevation: MaterialStateProperty.all(0.0),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
-                          ))),
-                      onPressed: () async {
-                        /*Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => QRViewMain()),
-                        );*/
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: TextButton(
-                      child:
-                          Text("Sell", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
-                      /*style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColor.colorGryaMyTicket.withOpacity(0.1),
-                      ),*/
-                      style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                          backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorGryaMyTicket.withOpacity(0.1)),
-                          elevation: MaterialStateProperty.all(0.0),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(2)), /*side: BorderSide(color: Colors.red)*/
-                          ))),
-                      onPressed: () async {
-                        /*Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => QRViewMain()),
-                        );*/
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            child: TransferAndSellButton(
+              function: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
+                );
+              },
+              isButton1Enable: true,
+              isButton2Enable: true,
+            ) ,
           ),
         ]),
       ),
@@ -187,16 +141,10 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
 
   Widget buildMainCardHome(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
-        decoration: BoxDecoration(
-          color: AppColor.white,
-          border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
-          boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 2, spreadRadius: 2)],
-          //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-        ),
+        decoration: WidgetsStyle.BoxDecorationHomePage(),
         height: MediaQuery.of(context).size.height - 240,
         child: Stack(
           children: [
@@ -204,7 +152,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: AppColor.colorGryaBlackMyTicket,
+                    color: AppColor.colorMain(),
                     boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                     //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                     borderRadius: BorderRadius.only(topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
@@ -216,7 +164,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                         height: 40,
                         child: Center(
                           child: FutureBuilder<String>(
-                            future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Verified Fan Offer"),
+                            future: CommonOperation.getSharedData(AllConstant.CURRENT_LIST_INDEX + AllConstant.HOME_SUB_TITLE, "Standard Ticket"),
                             builder: (context, AsyncSnapshot<String> snapshot) {
                               if (!snapshot.hasData) {
                                 return Container();
@@ -383,7 +331,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                   : Stack(
                       children: [
                         Image.asset(
-                          "assets/images/album.jpg",
+                          "assets/images/default_image_card.jpeg",
                           fit: BoxFit.cover,
                           height: 220.0,
                           width: double.infinity,

@@ -27,6 +27,7 @@ class AppColor {
   static Color green = Color(0xFF45B383);
   static Color offWhite = Color(0xFFF3F2EE);
   static Color white = Color(0xFFFFFFFF);
+  //static Color white = Color(0xFF1A1C1C);
   static Color darkGreen = Color(0xFF194601);
   static Color colorGreenLight = Color(0xFFE7F1EA);
   static Color cardColor = Color(0xFFE7F1EA);
@@ -44,10 +45,18 @@ class AppColor {
   static Color lightGreen = Color(0xFFf7fcf9);
   static Color black = Color(0xFF000000);
   static Color gray = Color(0xFFEBEBEB);
+
   static Color grayLight = Color(0xFFf4f4f1);
 
   static Color colorMain() {
     String? colorValue = PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_MAIN);
+    if (colorValue == null) {
+      return Color(0xff000000);
+    }
+    return Color(int.parse("0xFF${colorValue}"));
+  }
+  static Color buttonColorMain() {
+    String? colorValue = PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.BUTTON_COLOR,);
     if (colorValue == null) {
       return Color(0xff000000);
     }
@@ -65,7 +74,7 @@ class AppColor {
   static Color colorSecond() {
     String? colorValue = PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND);
     if (colorValue == null) {
-      return Color(0xff000000);
+      return Color(0xff0d0d0d);
     }
     return Color(int.parse("0xFF${colorValue}"));
   }

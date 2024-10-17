@@ -7,12 +7,18 @@ class CustomBuilderWidget extends StatefulWidget {
   final String keyValue;
   final String defaultValue;
   final TextStyle? textStyle; // Add TextStyle parameter
+  final int? maxLines; // Optional maxLines parameter
+  final TextAlign? textAlign; // Optional textAlign parameter
+  final TextOverflow? overflow; // Optional overflow parameter
 
   const CustomBuilderWidget({
     Key? key,
     required this.keyValue,
     required this.defaultValue,
     this.textStyle, // Accept TextStyle parameter
+    this.maxLines, // Optional maxLines
+    this.textAlign, // Optional textAlign
+    this.overflow, // Optional overflow
   }) : super(key: key);
 
   @override
@@ -52,6 +58,9 @@ class _CustomBuilderWidgetState extends State<CustomBuilderWidget> {
             child: Text(
               snapshot.data ?? "",
               style: widget.textStyle ?? TextStyle(), // Use the passed TextStyle
+              maxLines: widget.maxLines, // Use the passed maxLines or null
+              textAlign: widget.textAlign, // Use the passed textAlign or null
+              overflow: widget.overflow, // Use the passed overflow or null
             ),
           );
         }

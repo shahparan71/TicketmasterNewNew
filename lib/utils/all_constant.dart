@@ -41,6 +41,7 @@ class AllConstant {
   static String CUSTOMER_SUPPORT_to = "custom_support_email_to";
   static String CUSTOMER_SUPPORT_to_date = "custom_support_email_to_date";
   static String GOTTICKETS = "gotthetickets";
+  static String BUTTON_COLOR = "button_color";
   static String ORDER_NUMBER = "OrderNumber";
   static String ORGAN_WALLEN = "morgan_wallen";
   static String DISCOVER_DATE = "discover_date";

@@ -152,7 +152,7 @@ class _BarcodeViewState extends State<BarcodeView> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: AppColor.colorPageBackground,
-                          border: Border.all(color: AppColor.colorPageBackground, width: 1, style: BorderStyle.solid),
+                          
                           boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
                           //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
                           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -354,18 +354,13 @@ class _BarcodeViewState extends State<BarcodeView> {
               Positioned.fill(
                 child: Align(
                   alignment: Alignment.bottomLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(flex: 1, child: WidgetsUtil.CustomElevatedButton(buttonText: "Transfer", function: functionTransfer)),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(flex: 1, child: WidgetsUtil.CustomElevatedButton(buttonText: "Sell", function: functionSell)),
-                      ],
-                    ),
+                  child: TransferAndSellButton(
+                    function: () {
+                      functionTransfer("");
+                    },
+                    isButton1Enable: true,
+                    isButton2Enable: true,
+
                   ),
                 ),
               ),

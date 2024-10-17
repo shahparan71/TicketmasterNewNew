@@ -123,6 +123,7 @@ class _DiscoverState extends State<Discover> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 20,),
                   DiscoverImageAndroid()
                 ],
               ),
