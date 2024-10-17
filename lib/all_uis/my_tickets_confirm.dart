@@ -89,9 +89,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
         color: Colors.white,
         height: MediaQuery.of(context).size.height - 100,
         child: Stack(children: [
-          SizedBox(
-            height: 4,
-          ),
+
           CarouselSlider(
             items: imageSlidersM,
             options: CarouselOptions(
@@ -122,7 +120,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
             }).toList(),
           ),*/
           Positioned(
-            bottom: 0,
+            bottom: 10,
             left: 0,
             right: 0,
             child: TransferAndSellButton(
@@ -145,7 +143,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: Container(
-        width: MediaQuery.of(context).size.width - 40,
+        
         decoration: WidgetsStyle.BoxDecorationHomePage(),
         height: double.infinity,
         child: Stack(
@@ -231,6 +229,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                 )
               ],
             ),
+            WidgetsUtil.cardThinUnderLine()
           ],
         ),
       ),

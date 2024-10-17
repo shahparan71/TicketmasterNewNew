@@ -360,17 +360,17 @@ class _BarcodeViewState extends State<BarcodeView> {
                   ],
                 ),
               ),
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.bottomLeft,
-                  child: TransferAndSellButton(
-                    function: () {
-                      functionTransfer("");
-                    },
-                    isButton1Enable: true,
-                    isButton2Enable: true,
+              Positioned(
+                bottom: 10.0,
+                left: 0.0,
+                right: 0.0,
+                child: TransferAndSellButton(
+                  function: () {
+                    functionTransfer("");
+                  },
+                  isButton1Enable: true,
+                  isButton2Enable: true,
 
-                  ),
                 ),
               ),
             ],

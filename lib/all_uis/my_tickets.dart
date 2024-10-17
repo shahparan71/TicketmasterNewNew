@@ -127,7 +127,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
             }).toList(),
           ),*/
           Positioned(
-            bottom: 0,
+            bottom: 10,
             left: 0,
             right: 0,
             child: TransferAndSellButton(
@@ -151,7 +151,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: Container(
-        width: MediaQuery.of(context).size.width - 40,
         decoration: WidgetsStyle.BoxDecorationHomePage(),
         child: Stack(
           children: [
@@ -303,20 +302,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsNewView> {
                 ],
               ),
             ),
-            Positioned.fill(
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppColor.colorMain(),
-                      border: Border.all(color: AppColor.colorMain(), width: 1, style: BorderStyle.solid),
-                      boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 2, spreadRadius: 2)],
-                      //BorderSide(color: AppColor.colorPrimary(), width: 0.5, style: BorderStyle.solid
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
-                    ),
-                    height: 2,
-                  )),
-            ),
+            WidgetsUtil.cardThinUnderLine()
           ],
         ),
       ),

@@ -97,37 +97,32 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
       body: Container(
         color: Colors.white,
         height: MediaQuery.of(context).size.height - 50,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 10, 0, 6),
-          child: SingleChildScrollView(
-            physics: ClampingScrollPhysics(),
-            child: Container(
-              height: MediaQuery.of(context).size.height - 100,
-              child: Stack(
-                children: [
-                  CarouselWithIndicatorAndroid(),
-                  Positioned.fill(
-                    child: Align(
-                        alignment: Alignment.bottomLeft,
-                        child: TransferAndSellButton(
-                          function: () {
-                            showMaterialModalBottomSheet(
-                              isDismissible: false, // Prevents closing by tapping outside
-                              enableDrag: true,
-                              context: context,
-                              builder: (context) => Container(
-                                height: MediaQuery.of(context).size.height - 450,
-                                child: BottomSheetViewSelectTickets(),
-                              ),
-                            );
-                          },
-                          isButton1Enable: true,
-                          isButton2Enable: true,
-                        )),
-                  ),
-                ],
+        child: Container(
+          height: MediaQuery.of(context).size.height - 100,
+          child: Stack(
+            children: [
+              Container(height: MediaQuery.of(context).size.height - 200, child: CarouselWithIndicatorAndroid()),
+              Positioned(
+                bottom: 10.0,
+                left: 0.0,
+                right: 0.0,
+                child: TransferAndSellButton(
+                  function: () {
+                    showMaterialModalBottomSheet(
+                      isDismissible: false, // Prevents closing by tapping outside
+                      enableDrag: true,
+                      context: context,
+                      builder: (context) => Container(
+                        height: MediaQuery.of(context).size.height - 450,
+                        child: BottomSheetViewSelectTickets(),
+                      ),
+                    );
+                  },
+                  isButton1Enable: true,
+                  isButton2Enable: true,
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),

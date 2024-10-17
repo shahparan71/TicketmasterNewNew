@@ -53,7 +53,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Color(0XFFffffff),
+                          color: Colors.white,
                           border: Border.all(color: Colors.black26),
                         ),
                         child: Column(
@@ -109,7 +109,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                               height: 20,
                             ),
                             Image.asset("assets/images/social_link_android.png"),
-                            Container(height: 10,color: AppColor.offWhite_bottom,),
+                            Container(height: 10,color: AppColor.white,),
                             Image.asset(
                               "assets/images/email_reply.png",
                               width: double.infinity,

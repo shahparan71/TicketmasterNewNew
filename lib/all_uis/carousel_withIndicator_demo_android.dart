@@ -131,9 +131,8 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: Container(
-        width: MediaQuery.of(context).size.width - 40,
         decoration: WidgetsStyle.BoxDecorationHomePage(),
-        height: MediaQuery.of(context).size.height - 210,
+        height: double.infinity,
         child: Stack(
           children: [
             Column(
@@ -230,7 +229,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                                 padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: GestureDetector(
                                   onLongPress: () {
-                                    if (assetUrl == 4) {
+                                    if (assetUrl == 1) {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(builder: (context) => BarcodeView(_current)),
@@ -251,14 +250,18 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    Image.asset(
+                                                    /*Image.asset(
                                                       "assets/images/bar_code.png",
                                                       height: 20,
-                                                    ),
-                                                    /*SvgPicture.asset(
-                                                      "assets/images/barcode.svg",
-                                                      colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
                                                     ),*/
+                                                    Container(
+                                                      width: 30,
+                                                      height: 20,
+                                                      child: SvgPicture.asset(
+                                                        "assets/images/bar_code.svg",
+                                                        colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                                                      ),
+                                                    ),
                                                     SizedBox(
                                                       width: 10,
                                                     ),
@@ -317,21 +320,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                 )
               ],
             ),
-            Positioned.fill(
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 1, right: 1),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppColor.colorMain().withOpacity(0.8),
-                        //boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 1, spreadRadius: 1)],
-                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.0), bottomRight: Radius.circular(10.0)),
-                      ),
-                      height: 3,
-                    ),
-                  )),
-            ),
+            WidgetsUtil.cardThinUnderLine()
           ],
         ),
       ),

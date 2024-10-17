@@ -201,6 +201,24 @@ class WidgetsUtil {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
     });
   }
+
+  static Positioned cardThinUnderLine(){
+    return  Positioned(
+        bottom: 0.0,
+        left: 0.0,
+        right: 0.0,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 1, right: 1, bottom: 0.3),
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColor.colorMain().withOpacity(0.8),
+              //boxShadow: [BoxShadow(color: Color(0X95E9EBF0), blurRadius: 1, spreadRadius: 1)],
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.0), bottomRight: Radius.circular(20.0)),
+            ),
+            height: 3,
+          ),
+        ));
+  }
 }
 
 class DiscoverImageIOS extends StatefulWidget {

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ticket_master/PrefUtil.dart';
@@ -13,6 +14,54 @@ import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:unique_identifier/unique_identifier.dart';
 
 import 'firebase_options.dart';
+
+class Text1 extends StatefulWidget {
+  @override
+  State<Text1> createState() => _Text1State();
+}
+
+class _Text1State extends State<Text1> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Container(
+          height: 110,
+          color: Colors.black54,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  height: 50,
+                  width: 50,
+                  color: Colors.blue,
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  height: double.infinity,
+                  width: 100,
+                  color: Colors.yellow,
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: 50,
+                  width: 20,
+                  color: Colors.blue,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -92,8 +141,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       body: Scaffold(
         appBar: AppBar(
@@ -101,12 +148,10 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     textEditingControllerID.text = "anisxtmz";
                     textEditingControllerPass.text = "347612";
-                    setState(() {
-
-                    });
+                    setState(() {});
                   },
                   child: Text(
                     changeView == 0 ? "Login" : "User List",
@@ -268,7 +313,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                             print("ffsf${value}");
                                                             if (value != null && value == true) {
                                                               FirebaseDatabase.instance.ref().child("Users").child('${listUser[index].id}').remove();
-                                                              WidgetsUtil.showSnackBar(context,  "User Remove Successfully");
+                                                              WidgetsUtil.showSnackBar(context, "User Remove Successfully");
                                                               initUserListDate();
                                                             }
                                                           });
@@ -467,7 +512,7 @@ class _MyHomePageState extends State<MyHomePage> {
             yearMap['identifier'] = identifier;
             final DatabaseReference referenceAddUser = FirebaseDatabase.instance.ref().child('Users');
             await referenceAddUser.child("${textEditingControllerID.text}").update({"identifier": identifier}).then((onValue) {
-              WidgetsUtil.showSnackBar(context, "Info Update Successfully");
+              WidgetsUtil.showSnackBar(context, "Login Successfully");
               //dataInit();
             }).catchError((onError) {
               WidgetsUtil.showSnackBar(context, "User failed to add");
@@ -492,8 +537,6 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     });
   }
-
-  
 
   Future<void> addUser() async {
     showDialog<String>(
