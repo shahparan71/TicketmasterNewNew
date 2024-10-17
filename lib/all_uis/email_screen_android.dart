@@ -109,6 +109,7 @@ class _EmailScreenAndroidState extends State<EmailScreenAndroid> {
                               height: 20,
                             ),
                             Image.asset("assets/images/social_link_android.png"),
+                            Container(height: 10,color: AppColor.offWhite_bottom,),
                             Image.asset(
                               "assets/images/email_reply.png",
                               width: double.infinity,
