@@ -202,8 +202,8 @@ class WidgetsUtil {
     });
   }
 
-  static Positioned cardThinUnderLine(){
-    return  Positioned(
+  static Positioned cardThinUnderLine() {
+    return Positioned(
         bottom: 0.0,
         left: 0.0,
         right: 0.0,
@@ -480,7 +480,7 @@ class _SecRowSeatState extends State<SecRowSeat> {
                     ),
                     CustomBuilderWidget(
                         keyValue: AllConstant.CURRENT_LIST_INDEX + AllConstant.SEAT + widget.current.toString(),
-                        defaultValue: "${widget.current.toString()}",
+                        defaultValue: "${(widget.current + 1).toString()}",
                         style: CommonOperation.getFontThinkNessNewDesign()),
                   ],
                 ),

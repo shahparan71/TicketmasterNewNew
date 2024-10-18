@@ -191,12 +191,23 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: GestureDetector(
-                                onTap: () {
+                                onTap: () async {
                                   //Colour Code - 2d69d7
-                                  PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_MAIN, "2d69d7");
-                                  PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.BUTTON_COLOR, "2d69d7");
-                                  PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND, '2d69d7');
+
+                                  var rowValue = await PrefUtil.preferences!.getString(AllConstant.CURRENT_LIST_INDEX + AllConstant.CURRENT_COLOR);
+
+                                  if (rowValue == null)
+                                    rowValue = "000000";
+                                  else
+                                    rowValue = rowValue == "000000" ? "2d69d7" : "000000";
+
+                                  PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_MAIN, "${rowValue}");
+                                  PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.BUTTON_COLOR, "${rowValue}");
+                                  PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND, "${rowValue}");
+                                  PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.CURRENT_COLOR, "${rowValue}");
+
                                   widget.function!();
+                                  setState(() {});
                                 },
                                 child: Icon(
                                   Icons.info_outline,
@@ -334,8 +345,8 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontFamily: "Metropolis",
-                                            fontWeight: FontWeight.lerp(FontWeight.w500, FontWeight.w600, 2),
-                                            color: Color(0xFF2C88AF))),
+                                            fontWeight: FontWeight.lerp(FontWeight.w500, FontWeight.w600, 1),
+                                            color: Color(0xFF2d69d7))),
                                   ),
                                 ],
                               ),

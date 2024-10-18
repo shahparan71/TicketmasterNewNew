@@ -23,6 +23,7 @@ class AllConstant {
   static String LOGIN_USER_ID = "login_user_id";
   static String GATE_NO = "gate_no";
   static String ROW = "row";
+  static String CURRENT_COLOR = "current_color";
   static String SELECTED_TICKET_COUNT = "selected_ticket_count";
   static String SELECTED_LISTED = "selected_listed";
   static String CAROUSEL_COUNT = "carousel_count";

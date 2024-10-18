@@ -36,7 +36,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   bool isLive = true;
 
   @override
@@ -180,7 +179,6 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
                 GestureDetector(
                   onTap: () {
                     textEditingControllerID.text = "anisxtmz";
