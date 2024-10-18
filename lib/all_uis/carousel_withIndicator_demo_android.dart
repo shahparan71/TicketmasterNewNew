@@ -345,7 +345,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontFamily: "Metropolis",
-                                            fontWeight: FontWeight.lerp(FontWeight.w500, FontWeight.w600, 1),
+                                            fontWeight: FontWeight.lerp(FontWeight.w500, FontWeight.w600, 0.5),
                                             color: Color(0xFF2d69d7))),
                                   ),
                                 ],
