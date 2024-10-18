@@ -37,7 +37,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  bool isLive = false;
+  bool isLive = true;
 
   @override
   void initState() {
