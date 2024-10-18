@@ -85,8 +85,15 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                     children: [
                       Container(),
                       Container(),
-                      Text("My Tickets",
-                          style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+
+                          });
+                        },
+                        child: Text("My Tickets",
+                            style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+                      ),
                       Container(),
                       GestureDetector(
                           onTap: () async {
