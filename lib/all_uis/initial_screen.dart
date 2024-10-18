@@ -180,8 +180,7 @@ class _InitialScreenState extends State<InitialScreen> {
               children: [
                 Container(
                   child: Image.asset(
-                    "assets/images/t_blue.jpg",
-                    scale: .3,
+                    "assets/images/ticon_main.png",
                   ),
                   height: 80,
                   width: 50,

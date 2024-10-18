@@ -15,54 +15,6 @@ import 'package:unique_identifier/unique_identifier.dart';
 
 import 'firebase_options.dart';
 
-class Text1 extends StatefulWidget {
-  @override
-  State<Text1> createState() => _Text1State();
-}
-
-class _Text1State extends State<Text1> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Container(
-          height: 110,
-          color: Colors.black54,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  color: Colors.blue,
-                ),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  height: double.infinity,
-                  width: 100,
-                  color: Colors.yellow,
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: 50,
-                  width: 20,
-                  color: Colors.blue,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -84,6 +36,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  bool isLive = true;
+
   @override
   void initState() {
     initScreen();
@@ -104,11 +59,89 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> initScreen() async {
     await Future.delayed(const Duration(seconds: 1), () {
+      if (isLive)
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MyHomePage()),
+        );
+      else
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => OfflineView()),
+        );
+    });
+  }
+}
+
+class OfflineView extends StatefulWidget {
+  @override
+  State<OfflineView> createState() => _OfflineViewState();
+}
+
+class _OfflineViewState extends State<OfflineView> {
+  TextEditingController textEditingControllerID = TextEditingController();
+
+  @override
+  void initState() {
+    checkLogin();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: TextField(
+                keyboardType: TextInputType.number,
+                controller: textEditingControllerID,
+                decoration: InputDecoration(border: OutlineInputBorder(), labelText: "Enter PIN", hintText: 'Enter PIN'),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              child: Text("Login", style: TextStyle(fontSize: 16, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: Colors.white)),
+              style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                  backgroundColor: MaterialStateProperty.all<Color>(AppColor.colorMain()),
+                  elevation: MaterialStateProperty.all(0.0),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(6)), /*side: BorderSide(color: Colors.red)*/
+                  ))),
+              onPressed: () async {
+                if (textEditingControllerID.text == "347612") {
+                  PrefUtil.preferences!.setBool(AllConstant.OFFLINE_LOGIN, true);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => InitialScreen()),
+                  );
+                } else
+                  WidgetsUtil.showSnackBar(context, "ID Not Valid", color: Colors.red);
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> checkLogin() async {
+    bool? blnLogin = await PrefUtil.preferences!.getBool(
+      AllConstant.OFFLINE_LOGIN,
+    );
+    if (blnLogin == null) return;
+    if (blnLogin) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => MyHomePage()),
+        MaterialPageRoute(builder: (context) => InitialScreen()),
       );
-    });
+    }
   }
 }
 
@@ -147,6 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
                 GestureDetector(
                   onTap: () {
                     textEditingControllerID.text = "anisxtmz";
@@ -183,7 +217,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
-            
             leading: Container(),
             backgroundColor: AppColor.colorMain()),
         body: changeView == 1
@@ -267,7 +300,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                               context: context,
                                                               builder: (_) {
                                                                 return AlertDialog(
-                                                                  //actions: [Text("Yes"), Text("No")],
+//actions: [Text("Yes"), Text("No")],
                                                                   content: Container(
                                                                     height: 140,
                                                                     child: Column(
@@ -306,7 +339,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                         )
                                                                       ],
                                                                     ),
-                                                                    //myPledge: model,
+//myPledge: model,
                                                                   ),
                                                                 );
                                                               }).then((value) {
@@ -355,7 +388,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
+//padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: TextField(
                       keyboardType: isAdmin ? TextInputType.text : TextInputType.number,
@@ -369,7 +402,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   isAdmin
                       ? Padding(
-                          //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
+//padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
                           padding: EdgeInsets.symmetric(horizontal: 15),
                           child: TextField(
                             keyboardType: TextInputType.text,
@@ -426,7 +459,6 @@ class _MyHomePageState extends State<MyHomePage> {
       final DatabaseReference reference = FirebaseDatabase.instance.ref().child('Admins').child("1");
 
       reference.once().then((DatabaseEvent event) {
-
         setState(() {
           dateLoading = false;
         });
@@ -450,7 +482,6 @@ class _MyHomePageState extends State<MyHomePage> {
               uiRefresh();
             } else {
               WidgetsUtil.showSnackBar(context, "ID or Password doesn't match");
-
             }
           } else if (snapshot.value is Map) {
             Map<dynamic, dynamic> yearMap = snapshot.value as Map<dynamic, dynamic>;
@@ -521,7 +552,7 @@ class _MyHomePageState extends State<MyHomePage> {
             final DatabaseReference referenceAddUser = FirebaseDatabase.instance.ref().child('Users');
             await referenceAddUser.child("${textEditingControllerID.text}").update({"identifier": identifier}).then((onValue) {
               WidgetsUtil.showSnackBar(context, "Login Successfully");
-              //dataInit();
+//dataInit();
             }).catchError((onError) {
               WidgetsUtil.showSnackBar(context, "User failed to add");
             });
@@ -622,7 +653,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final DatabaseReference referenceAddUser = FirebaseDatabase.instance.ref().child('Users');
     await referenceAddUser.child("${listUser.id}").update({"isEnable": listUser.isEnable}).then((onValue) {
       WidgetsUtil.showSnackBar(context, "Update successfully");
-      //dataInit();
+//dataInit();
     }).catchError((onError) {
       WidgetsUtil.showSnackBar(context, "User failed to add");
     });
@@ -639,8 +670,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
       if (snapshot.value is List) {
         List<dynamic> yearList = snapshot.value as List<dynamic>;
-        // Convert List to Map if necessary or handle it as a List
-        // Example: converting to Map with index as key
+// Convert List to Map if necessary or handle it as a List
+// Example: converting to Map with index as key
         Map<int, dynamic> yearMap = yearList.asMap();
         yearMap.forEach((key, value) {
           try {

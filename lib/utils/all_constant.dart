@@ -19,6 +19,7 @@ class AllConstant {
   static String TWO_OF_TWO = "two_of_two";
   static String ONE_OF_ONE = "one_of_one";
   static String USER_LOGIN_MODE = "user_login_mode";
+  static String OFFLINE_LOGIN = "offline_login";
   static String LOGIN_USER_ID = "login_user_id";
   static String GATE_NO = "gate_no";
   static String ROW = "row";
