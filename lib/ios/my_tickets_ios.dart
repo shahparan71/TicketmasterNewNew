@@ -81,7 +81,8 @@ class _CarouselWithIndicatorState extends State<MyTicketsiOS> {
               )),
         ),
         elevation: 0.0,
-        backgroundColor: AppColor.colorSecond(),
+        
+          backgroundColor: AppColor.black,
         title: Center(
             child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

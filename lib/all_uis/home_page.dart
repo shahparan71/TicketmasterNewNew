@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                         },
                         child: Container(
                           height: 50,
-                          color: AppColor.colorSecond(),
+                          color: AppColor.black,
                           child: Center(
                             child: FutureBuilder<String>(
                               future: CommonOperation.getSharedData(AllConstant.NUMBER_OF_LIST_ITEM_COUNT, "1"),
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                         },
                         child: Container(
                           height: 50,
-                          color: AppColor.colorSecond(),
+                          color: AppColor.black,
                           child: Center(
                             child: Text(
                               "PAST (0)",
@@ -111,14 +111,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     Expanded(
                       child: Container(
                         height: 4,
-                        color: is1Active ? Colors.white : AppColor.colorMain(),
+                        color: is1Active ? Colors.white : AppColor.black,
                       ),
                       flex: 1,
                     ),
                     Expanded(
                       child: Container(
                         height: 4,
-                        color: is1Active ? AppColor.colorMain() : Colors.white,
+                        color: is1Active ? AppColor.black : Colors.white,
                       ),
                       flex: 1,
                     ),

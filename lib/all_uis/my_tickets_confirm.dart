@@ -68,7 +68,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: AppColor.colorSecond(),
+          backgroundColor: AppColor.black,
           leading: Padding(
             padding: EdgeInsets.all(8.0),
             child: GestureDetector(
@@ -94,61 +94,58 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
           color: Colors.white,
           height: MediaQuery.of(context).size.height - 100,
           child: Container(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 15,bottom: 15),
-              child: Stack(children: [
+            child: Stack(children: [
 
-                CarouselSlider(
-                  items: imageSlidersM,
-                  options: CarouselOptions(
-                      enableInfiniteScroll: false,
-                      viewportFraction: dblViewPort ?? 1.0,
-                      height: MediaQuery.of(context).size.height - 220,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _current = index;
-                          print("_current");
-                          print(_current);
-                        });
-                      }),
+              CarouselSlider(
+                items: imageSlidersM,
+                options: CarouselOptions(
+                    enableInfiniteScroll: false,
+                    viewportFraction: dblViewPort ?? 1.0,
+                    height: MediaQuery.of(context).size.height - 230,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _current = index;
+                        print("_current");
+                        print(_current);
+                      });
+                    }),
+              ),
+              Positioned(
+                bottom: 90,
+                left: 0,
+                right: 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: imgList.map((url) {
+                    int index = imgList.indexOf(url);
+                    return Container(
+                      width: _current == index ? 10.0 : 8.0,
+                      height: _current == index ? 10.0 : 8.0,
+                      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: _current == index ? AppColor.colorSecond() : AppColor.colorSecond().withOpacity(0.4),
+                      ),
+                    );
+                  }).toList(),
                 ),
-                Positioned(
-                  bottom: 60,
-                  left: 0,
-                  right: 0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: imgList.map((url) {
-                      int index = imgList.indexOf(url);
-                      return Container(
-                        width: _current == index ? 10.0 : 8.0,
-                        height: _current == index ? 10.0 : 8.0,
-                        margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: _current == index ? AppColor.colorSecond() : AppColor.colorSecond().withOpacity(0.4),
-                        ),
-                      );
-                    }).toList(),
-                  ),
+              ),
+              Positioned(
+                bottom: 30,
+                left: 0,
+                right: 0,
+                child: TransferAndSellButton(
+                  function: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
+                    );
+                  },
+                  isButton1Enable: true,
+                  isButton2Enable: true,
                 ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: TransferAndSellButton(
-                    function: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
-                      );
-                    },
-                    isButton1Enable: true,
-                    isButton2Enable: true,
-                  ),
-                ),
-              ]),
-            ),
+              ),
+            ]),
           ),
         ),
       ),
@@ -157,7 +154,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
 
   Widget buildMainCardHome(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 3),
       child: Container(
         decoration: WidgetsStyle.BoxDecorationHomePage(),
         height: double.infinity,
@@ -258,59 +255,6 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
     );
   }
 
-  Row buildRowFourDot() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: Row(
-            children: [
-              Container(
-                width: 10,
-                height: 10,
-                decoration: BoxDecoration(
-                  color: Colors.black38,
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                  //boxShadow: <BoxShadow>[BoxShadow(offset: Offset(0, 0), blurRadius: 4, color: Colors.black.withOpacity(.4))],
-                ),
-              ),
-              SizedBox(width: 5),
-              Container(
-                width: 10,
-                height: 10,
-                decoration: BoxDecoration(
-                  color: Colors.black38,
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                  //boxShadow: <BoxShadow>[BoxShadow(offset: Offset(0, 0), blurRadius: 4, color: Colors.black.withOpacity(.4))],
-                ),
-              ),
-              SizedBox(width: 5),
-              Container(
-                width: 10,
-                height: 10,
-                decoration: BoxDecoration(
-                  color: Colors.black38,
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                  //boxShadow: <BoxShadow>[BoxShadow(offset: Offset(0, 0), blurRadius: 4, color: Colors.black.withOpacity(.4))],
-                ),
-              ),
-              SizedBox(width: 5),
-              Container(
-                width: 10,
-                height: 10,
-                decoration: BoxDecoration(
-                  color: Colors.black54,
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                  //boxShadow: <BoxShadow>[BoxShadow(offset: Offset(0, 0), blurRadius: 4, color: Colors.black.withOpacity(.4))],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
 
   Container buildContainerImageBox(BuildContext context) {
     return Container(

@@ -52,7 +52,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: AppColor.colorSecond(),
+          backgroundColor: AppColor.black,
           leading: Container(
             width: 50,
             child: Padding(
@@ -129,7 +129,7 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
                       },
                     )),
                 Positioned(
-                  bottom: 25.0,
+                  bottom: 30.0,
                   left: 0.0,
                   right: 0.0,
                   child: TransferAndSellButton(

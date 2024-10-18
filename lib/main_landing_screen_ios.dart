@@ -48,7 +48,8 @@ class _MainLandingScreenIOSState extends State<MainLandingScreenIOS> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: AppColor.colorSecond(),
+        
+          backgroundColor: AppColor.black,
         leading: Container(
           width: 50,
           child: Padding(
