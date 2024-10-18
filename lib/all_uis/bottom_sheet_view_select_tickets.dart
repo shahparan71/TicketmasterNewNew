@@ -177,7 +177,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
                                 fontSize: 13,
                                 fontFamily: "metropolis",
                                 fontWeight: FontWeight.normal,
-                                color: int.parse(selected_item.split(" ")[0]) > 0 ?  AppColor.colorMain(): Colors.black38)),
+                                color: int.parse(selected_item.split(" ")[0]) > 0 ? AppColor.colorMain() : Colors.black38)),
                       ),
                     ],
                   ),
@@ -262,7 +262,7 @@ class _BottomSheetVIewState extends State<BottomSheetViewSelectTickets> {
                     } else {
                       return GestureDetector(
                         onTap: () async {},
-                        child: Text("SEAT " + snapshot.data!,
+                        child: Text("SEAT " + (int.parse(snapshot.data!) + 1).toString(),
                             style: TextStyle(fontSize: 14, fontFamily: "metropolis", fontWeight: FontWeight.normal, color: AppColor.white)),
                       );
                     }
