@@ -42,18 +42,17 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     double screenHeight = MediaQuery.of(context).size.height;
 
     return PopScope(
       canPop: false,
-      onPopInvoked : (didPop){
+      onPopInvoked: (didPop) {
         // logic
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: AppColor.black,
+          backgroundColor: AppColor.colorSecond(),
           leading: Container(
             width: 50,
             child: Padding(
@@ -115,9 +114,15 @@ class _MainLandingScreenState extends State<MainLandingScreen> {
             height: MediaQuery.of(context).size.height - 100,
             child: Stack(
               children: [
-                Container(  height: screenHeight * 0.78, child: CarouselWithIndicatorAndroid()),
+                Container(
+                    height: screenHeight * 0.78,
+                    child: CarouselWithIndicatorAndroid(
+                      function: () {
+                        setState(() {});
+                      },
+                    )),
                 Positioned(
-                  bottom: 10.0,
+                  bottom: 25.0,
                   left: 0.0,
                   right: 0.0,
                   child: TransferAndSellButton(

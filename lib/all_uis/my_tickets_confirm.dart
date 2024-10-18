@@ -93,58 +93,63 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
         body: Container(
           color: Colors.white,
           height: MediaQuery.of(context).size.height - 100,
-          child: Stack(children: [
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15,bottom: 15),
+              child: Stack(children: [
 
-            CarouselSlider(
-              items: imageSlidersM,
-              options: CarouselOptions(
-                  enableInfiniteScroll: false,
-                  viewportFraction: dblViewPort ?? 1.0,
-                  height: MediaQuery.of(context).size.height - 200,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      _current = index;
-                      print("_current");
-                      print(_current);
-                    });
-                  }),
+                CarouselSlider(
+                  items: imageSlidersM,
+                  options: CarouselOptions(
+                      enableInfiniteScroll: false,
+                      viewportFraction: dblViewPort ?? 1.0,
+                      height: MediaQuery.of(context).size.height - 220,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _current = index;
+                          print("_current");
+                          print(_current);
+                        });
+                      }),
+                ),
+                Positioned(
+                  bottom: 60,
+                  left: 0,
+                  right: 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: imgList.map((url) {
+                      int index = imgList.indexOf(url);
+                      return Container(
+                        width: _current == index ? 10.0 : 8.0,
+                        height: _current == index ? 10.0 : 8.0,
+                        margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _current == index ? AppColor.colorSecond() : AppColor.colorSecond().withOpacity(0.4),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: TransferAndSellButton(
+                    function: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
+                      );
+                    },
+                    isButton1Enable: true,
+                    isButton2Enable: true,
+                  ),
+                ),
+              ]),
             ),
-            Positioned(
-              bottom: 70,
-              left: 0,
-              right: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: imgList.map((url) {
-                  int index = imgList.indexOf(url);
-                  return Container(
-                    width: _current == index ? 10.0 : 8.0,
-                    height: _current == index ? 10.0 : 8.0,
-                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _current == index ? AppColor.colorSecond() : AppColor.colorSecond().withOpacity(0.4),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-            Positioned(
-              bottom: 10,
-              left: 0,
-              right: 0,
-              child: TransferAndSellButton(
-                function: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyTicketsConfirmNewView(widget.ticketCount, widget.ticketTitle)),
-                  );
-                },
-                isButton1Enable: true,
-                isButton2Enable: true,
-              ),
-            ),
-          ]),
+          ),
         ),
       ),
     );
@@ -209,7 +214,7 @@ class _CarouselWithIndicatorState extends State<MyTicketsConfirmNewView> {
                   height: 50,
                 ),
                 Container(
-                  height: 200,
+                  height: 180,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Column(

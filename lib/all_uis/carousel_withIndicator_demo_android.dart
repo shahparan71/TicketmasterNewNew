@@ -23,7 +23,9 @@ import 'package:ticket_master/utils/widgets_util.dart';
 import 'package:ticket_master/utils/custom_dialog.dart';
 
 class CarouselWithIndicatorAndroid extends StatefulWidget {
-  CarouselWithIndicatorAndroid();
+  final Function? function;
+
+  CarouselWithIndicatorAndroid({this.function});
 
   @override
   State<StatefulWidget> createState() {
@@ -78,35 +80,35 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
       //appBar: AppBar(title: Text('Carousel with indicator demo')),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: Container(
-        height: double.infinity,
-        child: Stack(children: [
-          Positioned(
-            top: 0.0,
-            bottom: 30.0,
-            left: 0.0,
-            right: 0.0,
-            child: CarouselSlider(
-              items: imageSlidersM,
-              options: CarouselOptions(
-                  enableInfiniteScroll: false,
-                  viewportFraction: dblViewPort ?? 1.0,
-                  height: double.infinity,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      _current = index;
-                      print("_current");
-                      print(_current);
-                    });
-                  }),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 15),
+        child: Container(
+          height: double.infinity,
+          child: Stack(children: [
+            Positioned(
+              top: 0.0,
+              bottom: 30.0,
+              left: 0.0,
+              right: 0.0,
+              child: CarouselSlider(
+                items: imageSlidersM,
+                options: CarouselOptions(
+                    enableInfiniteScroll: false,
+                    viewportFraction: dblViewPort ?? 1.0,
+                    height: double.infinity,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _current = index;
+                        print("_current");
+                        print(_current);
+                      });
+                    }),
+              ),
             ),
-          ),
-          Positioned(
-            bottom: 0.0,
-            left: 0.0,
-            right: 0.0,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 30),
+            Positioned(
+              bottom: 0.0,
+              left: 0.0,
+              right: 0.0,
               child: GestureDetector(
                 onTap: () async {
                   String? result = await CustomInputDialog.showInputDialog(
@@ -138,15 +140,15 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                 ),
               ),
             ),
-          ),
-        ]),
+          ]),
+        ),
       ),
     );
   }
 
   Widget buildMainCardHome(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       child: Container(
         decoration: WidgetsStyle.BoxDecorationHomePage(),
         height: double.infinity,
@@ -191,9 +193,18 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Icon(
-                                Icons.info_outline,
-                                color: Colors.white,
+                              child: GestureDetector(
+                                onTap: () {
+                                  //Colour Code - 2d69d7
+                                  PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_MAIN, "2d69d7");
+                                  PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.BUTTON_COLOR, "2d69d7");
+                                  PrefUtil.preferences!.setString(AllConstant.CURRENT_LIST_INDEX + AllConstant.COLOR_SECOND, '2d69d7');
+                                  widget.function!();
+                                },
+                                child: Icon(
+                                  Icons.info_outline,
+                                  color: Colors.white,
+                                ),
                               ),
                             )
                           ],
@@ -326,7 +337,7 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorAndroid> {
                                         style: TextStyle(
                                             fontSize: 16,
                                             fontFamily: "metropolis",
-                                            fontWeight: FontWeight.w600,
+                                            fontWeight: FontWeight.lerp(FontWeight.w400, FontWeight.w600, 0.8),
                                             color: AppColor.officialBlue.withOpacity(0.8))),
                                   ),
                                 ],
